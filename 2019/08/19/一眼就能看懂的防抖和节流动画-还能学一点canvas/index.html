@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="用一组 canvas 动画来描述 防抖(debounce) 和 节流(throttle) 做了些什么;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="一眼就能看懂的防抖和节流动画(还能学一点canvas)">
+<meta property="og:url" content="http://example.com/2019/08/19/%E4%B8%80%E7%9C%BC%E5%B0%B1%E8%83%BD%E7%9C%8B%E6%87%82%E7%9A%84%E9%98%B2%E6%8A%96%E5%92%8C%E8%8A%82%E6%B5%81%E5%8A%A8%E7%94%BB-%E8%BF%98%E8%83%BD%E5%AD%A6%E4%B8%80%E7%82%B9canvas/index.html">
+<meta property="og:site_name" content="Wuxh">
+<meta property="og:description" content="用一组 canvas 动画来描述 防抖(debounce) 和 节流(throttle) 做了些什么;">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/images/%E4%B8%80%E7%9C%BC%E5%B0%B1%E8%83%BD%E7%9C%8B%E6%87%82%E7%9A%84%E9%98%B2%E6%8A%96%E5%92%8C%E8%8A%82%E6%B5%81%E5%8A%A8%E7%94%BB/screenshot.jpg">
+<meta property="og:image" content="http://example.com/images/%E4%B8%80%E7%9C%BC%E5%B0%B1%E8%83%BD%E7%9C%8B%E6%87%82%E7%9A%84%E9%98%B2%E6%8A%96%E5%92%8C%E8%8A%82%E6%B5%81%E5%8A%A8%E7%94%BB/demo.gif">
+<meta property="og:image" content="http://example.com/images/%E4%B8%80%E7%9C%BC%E5%B0%B1%E8%83%BD%E7%9C%8B%E6%87%82%E7%9A%84%E9%98%B2%E6%8A%96%E5%92%8C%E8%8A%82%E6%B5%81%E5%8A%A8%E7%94%BB/input.gif">
+<meta property="og:image" content="http://example.com/images/%E4%B8%80%E7%9C%BC%E5%B0%B1%E8%83%BD%E7%9C%8B%E6%87%82%E7%9A%84%E9%98%B2%E6%8A%96%E5%92%8C%E8%8A%82%E6%B5%81%E5%8A%A8%E7%94%BB/demo.gif">
+<meta property="og:image" content="http://example.com/images/%E4%B8%80%E7%9C%BC%E5%B0%B1%E8%83%BD%E7%9C%8B%E6%87%82%E7%9A%84%E9%98%B2%E6%8A%96%E5%92%8C%E8%8A%82%E6%B5%81%E5%8A%A8%E7%94%BB/window.gif">
+<meta property="article:published_time" content="2019-08-19T09:54:59.000Z">
+<meta property="article:modified_time" content="2020-12-27T11:50:41.248Z">
+<meta property="article:author" content="WuXiaohong">
+<meta property="article:tag" content="javascript">
+<meta property="article:tag" content="canvas">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/%E4%B8%80%E7%9C%BC%E5%B0%B1%E8%83%BD%E7%9C%8B%E6%87%82%E7%9A%84%E9%98%B2%E6%8A%96%E5%92%8C%E8%8A%82%E6%B5%81%E5%8A%A8%E7%94%BB/screenshot.jpg">
+
+<link rel="canonical" href="http://example.com/2019/08/19/%E4%B8%80%E7%9C%BC%E5%B0%B1%E8%83%BD%E7%9C%8B%E6%87%82%E7%9A%84%E9%98%B2%E6%8A%96%E5%92%8C%E8%8A%82%E6%B5%81%E5%8A%A8%E7%94%BB-%E8%BF%98%E8%83%BD%E5%AD%A6%E4%B8%80%E7%82%B9canvas/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>一眼就能看懂的防抖和节流动画(还能学一点canvas) | Wuxh</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Wuxh</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Front-end Development</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2019/08/19/%E4%B8%80%E7%9C%BC%E5%B0%B1%E8%83%BD%E7%9C%8B%E6%87%82%E7%9A%84%E9%98%B2%E6%8A%96%E5%92%8C%E8%8A%82%E6%B5%81%E5%8A%A8%E7%94%BB-%E8%BF%98%E8%83%BD%E5%AD%A6%E4%B8%80%E7%82%B9canvas/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/32004925?s=460&u=154f902e7f852def85af5716e81b275fc76cbf86&v=4">
+      <meta itemprop="name" content="WuXiaohong">
+      <meta itemprop="description" content="知道的越多, 知道的就越少">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wuxh">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          一眼就能看懂的防抖和节流动画(还能学一点canvas)
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-08-19 17:54:59" itemprop="dateCreated datePublished" datetime="2019-08-19T17:54:59+08:00">2019-08-19</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-27 19:50:41" itemprop="dateModified" datetime="2020-12-27T19:50:41+08:00">2020-12-27</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>用一组 <strong>canvas</strong> 动画来描述 <strong>防抖(debounce)</strong> 和 <strong>节流(throttle)</strong> 做了些什么;</p>
+<a id="more"></a>
+
+<blockquote>
+<p>线上体验: <a target="_blank" rel="noopener" href="http://wxhboy.cn/on-line-demo/debounce_throttle.html">http://wxhboy.cn/on-line-demo/debounce_throttle.html</a><br>灵感来源于: <a target="_blank" rel="noopener" href="https://juejin.im/post/5c404329e51d4551e064a332">一图秒懂函数防抖和函数节流</a></p>
+</blockquote>
+<p>图片预览:<br><img src="/images/%E4%B8%80%E7%9C%BC%E5%B0%B1%E8%83%BD%E7%9C%8B%E6%87%82%E7%9A%84%E9%98%B2%E6%8A%96%E5%92%8C%E8%8A%82%E6%B5%81%E5%8A%A8%E7%94%BB/screenshot.jpg" alt="截图"><br>动画预览:<br><img src="/images/%E4%B8%80%E7%9C%BC%E5%B0%B1%E8%83%BD%E7%9C%8B%E6%87%82%E7%9A%84%E9%98%B2%E6%8A%96%E5%92%8C%E8%8A%82%E6%B5%81%E5%8A%A8%E7%94%BB/demo.gif" alt="防抖和节流动画"></p>
+<p>图: 一条竖线代表一次函数调用，<strong>函数防抖</strong>是间隔超过一定时间后才会执行，<strong>函数节流</strong>是一定时间段内只执行一次。</p>
+<h3 id="开篇废话"><a href="#开篇废话" class="headerlink" title="开篇废话"></a>开篇废话</h3><p>刚刚开始工作的时候自己还是搞不清楚， 防抖和节流到底是什么样一个情况;<br>每次遇到要写这种需求时, 都是上网百度找代码然后复制粘贴;<br>直到在掘金社区看到一篇文章<a href="ttps://juejin.im/post/5c404329e51d4551e064a332">一图秒懂函数防抖和函数节流</a>后<strong>恍然大悟</strong>、<strong>通俗易懂</strong>, 果断的点了赞,收藏;<br>直到今天自己去面试的时候，让手写防抖和节流， 哈哈… 写了一个比较简易版本的方法;</p>
+<p>今天算是给自己一个总结咯; 用<strong>canvas</strong>把别人文章中的图片实现并动起来;</p>
+<h3 id="Canvas-部分"><a href="#Canvas-部分" class="headerlink" title="Canvas 部分"></a>Canvas 部分</h3><blockquote>
+<p>使用原型的方式编写 canvas</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> Canvas = <span class="function"><span class="keyword">function</span> (<span class="params">canvas</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> &#123; round &#125; = <span class="built_in">Math</span>;</span><br><span class="line">  <span class="built_in">this</span>.canvas = canvas || <span class="built_in">document</span>.createElement(<span class="string">&#x27;canvas&#x27;</span>); <span class="comment">// canvas 元素</span></span><br><span class="line">  <span class="built_in">this</span>.ctx = <span class="built_in">this</span>.canvas.getContext(<span class="string">&#x27;2d&#x27;</span>); <span class="comment">// 创建 context 对象</span></span><br><span class="line">  <span class="built_in">this</span>.font_content_width = <span class="number">0</span>; <span class="comment">// 左边文本区域大小</span></span><br><span class="line">  <span class="built_in">this</span>.row_height = round(<span class="built_in">this</span>.canvas.height / <span class="number">3</span>); <span class="comment">//每一块区域的高度</span></span><br><span class="line">  <span class="comment">// 渲染页面的数据</span></span><br><span class="line">  <span class="built_in">this</span>.data = &#123;</span><br><span class="line">    option: &#123;</span><br><span class="line">      width: <span class="number">2</span>, <span class="comment">// 每个方块的宽度</span></span><br><span class="line">      height: <span class="number">0.8</span>, <span class="comment">// 每个方块的高度占整行的百分比</span></span><br><span class="line">      interval: <span class="number">3</span> <span class="comment">// 两个方块之间的空隙</span></span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment">// 函数的数据</span></span><br><span class="line">    lists: &#123;</span><br><span class="line">      common_array_data: &#123;</span><br><span class="line">        desc: <span class="string">&#x27;普通(common)&#x27;</span>,</span><br><span class="line">        list: <span class="comment">/*[]*/</span> [...Array(<span class="number">1000</span>).keys()].map(</span><br><span class="line">          v =&gt; v % <span class="built_in">Number</span>.MAX_SAFE_INTEGER</span><br><span class="line">        ) <span class="comment">// 初始化数据</span></span><br><span class="line">      &#125;,</span><br><span class="line">      debounce_array_data: &#123;</span><br><span class="line">        desc: <span class="string">&#x27;防抖(debounce)&#x27;</span>,</span><br><span class="line">        list: <span class="comment">/*[]*/</span> [...Array(<span class="number">1000</span>).keys()].map(<span class="function"><span class="params">v</span> =&gt;</span> v % <span class="number">2</span>) <span class="comment">// 初始化数据</span></span><br><span class="line">      &#125;,</span><br><span class="line">      throttle_array_data: &#123;</span><br><span class="line">        desc: <span class="string">&#x27;节流(throttle)&#x27;</span>,</span><br><span class="line">        list: <span class="comment">/*[]*/</span> [...Array(<span class="number">1000</span>).keys()].map(<span class="function"><span class="params">v</span> =&gt;</span> v % <span class="number">4</span>) <span class="comment">// 初始化数据</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>绘制左边文字部分</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">Canvas.prototype.draw_text = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> ctx = <span class="built_in">this</span>.ctx;</span><br><span class="line">  <span class="keyword">const</span> &#123; width, height &#125; = <span class="built_in">this</span>.canvas; <span class="comment">// 获取 canvas 宽高</span></span><br><span class="line">  <span class="comment">// 通过计算文本宽度，找到最长的确定为左边文本区域的宽度</span></span><br><span class="line">  <span class="keyword">const</span> _set_text_content_width = <span class="function">(<span class="params">text, x = <span class="number">10</span></span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> &#123; round &#125; = <span class="built_in">Math</span>;</span><br><span class="line">    <span class="comment">// 文本两边加上X间距</span></span><br><span class="line">    <span class="keyword">const</span> font_width = round(ctx.measureText(text).width + x * <span class="number">2</span>);</span><br><span class="line">    <span class="keyword">if</span> (!<span class="built_in">this</span>.font_content_width) &#123;</span><br><span class="line">      <span class="built_in">this</span>.font_content_width = font_width;</span><br><span class="line">      <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">this</span>.font_content_width &lt; font_width) &#123;</span><br><span class="line">      <span class="built_in">this</span>.font_content_width = font_width;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="comment">// 设置字体</span></span><br><span class="line">  ctx.font = <span class="string">&#x27;16px Arial&#x27;</span>;</span><br><span class="line">  <span class="comment">// 绘制左边标题文字</span></span><br><span class="line">  <span class="built_in">Object</span>.keys(<span class="built_in">this</span>.data.lists).forEach(<span class="function">(<span class="params">key, index</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// 获取文本</span></span><br><span class="line">    <span class="keyword">const</span> text = <span class="built_in">this</span>.data.lists[key].desc;</span><br><span class="line">    <span class="comment">// 统计宽度</span></span><br><span class="line">    _set_text_content_width(text, <span class="number">10</span>);</span><br><span class="line">    <span class="comment">// 计算文本顶部</span></span><br><span class="line">    <span class="keyword">const</span> top = <span class="built_in">this</span>.row_height * (index + <span class="number">0.5</span>);</span><br><span class="line">    <span class="comment">// 绘制文字</span></span><br><span class="line">    ctx.fillText(text, <span class="number">10</span>, top);</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>实现绘制小方块方法</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">Canvas.prototype.fillRect = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> ctx = <span class="built_in">this</span>.ctx;</span><br><span class="line">  <span class="keyword">const</span> &#123; min &#125; = <span class="built_in">Math</span>;</span><br><span class="line">  ctx.fillStyle = <span class="string">&#x27;#999&#x27;</span>; <span class="comment">// 填充的颜色</span></span><br><span class="line">  <span class="keyword">let</span> line_length_arr = []; <span class="comment">// 存储三个已经绘制的长度</span></span><br><span class="line">  <span class="comment">// 遍历数据</span></span><br><span class="line">  <span class="built_in">Object</span>.keys(<span class="built_in">this</span>.data.lists).forEach(<span class="function">(<span class="params">key, index</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// 获取方法的数据</span></span><br><span class="line">    <span class="keyword">const</span> &#123; desc, list &#125; = <span class="built_in">this</span>.data.lists[key];</span><br><span class="line">    <span class="comment">// 每个方法存储的数据</span></span><br><span class="line">    list.forEach(<span class="function">(<span class="params">v, i</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="comment">// 获取每个方块的配置属性</span></span><br><span class="line">      <span class="keyword">const</span> &#123; width = <span class="number">2</span>, height = <span class="number">0.8</span>, interval = <span class="number">2</span> &#125; = <span class="built_in">this</span>.data.option;</span><br><span class="line">      <span class="comment">// 计算每个方块X坐标  x = 左边文字标题区域 + (方块宽+间隙) * 索引(几个)</span></span><br><span class="line">      <span class="keyword">const</span> x = <span class="built_in">this</span>.font_content_width + i * (width + interval);</span><br><span class="line">      <span class="comment">// 计算每个方块的Y坐标 y =每行高度 * ( 剩余百分百对半 + 索引(外循环) )</span></span><br><span class="line">      <span class="keyword">const</span> y = <span class="built_in">this</span>.row_height * ((<span class="number">1</span> - height) / <span class="number">2</span> + index);</span><br><span class="line">      <span class="comment">// 如果数组值不为0 则绘制正方形</span></span><br><span class="line">      <span class="keyword">if</span> (v) &#123;</span><br><span class="line">        ctx.fillRect(x, y, width, <span class="built_in">this</span>.row_height * height);</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="comment">// 把最后一个正方形的数据收集起来</span></span><br><span class="line">      <span class="keyword">if</span> (i === list.length - <span class="number">1</span>) &#123;</span><br><span class="line">        line_length_arr.push(x + width + interval);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;);</span><br><span class="line">  <span class="comment">// 如果没有数据需要默认为空数组；</span></span><br><span class="line">  line_length_arr = line_length_arr.length ? line_length_arr : [<span class="number">0</span>];</span><br><span class="line">  <span class="comment">// 取出最短的值</span></span><br><span class="line">  <span class="keyword">const</span> min_line_length = min(...line_length_arr);</span><br><span class="line">  <span class="comment">// 判断最短的是否超出右边渲染区域</span></span><br><span class="line">  <span class="keyword">if</span> (min_line_length &gt; <span class="built_in">this</span>.canvas.width) &#123;</span><br><span class="line">    <span class="comment">// 擦除右边区域</span></span><br><span class="line">    ctx.clearRect(</span><br><span class="line">      <span class="built_in">this</span>.font_content_width,</span><br><span class="line">      <span class="number">0</span>,</span><br><span class="line">      <span class="built_in">Number</span>.MAX_SAFE_INTEGER,</span><br><span class="line">      <span class="built_in">Number</span>.MAX_SAFE_INTEGER</span><br><span class="line">    );</span><br><span class="line">    <span class="keyword">const</span> lists = <span class="built_in">this</span>.data.lists;</span><br><span class="line">    <span class="built_in">Object</span>.keys(lists).forEach(<span class="function"><span class="params">key</span> =&gt;</span> (lists[key].list = []));</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>实现 canvas 动画<code>init</code></p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Canvas.prototype.init = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="built_in">this</span>.draw_text();</span><br><span class="line">  <span class="keyword">const</span> _start = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>.fillRect();</span><br><span class="line">    <span class="comment">// console.log(&#x27;运行中...&#x27;)</span></span><br><span class="line">    <span class="built_in">window</span>.requestAnimationFrame(_start);</span><br><span class="line">  &#125;;</span><br><span class="line">  <span class="built_in">window</span>.requestAnimationFrame(_start);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<hr>
+<h3 id="防抖和节流部分"><a href="#防抖和节流部分" class="headerlink" title="防抖和节流部分"></a>防抖和节流部分</h3><p><strong>函数防抖(debounce)</strong></p>
+<blockquote>
+<p>当持续触发事件时，一定时间段内没有再触发事件，事件处理函数才会执行一次;<br>如果设定的时间到来之前，又一次触发了事件，就重新开始延时;</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> debounce = <span class="function">(<span class="params">fn, t</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">let</span> time;</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params">...arg</span>) </span>&#123;</span><br><span class="line">    <span class="built_in">clearTimeout</span>(time);</span><br><span class="line">    <span class="keyword">let</span> that = <span class="built_in">this</span>;</span><br><span class="line">    time = <span class="built_in">setTimeout</span>(<span class="function"><span class="keyword">function</span> (<span class="params">...arg</span>) </span>&#123;</span><br><span class="line">      fn.apply(that, arg);</span><br><span class="line">    &#125;, t);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p><strong>函数节流(throttle)</strong></p>
+<blockquote>
+<p>当持续触发事件时，保证一定时间段内只调用一次事件处理函数;</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> throttle = <span class="function">(<span class="params">fn, t</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">let</span> now = <span class="built_in">Date</span>.now();</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params">...arg</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="built_in">Date</span>.now() - now &gt; t) &#123;</span><br><span class="line">      fn.apply(<span class="built_in">this</span>, arg);</span><br><span class="line">      now = <span class="built_in">Date</span>.now();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>在<strong>Demo</strong>中实现</p>
+<blockquote>
+<p>创建一个<code>example_fn</code>方法, 并往实例对象中添加数据</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> example_fn = <span class="function">(<span class="params">time = <span class="number">300</span>, living, log = <span class="literal">false</span></span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> debounce_fn = debounce(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    log &amp;&amp; <span class="built_in">console</span>.error(<span class="string">&#x27;防抖&#x27;</span>);</span><br><span class="line">    living.data.lists.debounce_array_data.list.pop();</span><br><span class="line">    living.data.lists.debounce_array_data.list.push(<span class="number">1</span>);</span><br><span class="line">  &#125;, time);</span><br><span class="line">  <span class="keyword">const</span> throttle_fu = throttle(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    log &amp;&amp; <span class="built_in">console</span>.warn(<span class="string">&#x27;节流&#x27;</span>);</span><br><span class="line">    living.data.lists.throttle_array_data.list.pop();</span><br><span class="line">    living.data.lists.throttle_array_data.list.push(<span class="number">1</span>);</span><br><span class="line">  &#125;, time);</span><br><span class="line">  <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">    log &amp;&amp; <span class="built_in">console</span>.log(<span class="string">&#x27;普通&#x27;</span>);</span><br><span class="line">    living.data.lists.common_array_data.list.push(<span class="number">1</span>);</span><br><span class="line">    living.data.lists.throttle_array_data.list.push(<span class="number">0</span>);</span><br><span class="line">    living.data.lists.debounce_array_data.list.push(<span class="number">0</span>);</span><br><span class="line">    debounce_fn();</span><br><span class="line">    throttle_fu();</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p><strong>创建实例 并 初始化</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> C = <span class="keyword">new</span> Canvas(<span class="built_in">document</span>.querySelector(<span class="string">&#x27;canvas&#x27;</span>));</span><br><span class="line">C.init();</span><br></pre></td></tr></table></figure>
+<p><strong>创建使用实例的方法</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> fn = example_fn(<span class="number">300</span>, C, <span class="literal">false</span>);</span><br></pre></td></tr></table></figure>
+<p><strong>Example</strong></p>
+<ol>
+<li>绑定输入框输入事件</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">document</span>.querySelector(<span class="string">&#x27;input&#x27;</span>).addEventListener(<span class="string">&#x27;input&#x27;</span>, fn);</span><br></pre></td></tr></table></figure>
+<p><img src="/images/%E4%B8%80%E7%9C%BC%E5%B0%B1%E8%83%BD%E7%9C%8B%E6%87%82%E7%9A%84%E9%98%B2%E6%8A%96%E5%92%8C%E8%8A%82%E6%B5%81%E5%8A%A8%E7%94%BB/input.gif" alt="输入框输入"></p>
+<ol start="2">
+<li>绑定 canvas 鼠标移动事件</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">document</span>.querySelector(<span class="string">&#x27;canvas&#x27;</span>).addEventListener(<span class="string">&#x27;mousemove&#x27;</span>, fn);</span><br></pre></td></tr></table></figure>
+<p><img src="/images/%E4%B8%80%E7%9C%BC%E5%B0%B1%E8%83%BD%E7%9C%8B%E6%87%82%E7%9A%84%E9%98%B2%E6%8A%96%E5%92%8C%E8%8A%82%E6%B5%81%E5%8A%A8%E7%94%BB/demo.gif" alt="鼠标移动"></p>
+<ol start="3">
+<li>绑定浏览器改变窗体大小事件</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">window</span>.addEventListener(<span class="string">&#x27;resize&#x27;</span>, fn);</span><br></pre></td></tr></table></figure>
+<p><img src="/images/%E4%B8%80%E7%9C%BC%E5%B0%B1%E8%83%BD%E7%9C%8B%E6%87%82%E7%9A%84%E9%98%B2%E6%8A%96%E5%92%8C%E8%8A%82%E6%B5%81%E5%8A%A8%E7%94%BB/window.gif" alt="改变窗体大小"></p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p><strong>函数防抖</strong>：<br>将几次操作合并为一此操作进行。<br>原理是维护一个计时器，规定在 delay 时间后触发函数，但是在 delay 时间内再次触发的话，就会取消之前的计时器而重新设置。这样一来，只有最后一次操作能被触发。</p>
+<p><strong>函数节流</strong>：<br>使得一定时间内只触发一次函数。<br>原理是通过判断是否到达一定时间来触发函数。</p>
+<p>感谢阅读<br>都<strong>9102</strong>年了，我还在讨论这个(手动捂脸)，自己能力有限写的不好，希望大家多多指正<br><span style="font-size:12px;color:red">互联网生存不易，请勿狙击</span></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/javascript/" rel="tag"># javascript</a>
+              <a href="/tags/canvas/" rel="tag"># canvas</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/08/13/JS%E5%AE%8F%E4%BB%BB%E5%8A%A1%E5%92%8C%E5%BE%AE%E4%BB%BB%E5%8A%A1/" rel="prev" title="JS宏任务和微任务">
+      <i class="fa fa-chevron-left"></i> JS宏任务和微任务
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/09/02/Git-%E4%BF%AE%E6%94%B9%E5%8E%86%E5%8F%B2Commit%E4%BD%9C%E8%80%85%E5%92%8C%E9%82%AE%E7%AE%B1/" rel="next" title="Git 修改历史Commit作者和邮箱">
+      Git 修改历史Commit作者和邮箱 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="gitalk-container"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%80%E7%AF%87%E5%BA%9F%E8%AF%9D"><span class="nav-number">1.</span> <span class="nav-text">开篇废话</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Canvas-%E9%83%A8%E5%88%86"><span class="nav-number">2.</span> <span class="nav-text">Canvas 部分</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%98%B2%E6%8A%96%E5%92%8C%E8%8A%82%E6%B5%81%E9%83%A8%E5%88%86"><span class="nav-number">3.</span> <span class="nav-text">防抖和节流部分</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="WuXiaohong"
+      src="https://avatars3.githubusercontent.com/u/32004925?s=460&u=154f902e7f852def85af5716e81b275fc76cbf86&v=4">
+  <p class="site-author-name" itemprop="name">WuXiaohong</p>
+  <div class="site-description" itemprop="description">知道的越多, 知道的就越少</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">35</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Wxh16144" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Wxh16144" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:wxh1220@gmail.com" title="E-Mail → mailto:wxh1220@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">WuXiaohong</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : 'a19730037ba03110bff3',
+      clientSecret: 'd4260edf31af417abd889600a37958e85868183f',
+      repo        : 'my-Blog',
+      owner       : 'Wxh16144',
+      admin       : ['Wxh16144'],
+      id          : 'b08398ecb9824c19ce8b50b2bbdfae8a',
+        language: 'zh-CN',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
+
+</body>
+</html>

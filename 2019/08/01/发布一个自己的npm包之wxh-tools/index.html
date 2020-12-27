@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="工作中经常重复写一些方法, 整理起来托管到 GitHub仓库中 ,搭建一个npm包, 每次使用时, 按需下载打包成一个文件, 方便使用;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="发布一个自己的npm包之wxh-tools">
+<meta property="og:url" content="http://example.com/2019/08/01/%E5%8F%91%E5%B8%83%E4%B8%80%E4%B8%AA%E8%87%AA%E5%B7%B1%E7%9A%84npm%E5%8C%85%E4%B9%8Bwxh-tools/index.html">
+<meta property="og:site_name" content="Wuxh">
+<meta property="og:description" content="工作中经常重复写一些方法, 整理起来托管到 GitHub仓库中 ,搭建一个npm包, 每次使用时, 按需下载打包成一个文件, 方便使用;">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/Wxh16144/wxh-tools/master/use.gif">
+<meta property="article:published_time" content="2019-08-01T06:52:15.000Z">
+<meta property="article:modified_time" content="2020-12-27T11:32:33.108Z">
+<meta property="article:author" content="WuXiaohong">
+<meta property="article:tag" content="javascript">
+<meta property="article:tag" content="node">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/Wxh16144/wxh-tools/master/use.gif">
+
+<link rel="canonical" href="http://example.com/2019/08/01/%E5%8F%91%E5%B8%83%E4%B8%80%E4%B8%AA%E8%87%AA%E5%B7%B1%E7%9A%84npm%E5%8C%85%E4%B9%8Bwxh-tools/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>发布一个自己的npm包之wxh-tools | Wuxh</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Wuxh</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Front-end Development</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2019/08/01/%E5%8F%91%E5%B8%83%E4%B8%80%E4%B8%AA%E8%87%AA%E5%B7%B1%E7%9A%84npm%E5%8C%85%E4%B9%8Bwxh-tools/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/32004925?s=460&u=154f902e7f852def85af5716e81b275fc76cbf86&v=4">
+      <meta itemprop="name" content="WuXiaohong">
+      <meta itemprop="description" content="知道的越多, 知道的就越少">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wuxh">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          发布一个自己的npm包之wxh-tools
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-08-01 14:52:15" itemprop="dateCreated datePublished" datetime="2019-08-01T14:52:15+08:00">2019-08-01</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-27 19:32:33" itemprop="dateModified" datetime="2020-12-27T19:32:33+08:00">2020-12-27</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>工作中经常重复写一些方法, 整理起来托管到<a target="_blank" rel="noopener" href="https://github.com/Wxh16144/wxh-tools/tree/master/src/tools"> GitHub仓库中 </a>,<br>搭建一个<code>npm</code>包, 每次使用时, 按需下载打包成一个文件, 方便使用;</p>
+<a id="more"></a>
+
+<h3 id="项目地址"><a href="#项目地址" class="headerlink" title="项目地址"></a>项目地址</h3><blockquote>
+<p>NPM地址: <a target="_blank" rel="noopener" href="https://www.npmjs.com/package/wxh-tools">https://www.npmjs.com/package/wxh-tools</a>;</p>
+</blockquote>
+<blockquote>
+<p>GITHUB: <a target="_blank" rel="noopener" href="https://github.com/Wxh16144/wxh-tools">https://github.com/Wxh16144/wxh-tools</a>;</p>
+</blockquote>
+<p>工具截图:<br><img style="width:100%" src="https://raw.githubusercontent.com/Wxh16144/wxh-tools/master/use.gif" alt="wxh-tools工具截图"></p>
+<h3 id="项目目录"><a href="#项目目录" class="headerlink" title="项目目录"></a>项目目录</h3><ul>
+<li>bin<ul>
+<li>www   <span style="font-size:.8em;color:green">//  执行包命令</li>
+</ul>
+</li>
+<li>config<ul>
+<li>methods_list.json   <span style="font-size:.8em;color:green">//  所有/src/tools/下方法列表, 由create_methods_list.js 创建</li>
+<li>webpack.config.js   <span style="font-size:.8em;color:green">//  打包时使用的webpack配置</li>
+</ul>
+</li>
+<li>dist  <span style="font-size:.8em;color:green">//  打包目录</li>
+<li>reoisutiry  <span style="font-size:.8em;color:green">//  临时目录，用于存放从git下载到本地的资源</li>
+<li>src<ul>
+<li>tools   <span style="font-size:.8em;color:green">//  存放平常使用的方法(全部)</li>
+<li>utils<ul>
+<li>create_file_by_user_select.js   <span style="font-size:.8em;color:green">//  根据用户选择的方法，创建文件夹</li>
+<li>get_json_file.js  <span style="font-size:.8em;color:green">//  读取json文件内容并序列化</li>
+<li>read_dir_file.js  <span style="font-size:.8em;color:green">//  读取某一个目录下的所有文件</li>
+<li>webpack_build.js  <span style="font-size:.8em;color:green">//  webpack配置</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>get.js  <span style="font-size:.8em;color:green">//  从git上下载文件</li>
+<li>index.js  <span style="font-size:.8em;color:green">//  获取用户选择config</li>
+<li>main.js   <span style="font-size:.8em;color:green">//  入口文件</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>.babelrc</li>
+<li>create_methods_list.js  <span style="font-size:.8em;color:green">//  读取src/tools/所有方法并生成文件</li>
+</ul>
+<h3 id="安装依赖"><a href="#安装依赖" class="headerlink" title="安装依赖"></a>安装依赖</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install @babel/cli@7.5.5  @babel/core@7.5.5  @babel/preset-env@7.5.5  babel-loader@8.0.0-beta.0  core-js@3.1.4  download@7.1.0  inquirer@6.5.0  ora@3.4.0  rimraf@2.6.3  shelljs@0.8.3  webpack@4.37.0  webpack-cli@3.3.6 --save</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>列举出来的<code>npm</code> 语句太长, 为了偷懒我也使用了 <code>src/utils/get_json_file.js</code> 方法;</p>
+</blockquote>
+<p><strong>Demo:</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> method = <span class="built_in">require</span>(<span class="string">&#x27;./src/utils/get_json_file&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> json_file = method(<span class="string">&#x27;./package.json&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> dep = json_file.dependencies;</span><br><span class="line"><span class="keyword">const</span> res = <span class="built_in">Object</span>.keys(dep).reduce(<span class="function">(<span class="params">str, key</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="string">`<span class="subst">$&#123;str&#125;</span>  <span class="subst">$&#123;key&#125;</span>@<span class="subst">$&#123;(dep[key]).slice(<span class="number">1</span>)&#125;</span>`</span></span><br><span class="line">&#125;, <span class="string">&#x27;&#x27;</span>)</span><br><span class="line"><span class="built_in">console</span>.log(res);</span><br><span class="line"><span class="comment">// @babel/cli@7.5.5  @babel/core@7.5.5  @babel/preset-env@7.5.5  babel-loader@8.0.0-beta.0  core-js@3.1.4  download@7.1.0  inquirer@6.5.0  ora@3.4.0  rimraf@2.6.3  shelljs@0.8.3  webpack@4.37.0  webpack-cli@3.3.6</span></span><br></pre></td></tr></table></figure>
+<h3 id="工具封装"><a href="#工具封装" class="headerlink" title="工具封装"></a>工具封装</h3><p><strong>get_json_file.js</strong></p>
+<blockquote>
+<p>读取<code>json</code>文件, 并且序列化</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">&#x27;fs&#x27;</span>);</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">*读取*.JSON文件,并序列化返回</span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment">* <span class="doctag">@param <span class="type">&#123;*&#125;</span> </span>filepath 文件地址</span></span><br><span class="line"><span class="comment">* <span class="doctag">@returns </span>文件内容</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="built_in">module</span>.exports = <span class="function">(<span class="params">filepath</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">if</span> (!filepath) <span class="keyword">return</span> <span class="string">&#x27;&#x27;</span>;</span><br><span class="line">  <span class="keyword">const</span> _Json = fs.readFileSync(filepath);</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">JSON</span>.parse(_Json);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p><strong>read_dir_file.js</strong></p>
+<blockquote>
+<p>读取某一个目录下的所有文件(不包括文件夹, 不进行递归)</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">&#x27;path&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> path_join = path.join;</span><br><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">&#x27;fs&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">*获取目录下的所有文件(不包括文件夹)</span></span><br><span class="line"><span class="comment">*</span></span><br><span class="line"><span class="comment">* <span class="doctag">@param <span class="type">&#123;*&#125;</span> </span>[dir=path_join(__dirname)] 目录</span></span><br><span class="line"><span class="comment">* <span class="doctag">@param <span class="type">&#123;*&#125;</span> </span>[reg=/./] 正则表达死</span></span><br><span class="line"><span class="comment">* <span class="doctag">@returns </span>文件数组</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="built_in">module</span>.exports = <span class="function">(<span class="params">dir = path_join(__dirname), reg = <span class="regexp">/./</span></span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">// 读取所有的文件</span></span><br><span class="line">  <span class="keyword">let</span> files = fs.readdirSync(dir);</span><br><span class="line">  <span class="keyword">return</span> files.reduce(<span class="function">(<span class="params">arr, item</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// 获取文件路径</span></span><br><span class="line">    <span class="keyword">let</span> fPath = path_join(dir, item);</span><br><span class="line">    <span class="comment">// 读取</span></span><br><span class="line">    <span class="keyword">let</span> stat = fs.statSync(fPath);</span><br><span class="line">    <span class="comment">// 判断是否为文件</span></span><br><span class="line">    <span class="keyword">let</span> isFile = stat.isFile();</span><br><span class="line">    <span class="comment">// 过滤正则表达式条件</span></span><br><span class="line">    <span class="keyword">return</span> isFile &amp;&amp; reg.test(item) ? [...arr, item] : arr</span><br><span class="line">  &#125;, []);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p><strong>get.js</strong></p>
+<blockquote>
+<p>从远程github仓库下载文件<br>使用<code>download</code>下载文件包; <a target="_blank" rel="noopener" href="https://www.npmjs.com/package/download">download npm 地址</a>;</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">&#x27;path&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> path_join = path.join;</span><br><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">&#x27;fs&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> download = <span class="built_in">require</span>(<span class="string">&#x27;download&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> *从远程github仓库下载文件</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;array&#125;</span> </span>files 文件名</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;string&#125;</span> </span>[savePath=path_join(__dirname, &#x27;../repository&#x27;)] 文件下载保存地址</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@returns <span class="variable">Promise</span></span></span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="built_in">module</span>.exports = <span class="function">(<span class="params">files, savePath = path_join(__dirname, <span class="string">&#x27;../repository&#x27;</span>)</span>) =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> URL = <span class="string">&#x27;https://raw.githubusercontent.com/Wxh16144/wxh-tools/master/&#x27;</span>;</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">Promise</span>.all((<span class="built_in">Array</span>.isArray(files) ? files : [])</span><br><span class="line">    .map(<span class="function"><span class="params">file_name</span> =&gt;</span> download(URL + file_name, savePath)));</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="工具准备完成-开始构建CONFIG（index-js）"><a href="#工具准备完成-开始构建CONFIG（index-js）" class="headerlink" title="工具准备完成, 开始构建CONFIG（index.js）"></a>工具准备完成, 开始构建CONFIG（index.js）</h3><blockquote>
+<p>使用<code>inquirer</code>控制台交互包; <a target="_blank" rel="noopener" href="https://www.npmjs.com/package/inquirer">inquirer npm 地址</a>;<br>使用<code>ora</code>加载动画包; <a target="_blank" rel="noopener" href="https://www.npmjs.com/package/ora">ora npm 地址</a>;</p>
+</blockquote>
+<p>引入所需模块</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 路径处理</span></span><br><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">&#x27;path&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> path_join = path.join;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 控制台交互</span></span><br><span class="line"><span class="keyword">const</span> inquirer = <span class="built_in">require</span>(<span class="string">&#x27;inquirer&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> prompt = inquirer.createPromptModule();</span><br><span class="line"><span class="comment">// 加载动画</span></span><br><span class="line"><span class="keyword">const</span> ora = <span class="built_in">require</span>(<span class="string">&#x27;ora&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 获取下载文件</span></span><br><span class="line"><span class="keyword">const</span> download_methods_list = <span class="built_in">require</span>(<span class="string">&#x27;./get&#x27;</span>);</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>控制台交互, 一个Promise数组; </p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 询问需要添加的方法</span></span><br><span class="line"><span class="keyword">const</span> Ask_the_task = [</span><br><span class="line">  <span class="comment">// 询问用户需要使用那些方法</span></span><br><span class="line">  <span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">    <span class="comment">// 添加动画</span></span><br><span class="line">    <span class="keyword">const</span> spinner = ora(<span class="string">&#x27;正在获取所有方法列表...&#x27;</span>).start();</span><br><span class="line">    <span class="comment">// 下载所有方法列表</span></span><br><span class="line">    <span class="keyword">const</span> res = <span class="keyword">await</span> download_methods_list([<span class="string">&#x27;config/methods_list.json&#x27;</span>]);</span><br><span class="line">    <span class="comment">// 读取方法列表</span></span><br><span class="line">    <span class="keyword">const</span> methods_list = <span class="built_in">require</span>(<span class="string">&#x27;./utils/get_json_file&#x27;</span>)(path_join(__dirname, <span class="string">&#x27;../repository/methods_list.json&#x27;</span>));</span><br><span class="line">    <span class="comment">// 停止动画</span></span><br><span class="line">    spinner.stop();</span><br><span class="line">    <span class="keyword">const</span> ALL_TOOLS_SERVER = (methods_list.methods_list || []).map(<span class="function"><span class="params">filename</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> filename.replace(<span class="regexp">/\.js$/</span>, <span class="string">&#x27;&#x27;</span>);</span><br><span class="line">    &#125;);</span><br><span class="line">    <span class="comment">// 创建问题</span></span><br><span class="line">    <span class="keyword">return</span> prompt(&#123;</span><br><span class="line">      type: <span class="string">&#x27;checkbox&#x27;</span>,</span><br><span class="line">      name: <span class="string">&#x27;tools_key&#x27;</span>,</span><br><span class="line">      message: <span class="string">&#x27;请选择您所需要的方法&#x27;</span>,</span><br><span class="line">      <span class="keyword">default</span>: [],</span><br><span class="line">      choices: ALL_TOOLS_SERVER</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="comment">// 询问用户保存名字</span></span><br><span class="line">  () =&gt; prompt(&#123;</span><br><span class="line">    type: <span class="string">&#x27;input&#x27;</span>,</span><br><span class="line">    name: <span class="string">&#x27;save_file_name&#x27;</span>,</span><br><span class="line">    message: <span class="string">&#x27;保存文件名&#x27;</span>,</span><br><span class="line">    <span class="keyword">default</span>: <span class="string">&#x27;utils.js&#x27;</span>,</span><br><span class="line">  &#125;),</span><br><span class="line">  <span class="comment">// 询问用户是否需要打包</span></span><br><span class="line">  () =&gt; prompt(&#123;</span><br><span class="line">    type: <span class="string">&#x27;confirm&#x27;</span>,</span><br><span class="line">    name: <span class="string">&#x27;is_build&#x27;</span>,</span><br><span class="line">    message: <span class="string">&#x27;是否需要使用webpack打包&#x27;</span>,</span><br><span class="line">    <span class="keyword">default</span>: <span class="literal">true</span></span><br><span class="line">  &#125;),</span><br><span class="line">];</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>从上往下询问问题<br>并合并用户选择的CONFIG, 导出执行方法</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> *循环提出询问</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@returns </span>用户配置</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">const</span> task = <span class="keyword">async</span> () =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> config = &#123;&#125;;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">const</span> fn <span class="keyword">of</span> Ask_the_task) &#123;</span><br><span class="line">    <span class="keyword">const</span> P = fn();</span><br><span class="line">    <span class="keyword">const</span> res = <span class="keyword">await</span> P;</span><br><span class="line">    <span class="built_in">Object</span>.assign(config, res)</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> config;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 导出提问方法</span></span><br><span class="line"><span class="built_in">module</span>.exports = task;</span><br></pre></td></tr></table></figure>
+<h3 id="根据用户选择下载对应方法-main-js"><a href="#根据用户选择下载对应方法-main-js" class="headerlink" title="根据用户选择下载对应方法 (main.js)"></a>根据用户选择下载对应方法 (main.js)</h3><blockquote>
+<p>使用<code>rimraf</code>删除文件包; <a target="_blank" rel="noopener" href="https://www.npmjs.com/package/rimraf">rimraf npm 地址</a>;</p>
+</blockquote>
+<p>加载模块</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">&#x27;path&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> path_join = path.join;</span><br><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">&#x27;fs&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 删除文件</span></span><br><span class="line"><span class="keyword">const</span> rimraf = <span class="built_in">require</span>(<span class="string">&#x27;rimraf&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 获取下载文件</span></span><br><span class="line"><span class="keyword">const</span> download_methods_list = <span class="built_in">require</span>(<span class="string">&#x27;./get&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 加载动画</span></span><br><span class="line"><span class="keyword">const</span> ora = <span class="built_in">require</span>(<span class="string">&#x27;ora&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// webpack 打包</span></span><br><span class="line"><span class="keyword">const</span> webpack_build_function = <span class="built_in">require</span>(<span class="string">&#x27;./utils/webpack_build&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 交互问题</span></span><br><span class="line"><span class="keyword">const</span> task = <span class="built_in">require</span>(<span class="string">&#x27;./index&#x27;</span>);</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>询问用户, 下载方法到本地, 合并方法文件, 使用webpack 打包</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 所有问题</span></span><br><span class="line"><span class="keyword">const</span> task = <span class="built_in">require</span>(<span class="string">&#x27;./index&#x27;</span>);</span><br><span class="line">(<span class="keyword">async</span> <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> CONFIG = <span class="keyword">await</span> task();</span><br><span class="line">  <span class="comment">// 获取用户配置</span></span><br><span class="line">  <span class="keyword">const</span> &#123; tools_key = [], is_build = <span class="literal">true</span> &#125; = CONFIG;</span><br><span class="line">  <span class="comment">// 临时目录</span></span><br><span class="line">  <span class="keyword">const</span> DIRECTORY = path_join(__dirname, <span class="string">&#x27;../temporary/&#x27;</span>);</span><br><span class="line">  rimraf.sync(DIRECTORY);</span><br><span class="line">  <span class="comment">// 添加下载动画</span></span><br><span class="line">  <span class="keyword">const</span> download_spinner = ora(<span class="string">&#x27;正在下载所选方法数据...&#x27;</span>).start();</span><br><span class="line">  <span class="comment">// 根据所选方法收集</span></span><br><span class="line">  <span class="comment">// 下载所有方法列表</span></span><br><span class="line">  <span class="keyword">const</span> load_select_methods = <span class="keyword">await</span> download_methods_list(</span><br><span class="line">    tools_key.map(<span class="function"><span class="params">key</span> =&gt;</span> <span class="string">`src/tools/<span class="subst">$&#123;key&#125;</span>.js`</span>),</span><br><span class="line">    path_join(__dirname, <span class="string">&#x27;../temporary&#x27;</span>)</span><br><span class="line">  );</span><br><span class="line">  <span class="comment">// 下载完成</span></span><br><span class="line">  download_spinner.succeed(<span class="string">&#x27;所需方法下载完成&#x27;</span>);</span><br><span class="line">  <span class="comment">// 添加创建文件动画</span></span><br><span class="line">  <span class="keyword">const</span> create_file_spinner = ora(<span class="string">&#x27;创建并生成文件中...&#x27;</span>).start();</span><br><span class="line">  <span class="keyword">const</span> create_file_by_user_select = <span class="built_in">require</span>(<span class="string">&#x27;./utils/create_file_by_user_select&#x27;</span>);</span><br><span class="line">  <span class="keyword">const</span> create_file = <span class="keyword">await</span> create_file_by_user_select(CONFIG);</span><br><span class="line">  create_file_spinner.succeed(<span class="string">&#x27;创建完成&#x27;</span>);</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 添加打包动画</span></span><br><span class="line">  <span class="keyword">const</span> build_spinner = ora(<span class="string">&#x27;处理文件中...&#x27;</span>).start();</span><br><span class="line">  <span class="keyword">const</span> build_res = <span class="keyword">await</span> webpack_build_function(CONFIG);</span><br><span class="line">  build_spinner.succeed(<span class="string">`处理成功,地址:<span class="subst">$&#123;build_res&#125;</span>`</span>);</span><br><span class="line">&#125;());</span><br></pre></td></tr></table></figure>
+<h3 id="创建合并文件-create-file-by-user-select-js"><a href="#创建合并文件-create-file-by-user-select-js" class="headerlink" title="创建合并文件(create_file_by_user_select.js)"></a>创建合并文件(create_file_by_user_select.js)</h3><blockquote>
+<p>处理 <code>github</code> 下载到本地 <code>temporary</code> 目录的方法;<br>打包好的文件会在 <strong>window</strong> 有一个全局的方法集为 <strong>WT</strong></p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">&#x27;path&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> path_join = path.join;</span><br><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">&#x27;fs&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> *创建合并文件</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;*&#125;</span> </span>CONFIG 用户输入配置</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="built_in">module</span>.exports = <span class="keyword">async</span> CONFIG =&gt; &#123;</span><br><span class="line">  <span class="comment">// 获取临时目录路径</span></span><br><span class="line">  <span class="keyword">const</span> DIRECTORY = path_join(__dirname, <span class="string">&#x27;../../temporary/&#x27;</span>);</span><br><span class="line">  <span class="keyword">const</span> &#123; tools_key = [] &#125; = CONFIG;</span><br><span class="line">  <span class="keyword">let</span> javascript = <span class="string">&#x27;&#x27;</span>;</span><br><span class="line">  tools_key.forEach(<span class="function"><span class="params">fileN</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">// 逐个导入方法</span></span><br><span class="line">    javascript += <span class="string">`import <span class="subst">$&#123;fileN&#125;</span>  from &#x27;./<span class="subst">$&#123;fileN&#125;</span>.js&#x27;;</span></span><br><span class="line"><span class="string">    `</span></span><br><span class="line">  &#125;);</span><br><span class="line">  <span class="keyword">const</span> myexport = tools_key.map(<span class="built_in">String</span>).join(<span class="string">&#x27;,&#x27;</span>);</span><br><span class="line">  <span class="comment">// 绑到window上</span></span><br><span class="line">  <span class="comment">// 导出方法</span></span><br><span class="line">  javascript += <span class="string">`</span></span><br><span class="line"><span class="string">  window.WT = &#123; <span class="subst">$&#123;myexport&#125;</span> &#125;;</span></span><br><span class="line"><span class="string">  export &#123; <span class="subst">$&#123;myexport&#125;</span> &#125;;`</span></span><br><span class="line">  <span class="comment">// 写到临时目录</span></span><br><span class="line">  fs.writeFileSync(path_join(DIRECTORY, <span class="string">&#x27;utils.js&#x27;</span>), javascript);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="使用webpack打包-webpack-build-js"><a href="#使用webpack打包-webpack-build-js" class="headerlink" title="使用webpack打包(webpack_build.js)"></a>使用webpack打包(webpack_build.js)</h3><blockquote>
+<p>传入用户CONFIG配置; 通过 <code>--build</code> 标识是否使用<code>@babel/preset-env</code>打包;<br>使用<code>shell</code>下载文件包; <a target="_blank" rel="noopener" href="https://www.npmjs.com/package/shell">shell npm 地址</a>;<br>这里有个方法 <code>process.cwd()</code> 是获取用户执行方法的目录; 使用这个作为webpack打包出口;</p>
+</blockquote>
+<p>执行<code>webpack</code> 打包, 使用配置<strong>config/webpack.config.js</strong>文件</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">&#x27;path&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> path_join = path.join;</span><br><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">&#x27;fs&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> shell = <span class="built_in">require</span>(<span class="string">&#x27;shelljs&#x27;</span>);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> *检查用户输入的文件名是否合法</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;*&#125;</span> </span>filename 文件名</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@returns </span>文件名</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">const</span> get_File_Name = <span class="function"><span class="params">filename</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">if</span> (<span class="regexp">/\.js$/</span>.test(filename)) &#123;</span><br><span class="line">    <span class="keyword">return</span> filename</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> filename + <span class="string">&#x27;.js&#x27;</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> *使用webpack打包文件</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param <span class="type">&#123;*&#125;</span> </span>CONFIG 用户配置</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@returns </span>结果</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="built_in">module</span>.exports = <span class="keyword">async</span> CONFIG =&gt; &#123;</span><br><span class="line">  <span class="comment">// 配置参数</span></span><br><span class="line">  <span class="keyword">const</span> &#123; tools_key = [], is_build = <span class="literal">true</span>, save_file_name &#125; = CONFIG;</span><br><span class="line">  <span class="comment">// 获取到webpack配置地址</span></span><br><span class="line">  <span class="keyword">const</span> CONFIG_PATH = path_join(__dirname, <span class="string">&#x27;../../config/&#x27;</span>);</span><br><span class="line">  <span class="comment">// 打包输出路径地址 // 用户打开控制台的地址</span></span><br><span class="line">  <span class="keyword">const</span> OUTPUT_PATH = path_join(process.cwd(), get_File_Name(save_file_name));</span><br><span class="line">  <span class="comment">// 拼接 webpack 命令行</span></span><br><span class="line">  <span class="keyword">const</span> CMD = <span class="string">`npx webpack <span class="subst">$&#123;is_build ? <span class="string">&#x27;--build&#x27;</span> : <span class="string">&#x27;&#x27;</span>&#125;</span>  --output <span class="subst">$&#123;OUTPUT_PATH&#125;</span>`</span>;</span><br><span class="line">  <span class="comment">// 返回异步结果(shells是同步的)</span></span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resovle, reject</span>) =&gt;</span> &#123;</span><br><span class="line">    shell.cd(CONFIG_PATH);</span><br><span class="line">    <span class="keyword">const</span> EXEC_RES = shell.exec(CMD);</span><br><span class="line">    <span class="keyword">if</span> (EXEC_RES.code === <span class="number">0</span>) &#123;</span><br><span class="line">      resovle(OUTPUT_PATH); <span class="comment">//返回成功地址</span></span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      reject(EXEC_RES); <span class="comment">//失败</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<h3 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h3><p><strong>.babellrc</strong></p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">&quot;presets&quot;</span>: [</span><br><span class="line">    [</span><br><span class="line">      <span class="string">&quot;@babel/preset-env&quot;</span>,</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="attr">&quot;targets&quot;</span>: &#123;</span><br><span class="line">          <span class="attr">&quot;node&quot;</span>: <span class="string">&quot;10&quot;</span></span><br><span class="line">        &#125;,</span><br><span class="line">        <span class="attr">&quot;modules&quot;</span>: <span class="string">&quot;umd&quot;</span>,</span><br><span class="line">        <span class="attr">&quot;useBuiltIns&quot;</span>: <span class="string">&quot;usage&quot;</span>,</span><br><span class="line">        <span class="attr">&quot;corejs&quot;</span>: <span class="number">3</span>,</span><br><span class="line">      &#125;</span><br><span class="line">    ]</span><br><span class="line">  ],</span><br><span class="line">  <span class="attr">&quot;plugins&quot;</span>: [],</span><br><span class="line">  <span class="attr">&quot;ignore&quot;</span>: [</span><br><span class="line">    <span class="string">&quot;src/tools&quot;</span></span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>config/webpack.config.js</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">&#x27;path&#x27;</span>);</span><br><span class="line"><span class="comment">// 判断是否有 --build 标识</span></span><br><span class="line"><span class="keyword">const</span> IS_BUILD = (<span class="built_in">Array</span>.isArray(process.argv) ?process.argv : []).includes(<span class="string">&#x27;--build&#x27;</span>);</span><br><span class="line"><span class="comment">// babel</span></span><br><span class="line"><span class="keyword">const</span> BABEL_BUILD = &#123;</span><br><span class="line">  test: <span class="regexp">/\.js$/</span>,</span><br><span class="line">  exclude: <span class="regexp">/(node_modules|bower_components)/</span>,<span class="comment">//排除掉node_module目录</span></span><br><span class="line">  use: &#123;</span><br><span class="line">    loader: <span class="string">&#x27;babel-loader&#x27;</span>,</span><br><span class="line">    options: &#123;</span><br><span class="line">      presets: [</span><br><span class="line">        [<span class="string">&quot;@babel/preset-env&quot;</span>, &#123;</span><br><span class="line">          modules:<span class="literal">false</span>,</span><br><span class="line">          useBuiltIns: <span class="string">&quot;usage&quot;</span>,</span><br><span class="line">          corejs: <span class="number">3</span>,</span><br><span class="line">        &#125;]</span><br><span class="line">      ],</span><br><span class="line">      plugins: [],</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  entry: path.resolve(__dirname, <span class="string">&#x27;../temporary/utils.js&#x27;</span>),</span><br><span class="line">  mode: <span class="string">&#x27;production&#x27;</span>,</span><br><span class="line">  output: &#123;</span><br><span class="line">    filename: <span class="string">&#x27;utils.js&#x27;</span>,</span><br><span class="line">    path: path.resolve(__dirname, <span class="string">&#x27;../temporary/dist&#x27;</span>)</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="built_in">module</span>: &#123;</span><br><span class="line">    rules: [</span><br><span class="line">      (IS_BUILD ? BABEL_BUILD : &#123;&#125;) <span class="comment">// --build</span></span><br><span class="line">    ]</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p><strong>bin/www</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#! /usr/bin/env node</span></span><br><span class="line">require(<span class="string">&#x27;../src/main.js&#x27;</span>);</span><br></pre></td></tr></table></figure>
+<h2 id="发布到NPM"><a href="#发布到NPM" class="headerlink" title="发布到NPM"></a>发布到NPM</h2><blockquote>
+<p>先修改<code>package.json</code> 文件, 添加 <code>bin</code> 属性<br>代表全局方法名为: <strong>wxh</strong></p>
+</blockquote>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&quot;bin&quot;: &#123;</span><br><span class="line">  &quot;wxh&quot;: &quot;./bin/www&quot;</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
+<h4 id="登录自己的npm账号"><a href="#登录自己的npm账号" class="headerlink" title="登录自己的npm账号"></a>登录自己的npm账号</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm adduser</span><br></pre></td></tr></table></figure>
+<h4 id="推送包到npm仓库中"><a href="#推送包到npm仓库中" class="headerlink" title="推送包到npm仓库中"></a>推送包到npm仓库中</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm publish</span><br></pre></td></tr></table></figure>
+<h4 id="推送npm包注意事项"><a href="#推送npm包注意事项" class="headerlink" title="推送npm包注意事项"></a>推送npm包注意事项</h4><ul>
+<li>检查自己的包在<code>npm</code>库中有没有重命名</li>
+<li>每一次推送包都要修改<code>package.json</code> 的 <code>version</code> 字段</li>
+</ul>
+<h3 id="写在最后"><a href="#写在最后" class="headerlink" title="写在最后"></a>写在最后</h3><p>到这里我们整个包都已经写好了, 只需要安装到全局, 我们就可以使用了;<br>之后的日常维护, 我们只需要在  <strong>src/tools</strong> 目录下添加一个个方法就好了;<br>偷懒写一个方法 <strong>create_methods_list.js</strong>;<br>方法根据 <strong>/src/tools</strong>目录下的方法文件, 生成 <code>methods_list.json</code> 文件到<strong>config</strong>目录;</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">&#x27;fs&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">&#x27;path&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> path_join = path.join;</span><br><span class="line"><span class="keyword">const</span> read_dir_file = <span class="built_in">require</span>(<span class="string">&#x27;./src/utils/read_dir_file&#x27;</span>);</span><br><span class="line"><span class="comment">// 读取</span></span><br><span class="line"><span class="keyword">const</span> fileArr = read_dir_file(path_join(__dirname, <span class="string">&#x27;./src/tools&#x27;</span>));</span><br><span class="line">fs.writeFileSync(path_join(__dirname, <span class="string">&#x27;./config/methods_list.json&#x27;</span>),</span><br><span class="line">  <span class="built_in">JSON</span>.stringify(&#123; <span class="attr">methods_list</span>: fileArr &#125;)</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/javascript/" rel="tag"># javascript</a>
+              <a href="/tags/node/" rel="tag"># node</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/08/01/%E7%94%A8css3%E6%B8%90%E5%8F%98%E8%83%8C%E6%99%AF%E5%AE%9E%E7%8E%B0%E8%BF%9B%E5%BA%A6%E6%9D%A1/" rel="prev" title="用css3渐变背景实现进度条">
+      <i class="fa fa-chevron-left"></i> 用css3渐变背景实现进度条
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/08/03/%E5%89%8D%E7%AB%AF%E5%B0%8F%E5%BC%BA%E4%BA%BA%E7%AC%AC%E4%BA%8C%E6%AC%A1%E7%BA%BF%E4%B8%8B%E6%B2%99%E9%BE%99/" rel="next" title="前端小强人第二次线下沙龙">
+      前端小强人第二次线下沙龙 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="gitalk-container"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A1%B9%E7%9B%AE%E5%9C%B0%E5%9D%80"><span class="nav-number">1.</span> <span class="nav-text">项目地址</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A1%B9%E7%9B%AE%E7%9B%AE%E5%BD%95"><span class="nav-number">2.</span> <span class="nav-text">项目目录</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%89%E8%A3%85%E4%BE%9D%E8%B5%96"><span class="nav-number">3.</span> <span class="nav-text">安装依赖</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B7%A5%E5%85%B7%E5%B0%81%E8%A3%85"><span class="nav-number">4.</span> <span class="nav-text">工具封装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B7%A5%E5%85%B7%E5%87%86%E5%A4%87%E5%AE%8C%E6%88%90-%E5%BC%80%E5%A7%8B%E6%9E%84%E5%BB%BACONFIG%EF%BC%88index-js%EF%BC%89"><span class="nav-number">5.</span> <span class="nav-text">工具准备完成, 开始构建CONFIG（index.js）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%B9%E6%8D%AE%E7%94%A8%E6%88%B7%E9%80%89%E6%8B%A9%E4%B8%8B%E8%BD%BD%E5%AF%B9%E5%BA%94%E6%96%B9%E6%B3%95-main-js"><span class="nav-number">6.</span> <span class="nav-text">根据用户选择下载对应方法 (main.js)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E5%90%88%E5%B9%B6%E6%96%87%E4%BB%B6-create-file-by-user-select-js"><span class="nav-number">7.</span> <span class="nav-text">创建合并文件(create_file_by_user_select.js)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8webpack%E6%89%93%E5%8C%85-webpack-build-js"><span class="nav-number">8.</span> <span class="nav-text">使用webpack打包(webpack_build.js)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="nav-number">9.</span> <span class="nav-text">配置文件</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%91%E5%B8%83%E5%88%B0NPM"><span class="nav-number"></span> <span class="nav-text">发布到NPM</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%99%BB%E5%BD%95%E8%87%AA%E5%B7%B1%E7%9A%84npm%E8%B4%A6%E5%8F%B7"><span class="nav-number">0.1.</span> <span class="nav-text">登录自己的npm账号</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8E%A8%E9%80%81%E5%8C%85%E5%88%B0npm%E4%BB%93%E5%BA%93%E4%B8%AD"><span class="nav-number">0.2.</span> <span class="nav-text">推送包到npm仓库中</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8E%A8%E9%80%81npm%E5%8C%85%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="nav-number">0.3.</span> <span class="nav-text">推送npm包注意事项</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%99%E5%9C%A8%E6%9C%80%E5%90%8E"><span class="nav-number">1.</span> <span class="nav-text">写在最后</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="WuXiaohong"
+      src="https://avatars3.githubusercontent.com/u/32004925?s=460&u=154f902e7f852def85af5716e81b275fc76cbf86&v=4">
+  <p class="site-author-name" itemprop="name">WuXiaohong</p>
+  <div class="site-description" itemprop="description">知道的越多, 知道的就越少</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">35</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Wxh16144" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Wxh16144" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:wxh1220@gmail.com" title="E-Mail → mailto:wxh1220@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">WuXiaohong</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : 'a19730037ba03110bff3',
+      clientSecret: 'd4260edf31af417abd889600a37958e85868183f',
+      repo        : 'my-Blog',
+      owner       : 'Wxh16144',
+      admin       : ['Wxh16144'],
+      id          : 'e1a82fce231d84fc71fe2dcc5a44fade',
+        language: 'zh-CN',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
+
+</body>
+</html>
