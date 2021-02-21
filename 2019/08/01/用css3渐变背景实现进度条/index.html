@@ -21,19 +21,16 @@
 
   <meta name="description" content="在开发中, 时不时会遇到写进度条的功能, 比如投票比例, 视频播放进度, 文件上传进度…">
 <meta property="og:type" content="article">
-<meta property="og:title" content="用css3渐变背景实现进度条">
+<meta property="og:title" content="用CSS3渐变背景实现进度条">
 <meta property="og:url" content="http://example.com/2019/08/01/%E7%94%A8css3%E6%B8%90%E5%8F%98%E8%83%8C%E6%99%AF%E5%AE%9E%E7%8E%B0%E8%BF%9B%E5%BA%A6%E6%9D%A1/index.html">
 <meta property="og:site_name" content="Wuxh">
 <meta property="og:description" content="在开发中, 时不时会遇到写进度条的功能, 比如投票比例, 视频播放进度, 文件上传进度…">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="http://example.com/images/%E7%94%A8css3%E6%B8%90%E5%8F%98%E8%83%8C%E6%99%AF%E5%AE%9E%E7%8E%B0%E8%BF%9B%E5%BA%A6%E6%9D%A1/demo1.gif">
-<meta property="og:image" content="http://example.com/images/%E7%94%A8css3%E6%B8%90%E5%8F%98%E8%83%8C%E6%99%AF%E5%AE%9E%E7%8E%B0%E8%BF%9B%E5%BA%A6%E6%9D%A1/demo2.gif">
 <meta property="article:published_time" content="2019-08-01T12:02:35.000Z">
-<meta property="article:modified_time" content="2021-02-20T03:36:52.762Z">
-<meta property="article:author" content="WuXiaohong">
-<meta property="article:tag" content="css">
+<meta property="article:modified_time" content="2021-02-21T17:36:04.934Z">
+<meta property="article:author" content="Wuxh">
+<meta property="article:tag" content="CSS">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://example.com/images/%E7%94%A8css3%E6%B8%90%E5%8F%98%E8%83%8C%E6%99%AF%E5%AE%9E%E7%8E%B0%E8%BF%9B%E5%BA%A6%E6%9D%A1/demo1.gif">
 
 <link rel="canonical" href="http://example.com/2019/08/01/%E7%94%A8css3%E6%B8%90%E5%8F%98%E8%83%8C%E6%99%AF%E5%AE%9E%E7%8E%B0%E8%BF%9B%E5%BA%A6%E6%9D%A1/">
 
@@ -48,7 +45,7 @@
   };
 </script>
 
-  <title>用css3渐变背景实现进度条 | Wuxh</title>
+  <title>用CSS3渐变背景实现进度条 | Wuxh</title>
   
 
 
@@ -168,8 +165,8 @@
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/32004925?s=460&u=154f902e7f852def85af5716e81b275fc76cbf86&v=4">
-      <meta itemprop="name" content="WuXiaohong">
-      <meta itemprop="description" content="知道的越多, 知道的就越少">
+      <meta itemprop="name" content="Wuxh">
+      <meta itemprop="description" content="知道的越多, 不知道的就越多">
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
@@ -177,7 +174,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          用css3渐变背景实现进度条
+          用CSS3渐变背景实现进度条
         </h1>
 
         <div class="post-meta">
@@ -194,7 +191,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-02-20 03:36:52" itemprop="dateModified" datetime="2021-02-20T03:36:52+00:00">2021-02-20</time>
+                <time title="修改时间：2021-02-21 17:36:04" itemprop="dateModified" datetime="2021-02-21T17:36:04+00:00">2021-02-21</time>
               </span>
 
           
@@ -211,44 +208,33 @@
         <p>在开发中, 时不时会遇到写进度条的功能, 比如投票比例, 视频播放进度, 文件上传进度…</p>
 <a id="more"></a>
 
-<h4 id="需求分析"><a href="#需求分析" class="headerlink" title="需求分析"></a>需求分析</h4><p>如果需要考虑兼容性的话，使用<code>css3渐变</code>并不是最好的方案;<br>具体兼容大家可以自行查看 <a target="_blank" rel="noopener" href="https://www.caniuse.com/#search=radial-gradient">Can i use radial-gradient</a>;</p>
-<p>使用了 <code>自定义属性</code> 和 <code>线性渐变</code> 和 <code>径向渐变</code></p>
-<h4 id="实现效果"><a href="#实现效果" class="headerlink" title="实现效果"></a>实现效果</h4><p><img src="/images/%E7%94%A8css3%E6%B8%90%E5%8F%98%E8%83%8C%E6%99%AF%E5%AE%9E%E7%8E%B0%E8%BF%9B%E5%BA%A6%E6%9D%A1/demo1.gif" alt="用css3渐变背景实现进度条"></p>
-<p>代码：</p>
-<p><strong>html</strong>部分</p>
+<h3 id="需求分析"><a href="#需求分析" class="headerlink" title="需求分析"></a>需求分析</h3><p>如果需要考虑兼容性的话，使用 <code>CSS3 radial-gradient</code> 并不是最好的方案;<br>具体兼容大家可以自行查看 <a target="_blank" rel="noopener" href="https://www.caniuse.com/#search=radial-gradient">Can i use radial-gradient</a>;</p>
+<h3 id="实现代码"><a href="#实现代码" class="headerlink" title="实现代码"></a>实现代码</h3><p><strong>HTML</strong>部分</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;progress&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p><strong>css</strong>部分</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.progress</span> &#123;</span><br><span class="line">  <span class="attribute">--color</span>: green;</span><br><span class="line">  <span class="attribute">--percentage</span>: <span class="number">50</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">50px</span>;</span><br><span class="line">  <span class="attribute">border-radius</span>: <span class="number">30px</span>;</span><br><span class="line">  <span class="attribute">background-color</span>: <span class="built_in">rgba</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, .<span class="number">1</span>);</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">100%</span>;</span><br><span class="line">  <span class="attribute">background-image</span>: <span class="built_in">radial-gradient</span>(</span><br><span class="line">      closest-side circle at calc(var(--percentage) * <span class="number">1%</span>),</span><br><span class="line">      <span class="built_in">var</span>(--color),</span><br><span class="line">      <span class="built_in">var</span>(--color) <span class="number">100%</span>,</span><br><span class="line">      transparent),</span><br><span class="line">    <span class="built_in">linear-gradient</span>(var(--color), <span class="built_in">var</span>(--color));</span><br><span class="line">  <span class="attribute">background-size</span>: <span class="number">100%</span>, <span class="built_in">calc</span>(var(--percentage) * <span class="number">1%</span>);</span><br><span class="line">  <span class="attribute">background-repeat</span>: no-repeat;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="属性介绍"><a href="#属性介绍" class="headerlink" title="属性介绍"></a>属性介绍</h3><h4 id="radial-gradient"><a href="#radial-gradient" class="headerlink" title="radial-gradient"></a>radial-gradient</h4><blockquote>
-<p><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/radial-gradient">radial-gradient MDN 文档</a>;</p>
-</blockquote>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">background</span>: <span class="selector-tag">radial-gradient</span>(<span class="selector-tag">center</span>, <span class="selector-tag">shape</span>, <span class="selector-tag">size</span>, <span class="selector-tag">start-color</span>, ..., <span class="selector-tag">last-color</span>);</span><br></pre></td></tr></table></figure>
-<p><strong>center</strong> : 渐变起点的位置，可以为百分比，默认是图形的正中心。</p>
-<p><strong>shape</strong> : 渐变的形状，<code>ellipse</code>表示椭圆形，<code>circle</code>表示圆形。默认为<code>ellipse</code>，如果元素形状为正方形的元素，则<code>ellipse</code>和<code>circle</code>显示一样。</p>
-<p><strong>size</strong> : 渐变的大小，即渐变到哪里停止，它有四个值。 </p>
-<p><strong>closest-side</strong> </p>
+<p><strong>CSS</strong>部分</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.progress</span> &#123;</span><br><span class="line">  <span class="attribute">--color</span>: green;</span><br><span class="line">  <span class="attribute">--percentage</span>: <span class="number">50</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">50px</span>;</span><br><span class="line">  <span class="attribute">border-radius</span>: <span class="number">30px</span>;</span><br><span class="line">  <span class="attribute">background-color</span>: <span class="built_in">rgba</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0.1</span>);</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">100%</span>;</span><br><span class="line">  <span class="attribute">background-image</span>: <span class="built_in">radial-gradient</span>(</span><br><span class="line">      closest-side circle at calc(var(--percentage) * <span class="number">1%</span>),</span><br><span class="line">      <span class="built_in">var</span>(--color),</span><br><span class="line">      <span class="built_in">var</span>(--color) <span class="number">100%</span>,</span><br><span class="line">      transparent</span><br><span class="line">    ), <span class="built_in">linear-gradient</span>(var(--color), <span class="built_in">var</span>(--color));</span><br><span class="line">  <span class="attribute">background-size</span>: <span class="number">100%</span>, <span class="built_in">calc</span>(var(--percentage) * <span class="number">1%</span>);</span><br><span class="line">  <span class="attribute">background-repeat</span>: no-repeat;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="属性介绍"><a href="#属性介绍" class="headerlink" title="属性介绍"></a>属性介绍</h3><h4 id="radial-gradient-MDN-文档"><a href="#radial-gradient-MDN-文档" class="headerlink" title="radial-gradient MDN 文档;"></a>radial-gradient <a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/radial-gradient">MDN 文档</a>;</h4><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">background</span>: <span class="selector-tag">radial-gradient</span>(<span class="selector-tag">center</span>, <span class="selector-tag">shape</span>, <span class="selector-tag">size</span>, <span class="selector-tag">start-color</span>, ..., <span class="selector-tag">last-color</span>);</span><br></pre></td></tr></table></figure>
+<p><strong>center</strong>: 渐变起点的位置，可以为百分比，默认是图形的正中心。</p>
+<p><strong>shape</strong>: 渐变的形状，<code>ellipse</code> 表示椭圆形，<code>circle</code> 表示圆形。默认为 <code>ellipse</code>，如果元素形状为正方形的元素，则 <code>ellipse</code> 和<code>circle</code> 显示一样。</p>
+<p><strong>size</strong>: 渐变的大小，即渐变到哪里停止，它有四个值。</p>
+<p><strong>closest-side</strong></p>
 <ul>
-<li>最近边 : <code>closest-side</code></li>
-<li>最远边 : <code>farthest-side </code></li>
-<li>最近角 : <code>closest-corner</code></li>
-<li>最远角 : <code>farthest-corner</code></li>
+<li>最近边: closest-side</li>
+<li>最远边: farthest-side</li>
+<li>最近角: closest-corner</li>
+<li>最远角: farthest-corner</li>
 </ul>
-<h4 id="linear-gradient"><a href="#linear-gradient" class="headerlink" title="linear-gradient"></a>linear-gradient</h4><blockquote>
-<p><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/linear-gradient">linear-gradient MDN 文档</a>;</p>
-</blockquote>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">background</span>: <span class="selector-tag">linear-gradient</span>(<span class="selector-tag">angle</span>, <span class="selector-tag">side-or-corner</span>, <span class="selector-tag">color-stop</span>);</span><br></pre></td></tr></table></figure>
-<p><strong>angle</strong> : 角度</p>
-<p><strong>side-or-corner</strong> : 描述渐变线的起始点位置 <code>left</code> or <code>right</code> or <code>top</code> or <code>bottom</code></p>
-<p><strong>color-stop</strong> : 结束颜色;</p>
+<h4 id="linear-gradient-MDN-文档"><a href="#linear-gradient-MDN-文档" class="headerlink" title="linear-gradient MDN 文档;"></a>linear-gradient <a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/linear-gradient">MDN 文档</a>;</h4><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">background</span>: <span class="selector-tag">linear-gradient</span>(<span class="selector-tag">angle</span>, <span class="selector-tag">side-or-corner</span>, <span class="selector-tag">color-stop</span>);</span><br></pre></td></tr></table></figure>
+<p><strong>angle</strong>: 角度</p>
+<p><strong>side-or-corner</strong>: 描述渐变线的起始点位置 left / right / top / bottom</p>
+<p><strong>color-stop</strong>: 结束颜色;</p>
 <h3 id="第二种实现方法"><a href="#第二种实现方法" class="headerlink" title="第二种实现方法"></a>第二种实现方法</h3><blockquote>
-<p>比较简单, 贴出来方便自己以后复制 (使用两个<code>div</code>实现)</p>
+<p>比较简单, 贴出来方便自己以后复制 (使用两个 <code>div</code> 实现)</p>
 </blockquote>
-<p><img src="/images/%E7%94%A8css3%E6%B8%90%E5%8F%98%E8%83%8C%E6%99%AF%E5%AE%9E%E7%8E%B0%E8%BF%9B%E5%BA%A6%E6%9D%A1/demo2.gif" alt="进度条"></p>
-<p><strong>html</strong>部分</p>
+<p><strong>HTML</strong>部分</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;progress-container&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;progress&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p><strong>css</strong>部分</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.progress-container</span>,</span><br><span class="line"><span class="selector-class">.progress-container</span> <span class="selector-class">.progress</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">100%</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">30px</span>;</span><br><span class="line">  <span class="attribute">border-radius</span>: <span class="number">15px</span>;</span><br><span class="line">  <span class="attribute">overflow</span>: hidden;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.progress-container</span> &#123;</span><br><span class="line">  <span class="attribute">background-color</span>: <span class="built_in">rgba</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, .<span class="number">1</span>)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.progress-container</span> <span class="selector-class">.progress</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">30%</span>;</span><br><span class="line">  <span class="attribute">background-color</span>: red;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<p><strong>CSS</strong>部分</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.progress-container</span>,</span><br><span class="line"><span class="selector-class">.progress-container</span> <span class="selector-class">.progress</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">100%</span>;</span><br><span class="line">  <span class="attribute">height</span>: <span class="number">30px</span>;</span><br><span class="line">  <span class="attribute">border-radius</span>: <span class="number">15px</span>;</span><br><span class="line">  <span class="attribute">overflow</span>: hidden;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.progress-container</span> &#123;</span><br><span class="line">  <span class="attribute">background-color</span>: <span class="built_in">rgba</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0.1</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.progress-container</span> <span class="selector-class">.progress</span> &#123;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">30%</span>;</span><br><span class="line">  <span class="attribute">background-color</span>: red;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
     </div>
 
     
@@ -257,7 +243,7 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/css/" rel="tag"># css</a>
+              <a href="/tags/CSS/" rel="tag"># CSS</a>
           </div>
 
         
@@ -270,8 +256,8 @@
       <i class="fa fa-chevron-left"></i> 用Vue.extend写一个全局使用的Alert
     </a></div>
       <div class="post-nav-item">
-    <a href="/2019/08/01/%E5%8F%91%E5%B8%83%E4%B8%80%E4%B8%AA%E8%87%AA%E5%B7%B1%E7%9A%84npm%E5%8C%85%E4%B9%8Bwxh-tools/" rel="next" title="发布一个自己的npm包之wxh-tools">
-      发布一个自己的npm包之wxh-tools <i class="fa fa-chevron-right"></i>
+    <a href="/2019/08/07/%E8%A3%85%E9%A5%B0%E8%80%85%E6%A8%A1%E5%BC%8F%E4%B9%8BAOP%E5%AE%9E%E7%8E%B0%E4%B8%AD%E9%97%B4%E4%BB%B6/" rel="next" title="装饰者模式之AOP实现"中间件模式"">
+      装饰者模式之AOP实现"中间件模式" <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -332,32 +318,28 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%9C%80%E6%B1%82%E5%88%86%E6%9E%90"><span class="nav-number">1.</span> <span class="nav-text">需求分析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E6%95%88%E6%9E%9C"><span class="nav-number">2.</span> <span class="nav-text">实现效果</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B1%9E%E6%80%A7%E4%BB%8B%E7%BB%8D"><span class="nav-number"></span> <span class="nav-text">属性介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#radial-gradient"><span class="nav-number">1.</span> <span class="nav-text">radial-gradient</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#linear-gradient"><span class="nav-number">2.</span> <span class="nav-text">linear-gradient</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E7%A7%8D%E5%AE%9E%E7%8E%B0%E6%96%B9%E6%B3%95"><span class="nav-number"></span> <span class="nav-text">第二种实现方法</span></a></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9C%80%E6%B1%82%E5%88%86%E6%9E%90"><span class="nav-number">1.</span> <span class="nav-text">需求分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E4%BB%A3%E7%A0%81"><span class="nav-number">2.</span> <span class="nav-text">实现代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B1%9E%E6%80%A7%E4%BB%8B%E7%BB%8D"><span class="nav-number">3.</span> <span class="nav-text">属性介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#radial-gradient-MDN-%E6%96%87%E6%A1%A3"><span class="nav-number">3.1.</span> <span class="nav-text">radial-gradient MDN 文档;</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#linear-gradient-MDN-%E6%96%87%E6%A1%A3"><span class="nav-number">3.2.</span> <span class="nav-text">linear-gradient MDN 文档;</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E7%A7%8D%E5%AE%9E%E7%8E%B0%E6%96%B9%E6%B3%95"><span class="nav-number">4.</span> <span class="nav-text">第二种实现方法</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
       <div class="site-overview-wrap sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <img class="site-author-image" itemprop="image" alt="WuXiaohong"
+    <img class="site-author-image" itemprop="image" alt="Wuxh"
       src="https://avatars3.githubusercontent.com/u/32004925?s=460&u=154f902e7f852def85af5716e81b275fc76cbf86&v=4">
-  <p class="site-author-name" itemprop="name">WuXiaohong</p>
-  <div class="site-description" itemprop="description">知道的越多, 知道的就越少</div>
+  <p class="site-author-name" itemprop="name">Wuxh</p>
+  <div class="site-description" itemprop="description">知道的越多, 不知道的就越多</div>
 </div>
 <div class="site-state-wrap motion-element">
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">35</span>
+          <span class="site-state-item-count">15</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
-      <div class="site-state-item site-state-categories">
-        <span class="site-state-item-count">1</span>
-        <span class="site-state-item-name">分类</span>
-      </div>
       <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-count">9</span>
         <span class="site-state-item-name">标签</span>
       </div>
   </nav>
@@ -396,7 +378,7 @@
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">WuXiaohong</span>
+  <span class="author" itemprop="copyrightHolder">Wuxh</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
   </div>

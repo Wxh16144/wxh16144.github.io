@@ -19,20 +19,21 @@
     var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="使用 node.js 获取本地 IPv4 地址">
+  <meta name="description" content="使用 Swiper.js 在 iOS &lt; 11 时出现下列错误SyntaxError: Unexpected keyword ‘const’. Const declarations are not supported in strict mode.">
 <meta property="og:type" content="article">
-<meta property="og:title" content="node-js获取本机ip">
-<meta property="og:url" content="http://example.com/2019/06/17/node-js%E8%8E%B7%E5%8F%96%E6%9C%AC%E6%9C%BAip/index.html">
+<meta property="og:title" content="使用 Swiper.js 在 iOS &lt; 11 时出现错误">
+<meta property="og:url" content="http://example.com/2018/09/13/Swiper-js%E5%9C%A8iOS11%E5%87%BA%E7%8E%B0%E9%94%99%E8%AF%AF/index.html">
 <meta property="og:site_name" content="Wuxh">
-<meta property="og:description" content="使用 node.js 获取本地 IPv4 地址">
+<meta property="og:description" content="使用 Swiper.js 在 iOS &lt; 11 时出现下列错误SyntaxError: Unexpected keyword ‘const’. Const declarations are not supported in strict mode.">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2019-06-17T17:18:25.000Z">
+<meta property="article:published_time" content="2018-09-13T01:52:38.000Z">
 <meta property="article:modified_time" content="2021-02-21T17:36:04.930Z">
 <meta property="article:author" content="Wuxh">
-<meta property="article:tag" content="Node">
+<meta property="article:tag" content="Bug">
+<meta property="article:tag" content="Webpack">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="http://example.com/2019/06/17/node-js%E8%8E%B7%E5%8F%96%E6%9C%AC%E6%9C%BAip/">
+<link rel="canonical" href="http://example.com/2018/09/13/Swiper-js%E5%9C%A8iOS11%E5%87%BA%E7%8E%B0%E9%94%99%E8%AF%AF/">
 
 
 <script id="page-configurations">
@@ -45,7 +46,7 @@
   };
 </script>
 
-  <title>node-js获取本机ip | Wuxh</title>
+  <title>使用 Swiper.js 在 iOS < 11 时出现错误 | Wuxh</title>
   
 
 
@@ -161,7 +162,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://example.com/2019/06/17/node-js%E8%8E%B7%E5%8F%96%E6%9C%AC%E6%9C%BAip/">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2018/09/13/Swiper-js%E5%9C%A8iOS11%E5%87%BA%E7%8E%B0%E9%94%99%E8%AF%AF/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/32004925?s=460&u=154f902e7f852def85af5716e81b275fc76cbf86&v=4">
@@ -174,7 +175,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          node-js获取本机ip
+          使用 Swiper.js 在 iOS < 11 时出现错误
         </h1>
 
         <div class="post-meta">
@@ -184,7 +185,7 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2019-06-17 17:18:25" itemprop="dateCreated datePublished" datetime="2019-06-17T17:18:25+00:00">2019-06-17</time>
+              <time title="创建时间：2018-09-13 01:52:38" itemprop="dateCreated datePublished" datetime="2018-09-13T01:52:38+00:00">2018-09-13</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
@@ -205,15 +206,20 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <p>使用 node.js 获取本地 IPv4 地址</p>
+        <p>使用 Swiper.js 在 iOS &lt; 11 时出现下列错误<br>SyntaxError: Unexpected keyword ‘const’. Const declarations are not supported in strict mode.</p>
 <a id="more"></a>
 
-<h3 id="起因"><a href="#起因" class="headerlink" title="起因"></a>起因</h3><p>在公司开发项目过程中, 使用<code>Vue</code>项目配置本地 host 的时候;<br>每个人从<code>SVN</code>仓库 pull 下来的代码, 安装依赖后, 无法正常运行, 需要修改 ip 为自己本地 IP;<br>索性每次都要改, 每个开发者都麻烦, 所以自己写了一个方法来获取 IP 地址;</p>
-<h3 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> os = <span class="built_in">require</span>(<span class="string">&#x27;os&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> getLocalIP = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">//所有的网卡</span></span><br><span class="line">  <span class="keyword">const</span> ifaces = os.networkInterfaces();</span><br><span class="line">  <span class="keyword">let</span> network = [];</span><br><span class="line">  <span class="comment">//移除loopback,没多大意义</span></span><br><span class="line">  <span class="built_in">Reflect</span>.ownKeys(ifaces).forEach(<span class="function"><span class="params">key</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (!<span class="regexp">/loopback/gi</span>.test(key)) &#123;</span><br><span class="line">      network = [...network, ...ifaces[key]];</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;);</span><br><span class="line">  <span class="keyword">return</span> network.reduce(<span class="function">(<span class="params">arr, &#123; address, family &#125;</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> ip = <span class="regexp">/^IPv4$/gi</span>.test(family) ? [address] : [];</span><br><span class="line">    <span class="keyword">return</span> [...arr, ...ip];</span><br><span class="line">  &#125;, []);</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// exports.getLocalIP = getLocalIP</span></span><br><span class="line"><span class="keyword">const</span> a = getLocalIP();</span><br><span class="line"><span class="built_in">console</span>.log(a);</span><br></pre></td></tr></table></figure>
-<h3 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h3><ol>
-<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/spy19881201/article/details/13394933">Nodejs 获取本机地址</a></li>
-<li><a target="_blank" rel="noopener" href="http://nodejs.cn/api/os.html#os_os_networkinterfaces">Nodejs 中 os.networkInterfaces()</a></li>
-</ol>
+<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>在 H5 项目中，需要用到翻页效果，通过安装 <strong>Swiper</strong> 来实现</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i swiper -S</span><br></pre></td></tr></table></figure>
+<p>但是实际使用中，发现 <strong>IOS</strong> 低版本(iOS &lt; 11)会出现下面这个错误：<br>SyntaxError: Unexpected keyword ‘const’. Const declarations are not supported in strict mode.</p>
+<h3 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h3><p><strong>Swiper.js</strong> 这个 <code>Npm</code> 包里面还使用了 <code>dom7</code> 和 <code>ssr-window</code>，所以需要对这两个插件进行 <strong>Babel</strong> 转 <strong>ES5</strong>;</p>
+<h3 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h3><p><strong>Vue CLI 2.x</strong> 下，在 <code>build/webpack.base.config.js</code> 文件中修改</p>
+<figure class="highlight diff"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">modules: &#123;</span><br><span class="line">  rules: [</span><br><span class="line">    &#123;</span><br><span class="line">      test: /\.js$/,</span><br><span class="line">      loader: &#x27;babel-loader&#x27;,</span><br><span class="line">      include: [</span><br><span class="line">        resolve(&#x27;src&#x27;),</span><br><span class="line">        resolve(&#x27;test&#x27;),</span><br><span class="line">        resolve(&#x27;node_modules/swiper/dist/js/&#x27;),</span><br><span class="line">        resolve(&#x27;node_modules/webpack-dev-server/client&#x27;),</span><br><span class="line">        // 新增</span><br><span class="line"><span class="addition">+       resolve(&#x27;node_modules/swiper&#x27;),</span></span><br><span class="line"><span class="addition">+       resolve(&#x27;node_modules/dom7&#x27;),</span></span><br><span class="line"><span class="addition">+       resolve(&#x27;node_modules/ssr-window&#x27;)</span></span><br><span class="line">      ]</span><br><span class="line">    &#125;</span><br><span class="line">  ];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>Vue CLI 3.x</strong><br>在 <code>vue.config.js</code> 中增加 <code>transpileDependencies</code> 配置;</p>
+<figure class="highlight diff"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">module.exports = &#123;</span><br><span class="line"><span class="addition">+ transpileDependencies: [&#x27;swiper&#x27;, &#x27;dom7&#x27;, &#x27;ssr-window&#x27;]</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h3><ul>
+<li><a target="_blank" rel="noopener" href="http://idangero.us/swiper/get-started/">http://idangero.us/swiper/get-started/</a></li>
+</ul>
 
     </div>
 
@@ -223,7 +229,8 @@
 
       <footer class="post-footer">
           <div class="post-tags">
-              <a href="/tags/Node/" rel="tag"># Node</a>
+              <a href="/tags/Bug/" rel="tag"># Bug</a>
+              <a href="/tags/Webpack/" rel="tag"># Webpack</a>
           </div>
 
         
@@ -232,12 +239,12 @@
         
     <div class="post-nav">
       <div class="post-nav-item">
-    <a href="/2019/05/28/%E5%85%83%E7%B4%A0%E5%9B%BA%E5%AE%9A%E5%AE%BD%E5%BA%A6%E6%96%87%E6%9C%AC%E4%B8%8D%E6%8D%A2%E8%A1%8C%E5%B9%B6%E4%B8%94%E5%85%A8%E9%83%A8%E5%B1%95%E7%A4%BA/" rel="prev" title="元素固定宽度文本不换行并且全部展示">
-      <i class="fa fa-chevron-left"></i> 元素固定宽度文本不换行并且全部展示
+    <a href="/2018/09/03/%E8%A7%A3%E5%86%B3%E5%BE%AE%E4%BF%A1H5%E5%9C%A8IOS%E4%B8%AD%E6%97%A0%E6%B3%95%E8%87%AA%E5%8A%A8%E6%92%AD%E6%94%BE%E9%9F%B3%E4%B9%90%E9%97%AE%E9%A2%98/" rel="prev" title="解决微信H5在IOS中无法自动播放音乐问题">
+      <i class="fa fa-chevron-left"></i> 解决微信H5在IOS中无法自动播放音乐问题
     </a></div>
       <div class="post-nav-item">
-    <a href="/2019/07/26/%E7%94%A8Vue-extend%E5%86%99%E4%B8%80%E4%B8%AA%E5%85%A8%E5%B1%80%E4%BD%BF%E7%94%A8%E7%9A%84Alert/" rel="next" title="用Vue.extend写一个全局使用的Alert">
-      用Vue.extend写一个全局使用的Alert <i class="fa fa-chevron-right"></i>
+    <a href="/2018/11/06/npm-plugin_vue-photo-preview/" rel="next" title="NPM PLUGIN vue-photo-preview">
+      NPM PLUGIN vue-photo-preview <i class="fa fa-chevron-right"></i>
     </a></div>
     </div>
       </footer>
@@ -298,7 +305,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B5%B7%E5%9B%A0"><span class="nav-number">1.</span> <span class="nav-text">起因</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95"><span class="nav-number">2.</span> <span class="nav-text">解决方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E6%A1%A3"><span class="nav-number">3.</span> <span class="nav-text">参考文档</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8E%9F%E5%9B%A0"><span class="nav-number">2.</span> <span class="nav-text">原因</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="nav-number">3.</span> <span class="nav-text">解决方案</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E6%A1%A3"><span class="nav-number">4.</span> <span class="nav-text">参考文档</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -425,7 +432,7 @@ NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
       repo        : 'my-Blog',
       owner       : 'Wxh16144',
       admin       : ['Wxh16144'],
-      id          : 'f8a5d4a913db8519a054c8ee35c0a54c',
+      id          : 'f3c8970ee6ea4f0bcc42f858f49c0e56',
         language: 'zh-CN',
       distractionFreeMode: true
     });
