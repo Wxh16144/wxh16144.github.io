@@ -29,6 +29,7 @@ git config --global -e
 [alias]
   co = checkout
   cob = checkout -b
+  cor = checkout --orphan # 创建无历史记录的分支
   coo = !git fetch && git checkout
   br = branch
   brd = branch -d
@@ -36,7 +37,7 @@ git config --global -e
   aa = add -A .
   unstage = reset --soft HEAD^
   cm = commit -m
-  amend = commit --amend -m
+  amend = commit --amend --no-edit # 个人需求调整
   fix = commit --fixup
   undo = reset HEAD~1
   rv = revert
