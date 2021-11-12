@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.bootcdn.net/ajax/libs/minireset.css/0.0.2/minireset.min.css"
+      rel="stylesheet"
+    />
+    <title>生活小记录</title>
+    <style>
+      body {
+        background-color: #333;
+      }
+      a {
+        text-decoration: none;
+      }
+
+      main {
+        width: 100vw;
+        height: 100vh;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+      }
+      main h1 {
+        color: #fff;
+        font-size: 2rem;
+        margin: 0 0 2rem;
+      }
+      main .nav {
+        display: inherit;
+      }
+
+      main .nav li {
+        padding: 0 0.2rem;
+        margin: 0 0.2rem;
+        border: 2px solid #ccc;
+        transition: border-radius 0.2s;
+      }
+      main .nav li:hover {
+        border-radius: 1rem;
+        border-color: red;
+        border-width: 2px;
+      }
+      main .nav li > a {
+        color: #ccc;
+      }
+      main .nav li > a:hover {
+        color: red;
+      }
+
+      footer {
+        width: 100%;
+        position: absolute;
+        bottom: 18px;
+        display: flex;
+        justify-content: center;
+      }
+      footer .text-color {
+        color: #bbb;
+      }
+      footer .text-color:hover {
+        color: #eee;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>生活小记录</h1>
+      <ul class="nav">
+        <li>
+          <a href="https://github.com/Wxh16144" target="_blank">Github</a>
+        </li>
+        <li>
+          <a href="https://weibo.com/u/5720107112" target="_blank">Weibo</a>
+        </li>
+        <li>
+          <a
+            href="https://www.zhihu.com/people/pang-da-hai-73-79"
+            target="_blank"
+            >Zhihu</a
+          >
+        </li>
+      </ul>
+    </main>
+    <footer>
+      <a class="text-color" href="https://beian.miit.gov.cn" target="_blank">
+        浙ICP备17045739号
+      </a>
+    </footer>
+  </body>
+</html>
