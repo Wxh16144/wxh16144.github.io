@@ -119,9 +119,22 @@
     }
     footer > a {
       color: inherit;
+      transition: color 0.2s;
     }
-    footer > a:hover {
+    footer > a:first-child:hover {
       color: blue;
+    }
+    footer > a:last-child {
+      display: inline-block;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      margin-top: 8px;
+      color: #333;
+      font-weight: bold;
+    }
+    footer > a:last-child:hover {
+      font-size: 12px;
+      color: #000;
     }
   </style>
   <body>
@@ -131,6 +144,10 @@
       <a href="https://codepen.io/stevenlei/pen/ZEJxXGL" target="_black"
         >Steven</a
       >
+      <br />
+      <a class="text-color" href="https://beian.miit.gov.cn" target="_blank">
+        浙ICP备17045739号
+      </a>
     </footer>
   </body>
 </html>
