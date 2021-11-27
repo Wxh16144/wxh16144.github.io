@@ -91,6 +91,37 @@ docker exec -it my_gitlab gitlab-ctl reconfigure
 +    - '999:999'
 ```
 
-使用 `docker-compose up -d` 
+使用 `docker-compose up -d` 重新创建容器。
 
 ![image.png](https://i.loli.net/2021/11/27/yIXVNvqJE3RBcxT.png)
+
+
+### 配置SSH
+在 `docker-compose.yml` 配置端口映射一下就好了
+
+```diff
+version: '3.4'
+services:
+    container_name: 'my_gitlab'
+    restart: always
+    ports:
+      - '80:80'
++     - '222:22'
+```
+
+使用 `docker-compose up -d` 重新创建容器。
+
+使用 config 维护 SSH key ，具体参考文章[使用config文件来维护SSH密钥](./使用config文件来维护SSH密钥.md)
+
+
+```bash
+Host my-gitlab.com
+    HostName my-gitlab.com
+    Port 222 # 端口
+    User root
+    IdentityFile ~/.ssh/id # 私钥
+```
+
+
+### 参考文档
++ [使用Docker安装配置GitLab CE](https://www.cnblogs.com/mithrilon/p/13985710.html)
