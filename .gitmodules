@@ -1,3 +1,6 @@
 [submodule "themes/next"]
 	path = themes/next
 	url = git@github.com:Wxh16144/hexo-theme-next.git
+[submodule "source/bookmarks"]
+	path = source/bookmarks
+	url = git@github.com:Wxh16144/bookmarks.git
