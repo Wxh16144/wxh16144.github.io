@@ -1,153 +1,258 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8" />
-    <title>生活小记录</title>
-  </head>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link
-    href="https://fonts.googleapis.com/css2?family=ZCOOL+QingKe+HuangYou&display=swap"
-    rel="stylesheet"
-  />
-  <style>
-    :root {
-      font-size: 15px;
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="keywords" content="wxh,home,wuxiaohong,wuxh,吴小红" />
+    <meta name="description" content="个人首页" />
+    <meta name="viewport"
+        content="width=device-width,initial-scale=1.0, maximum-scale=1.0, minimum-scale=1, user-scalable=no" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="icon" href="favicon.ico">
+    <style>
+        canvas#canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: block;
+            z-index: -1
+        }
+
+        :root {
+            --border-color: #9abffe;
+            --text-color: #fe7f9d
+        }
+
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            overflow: hidden;
+            background: white;
+            user-select: none
+        }
+
+        body {
+            display: flex;
+            font-family: 'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', '微软雅黑', Arial, sans-serif
+        }
+
+        #container {
+            user-select: none;
+            position: relative;
+            width: 35%;
+            margin: auto;
+            z-index: 998;
+            border-radius: 10px;
+            overflow: hidden;
+            list-style-type: none;
+            background: rgb(154, 191, 254, 0.22);
+            border: 2px solid var(--border-color, green);
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            transition: transform .5s
+        }
+
+        #container:hover {
+            background: transparent;
+            transform: translateY(-3px)
+        }
+
+        #container li.item {
+            flex: 0 1 auto;
+            height: 80px;
+            font-weight: 600;
+            font-size: 26px;
+            display: flex
+        }
+
+        #container li.item a {
+            cursor: pointer;
+            text-decoration: none;
+            color: var(--text-color, green);
+            margin: auto;
+            box-sizing: border-box;
+            padding-bottom: 3px;
+            transition: all .3s
+        }
+
+        #container li.item a:hover {
+            border-bottom: 2px solid var(--text-color, green)
+        }
+
+        #container li.item a:active {
+            color: var(--border-color, green)
+        }
+
+        #cintauber li.item a:visited {
+            color: var(--border-color, green)
+        }
+
+        @media(max-width:1199.98px) {
+            #container {
+                width: 45%
+            }
+
+            #container li.item {
+                height: 70px;
+                font-size: 22px;
+                flex-wrap: 500
+            }
+        }
+
+        @media(max-width:991.98px) {
+            #container {
+                width: 45%
+            }
+
+            #container li.item {
+                height: 60px;
+                font-size: 20px;
+                flex-wrap: 500
+            }
+        }
+
+        @media(max-width:767.98px) {
+            #container {
+                flex-direction: column;
+                width: 50%
+            }
+
+            #container li.item {
+                height: 80px;
+                font-size: 24px;
+                flex-wrap: 500
+            }
+        }
+
+        @media(max-width:575.98px) {
+            #container {
+                flex-direction: column;
+                width: 80%
+            }
+
+            #container:hover {
+                transform: none
+            }
+
+            #container li.item {
+                height: 80px;
+                font-size: 24px;
+                flex-wrap: 500
+            }
+        }
+    </style>
+    <title>W&#250; xiaohong</title>
+</head>
+
+<body>
+    <ul id="container"> </ul>
+    <canvas id="canvas"></canvas>
+</body>
+<script>
+    let arr = [
+        {
+            kid: 1,
+            target: '_self',
+            text: 'Home',
+            href: '/'
+        }
+      , {
+            kid: 3,
+            target: '_self',
+            text: 'Avatar',
+            href: 'http://wxhboy.cn/img'
+        }, {
+            kid: 4,
+            target: '_self',
+            text: 'GitHub',
+            href: 'https://github.com/wxh16144'
+        }
+    ]
+
+    function createElementToHTML(arr) {
+        let temporary = document.createElement('div');
+        for (let index = 0; index < arr.length; index++) {
+            let li_el = document.createElement('li');
+            li_el.className = 'item';
+            let a_el = document.createElement('a');
+            a_el.text = arr[index]['text'];
+            li_el.appendChild(setAtttr(a_el, arr[index]));
+            temporary.appendChild(li_el);
+        }
+        return temporary.innerHTML;
     }
 
-    body {
-      font-family: 'ZCOOL QingKe HuangYou', cursive;
-      margin: 0;
-      min-height: 100vh;
-      background-color: #e493d0;
-      background-image: radial-gradient(
-          closest-side,
-          rgba(235, 105, 78, 1),
-          rgba(235, 105, 78, 0)
-        ),
-        radial-gradient(
-          closest-side,
-          rgba(243, 11, 164, 1),
-          rgba(243, 11, 164, 0)
-        ),
-        radial-gradient(
-          closest-side,
-          rgba(254, 234, 131, 1),
-          rgba(254, 234, 131, 0)
-        ),
-        radial-gradient(
-          closest-side,
-          rgba(170, 142, 245, 1),
-          rgba(170, 142, 245, 0)
-        ),
-        radial-gradient(
-          closest-side,
-          rgba(248, 192, 147, 1),
-          rgba(248, 192, 147, 0)
-        );
-      background-size: 130vmax 130vmax, 80vmax 80vmax, 90vmax 90vmax,
-        110vmax 110vmax, 90vmax 90vmax;
-      background-position: -80vmax -80vmax, 60vmax -30vmax, 10vmax 10vmax,
-        -30vmax -10vmax, 50vmax 50vmax;
-      background-repeat: no-repeat;
-      animation: 10s movement linear infinite;
+    function setAtttr(el, attr) {
+        let arr = Object.keys(attr);
+        for (let index = 0; index < arr.length; index++) {
+            let key = arr[index];
+            let value = attr[key];
+            el.setAttribute(key, value);
+        }
+        return el
     }
-
-    body::after {
-      content: '';
-      display: block;
-      position: fixed;
-      width: 100%;
-      height: 100%;
-      top: 0;
-      left: 0;
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-    }
-
-    span {
-      position: relative;
-      z-index: 1;
-      display: flex;
-      min-height: 100vh;
-      width: 100%;
-      justify-content: center;
-      align-items: center;
-      font-size: 5rem;
-      color: transparent;
-      text-shadow: 0px 0px 1px rgba(255, 255, 255, 0.6),
-        0px 4px 4px rgba(0, 0, 0, 0.05);
-      letter-spacing: 0.2rem;
-    }
-
-    @keyframes movement {
-      0%,
-      100% {
-        background-size: 130vmax 130vmax, 80vmax 80vmax, 90vmax 90vmax,
-          110vmax 110vmax, 90vmax 90vmax;
-        background-position: -80vmax -80vmax, 60vmax -30vmax, 10vmax 10vmax,
-          -30vmax -10vmax, 50vmax 50vmax;
-      }
-      25% {
-        background-size: 100vmax 100vmax, 90vmax 90vmax, 100vmax 100vmax,
-          90vmax 90vmax, 60vmax 60vmax;
-        background-position: -60vmax -90vmax, 50vmax -40vmax, 0vmax -20vmax,
-          -40vmax -20vmax, 40vmax 60vmax;
-      }
-      50% {
-        background-size: 80vmax 80vmax, 110vmax 110vmax, 80vmax 80vmax,
-          60vmax 60vmax, 80vmax 80vmax;
-        background-position: -50vmax -70vmax, 40vmax -30vmax, 10vmax 0vmax,
-          20vmax 10vmax, 30vmax 70vmax;
-      }
-      75% {
-        background-size: 90vmax 90vmax, 90vmax 90vmax, 100vmax 100vmax,
-          90vmax 90vmax, 70vmax 70vmax;
-        background-position: -50vmax -40vmax, 50vmax -30vmax, 20vmax 0vmax,
-          -10vmax 10vmax, 40vmax 60vmax;
-      }
-    }
-
-    footer {
-      position: fixed;
-      bottom: 12px;
-      left: 0;
-      z-index: 999;
-      color: #eff;
-      width: 100vw;
-      text-align: center;
-    }
-    footer > a {
-      color: inherit;
-      transition: color 0.2s;
-    }
-    footer > a:first-child:hover {
-      color: blue;
-    }
-    footer > a:last-child {
-      display: inline-block;
-      font-size: 12px;
-      letter-spacing: 0.08em;
-      margin-top: 8px;
-      color: #333;
-      font-weight: bold;
-    }
-    footer > a:last-child:hover {
-      font-size: 12px;
-      color: #000;
-    }
-  </style>
-  <body>
-    <span>生活小记录</span>
-    <footer>
-      Design By
-      <a href="https://codepen.io/stevenlei/pen/ZEJxXGL" target="_black"
-        >Steven</a
-      >
-      <br />
-      <a class="text-color" href="https://beian.miit.gov.cn" target="_blank">
-        浙ICP备17045739号
-      </a>
-    </footer>
-  </body>
+    document.querySelector('#container').innerHTML = createElementToHTML(arr);
+</script>
+<script>
+    ! function () {
+        var t = document.getElementById("canvas"),
+            i = t.getContext("2d"),
+            h = t.width = window.innerWidth,
+            s = t.height = window.innerHeight,
+            a = h / 2,
+            r = s / 2,
+            e = function (t, i) {
+                this.x = t, this.y = i, this.vx = 0, this.vy = 0, this.r = 1 + 10 * Math.random(), this.sa = Math
+                    .random() * Math.PI * 2, this.ea = Math.random() * Math.PI * 2, this.rt = Math.random() * Math.PI *
+                    2, this.vrt = 0, this.h = 0
+            };
+        e.prototype = {
+            constructor: e,
+            update: function () {
+                this.vx += .1 * Math.random() - .05, this.vy += .1 * Math.random() - .05, this.vrt += .02 * Math
+                    .random() - .01, this.x += this.vx, this.y += this.vy, this.rt += this.vrt;
+                var t = a - this.x,
+                    i = r - this.y,
+                    e = Math.sqrt(t * t + i * i);
+                this.h = t / e * 360, this.x < 0 && (this.x = 0, this.vx *= -1), this.x > h && (this.x = h, this
+                    .vx *= -1), this.y < 0 && (this.y = 0, this.vy *= -1), this.y > s && (this.y = s, this
+                    .vy *= -1)
+            },
+            render: function (t) {
+                t.save(), t.strokeStyle = "black", t.fillStyle = "hsla(" + this.h + ", 100%, 50%, 0.5)", t
+                    .translate(this.x, this.y), t.rotate(this.rt), t.beginPath(), t.arc(0, 0, this.r, this.sa,
+                        this.ea), t.fill(), t.stroke(), t.restore()
+            }
+        };
+        for (var n, o = [], d = Math.floor(h * s / 1e4), v = 0; v < d; v++) n = new e(Math.random() * h, Math.random() *
+            s), o.push(n);
+        requestAnimationFrame(function t() {
+            requestAnimationFrame(t), i.clearRect(0, 0, h, s);
+            for (var a = 0; a < d; a++)(n = o[a]).update(), n.render(i);
+            for (a = 0; a < d; a++)
+                for (var r = o[a], e = a + 1; e < d; e++) {
+                    var v = o[e],
+                        y = r.x - v.x,
+                        c = r.y - v.y;
+                    Math.sqrt(y * y + c * c) < 50 && (i.strokeStyle = "rgba(0, 0, 0, 0.5)", i.beginPath(), i
+                        .moveTo(r.x, r.y), i.lineTo(v.x, v.y), i.stroke())
+                }
+        });
+        var y, c, l;
+        window.addEventListener("resize", (y = function () {
+            window.location.reload()
+        }, c = 300, function (...t) {
+            clearTimeout(l);
+            var i = this;
+            l = setTimeout(function (...t) {
+                y.apply(i, t)
+            }, c)
+        }))
+    }();
+</script>
+<script>
+</script>
 </html>
