@@ -1,0 +1,26 @@
+name: update_my_blog_repo
+
+on:
+  push:
+    branches:
+      - website
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    name: update myblog repo.
+
+    steps:
+      - name: clone & update & push
+        uses: actions/checkout@v2
+        with:
+          submodules: true
+      - run: |
+            git submodule update --remote source/web
+            git config --local user.email "github-actions[bot]@users.noreply.github.com"
+            git config --local user.name "github-actions[bot]"
+            git config --local core.pager ''
+            git add source/web
+            git commit -m 'Update website'
+            git log --oneline -5
+            git push
