@@ -1,10 +1,11 @@
 ; (function (win) {
   var option = Object.assign({
-    copyright_start: ' ©2018',
+    copyright_start: '©2018',
     record: {
       url: 'https://beian.miit.gov.cn/',
       number: '浙ICP备17045739号-2'
-    }
+    },
+    fixed: false
   }, win.footer_option)
 
   var setStyle = function (el, obj) {
@@ -23,17 +24,25 @@
     return el
   };
 
-  var footer_el = setStyle('footer', {
-    // position:'fixed',
-    // bottom:0,
-    // height: '32px',
+  var footer_style = {
     margin: '10px 0',
     width: '100%',
     textAlign: 'center',
     color: '#999',
     fontSize: '12px',
     zIndex: 996
-  });
+  }
+
+  if (option.fixed)
+    footer_style = {
+      ...footer_style,
+      position: 'fixed',
+      bottom: 0,
+      height: '32px',
+    }
+
+  var footer_el = setStyle('footer', footer_style);
+
 
   var p_el = setStyle('p', {});
 

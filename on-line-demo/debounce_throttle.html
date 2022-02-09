@@ -48,26 +48,6 @@
         border: 2px solid red;
         display: block;
       }
-
-      #footer {
-        position: fixed;
-        bottom: 0;
-        height: 32px;
-        width: 100%;
-        text-align: center;
-        color: #999;
-        font-size: 12px;
-        /* background: red; */
-      }
-
-      #footer a {
-        color: #999;
-      }
-
-      #footer a:visited {
-        font-size: 12px;
-        color: #888;
-      }
     </style>
   </head>
   <div id="box">
@@ -85,15 +65,6 @@
       >
     </p>
   </div>
-  <!-- 无关紧要 -->
-  <footer id="footer">
-    <p>
-      &#169;2019 wxhboy.cn
-      <a href="http://www.miitbeian.gov.cn" target="_blank"
-        >浙ICP备17045739号-2</a
-      >
-    </p>
-  </footer>
   <body>
     <script>
       const Canvas = function(canvas) {
@@ -272,4 +243,8 @@
       window.addEventListener('resize', fn)
     </script>
   </body>
+  <script>
+    var footer_option = { fixed: true };
+  </script>
+  <script src="../assets/create_footer.js"></script>
 </html>
