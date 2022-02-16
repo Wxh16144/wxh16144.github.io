@@ -6,6 +6,14 @@ tags: ['notes']
 
 一些快速记录的笔记
 
+## Vite 插件 unplugin-auto-import
+
+_2022/02/16_
+
+写 `TypeScript` 时，使用 [unplugin-auto-import](https://github.com/antfu/unplugin-auto-import) 实现按需自动导入API。
+
+插件 [vite-auto-import-resolvers](https://github.com/dishait/vite-auto-import-resolvers) 使用了 `unplugin-auto-import` 的自定义 `resolvers`, see [github 实现](https://github.com/dishait/vite-auto-import-resolvers/blob/main/src/dir.ts#L94-L118)。
+
 ## 位运算符速记
 
 _2022/02/09_
