@@ -6,6 +6,13 @@ tags: ['notes']
 
 一些快速记录的笔记
 
+## markdown-it 和 feed
+
+_2022/02/24_
+
+笔记这栏是参考 [antfu.me/notes](https://antfu.me/notes) 而写的。看到有 `rss` 订阅,想着自己的笔记也实现一下。使用 hexo 的自动生成 rss 插件无法生成自己想要的。
+阅读 [antfu.me repo](https://github.com/antfu/antfu.me) 后才发现，作者是使用 [markdown-it](https://github.com/markdown-it/markdown-it) 和 [feed](https://github.com/jpmonette/feed) 自己写脚本实现的。[scripts/rss.ts](https://github.com/antfu/antfu.me/blob/main/scripts/rss.ts)  
+
 ## Vite 插件 unplugin-auto-import
 
 _2022/02/16_
