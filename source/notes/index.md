@@ -6,6 +6,27 @@ tags: ['notes']
 
 一些快速记录的笔记
 
+## import-maps
+
+_2022/02/24_
+
+在阅读 [New React Docs](https://beta.reactjs.org) 时发现文中有交互式调试功能。点击 Download 按钮还可以下载 `sandbox.html` 文件。直接在浏览器中运行示例代码。
+阅读了 [reactjs.org repo](https://github.com/reactjs/reactjs.org/blob/main/beta/src/components/MDX/Sandpack/DownloadButton.tsx#L43-L50) 后发现是 html 模版中使用了 [@babel/standalone](https://babel.dev/docs/en/babel-standalone) 和 `<script type="importmap">`。
+
+```html
+<script type="importmap">
+{
+  "imports": {
+    "react": "https://cdn.skypack.dev/react",
+    "react-dom": "https://cdn.skypack.dev/react-dom"
+  }
+}
+</script>
+```
+
++ [Javascript Import maps(中文)](https://www.jianshu.com/p/b23d823a183a)
++ [Github WICG/import-maps](https://github.com/WICG/import-maps)
+
 ## markdown-it 和 feed
 
 _2022/02/24_
