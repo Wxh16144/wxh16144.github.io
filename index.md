@@ -6,6 +6,14 @@ tags: ['notes']
 
 一些快速记录的笔记
 
+## Snapshot Testing
+
+_2022/03/09_
+
+antfu 开源的 [unconfig Repo](https://github.com/antfu/unconfig) 其作用是加载通用配置文件。在仓库的单元测试中发现了快照测试。比如:
+[Jest snapshot testing](https://jestjs.io/docs/snapshot-testing), 使用 `jest --updateSnapshot` 或 `jest -u` 来更新所有快照。
+[vitest snapshot testing](https://vitest.dev/api/#tothrowerror), 使用 `vitest --update` 或 `vitest -u` 来更新所有快照。
+
 ## import-maps
 
 _2022/02/24_
