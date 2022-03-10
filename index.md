@@ -13,6 +13,9 @@ _2022/03/09_
 antfu 开源的 [unconfig Repo](https://github.com/antfu/unconfig) 其作用是加载通用配置文件。在仓库的单元测试中发现了快照测试。比如:
 [Jest snapshot testing](https://jestjs.io/docs/snapshot-testing), 使用 `jest --updateSnapshot` 或 `jest -u` 来更新所有快照。
 [vitest snapshot testing](https://vitest.dev/api/#tothrowerror), 使用 `vitest --update` 或 `vitest -u` 来更新所有快照。
+[ava snapshot testing](https://github.com/avajs/ava/blob/main/docs/04-snapshot-testing.md), 使用 `ava --update-snapshots` 或 `ava -u` 来更新所有快照。
+
+顺便补充一个 [ava + puppeteer.test](https://gist.githubusercontent.com/Wxh16144/e61f87de20ed1ce534edf0ff8258ea56/raw/b28c48054e18ced5e0c500b15210d3cea935252e/ava_puppeteer.js) 测试示列。
 
 ## import-maps
 
