@@ -6,6 +6,31 @@ tags: ['notes']
 
 一些快速记录的笔记
 
+## Jest unit testing
+
+_2022/03/18_
+
+在阅读 AntD 测试用例时，需要单独运行某个组件 case，或者某个组件的一条 case.
+
++ 仅运行 components/button 目录下测试用例: `npm run test -- components/button`
++ 仅运行 button 用例名称为 'mount correctly' 的 case : `npm run test -- components/button -t "mount correctly"`
++ 接上条, 使用 [Jest api](https://jestjs.io/docs/api#testonlyname-fn-timeout) (test.only、test.skip) 暂时运行/跳过某些 case:
+
+```diff
+-  it('renders correctly', () => {
++  it.only('renders correctly', () => {  /* 仅运行这条 case */
+     expect(mount(<Button>Follow</Button>).render()).toMatchSnapshot();
+   });
+ 
+-  it('mount correctly', () => {
++  it.skip('mount correctly', () => { /* 跳过这条 case */
+     expect(() => mount(<Button>Follow</Button>)).not.toThrow();
+   });
+
+```
+
+其中 npm run test --, `--` 是指将后面的参数传递给 script; [Passing args into run-scripts](https://github.com/npm/npm/pull/5518).
+
 ## Snapshot Testing
 
 _2022/03/09_
