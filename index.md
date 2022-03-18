@@ -6,6 +6,16 @@ tags: ['notes']
 
 一些快速记录的笔记
 
+## copy & paste
+
+_2022/03/19_
+
+在 Mac OS 可以使用 `pbcopy` 和 `pbpaste` 在命令行中进行复制和粘贴操作:
+
++ `pbcopy < ~/.ssh/public_key` 复制 public_key 内容到剪贴板。
++ `curl baidu.com | pbcopy` 复制 baidu.com 站点内容到剪贴板。
++ `pbpaste > baidu.html` 粘贴剪贴板内容到 baidu.html 文件中。
+
 ## Jest unit testing
 
 _2022/03/18_
