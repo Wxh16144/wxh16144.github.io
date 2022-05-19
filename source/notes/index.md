@@ -6,6 +6,20 @@ tags: ['notes']
 
 一些快速记录的笔记
 
+## /dev/null
+
+在 Linux 命令中，经常见到 `xxx 2>/dev/null`, 如为防止 Docker 容器退出使用 `tail -f /dev/null`。关于这个命令，我的理解是：
+
++ `0` 标准输入 stdin，`1` 标准输出 stdout， `2` 错误输出 stderr, `>` 是重定向, `/dev/null` 是个只进不出的地方;
+
++ 如果只关心**正常输出**，可以在命令后面这样重定向：`commaned 2> /dev/null`, 这样一来，我们看到的所有输出，都是命令正常执行的输出，忽略所有错误输出。
++ 如果只关心**报错内容**，可以在命令后面这样重定向 `command > /dev/null`
+
+ref:
+
++ [shell程序中 2> /dev/null 代表什么意思](https://www.zhihu.com/question/53295083)
++ [什么是 Bash 中的标准输入、标准错误和标准输出](https://linuxhint.com/bash_stdin_stderr_stdout/)
+
 ## copy & paste
 
 _2022/03/19_
