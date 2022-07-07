@@ -6,7 +6,38 @@ tags: ['notes']
 
 一些快速记录的笔记
 
+## Shell字符串拼接（连接、合并）
+
+_2022/07/07_
+
+在写一个 shell 脚本的时候，经常需要对变量字符串进行拼接，记录几种拼接方法；
+
+```bash
+#!/bin/bash
+
+name="Shell"
+url="https://wxhboy.cn/"
+
+str1=$name$url  #中间不能有空格
+str2="$name $url"  #如果被双引号包围，那么中间可以有空格
+str3=$name": "$url  #中间可以出现别的字符串
+str4="$name: $url"  #这样写也可以
+str5="${name}Script: ${url}index.html"  #这个时候需要给变量名加上大括号
+
+echo $str1  # Shellhttps://wxhboy.cn/
+echo $str2  # Shell https://wxhboy.cn/
+echo $str3  # Shell: https://wxhboy.cn/
+echo $str4  # Shell: https://wxhboy.cn/
+echo $str5  # ShellScript: https://wxhboy.cn/index.html
+```
+
+ref:
+
++ [Shell字符串拼接（连接、合并）](http://c.biancheng.net/view/1114.html)
+
 ## /dev/null
+
+_2022/05/19_
 
 在 Linux 命令中，经常见到 `xxx 2>/dev/null`, 如为防止 Docker 容器退出使用 `tail -f /dev/null`。关于这个命令，我的理解是：
 
