@@ -1,12 +1,27 @@
 ---
 title: Notes
 date: 2020-12-27 19:23:24
-tags: ['notes']
+tags: ["notes"]
 ---
 
 一些快速记录的笔记
 
-## Shell字符串拼接（连接、合并）
+## Shell 字符串截取
+
+_2022/09/02_
+
+在使用电脑对某些文件批量重命名，或者批量截取前缀等场景时
+
+- `${string: start: length}` : 从 string 字符串的左边第 start 个字符开始，向右截取 length 个字符。
+- `${string: start}` : 从 string 字符串的左边第 start 个字符开始截取，直到最后。
+- `${string: 0-start :length}` : 从 string 字符串的右边第 start 个字符开始，向右截取 length 个字符。
+- `${string: 0-start}`: 从 string 字符串的右边第 start 个字符开始截取，直到最后。
+- `${string#*chars}`: 从 string 字符串第一次出现 *chars 的位置开始，截取 *chars 右边的所有字符。
+- `${string##*chars}`: 从 string 字符串最后一次出现 *chars 的位置开始，截取 *chars 右边的所有字符。
+- `${string%*chars}`: 从 string 字符串第一次出现 *chars 的位置开始，截取 *chars 左边的所有字符。
+- `${string%%*chars}`: string 字符串最后一次出现 *chars 的位置开始，截取 *chars 左边的所有字符。
+
+## Shell 字符串拼接（连接、合并）
 
 _2022/07/07_
 
@@ -33,7 +48,7 @@ echo $str5  # ShellScript: https://wxhboy.cn/index.html
 
 ref:
 
-+ [Shell字符串拼接（连接、合并）](http://c.biancheng.net/view/1114.html)
+- [Shell 字符串拼接（连接、合并）](http://c.biancheng.net/view/1114.html)
 
 ## /dev/null
 
@@ -41,15 +56,15 @@ _2022/05/19_
 
 在 Linux 命令中，经常见到 `xxx 2>/dev/null`, 如为防止 Docker 容器退出使用 `tail -f /dev/null`。关于这个命令，我的理解是：
 
-+ `0` 标准输入 stdin，`1` 标准输出 stdout， `2` 错误输出 stderr, `>` 是重定向, `/dev/null` 是个只进不出的地方;
+- `0` 标准输入 stdin，`1` 标准输出 stdout， `2` 错误输出 stderr, `>` 是重定向, `/dev/null` 是个只进不出的地方;
 
-+ 如果只关心**正常输出**，可以在命令后面这样重定向：`commaned 2> /dev/null`, 这样一来，我们看到的所有输出，都是命令正常执行的输出，忽略所有错误输出。
-+ 如果只关心**报错内容**，可以在命令后面这样重定向 `command > /dev/null`
+- 如果只关心**正常输出**，可以在命令后面这样重定向：`commaned 2> /dev/null`, 这样一来，我们看到的所有输出，都是命令正常执行的输出，忽略所有错误输出。
+- 如果只关心**报错内容**，可以在命令后面这样重定向 `command > /dev/null`
 
 ref:
 
-+ [shell程序中 2> /dev/null 代表什么意思](https://www.zhihu.com/question/53295083)
-+ [什么是 Bash 中的标准输入、标准错误和标准输出](https://linuxhint.com/bash_stdin_stderr_stdout/)
+- [shell 程序中 2> /dev/null 代表什么意思](https://www.zhihu.com/question/53295083)
+- [什么是 Bash 中的标准输入、标准错误和标准输出](https://linuxhint.com/bash_stdin_stderr_stdout/)
 
 ## copy & paste
 
@@ -57,9 +72,9 @@ _2022/03/19_
 
 在 Mac OS 可以使用 `pbcopy` 和 `pbpaste` 在命令行中进行复制和粘贴操作:
 
-+ `pbcopy < ~/.ssh/public_key` 复制 public_key 内容到剪贴板。
-+ `curl baidu.com | pbcopy` 复制 baidu.com 站点内容到剪贴板。
-+ `pbpaste > baidu.html` 粘贴剪贴板内容到 baidu.html 文件中。
+- `pbcopy < ~/.ssh/public_key` 复制 public_key 内容到剪贴板。
+- `curl baidu.com | pbcopy` 复制 baidu.com 站点内容到剪贴板。
+- `pbpaste > baidu.html` 粘贴剪贴板内容到 baidu.html 文件中。
 
 ## Jest unit testing
 
@@ -67,16 +82,16 @@ _2022/03/18_
 
 在阅读 AntD 测试用例时，需要单独运行某个组件 case，或者某个组件的一条 case.
 
-+ 仅运行 components/button 目录下测试用例: `npm run test -- components/button`
-+ 仅运行 button 用例名称为 'mount correctly' 的 case : `npm run test -- components/button -t "mount correctly"`
-+ 接上条, 使用 [Jest api](https://jestjs.io/docs/api#testonlyname-fn-timeout) (test.only、test.skip) 暂时运行/跳过某些 case:
+- 仅运行 components/button 目录下测试用例: `npm run test -- components/button`
+- 仅运行 button 用例名称为 'mount correctly' 的 case : `npm run test -- components/button -t "mount correctly"`
+- 接上条, 使用 [Jest api](https://jestjs.io/docs/api#testonlyname-fn-timeout) (test.only、test.skip) 暂时运行/跳过某些 case:
 
 ```diff
 -  it('renders correctly', () => {
 +  it.only('renders correctly', () => {  /* 仅运行这条 case */
      expect(mount(<Button>Follow</Button>).render()).toMatchSnapshot();
    });
- 
+
 -  it('mount correctly', () => {
 +  it.skip('mount correctly', () => { /* 跳过这条 case */
      expect(() => mount(<Button>Follow</Button>)).not.toThrow();
@@ -106,30 +121,30 @@ _2022/02/24_
 
 ```html
 <script type="importmap">
-{
-  "imports": {
-    "react": "https://cdn.skypack.dev/react",
-    "react-dom": "https://cdn.skypack.dev/react-dom"
+  {
+    "imports": {
+      "react": "https://cdn.skypack.dev/react",
+      "react-dom": "https://cdn.skypack.dev/react-dom"
+    }
   }
-}
 </script>
 ```
 
-+ [Javascript Import maps(中文)](https://www.jianshu.com/p/b23d823a183a)
-+ [Github WICG/import-maps](https://github.com/WICG/import-maps)
+- [Javascript Import maps(中文)](https://www.jianshu.com/p/b23d823a183a)
+- [Github WICG/import-maps](https://github.com/WICG/import-maps)
 
 ## markdown-it 和 feed
 
 _2022/02/24_
 
 笔记这栏是参考 [antfu.me/notes](https://antfu.me/notes) 而写的。看到有 `rss` 订阅,想着自己的笔记也实现一下。使用 hexo 的自动生成 rss 插件无法生成自己想要的。
-阅读 [antfu.me repo](https://github.com/antfu/antfu.me) 后才发现，作者是使用 [markdown-it](https://github.com/markdown-it/markdown-it) 和 [feed](https://github.com/jpmonette/feed) 自己写脚本实现的。[scripts/rss.ts](https://github.com/antfu/antfu.me/blob/main/scripts/rss.ts)  
+阅读 [antfu.me repo](https://github.com/antfu/antfu.me) 后才发现，作者是使用 [markdown-it](https://github.com/markdown-it/markdown-it) 和 [feed](https://github.com/jpmonette/feed) 自己写脚本实现的。[scripts/rss.ts](https://github.com/antfu/antfu.me/blob/main/scripts/rss.ts)
 
 ## Vite 插件 unplugin-auto-import
 
 _2022/02/16_
 
-写 `TypeScript` 时，使用 [unplugin-auto-import](https://github.com/antfu/unplugin-auto-import) 实现按需自动导入API。
+写 `TypeScript` 时，使用 [unplugin-auto-import](https://github.com/antfu/unplugin-auto-import) 实现按需自动导入 API。
 
 插件 [vite-auto-import-resolvers](https://github.com/dishait/vite-auto-import-resolvers) 使用了 `unplugin-auto-import` 的自定义 `resolvers`, see [github 实现](https://github.com/dishait/vite-auto-import-resolvers/blob/main/src/dir.ts#L94-L118)。
 
@@ -137,28 +152,27 @@ _2022/02/16_
 
 _2022/02/09_
 
-+ `x ** y` => `Math.pow(x, y)`
-+ `x << y` => `x * 2 ** y`
-+ `x >> 1` => `x >>> 1` => `Math.floor(x / 2)`
-+ `~x` => `-(x + 1)`
+- `x ** y` => `Math.pow(x, y)`
+- `x << y` => `x * 2 ** y`
+- `x >> 1` => `x >>> 1` => `Math.floor(x / 2)`
+- `~x` => `-(x + 1)`
 
 ## git submodule
 
 _2022/02/09_
 
-+ 项目中添加子仓库 `git submodule add -b 分支 地址 目录`
-+ 克隆带子模块仓库 `git clone --recursive -j8 地址`
-+ 更新已克隆仓库的子仓库 `git submodule update --init --recursive`
-+ 更新子仓库 `git submodule update --remote`
-+ 推送所有子仓库而不push主仓库 `git push --recurse-submodules=only`
+- 项目中添加子仓库 `git submodule add -b 分支 地址 目录`
+- 克隆带子模块仓库 `git clone --recursive -j8 地址`
+- 更新已克隆仓库的子仓库 `git submodule update --init --recursive`
+- 更新子仓库 `git submodule update --remote`
+- 推送所有子仓库而不 push 主仓库 `git push --recurse-submodules=only`
 
 ## git
 
 _2022/02/09_
 
-+ 使用 `git -C` 来指定工作目录, e.g. `-c $PWD` 指当前目录
-+ `git commit --amend --no-edit --no-verify`
-  + **--amend** 创建一个新的提交来替换当前分支的顶端
-  + **--no-edit** 不调用编辑器，使用当前分支顶端提交信息
-  + **--no-verify** 绕过 [githooks](https://git-scm.com/docs/githooks) 缩写`-n`
-  
+- 使用 `git -C` 来指定工作目录, e.g. `-c $PWD` 指当前目录
+- `git commit --amend --no-edit --no-verify`
+  - **--amend** 创建一个新的提交来替换当前分支的顶端
+  - **--no-edit** 不调用编辑器，使用当前分支顶端提交信息
+  - **--no-verify** 绕过 [githooks](https://git-scm.com/docs/githooks) 缩写`-n`
