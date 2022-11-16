@@ -12,7 +12,7 @@ tags: ['Docker']
 
 ### 写在前面
 
-1. React 新能优化视频 [「上集」React性能优化，你需要知道的一切](https://www.bilibili.com/video/BV1Yr4y1J7oc)、[「下集」React性能优化，你需要知道的一切
+1. React 性能优化视频 [「上集」React性能优化，你需要知道的一切](https://www.bilibili.com/video/BV1Yr4y1J7oc)、[「下集」React性能优化，你需要知道的一切
 ](https://www.bilibili.com/video/BV1j44y1g74m);
 2. Docker 20.10.13 和 Docker Image [jrottenberg/ffmpeg](https://hub.docker.com/r/jrottenberg/ffmpeg/);
 
