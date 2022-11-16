@@ -6,6 +6,64 @@ tags: ["notes"]
 
 一些快速记录的笔记
 
+## remove vs removeChild
+
+_2022/11/16_
+
+- remove: 把对象从它所属的 DOM 树中删除。
+- removeChild: 方法从 DOM 中删除一个子节点。并返回删除的节点
+
+大多数时候使用 remove 就好了
+
+## innerText vs textContent vs innerHTML
+
+_2022/11/16_
+
+```html
+<body>
+  <div>
+    <span>hello</span>
+    <span style="display: none;">world</span>
+  </div>
+</body>
+
+<script>
+  const div = document.querySelector("div");
+  console.log(div.innerText);
+  console.log(div.textContent);
+  console.log(div.innerHTML);
+</script>
+```
+
+```code
+hello                     // div.innerText
+
+    hello                 // div.textContent
+    world
+
+    <span>hello</span>    // div.innerHTML
+    <span style="display: none;">world</span>
+```
+
+结论
+
+- innerText 是浏览器渲染后的可见内容
+- textContent 准确的内容和缩进格式内容
+- innerHtml 同 <标签> + textContent
+
+## append vs appendChild
+
+_2022/11/16_
+
+都是在 Elenent 最后一个节点之后插入 Node, 推荐使用 **append**
+
+**append**: `append(param1, param2, /* … ,*/ paramN)`
+**appendChild**: `appendChild(aChild)`
+
+- append 可以追加任何 DOMString 对象， appendChild 只接受 Node 对象；
+- append 没有返回值，appendChild 返回追加的 Node 对象
+- append 支持多个参数，appendChild 只支持一个
+
 ## Shell 字符串截取
 
 _2022/09/02_
