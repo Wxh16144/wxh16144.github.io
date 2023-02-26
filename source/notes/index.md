@@ -6,6 +6,21 @@ tags: ["notes"]
 
 一些快速记录的笔记
 
+## GitHub Merge 三种方式速记
+
+_2023/02/27_
+
+**Merge:** (创建 m 个提交节点引用 a、b、c，m 在父节点中有 Init、c)
+![Merge](https://s2.loli.net/2023/02/27/uwRgE8IKvDaxTiY.png)
+
+**Squash and merge**(合并 a、b、c 以创建一个新的提交并将其添加到目标分支。'a、b、c' 提交只有父 Init)
+![Squash and merge](https://s2.loli.net/2023/02/27/GJCiN1v7noAuMhW.png)
+
+**Rebase and merge**(将 a、b、c 无缝添加到合并分支，每个提交都有一个父级)
+![Rebase and merge](https://s2.loli.net/2023/02/27/WcxdVzHjguhK69I.png)
+
+[GitHubのMerge、Squash and Merge、Rebase and Mergeを理解する](https://meetup-jp.toast.com/439)
+
 ## remove vs removeChild
 
 _2022/11/16_
