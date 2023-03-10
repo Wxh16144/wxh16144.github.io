@@ -6,6 +6,22 @@ tags: ["notes"]
 
 一些快速记录的笔记
 
+## Github 合作者
+
+_2023/03/10_
+
+![GitHub合作者效果图](https://s2.loli.net/2023/03/10/q3xV27GpdUL1JDP.png)
+
+如上图，除非他们对你的 PR 进行 review 的时候提出了建议，并且在 GitHub 点击采纳，否则不会出现[合作者标识](https://docs.github.com/en/github/committing-changes-to-your-project/creating-and-editing-commits/creating-a-commit-with-multiple-authors)。另外一种方式是，手动添加合作者。给予我帮助的人都应该出现在合作者一栏中。最简单方法就是在 `git commit` 的 message body 中加入如下注释：
+
+```txt
+Co-authored-by: wxh16144 <wxh16144@users.noreply.github.com>
+```
+
+注意将 ID 替换为合作者的 GitHub ID。
+
+- [GitHub Co-authors](https://antfu.me/posts/github-co-authors)
+
 ## GitHub Merge 三种方式速记
 
 _2023/02/27_
