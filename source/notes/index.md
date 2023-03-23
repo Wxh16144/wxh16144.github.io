@@ -6,6 +6,36 @@ tags: ["notes"]
 
 一些快速记录的笔记
 
+## Node ESM
+
+_2023/03/24_
+
+最近建了一个 [快速开始 Cli](https://github.com/template-pro/start-cli) 的脚手架, 记一笔 node 的操作
+
+1. 获取整个屏幕大小, 可以使用 `process.stdout?.columns` 或 [term-size - npm](https://www.npmjs.com/package/term-size)。
+2. 同构 `__dirname` 可以参考 [stack overflow](https://stackoverflow.com/a/50052194)
+
+<details>
+<summary>__filename & __dirname</summary>
+```javascript
+import { dirname } from 'path'
+import { fileURLToPath } from 'url'
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+```
+</details>
+<details>
+<summary>require & require.resolve</summary>
+```javascript
+import { createRequire } from 'module'
+
+const require = createRequire(import.meta.url)
+```
+</details>
+
+3. 清空终端输出 `process.stdout.write('\x1B[2J\x1B[3J\x1B[H\x1Bc')` 或 [console-clear - npm](https://www.npmjs.com/package/console-clear);
+
 ## Github 合作者
 
 _2023/03/10_
