@@ -6,6 +6,25 @@ tags: ["notes"]
 
 一些快速记录的笔记
 
+## tsconfig.json moduleResolution
+
+_2023/6/20_
+
+起初上游包导致 antd CI 挂了，[#41715](https://github.com/ant-design/ant-design/pull/41715#discussion_r1161199605)。 发现上游将包改成了 Pure ESM，但是引用的 js 还是 `mjs`。
+
+最新的 typescript v5.1， moduleResolution 选项支持 5 个值：`classic`、`node`、`node16`、`nodenext`、`bundler`。
+其中 `nodenext` 表示最新的 node 版本，也就是说它兼容 `node16`。
+
+ref:
+
+- [moduleResolution 总结 - 余腾靖的文章 - 知乎](https://zhuanlan.zhihu.com/p/621795173)
+
+## 认识 Unified 和 Remark
+
+_2023/04/17_
+
+参与了一段时间的 dumi 开发，认识了 [Unified](https://unifiedjs.com/) 和 [Remark](https://remark.js.org/)。Unified 是一个用于构建插件化的工具链的框架，而 Remark 是 Unified 的一个插件，用于将 markdown 转换成 [AST(抽象语法树)](https://astexplorer.net/)，然后对 AST 进行操作。
+
 ## Node ESM
 
 _2023/03/24_
