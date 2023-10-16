@@ -6,6 +6,19 @@ tags: ["notes"]
 
 一些快速记录的笔记
 
+## pull_request vs pull_request_target
+
+_2023/10/16_
+
+在给 antd 修改 GitHub Actions 时，发现 preview.yml 有三个文件，于是乎提交了一个 [PR#45276](https://github.com/ant-design/ant-design/pull/45276) 合并，结果导致后续一系列错误。
+
+- **pull_request** 在 PR 创建的时候拉取**源分支**代码。但是**不具备写**操作（可以理解为，PR 作者是一个攻击者，他可以更改源代码修改脚本，以至于破坏仓库。
+- **pull_request_target** 在 PR 创建的时候拉取**目标分支**代码。具备**读写**操作。
+
+ref:
+- [Github Actions and the threat of malicious pull requests](https://nathandavison.com/blog/github-actions-and-the-threat-of-malicious-pull-requests)
+- [Keeping your GitHub Actions and workflows secure Part 1: Preventing pwn requests](https://securitylab.github.com/research/github-actions-preventing-pwn-requests/)
+
 ## tsconfig.json moduleResolution
 
 _2023/6/20_
