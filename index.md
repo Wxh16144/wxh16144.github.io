@@ -6,6 +6,12 @@ tags: ["notes"]
 
 一些快速记录的笔记
 
+## LGTM
+
+_2023/11/30_
+
+looks good to me
+
 ## TL;DR
 
 _2023/10/27_
