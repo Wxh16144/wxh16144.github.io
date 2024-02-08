@@ -6,6 +6,32 @@ tags: ["notes"]
 
 一些快速记录的笔记
 
+## Symbolic link
+
+_2024/02/08
+
+包含有一条以绝对路径或者相对路径的形式指向其它文件或者目录的引用 `ls -s 实际目标 链接名称`
+
+examples:
+
+<details>
+  <summary><code>ln -s $TMPDIR $ICLOUD/Temporary</code></summary>
+
+```bash
+~ via ⬢ v18.19.0
+➜ echo $TMPDIR
+/var/folders/9d/8kq_tcb12dsdb9qz1m_h12g00000gn/T/
+
+~ via ⬢ v18.19.0
+➜ echo $ICLOUD
+/Users/wuxh/Library/Mobile Documents/com~apple~CloudDocs
+
+~ via ⬢ v18.19.0
+➜ ln -s $TMPDIR $ICLOUD/Temporary
+```
+  
+</details>
+
 ## LGTM
 
 _2023/11/30_
