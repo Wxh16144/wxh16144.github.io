@@ -6,6 +6,18 @@ tags: ["notes"]
 
 一些快速记录的笔记
 
+## 优化 React 重新渲染技巧
+
+_2024/02/29_
+
+1. 将昂贵的组件 **"提升"** 到父级，在父级中渲染频率较低。
+2. 然后将昂贵的组件作为 **props** 传递下来。
+
+ref:
+
+- [One simple trick to optimize React re-renders](https://kentcdodds.com/blog/optimize-react-re-renders)
+- [Before You memo()](https://overreacted.io/before-you-memo/)
+
 ## Symbolic link
 
 _2024/02/08
