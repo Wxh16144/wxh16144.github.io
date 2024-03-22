@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Javascript Set or Lodash methods</title>
+    <link href="https://unpkg.com/modern-normalize" rel="stylesheet" />
+    <style>
+      body {
+        padding-top: 16px;
+        padding-bottom: 16px;
+      }
+
+      /* Table Styles */
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        table-layout: fixed;
+      }
+
+      th,
+      td {
+        padding: 8px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+        vertical-align: top;
+      }
+
+      td img {
+        max-width: 100%;
+      }
+
+      th {
+        background-color: #f2f2f2;
+      }
+
+      tr:nth-child(even) {
+        background-color: #f9f9f9;
+      }
+
+      /* Hover Effect */
+      tr:hover {
+        background-color: #e5e5e5;
+      }
+
+      /* Responsive Table */
+      @media screen and (max-width: 600px) and (min-width: 1px) {
+        table {
+          border: 0;
+        }
+
+        th,
+        td {
+          display: block;
+          padding: 6px;
+          border: none;
+        }
+
+        th {
+          text-align: left;
+          background-color: transparent;
+        }
+
+        tr:nth-child(even) {
+          background-color: transparent;
+        }
+
+        tr:nth-child(odd) {
+          background-color: transparent;
+        }
+
+        tr:hover {
+          background-color: transparent;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <table>
+      <thead>
+        <tr>
+          <th scope="col">Set Method</th>
+          <th scope="col">Lodash Method</th>
+          <th scope="col">Mathematical equivalent</th>
+          <th scope="col">Venn diagram</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <a
+              href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set/difference"
+              target="blank"
+            >
+              <code>A.difference(B)</code>
+            </a>
+          </td>
+          <td>
+            <a href="https://lodash.com/docs/4.17.15#difference" target="blank">
+              <code>_.difference(A, B)</code>
+            </a>
+          </td>
+          <td>
+            <math display="inline">
+              <semantics>
+                <mrow>
+                  <mi>A</mi>
+                  <mo>∖</mo>
+                  <mi>B</mi>
+                </mrow>
+                <annotation encoding="TeX">A\setminus B</annotation>
+              </semantics>
+            </math>
+          </td>
+          <td>
+            <img
+              src="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set/difference/diagram.svg"
+              alt="A Venn diagram where two circles overlap. The difference of A and B is the part of A that is not overlapping B."
+              width="200"
+            />
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <a
+              href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set/intersection"
+              target="blank"
+            >
+              <code>A.intersection(B)</code>
+            </a>
+          </td>
+          <td>
+            <a
+              href="https://lodash.com/docs/4.17.15#intersection"
+              target="blank"
+            >
+              <code>_.intersection(A, B)</code>
+            </a>
+          </td>
+          <td>
+            <math display="inline">
+              <semantics>
+                <mrow>
+                  <mi>A</mi>
+                  <mo>∩</mo>
+                  <mi>B</mi>
+                </mrow>
+                <annotation encoding="TeX">A\cap B</annotation>
+              </semantics>
+            </math>
+          </td>
+          <td>
+            <img
+              src="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set/intersection/diagram.svg"
+              alt="A Venn diagram where two circles overlap. The intersection of A and B is the part where they overlap."
+              width="200"
+            />
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <a
+              href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set/symmetricDifference"
+              target="blank"
+            >
+              <code>A.symmetricDifference(B)</code>
+            </a>
+          </td>
+          <td>
+            <a href="https://lodash.com/docs/4.17.15#xor" target="blank">
+              <code>_.xor(A, B)</code>
+            </a>
+          </td>
+          <td>
+            <math display="inline">
+              <semantics>
+                <mrow>
+                  <mo stretchy="false">(</mo>
+                  <mi>A</mi>
+                  <mo>∖</mo>
+                  <mi>B</mi>
+                  <mo stretchy="false">)</mo>
+                  <mo>∪</mo>
+                  <mo stretchy="false">(</mo>
+                  <mi>B</mi>
+                  <mo>∖</mo>
+                  <mi>A</mi>
+                  <mo stretchy="false">)</mo>
+                </mrow>
+                <!-- prettier-ignore -->
+                <annotation encoding="TeX">(A\setminus B)\cup(B\setminus A)</annotation>
+              </semantics>
+            </math>
+          </td>
+          <td>
+            <img
+              src="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set/symmetricDifference/diagram.svg"
+              alt="A Venn diagram where two circles overlap. The symmetric difference of A and B is the region contained by either circle but not both."
+              width="200"
+            />
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <a
+              href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set/union"
+              target="blank"
+            >
+              <code>A.union(B)</code>
+            </a>
+          </td>
+          <td>
+            <a href="https://lodash.com/docs/4.17.15#union" target="blank">
+              <code>_.union(A, B)</code>
+            </a>
+          </td>
+          <td>
+            <math display="inline">
+              <semantics>
+                <mrow>
+                  <mi>A</mi>
+                  <mo>∪</mo>
+                  <mi>B</mi>
+                </mrow>
+                <annotation encoding="TeX">A\cup B</annotation>
+              </semantics>
+            </math>
+          </td>
+          <td>
+            <img
+              src="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set/union/diagram.svg"
+              alt="A Venn diagram where two circles overlap. The symmetric difference of A and B is the region contained by either or both circles."
+              width="200"
+            />
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <a
+              href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set/isDisjointFrom"
+              target="blank"
+            >
+              <code>A.isDisjointFrom(B)</code>
+            </a>
+          </td>
+          <td>
+            <a
+              href="https://lodash.com/docs/4.17.15#intersection"
+              target="blank"
+            >
+              <code>_.isEmpty(_.intersection(A, B))</code>
+            </a>
+          </td>
+          <td>
+            <math display="inline">
+              <semantics>
+                <mrow>
+                  <mi>A</mi>
+                  <mo>∩</mo>
+                  <mi>B</mi>
+                  <mo>=</mo>
+                  <mi>∅</mi>
+                </mrow>
+                <annotation encoding="TeX">A\cap B = \empty</annotation>
+              </semantics>
+            </math>
+          </td>
+          <td>
+            <img
+              src="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set/isDisjointFrom/diagram.svg"
+              alt="A Venn diagram with two circles. A and B are disjoint because the circles have no region of overlap."
+              width="200"
+            />
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <a
+              href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set/isSubsetOf"
+              target="blank"
+            >
+              <code>A.isSubsetOf(B)</code>
+            </a>
+          </td>
+          <td>
+            <a href="https://lodash.com/docs/4.17.15#difference" target="blank">
+              <code>_.isEmpty(_.difference(A, B))</code>
+            </a>
+          </td>
+
+          <td>
+            <math display="inline">
+              <semantics>
+                <mrow>
+                  <mi>A</mi>
+                  <mo>⊆</mo>
+                  <mi>B</mi>
+                </mrow>
+                <annotation encoding="TeX">A\subseteq B</annotation>
+              </semantics>
+            </math>
+          </td>
+          <td>
+            <img
+              src="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set/isSubsetOf/diagram.svg"
+              alt="A Venn diragram with two circles. A is a subset of B because A is completely contained in B."
+              width="200"
+            />
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <a
+              href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set/isSupersetOf"
+              target="blank"
+            >
+              <code>A.isSupersetOf(B)</code>
+            </a>
+          </td>
+          <td>
+            <a href="https://lodash.com/docs/4.17.15#difference" target="blank">
+              <code>_.isEmpty(_.difference(B, A))</code>
+            </a>
+          </td>
+
+          <td>
+            <math display="inline">
+              <semantics>
+                <mrow>
+                  <mi>A</mi>
+                  <mo>⊇</mo>
+                  <mi>B</mi>
+                </mrow>
+                <annotation encoding="TeX">A\supseteq B</annotation>
+              </semantics>
+            </math>
+          </td>
+          <td>
+            <img
+              src="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set/isSupersetOf/diagram.svg"
+              alt="A Venn diagram with two circles. A is a superset of B because B is completely contained in A."
+              width="200"
+            />
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </body>
+</html>
