@@ -106,7 +106,7 @@ npm ERR! A complete log of this run can be found in: /Users/wuxh/.npm/_logs/2024
   
 </details>
 
-解决方案: [Can't install on Apple M1](https://github.com/Automattic/node-canvas/issues/1733#issuecomment-808916786)
+解决方案: [Can't install on Apple M1](https://github.com/Automattic/node-canvas/issues/1733#issuecomment-808916786)、[node-canvas#Compiling](https://github.com/Automattic/node-canvas?tab=readme-ov-file#compiling)
 
 ### node-sass
 
