@@ -6,6 +6,14 @@ tags: ["notes"]
 
 一些快速记录的笔记
 
+## Library 实践
+
+_2024/06/24_
+
+1. 使用 [debug](https://github.com/debug-js/debug) 库，可以在开发环境中输出调试信息，生产环境中不输出。
+2. 或者参考 [backup-cli#da278e8](https://github.com/Wxh16144/backup-cli/commit/da278e8a8076e319d5be705cd08f2f63f1ac768a) 使用 `console.log` 输出调试信息。
+3. TBD: 有想到再补充。
+
 ## 优化 React 重新渲染技巧
 
 _2024/02/29_
