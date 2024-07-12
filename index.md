@@ -6,6 +6,51 @@ tags: ["notes"]
 
 一些快速记录的笔记
 
+## ZWSP
+
+_2024/07/13_
+
+ZWSP(Zero Width Space) [wiki](https://en.wikipedia.org/wiki/Zero-width_space) 是一种 Unicode 字符. 可以用来做一些很骚的操作，它通常很难被察觉到。
+
+将 `\u200b`、`\u200c`、`\u200d`、`\u200e`、`\u200f`、`\ufeff` 进行一个排列组合，来达很多有趣的效果。
+
+<details>
+  <summary>排列组合代码</summary>
+  
+  ```javascript
+  import 'lodash.permutations';
+  import _ from 'lodash';
+
+  function getAllCombinations(...strings) {
+    const allPermutations = _.flatMap(
+      _.range(1, strings.length + 1),
+      (length) => _.permutations(strings, length)
+    );
+
+    return _.map(
+      allPermutations,
+      (permutation) => permutation.join('')
+    );
+  }
+
+  const result = getAllCombinations(
+    '\u200b',
+    '\u200c',
+    '\u200d',
+    '\u200e',
+    '\u200f',
+    '\ufeff'
+  );
+
+  globalThis.console.log({ ...result }); // 发挥你的想象力
+  ```
+
+</details>
+
+1. 为 git commit 做一个幽灵提交，利用它来重新触发 GitHub Actions，也可以蛊惑同事。[就像这样](https://x.com/Wxh16144/status/1811819418433061291)
+2. [Zero Width Space on SYMBL (◕‿◕)](https://symbl.cc/200B/)
+3. [codepoint U+200B ZERO WIDTH SPACE in Unicode](https://codepoints.net/U+200B)
+
 ## Library 实践
 
 _2024/06/24_
