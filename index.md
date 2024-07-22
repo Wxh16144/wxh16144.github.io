@@ -6,6 +6,24 @@ tags: ["notes"]
 
 一些快速记录的笔记
 
+## Web Search
+
+_2024/07/22_
+
+1.在浏览器地址栏输入 `?` 可以快速搜索，输入 `?` 后再输入关键词，然后回车，就会跳转到搜索引擎搜索结果页面。[Copilot 自动生成]
+
+如题，如果需要在 web 端实现搜索功能可以：
+
+1. [FlexSearch](https://github.com/nextapps-de/flexsearch) 实现全文搜索
+2. CMD K , https://cmdk.paco.me or https://react-cmdk.com
+3. 命令行模糊查找 [fzf](https://github.com/junegunn/fzf)
+
+read more:
+1. [How MDN’s autocomplete search works](https://hacks.mozilla.org/2021/08/mdns-autocomplete-search/)
+2. [How MDN’s site-search works](https://hacks.mozilla.org/2021/03/how-mdns-site-search-works/)
+3. [mdn/yari search.tsx](https://github.com/mdn/yari/blob/main/client/src/search.tsx)
+4. [Nextra FlexSearch](https://github.com/shuding/nextra/blob/main/packages/nextra-theme-docs/src/components/flexsearch.tsx)
+
 ## ZWSP
 
 _2024/07/13_
