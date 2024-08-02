@@ -83,6 +83,7 @@ _2024/02/29_
 
 1. 将昂贵的组件 **"提升"** 到父级，在父级中渲染频率较低。
 2. 然后将昂贵的组件作为 **props** 传递下来。
+3. [useMemoizedFn vs useEvent vs useLatestFunc ?? vs useEffectEvent](https://github.com/Wxh16144/wxh16144.github.io/issues/5)
 
 ref:
 
