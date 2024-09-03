@@ -69,6 +69,32 @@ export NVM_NODEJS_ORG_MIRROR=https://mirrors.ustc.edu.cn/node/
 
 ![一个示例.png](https://s2.loli.net/2022/04/12/qJYoGUX1y9tRbAk.png)
 
+### 2024/09/03 更新
+
+> 在 [husky v9.1.1](https://github.com/typicode/husky/releases/tag/v9.1.1) 发布公告中 `~/.huskyrc` 已经弃用，并且用 `$XDG_CONFIG_HOME/husky/init.sh` 代替。
+
+解法一：
+
+```diff
+  # ref: https://github.com/typicode/husky/issues/390#issuecomment-762213421
++ # https://github.com/typicode/husky/issues/1364#issuecomment-1914199327
+-  echo "export PATH=\"$(dirname $(which node)):\$PATH\"" > ~/.huskyrc
++  echo "export PATH=\"$(dirname $(which node)):\$PATH\"" > $XDG_CONFIG_HOME/husky/init.sh
+}
+```
+
+解法二
+
+根据[文档](https://typicode.github.io/husky/how-to.html#node-version-managers-and-guis)提示
+
+```bash
+# ~/.config/husky/init.sh
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+```
+
+更多的信息可以参考我的 [dotfiles](https://github.com/Wxh16144/dotfiles)
+
 ### 参考文档
 
 - [https://github.com/typicode/husky/issues/390#issuecomment-762213421](https://github.com/typicode/husky/issues/390#issuecomment-762213421)
