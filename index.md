@@ -6,6 +6,29 @@ tags: ["notes"]
 
 一些快速记录的笔记
 
+## Bash `which` vs `type` vs `where`
+
+_2025/01/20_
+
+我有一个命令，我想知道它是从哪里来的。我可以使用 `which` 或 `type` 命令来查找。
+
+- `which`
+  - 在 `$PATH` 中查找可执行文件。
+  - 位于 `/usr/bin/which`。
+- `type`
+  - 确定命令是别名、函数、内置命令、缓存的可执行文件（散列）、`$PATH` 中的二进制文件等
+  - shell 内置
+- `where`
+  - 与 `which` 类似，但是可以列出所有匹配的命令。
+  - 不仅适用于 Unix, 也适用于 Windows。
+  
+ref:
+
+- [Bash `which` vs `type`](https://gist.github.com/miguelmota/bb7f8587047c7dcb5fe38b41ba2d357d)
+- [What is the difference between which and where](https://unix.stackexchange.com/a/757150)
+
+```bash
+
 ## Web Search
 
 _2024/07/22_
