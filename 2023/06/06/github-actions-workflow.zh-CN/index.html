@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":"yes","show_result":"yes","style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="很荣幸加入 Ant Design 团队成为社区成员。 antd 博客搬运，原文地址：你好，GitHub Actions - Ant Design blog’s">
+<meta property="og:type" content="article">
+<meta property="og:title" content="你好，GitHub Actions">
+<meta property="og:url" content="http://example.com/2023/06/06/github-actions-workflow.zh-CN/index.html">
+<meta property="og:site_name" content="Wuxh">
+<meta property="og:description" content="很荣幸加入 Ant Design 团队成为社区成员。 antd 博客搬运，原文地址：你好，GitHub Actions - Ant Design blog’s">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://docs.github.com/assets/cb-25535/mw-1000/images/help/actions/overview-actions-simple.webp">
+<meta property="og:image" content="https://user-images.githubusercontent.com/32004925/231660945-509cf97c-43eb-4a1c-acd2-81eeedfe4a73.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/32004925/231673201-c7376eeb-010b-46d0-a7d0-4c115d58f58c.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/32004925/231673404-60b248cd-823f-4d31-8fff-d95b02b35fee.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/32004925/234459079-db813907-503d-4405-801d-38e133c85996.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/32004925/231672871-32689c30-1e0a-40fc-9237-9b9b4312f15c.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/32004925/234477805-5cf3cf89-6654-4329-882d-47b35964f6fc.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/32004925/231686636-eef933e6-2678-4e49-9552-babc50687644.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/32004925/234482326-7c1074b5-e75a-494e-b1c7-c8ccc482ba7c.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/32004925/234485713-4e93154c-d5a4-4cad-87b0-e76667ff237f.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/32004925/234609284-ec7b40f5-a221-4c8b-9093-ce68a1a545bb.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/32004925/234617748-8bc4f0fd-b29a-4b01-b416-1c16eed03acb.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/32004925/234621854-dbfc565c-26e0-4e48-862d-8dde8ab22627.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/32004925/234618808-46137b0d-27a0-4b01-b1a6-6e4931f6d388.png">
+<meta property="article:published_time" content="2023-06-06T00:00:00.000Z">
+<meta property="article:modified_time" content="2025-05-29T20:30:20.183Z">
+<meta property="article:author" content="Wuxh">
+<meta property="article:tag" content="Wuxh,Wuxiaohong,wxh16144,Wuxh2020,Wuxh2021">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://docs.github.com/assets/cb-25535/mw-1000/images/help/actions/overview-actions-simple.webp">
+
+<link rel="canonical" href="http://example.com/2023/06/06/github-actions-workflow.zh-CN/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>你好，GitHub Actions | Wuxh</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Wuxh</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Front-end Development</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-notes">
+
+    <a href="/notes" rel="section"><i class="fa fa-sticky-note fa-fw"></i>笔记</a>
+
+  </li>
+        <li class="menu-item menu-item-bookmarks">
+
+    <a href="/bookmarks" rel="section"><i class="fa fa-bookmark fa-fw"></i>书签</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/06/06/github-actions-workflow.zh-CN/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/32004925?s=460&u=154f902e7f852def85af5716e81b275fc76cbf86&v=4">
+      <meta itemprop="name" content="Wuxh">
+      <meta itemprop="description" content="知道的越多, 不知道的就越多">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wuxh">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          你好，GitHub Actions
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-06-06 00:00:00" itemprop="dateCreated datePublished" datetime="2023-06-06T00:00:00+00:00">2023-06-06</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2025-05-29 20:30:20" itemprop="dateModified" datetime="2025-05-29T20:30:20+00:00">2025-05-29</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>很荣幸加入 Ant Design 团队成为社区成员。 antd 博客搬运，原文地址：<a target="_blank" rel="noopener" href="https://ant.design/docs/blog/github-actions-workflow-cn">你好，GitHub Actions - Ant Design blog’s</a></p>
+<span id="more"></span>
+
+<p>大家好，我是 <a target="_blank" rel="noopener" href="https://github.com/Wxh16144">Wxh16144</a>，通过学习 Ant Design 的组件库和参与社区贡献，我发现了一些提高开发效率和代码质量的工具。借此机会，希望与大家分享我的经验，帮助大家更好地了解 Ant Design，并将这些技巧应用到自己的项目中。</p>
+<h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>Ant Design 以开源的形式托管在 GitHub，方便更好的与全球开发者进行交流和合作，也方便开发者提交 issue 和 PR。同时借助 <a target="_blank" rel="noopener" href="https://github.com/features/actions">GitHub Actions</a> 和 CI/CD 能力，使得我们更好的管理代码仓库和自动化测试、部署等工作流程，本文将着重介绍 Actions 提供的能力。</p>
+<h2 id="什么是-GitHub-Actions"><a href="#什么是-GitHub-Actions" class="headerlink" title="什么是 GitHub Actions"></a>什么是 GitHub Actions</h2><p>GitHub Actions 是一个自动化软件开发工作流程的平台，从想法构建到生成，开发者只需在<code>.github/workflows</code> 目录中添加 <code>yml</code> 格式文件，定义 Workflow（工作流程） 去实现 CI（持续集成）通过 <a target="_blank" rel="noopener" href="https://docs.github.com/zh/actions/learn-github-actions/understanding-github-actions">了解 GitHub Actions</a>，我们可以掌握 Workflow 中一些概念。</p>
+<ul>
+<li>**Event(触发事件)**：触发运行事件，例如，有人创建了 issue、PR 或者推送了代码到某个分支。</li>
+<li><strong>Job(作业)**：一个 Workflow 包含一个或多个 **Job</strong>，默认情况下并行运行，我们可以设置让其按顺序执行，每个 <strong>Job</strong> 可以包含多个 <strong>Step</strong>。</li>
+<li><strong>Step(步骤)**：定义每一个部分的工作内容，每一个 **Step</strong> 都是一个单独的进程运行。该部分下每个项目都是一个单独操作或者 shell 脚本。</li>
+</ul>
+<p>引用官方文档的 Workflow 图，我们可以直观的看懂 <strong>Event</strong>、<strong>Job</strong> 和 <strong>Step</strong> 之间的关系：</p>
+<p><img src="https://docs.github.com/assets/cb-25535/mw-1000/images/help/actions/overview-actions-simple.webp" alt="overview-actions-simple"></p>
+<h1 id="如何使用"><a href="#如何使用" class="headerlink" title="如何使用"></a>如何使用</h1><p>通过上述了解，我们可以知道 Ant Design 的所有 Workflow 都放置在 <a target="_blank" rel="noopener" href="https://github.com/ant-design/ant-design/tree/master/.github/workflows"><code>.github/workflows</code></a> 目录中进行管理。</p>
+<p>Ant Design 的 CI 覆盖了以下几个方面：</p>
+<ul>
+<li><strong>社区管理</strong>：使用 GitHub Actions 进行 issue/PR 质量检查，通过评论和标签来提高 issue/PR 的质量，提高协作效率。</li>
+<li><strong>代码质量</strong>：使用 ESLint 和 Prettier 进行代码规范检查，以确保代码质量和一致性。</li>
+<li><strong>测试</strong>：使用 Jest 和 testing-library 进行单元测试和快照测试，以确保代码的正确性和稳定性。</li>
+<li><strong>构建</strong>：构建 ES5 和 ES6 两种模块规范的文件，以确保库能在不同的环境下使用。</li>
+<li><strong>部署</strong>：使用 <a target="_blank" rel="noopener" href="https://d.umijs.org/">dumi</a> 自动生成文档并发布到 GitHub Pages 上。</li>
+</ul>
+<h2 id="Issue"><a href="#Issue" class="headerlink" title="Issue"></a>Issue</h2><p>issue 作为 GitHub 平台上的一个功能，它像一个信息汇总中心一样，收集社区反馈的问题。允许 <code>Collaborator</code> 添加标签、里程碑、指派人员等信息，以便更好地组织任务和项目。</p>
+<h3 id="保证-issue-质量"><a href="#保证-issue-质量" class="headerlink" title="保证 issue 质量"></a>保证 issue 质量</h3><p>为了确保 issue 包含足够的信息，帮助 Ant Design 团队对 issue 进行分析和优先级排序，我们提供了 <a target="_blank" rel="noopener" href="http://new-issue.ant.design/">issue 助手</a> 来规范创建 issue 的流程。同时，利用 GitHub Actions 对创建的 issue 进行检查。未通过助手创建的 issue 将会被关闭，并打上 <a target="_blank" rel="noopener" href="https://github.com/ant-design/ant-design/issues?q=label:Invalid">Invalid</a> 标签，然后以评论的形式提醒创建者需要如何进行提问。就像这样：</p>
+<p><img src="https://user-images.githubusercontent.com/32004925/231660945-509cf97c-43eb-4a1c-acd2-81eeedfe4a73.png" alt="invalid-issue-preview"></p>
+<p>但即便有时候使用了 issue 助手，团队成员可能也无法从提供的内容中得到有效的信息，这时候会选择手动对 issue 添加 <a target="_blank" rel="noopener" href="https://github.com/ant-design/ant-design/issues?q=label:%22%F0%9F%A4%94+Need+Reproduce%22+">🤔 Need Reproduce</a> 、 <a target="_blank" rel="noopener" href="https://github.com/ant-design/ant-design/issues?q=label:%22%F0%9F%A4%94+Need+Reproduce%22+">needs-more-info</a> 或 <a target="_blank" rel="noopener" href="https://github.com/ant-design/ant-design/issues?q=label:%22help+wanted%22+">help wanted</a> 等标签进一步把控 issue 质量，在 <a target="_blank" rel="noopener" href="https://github.com/ant-design/ant-design/blob/da83561f9cb57b0eb03d18543d96393689f799be/.github/workflows/issue-labeled.yml">issue-labeled.yml</a> 文件中，记录了不同的标签触发对应的评论回复 Job：</p>
+<p><img src="https://user-images.githubusercontent.com/32004925/231673201-c7376eeb-010b-46d0-a7d0-4c115d58f58c.png" alt="need-reproduce-auto-comment-preview"></p>
+<p><img src="https://user-images.githubusercontent.com/32004925/231673404-60b248cd-823f-4d31-8fff-d95b02b35fee.png" alt="help-wanted-auto-comment-preview"></p>
+<h3 id="常见-issue-答疑"><a href="#常见-issue-答疑" class="headerlink" title="常见 issue 答疑"></a>常见 issue 答疑</h3><p>对于一些常见的 issue，团队提供了详细的解答，以帮助开发者更快地解决问题。例如 issue 的 title 中包含有 <code>官网</code>、<code>网站</code>、<code>挂了</code>、<code>IE</code> 等类似关键词时，在 <a target="_blank" rel="noopener" href="https://github.com/ant-design/ant-design/blob/da83561f9cb57b0eb03d18543d96393689f799be/.github/workflows/issue-open-check.yml#L43-L94">issue-open-check.yml#L43-L94</a> Job 中详细记录了标准回复格式，并且将自动关闭 issue。</p>
+<h3 id="定期清理-issue"><a href="#定期清理-issue" class="headerlink" title="定期清理 issue"></a>定期清理 issue</h3><p>使用 GitHub Actions 定时任务来帮助管理和关闭 issue，这些自动化操作可以有效避免过多的未处理 issue 堆积。</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/ant-design/ant-design/blob/01a475af6d8ff4943fe4c91d04582120bf9b3a84/.github/workflows/issue-close-require.yml">issue-close-require.yml</a>：定时检查被标记为 <code>🤔 Need Reproduce</code> 或 <code>needs-more-info</code> 的 issue，如果超过 3 天没有移除这些标签，则会自动评论并关闭 issue。</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/ant-design/ant-design/blob/01a475af6d8ff4943fe4c91d04582120bf9b3a84/.github/workflows/issue-check-inactive.yml">issue-check-inactive.yml</a> ：每隔 15 天定时检查 30 天内没有任何活动的 issue，并将其添加 <code>Inactive</code> 标签，但不会关闭 issue。如果被修改或有新评论，则会自动移除 <code>Inactive</code> 和 <code>needs-more-info</code> 标签。</li>
+</ul>
+<p><img src="https://user-images.githubusercontent.com/32004925/234459079-db813907-503d-4405-801d-38e133c85996.png" alt="inactive-issue-preview"></p>
+<h2 id="Pull-Request"><a href="#Pull-Request" class="headerlink" title="Pull Request"></a>Pull Request</h2><p>Ant Design 团队非常鼓励社区参与 Pull Request (PR)，可以先阅读 <a href="./contributor-development-maintenance-guide-cn">《贡献者开发维护指南》</a> 文档，注意 PR 提交时需要遵守一些规范以确保质量和沟通。同时，也会利用 GitHub Action 对 PR 进行一些要求和审核，以保证代码质量和项目的长期维护。</p>
+<h3 id="PR-预检"><a href="#PR-预检" class="headerlink" title="PR 预检"></a>PR 预检</h3><p>发起一个 PR 时，通过 PR 模板会自动生成描述内容，其中就包括更新日志这栏，需要开发者进行填写。<a target="_blank" rel="noopener" href="https://github.com/ant-design/ant-design/blob/3d627eb475e32daf3a47731140685124d568a495/.github/workflows/pr-open-check.yml">pr-open-check.yml</a> 这个 Job 将会对其进行检查，倘若未填，CI 将会以评论的方式进行提醒。就像这样：</p>
+<p><img src="https://user-images.githubusercontent.com/32004925/231672871-32689c30-1e0a-40fc-9237-9b9b4312f15c.png" alt="pr-non-changelog-comment-preview"></p>
+<p>同时如果 PR 描述中提及的 issue 带有 <code>🎱 Collaborate PR only</code>（只允许核心成员维护）标签时，也将会关闭 PR 并评论提醒。</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/ant-design/ant-design/blob/3d627eb475/.github/workflows/verify-files-modify.yml">verify-files-modify.yml</a> 这个 Job 将会检查 PR 修改内容，如果包含特定目录（如：<code>./github/</code> 和 <code>scripts/</code>）或特定文件（如：<code>CHANGELOG.md</code>）则谢绝社区贡献，将自动关闭 PR 且指定给核心成员。</p>
+<h3 id="代码规范检查"><a href="#代码规范检查" class="headerlink" title="代码规范检查"></a>代码规范检查</h3><p>在 <a target="_blank" rel="noopener" href="https://github.com/ant-design/ant-design/blob/dedbdfddafc0134219e391473c109c14766f413d/.github/workflows/test.yml#L52-L75">lint</a> Job 中，总是遵循着对每一位开发者提交的代码进行 lint 检查的流程。</p>
+<p><img src="https://user-images.githubusercontent.com/32004925/234477805-5cf3cf89-6654-4329-882d-47b35964f6fc.png" alt="eslint-ci-preview"></p>
+<h3 id="PR-部署预览"><a href="#PR-部署预览" class="headerlink" title="PR 部署预览"></a>PR 部署预览</h3><p>每创建一个 PR 时，利用 GitHub Action 自动尝试构建和部署该 PR。这样既可以确保文档正常，又可以预览该 PR 是否会对文档或者组件 Demo 产生影响。PR 部署分为多个 Job，具体流程如下：</p>
+<ul>
+<li>首先触发 <a target="_blank" rel="noopener" href="https://github.com/ant-design/ant-design/blob/c6a7dbc09e709a8905aaa6c073593a1fed6bea14/.github/workflows/preview-start.yml">preview-start.yml</a> Job 对 PR 进行一个占位评论，告知开发者正在进行预览构建。也就是大家经常看到的 Preview Preparing…</li>
+</ul>
+<p><img src="https://user-images.githubusercontent.com/32004925/231686636-eef933e6-2678-4e49-9552-babc50687644.png" alt="preview-preparing.."></p>
+<ul>
+<li>同时 <a target="_blank" rel="noopener" href="https://github.com/ant-design/ant-design/blob/b7d1d7cdbd888a1d73b3a3bf87bf4977e9b9bf91/.github/workflows/preview-build.yml#L52-L77">preview-build.yml</a> Job 会对 site 进行构建操作。</li>
+<li>最后 <a target="_blank" rel="noopener" href="https://github.com/ant-design/ant-design/blob/c6a7dbc09e709a8905aaa6c073593a1fed6bea14/.github/workflows/preview-deploy.yml">preview-deploy.yml</a> Job 会等待 <code>preview-build.yml</code> 运行完成后进行对应的操作，如果构建成功则利用 <a target="_blank" rel="noopener" href="https://surge.sh/">Surge</a> 进行部署，部署地址规则：<code>https://preview-&#123;PR-id&#125;-ant-design.surge.sh</code>， 并将之前评论中占位图片修改为构建成功样式（点击该图片即可跳转具体地址）反之则标记为构建失败的图片。</li>
+</ul>
+<h3 id="其他审查"><a href="#其他审查" class="headerlink" title="其他审查"></a>其他审查</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/ant-design/ant-design/blob/5dfce5443744271f778313c23eb8ec3a5af481f8/.github/workflows/size-limit.ym">size-limit.yml</a> Job 则是对 PR 的一个产物大小进行一个检查。</li>
+<li>最近比较火热的 chatGPT，团队也将它添加到 GitHub Action 中，用 AI 先对代码进行审查，具体 Job 可以参考 <a target="_blank" rel="noopener" href="https://github.com/ant-design/ant-design/blob/f7fd474cf8792ea01d03461d407c0edc11828a1c/.github/workflows/chatgpt-cr.yml">chatgpt-cr.yml</a> 文件。</li>
+</ul>
+<h2 id="单元测试"><a href="#单元测试" class="headerlink" title="单元测试"></a>单元测试</h2><p>单元测试作为组件库质量保证最重要的一环，当任何提交推送时都将触发该 CI 进行自动化测试，包括每位开发者发起的 PR，或者主分支更新。</p>
+<h3 id="构建测试"><a href="#构建测试" class="headerlink" title="构建测试"></a>构建测试</h3><p>团队希望每次代码更新后，都能正常构建打包产物， Ant Design 在 test.yml 文件中添加了 <a target="_blank" rel="noopener" href="https://github.com/ant-design/ant-design/blob/master/.github/workflows/test.yml#L104-L138">Dist Job</a> 和 <a target="_blank" rel="noopener" href="https://github.com/ant-design/ant-design/blob/40fb753349c4f2be314c91dbb7e6f1a960097c19/.github/workflows/test.yml#L254-L288">Compile Job</a> 以保证仓库可以进行正常打包构建。</p>
+<h3 id="功能测试"><a href="#功能测试" class="headerlink" title="功能测试"></a>功能测试</h3><p>大家可能有留意到每次仅运行测试相关的 Job 就有多达 30 个。</p>
+<p><img src="https://user-images.githubusercontent.com/32004925/234482326-7c1074b5-e75a-494e-b1c7-c8ccc482ba7c.png" alt="test-jobs-preview"></p>
+<p>团队对于单元测试的态度非常谨慎，需要考虑组件在 React 的各个主要版本上的运行情况（通常为 16、17 和 18 这三个版本）如果是主分支的更新，还需要考虑项目构建产物（通常为 <code>dist</code>、<code>es</code> 以及 <code>lib</code>）在三个 React 版本上的运行情况。目前已知 Ant Design 所有组件共有 4000 多个测试用例。为了进一步提高测试效率，我们还搭建了分布式测试环境。</p>
+<p>所有这些功能都得益于 GitHub Action 的 <a target="_blank" rel="noopener" href="https://docs.github.com/zh/actions/using-jobs/using-a-matrix-for-your-jobs">Job 矩阵策略</a> ，使得我们可以一次性配置多个 Job 来执行测试任务，<a target="_blank" rel="noopener" href="https://github.com/ant-design/ant-design/blob/40fb753349c4f2be314c91dbb7e6f1a960097c19/.github/workflows/test.yml#L141-L223">Normal test</a> 和 <a target="_blank" rel="noopener" href="https://github.com/ant-design/ant-design/blob/40fb753349c4f2be314c91dbb7e6f1a960097c19/.github/workflows/test.yml#L294-L357">Module test</a> 是 Ant Design 利用矩阵策略测试相关的 Job。</p>
+<h2 id="网站部署"><a href="#网站部署" class="headerlink" title="网站部署"></a>网站部署</h2><p>这里的部署构建部分和前面提到的 PR 预览部署构建行为一致，只不过构建后产物部署目标有所差异。</p>
+<h3 id="官网部署"><a href="#官网部署" class="headerlink" title="官网部署"></a>官网部署</h3><p><a target="_blank" rel="noopener" href="https://ant.design/">https://ant.design</a> 官网使用 GitHub 提供的免费 <a target="_blank" rel="noopener" href="https://pages.github.com/">GitHub Pages</a> 功能，利用 Actions <a target="_blank" rel="noopener" href="https://github.com/ant-design/ant-design/blob/dedbdfddafc0134219e391473c109c14766f413d/.github/workflows/site-deploy.yml#L73-L78">Deploy to GitHub Pages</a> Job 直将构建的文档产物推送到<a target="_blank" rel="noopener" href="https://github.com/ant-design/ant-design/tree/gh-pages">gh-pages</a>分支实现。</p>
+<h3 id="独立版本"><a href="#独立版本" class="headerlink" title="独立版本"></a>独立版本</h3><p>大家都知道 <a target="_blank" rel="noopener" href="https://ant.design/">https://ant.design</a> 官网永远保持最新版本，但有时候仍还是需要查阅具体版本的文档，<a target="_blank" rel="noopener" href="https://github.com/ant-design/ant-design/blob/5aad29d937baeba43ca8acde7f86450e9aec99f1/.github/workflows/site-deploy.yml#L80-L90">Deploy to Surge</a> Job 则是每次发布新版本后将站点部署到 Surge， URL 规则为 <code>https://ant-design-&#123;major&#125;-&#123;minor&#125;-&#123;patch&#125;.surge.sh</code> 并将 url 评论在每一个发版 commit 上：</p>
+<p><img src="https://user-images.githubusercontent.com/32004925/234485713-4e93154c-d5a4-4cad-87b0-e76667ff237f.png" alt="everyone-version-preview"></p>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><p>上面的篇幅已经讲述了 Ant Design 利用 CI/CD 完成的大部分核心内容，但实际上还有一些 Job 没有具体介绍，这里再补充一些。</p>
+<h3 id="接入-IM-通知"><a href="#接入-IM-通知" class="headerlink" title="接入 IM 通知"></a>接入 IM 通知</h3><p>为保证开发者和社区成员可以第一时间了解到相关信息，利用 Action 提供的 Event 实现 IM 接入：</p>
+<ul>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/ant-design/ant-design/blob/master/.github/workflows/issue-open-check.yml#L96-L105">issue-notice</a>、<a target="_blank" rel="noopener" href="https://github.com/ant-design/ant-design/blob/dedbdfddafc0134219e391473c109c14766f413d/.github/workflows/disscustion-open-check.yml#L16-L25">discussion-notice</a> Job 表示每当创建了 Issue 、Discussion 通知到钉钉社区群中。</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/ant-design/ant-design/blob/dedbdfddaf/.github/workflows/release-helper.yml">release-helper.yml</a> CI 文件表示每当 antd 发布版本且创建 Release 时，将更新日志发布到钉钉社区群中。</p>
+</li>
+<li><p>其他未提及到的 Job 等待着大家去探索与发现…</p>
+</li>
+</ul>
+<h2 id="接入自己项目"><a href="#接入自己项目" class="headerlink" title="接入自己项目"></a>接入自己项目</h2><p>前面向大家介绍了 Ant Design 使用 GitHub Action 的诸多场景，我们不妨实际动手尝试一下，运用到自己项目中，提高生产效率。下面通过一个简单的 Demo 进行演示。</p>
+<h3 id="创建项目"><a href="#创建项目" class="headerlink" title="创建项目"></a>创建项目</h3><p>通过命令行 <code>pnpm create vite@latest my-react-app --template react-ts</code> 创建一个 Vite + React 项目。</p>
+<h3 id="配置-CI-Workflow"><a href="#配置-CI-Workflow" class="headerlink" title="配置 CI Workflow"></a>配置 CI Workflow</h3><p>在项目根目录里 <code>.github/workflows</code> 文件夹中新建 <code>ci.yml</code> ，代码如下：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">name:</span> <span class="string">CI</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># en: Set the event to pull request event and push event of the master branch</span></span><br><span class="line"><span class="comment"># zh: Event 设置为 master 分支的 pull request 事件和 push 事件</span></span><br><span class="line"><span class="attr">on:</span></span><br><span class="line">  <span class="attr">push:</span></span><br><span class="line">    <span class="attr">branches:</span> [<span class="string">master</span>]</span><br><span class="line">  <span class="attr">pull_request:</span></span><br><span class="line">    <span class="attr">branches:</span> [<span class="string">master</span>]</span><br><span class="line"></span><br><span class="line"><span class="attr">permissions:</span></span><br><span class="line">  <span class="attr">contents:</span> <span class="string">write</span></span><br><span class="line"></span><br><span class="line"><span class="attr">jobs:</span></span><br><span class="line">  <span class="attr">CI:</span></span><br><span class="line">    <span class="attr">runs-on:</span> <span class="string">ubuntu-latest</span></span><br><span class="line">    <span class="attr">steps:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Checkout</span> <span class="string">code</span> <span class="string">(检出代码)</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">actions/checkout@v4</span></span><br><span class="line"></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Setup</span> <span class="string">Node.js</span> <span class="string">(设置</span> <span class="string">node</span> <span class="string">版本)</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">actions/setup-node@v3</span></span><br><span class="line">        <span class="attr">with:</span></span><br><span class="line">          <span class="attr">node-version:</span> <span class="number">16</span></span><br><span class="line"></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Install</span> <span class="string">pnpm</span> <span class="string">(安装</span> <span class="string">pnpm)</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">pnpm/action-setup@v2</span></span><br><span class="line">        <span class="attr">with:</span></span><br><span class="line">          <span class="attr">version:</span> <span class="number">7.0</span><span class="number">.0</span></span><br><span class="line"></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Install</span> <span class="string">dependencies</span> <span class="string">(安装依赖)</span></span><br><span class="line">        <span class="attr">run:</span> <span class="string">pnpm</span> <span class="string">install</span></span><br><span class="line"></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">lint</span> <span class="string">(代码检查)</span></span><br><span class="line">        <span class="attr">run:</span> <span class="string">pnpm</span> <span class="string">run</span> <span class="string">lint</span></span><br><span class="line"></span><br><span class="line">      <span class="comment"># en: The template does not contain test cases. If you need to use test cases, you can uncomment it</span></span><br><span class="line">      <span class="comment"># zh: 初始化模板中不包含测试用例，如需使用测试用例，可取消注释</span></span><br><span class="line">      <span class="comment"># - name: Test (测试)</span></span><br><span class="line">      <span class="comment">#   run: pnpm run test</span></span><br><span class="line"></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Build</span> <span class="string">(构建)</span></span><br><span class="line">        <span class="attr">run:</span> <span class="string">pnpm</span> <span class="string">run</span> <span class="string">build</span></span><br><span class="line"></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Upload</span> <span class="string">build</span> <span class="string">artifacts</span> <span class="string">(上传构建产物)</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">actions/upload-artifact@v3</span></span><br><span class="line">        <span class="attr">with:</span></span><br><span class="line">          <span class="attr">name:</span> <span class="string">dist</span></span><br><span class="line">          <span class="attr">path:</span> <span class="string">./dist</span></span><br><span class="line"></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Deploy</span> <span class="string">to</span> <span class="string">GitHub</span> <span class="string">Pages</span> <span class="string">(部署到</span> <span class="string">GitHub</span> <span class="string">Pages)</span></span><br><span class="line">        <span class="attr">uses:</span> <span class="string">peaceiris/actions-gh-pages@v3</span></span><br><span class="line">        <span class="comment"># en: Only deploy when the push event of the master branch is triggered</span></span><br><span class="line">        <span class="comment"># zh: 仅在触发 master 分支的 push 事件时部署</span></span><br><span class="line">        <span class="attr">if:</span> <span class="string">github.ref</span> <span class="string">==</span> <span class="string">&#x27;refs/heads/master&#x27;</span></span><br><span class="line">        <span class="attr">with:</span></span><br><span class="line">          <span class="attr">github_token:</span> <span class="string">$&#123;&#123;</span> <span class="string">secrets.GITHUB_TOKEN</span> <span class="string">&#125;&#125;</span></span><br><span class="line">          <span class="attr">publish_dir:</span> <span class="string">./dist</span></span><br></pre></td></tr></table></figure>
+
+<p>上述 Workflow 中包含了一个 CI Job，当我们推送到 master 分支时， CI 触发后将依次运行 lint、build 以及 deploy，如下所示：</p>
+<p><img src="https://user-images.githubusercontent.com/32004925/234609284-ec7b40f5-a221-4c8b-9093-ce68a1a545bb.png" alt="test-CI-preview"></p>
+<h3 id="添加缓存"><a href="#添加缓存" class="headerlink" title="添加缓存"></a>添加缓存</h3><p>为了进一步优化安装依赖速度，我们可以添加 pnpm 缓存，然后发起一个 Pull Request 验证上一个步骤：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># ...</span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">create</span> <span class="string">pnpm-lock.yaml</span> <span class="string">(创建</span> <span class="string">pnpm-lock.yaml)</span></span><br><span class="line">  <span class="attr">run:</span> <span class="string">pnpm</span> <span class="string">install</span> <span class="string">--frozen-lockfile</span> <span class="string">--ignore-scripts</span></span><br><span class="line"></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Get</span> <span class="string">pnpm</span> <span class="string">store</span> <span class="string">directory</span> <span class="string">(获取</span> <span class="string">pnpm</span> <span class="string">store</span> <span class="string">目录)</span></span><br><span class="line">  <span class="attr">id:</span> <span class="string">pnpm-cache</span></span><br><span class="line">  <span class="attr">shell:</span> <span class="string">bash</span></span><br><span class="line">  <span class="attr">run:</span> <span class="string">|</span></span><br><span class="line"><span class="string">    echo &quot;STORE_PATH=$(pnpm store path)&quot; &gt;&gt; $GITHUB_OUTPUT</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Setup</span> <span class="string">pnpm</span> <span class="string">cache</span> <span class="string">(设置</span> <span class="string">pnpm</span> <span class="string">缓存)</span></span><br><span class="line">  <span class="attr">uses:</span> <span class="string">actions/cache@v4</span></span><br><span class="line">  <span class="attr">with:</span></span><br><span class="line">    <span class="attr">path:</span> <span class="string">$&#123;&#123;</span> <span class="string">steps.pnpm-cache.outputs.STORE_PATH</span> <span class="string">&#125;&#125;</span></span><br><span class="line">    <span class="attr">key:</span> <span class="string">$&#123;&#123;</span> <span class="string">runner.os</span> <span class="string">&#125;&#125;-pnpm-store-$&#123;&#123;</span> <span class="string">hashFiles(&#x27;**/pnpm-lock.yaml&#x27;)</span> <span class="string">&#125;&#125;</span></span><br><span class="line">    <span class="attr">restore-keys:</span> <span class="string">|</span></span><br><span class="line"><span class="string">      $&#123;&#123; runner.os &#125;&#125;-pnpm-store-</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="comment"># ...</span></span><br></pre></td></tr></table></figure>
+
+<p>可以发现，发起的 PR 也正确触发了 CI Job，并且我们的 pnpm store 也被缓存了起来，之后每次触发 CI 都会根据 <code>pnpm-lock.yaml</code> 内容判断是否直接读取缓存。</p>
+<p><img src="https://user-images.githubusercontent.com/32004925/234617748-8bc4f0fd-b29a-4b01-b416-1c16eed03acb.png" alt="pr-CI-preview"></p>
+<p><img src="https://user-images.githubusercontent.com/32004925/234621854-dbfc565c-26e0-4e48-862d-8dde8ab22627.png" alt="restore-cache"></p>
+<p>关于上面的 <code>Setup pnpm cache</code> 步骤中，7 天内未被访问的任何缓存条目将会被删除。可以存储的缓存数没有限制，但存储库中所有缓存的总大小限制为 10 GB，更多内容请阅读 <a target="_blank" rel="noopener" href="https://docs.github.com/zh/actions/using-workflows/caching-dependencies-to-speed-up-workflows">缓存依赖项以加快工作流程</a>。</p>
+<p><img src="https://user-images.githubusercontent.com/32004925/234618808-46137b0d-27a0-4b01-b1a6-6e4931f6d388.png" alt="cache-pnpm-store"></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>本次文章到这里就结束了，希望可以帮助大家更进一步了解 Ant Design，也欢迎大家前往 <a target="_blank" rel="noopener" href="https://github.com/ant-design/ant-design/discussions">讨论区</a> 参与讨论和建设。</p>
+
+    </div>
+
+    
+    
+    
+        
+
+  <div class="followme">
+    <p>欢迎关注我的其它发布渠道</p>
+
+    <div class="social-list">
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="https://zhihu.com/people/wxh16144">
+            <span class="icon">
+              <i class="fab fa-zhihu"></i>
+            </span>
+
+            <span class="label">Zhihu</span>
+          </a>
+        </div>
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="https://twitter.com/wxh16144">
+            <span class="icon">
+              <i class="fab fa-twitter"></i>
+            </span>
+
+            <span class="label">Twitter</span>
+          </a>
+        </div>
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="https://weibo.com/wxh16144">
+            <span class="icon">
+              <i class="fab fa-weibo"></i>
+            </span>
+
+            <span class="label">Weibo</span>
+          </a>
+        </div>
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="https://t.me/wxh16144">
+            <span class="icon">
+              <i class="fab fa-telegram"></i>
+            </span>
+
+            <span class="label">Telegram</span>
+          </a>
+        </div>
+    </div>
+  </div>
+
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2022/12/08/%E7%BB%99antd%E8%B4%A1%E7%8C%AEgithub-action-workflow/" rel="prev" title="给antd贡献github-action-workflow">
+      <i class="fa fa-chevron-left"></i> 给antd贡献github-action-workflow
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2023/08/11/%E5%9B%A0%E4%B8%BAantd%E7%9A%84%E6%A8%A1%E6%80%81%E6%A1%86%E4%B8%8D%E5%A5%BD%E7%94%A8-%E6%88%91%E4%BA%8C%E5%BC%80%E4%BA%86/" rel="next" title="我觉得 antd 模态框不好用，所以选择了二开">
+      我觉得 antd 模态框不好用，所以选择了二开 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="gitalk-container"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%89%8D%E8%A8%80"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF-GitHub-Actions"><span class="nav-number">1.1.</span> <span class="nav-text">什么是 GitHub Actions</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8"><span class="nav-number">2.</span> <span class="nav-text">如何使用</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Issue"><span class="nav-number">2.1.</span> <span class="nav-text">Issue</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%9D%E8%AF%81-issue-%E8%B4%A8%E9%87%8F"><span class="nav-number">2.1.1.</span> <span class="nav-text">保证 issue 质量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81-issue-%E7%AD%94%E7%96%91"><span class="nav-number">2.1.2.</span> <span class="nav-text">常见 issue 答疑</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E6%9C%9F%E6%B8%85%E7%90%86-issue"><span class="nav-number">2.1.3.</span> <span class="nav-text">定期清理 issue</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Pull-Request"><span class="nav-number">2.2.</span> <span class="nav-text">Pull Request</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#PR-%E9%A2%84%E6%A3%80"><span class="nav-number">2.2.1.</span> <span class="nav-text">PR 预检</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E8%A7%84%E8%8C%83%E6%A3%80%E6%9F%A5"><span class="nav-number">2.2.2.</span> <span class="nav-text">代码规范检查</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PR-%E9%83%A8%E7%BD%B2%E9%A2%84%E8%A7%88"><span class="nav-number">2.2.3.</span> <span class="nav-text">PR 部署预览</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%E5%AE%A1%E6%9F%A5"><span class="nav-number">2.2.4.</span> <span class="nav-text">其他审查</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%95%E5%85%83%E6%B5%8B%E8%AF%95"><span class="nav-number">2.3.</span> <span class="nav-text">单元测试</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9E%84%E5%BB%BA%E6%B5%8B%E8%AF%95"><span class="nav-number">2.3.1.</span> <span class="nav-text">构建测试</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%9F%E8%83%BD%E6%B5%8B%E8%AF%95"><span class="nav-number">2.3.2.</span> <span class="nav-text">功能测试</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BD%91%E7%AB%99%E9%83%A8%E7%BD%B2"><span class="nav-number">2.4.</span> <span class="nav-text">网站部署</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%98%E7%BD%91%E9%83%A8%E7%BD%B2"><span class="nav-number">2.4.1.</span> <span class="nav-text">官网部署</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%8B%AC%E7%AB%8B%E7%89%88%E6%9C%AC"><span class="nav-number">2.4.2.</span> <span class="nav-text">独立版本</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B6%E4%BB%96"><span class="nav-number">2.5.</span> <span class="nav-text">其他</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%A5%E5%85%A5-IM-%E9%80%9A%E7%9F%A5"><span class="nav-number">2.5.1.</span> <span class="nav-text">接入 IM 通知</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8E%A5%E5%85%A5%E8%87%AA%E5%B7%B1%E9%A1%B9%E7%9B%AE"><span class="nav-number">2.6.</span> <span class="nav-text">接入自己项目</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E9%A1%B9%E7%9B%AE"><span class="nav-number">2.6.1.</span> <span class="nav-text">创建项目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE-CI-Workflow"><span class="nav-number">2.6.2.</span> <span class="nav-text">配置 CI Workflow</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B7%BB%E5%8A%A0%E7%BC%93%E5%AD%98"><span class="nav-number">2.6.3.</span> <span class="nav-text">添加缓存</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">2.7.</span> <span class="nav-text">总结</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Wuxh"
+      src="https://avatars3.githubusercontent.com/u/32004925?s=460&u=154f902e7f852def85af5716e81b275fc76cbf86&v=4">
+  <p class="site-author-name" itemprop="name">Wuxh</p>
+  <div class="site-description" itemprop="description">知道的越多, 不知道的就越多</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">20</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Wxh16144" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Wxh16144" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:wxh1220@gmail.com" title="E-Mail → mailto:wxh1220@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2025</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Wuxh</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : '1174bfe3197e8452ff45',
+      clientSecret: '5fab41bc50a864b17d1a26164e585d9b8853eff3',
+      repo        : 'wxh16144.github.io',
+      owner       : 'Wxh16144',
+      admin       : ['Wxh16144'],
+      id          : '0cd2301d0cb0820b5d998859d6f2d769',
+        language: 'zh-CN',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script>
+
+</body>
+</html>
