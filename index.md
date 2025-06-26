@@ -6,6 +6,15 @@ tags: ["notes"]
 
 一些快速记录的笔记
 
+## RSC `use client` & `use server`
+
+_2025/06/26_
+
+- `use client` **将客户端函数导出到服务器。** 在底层，后端代码会将它们视为类似 `/src/frontend.js#LikeButton` 的引用。它们可以渲染为 JSX 标签，并最终转换为 `<script>` 标签
+- `use server` **将服务器函数导出到客户端。** 在底层，前端将它们视为通过 HTTP 调用后端的 `async` 函数。
+
+ref: [What Does "use client" Do? — overreacted](https://overreacted.io/what-does-use-client-do/)
+
 ## Bash `which` vs `type` vs `where`
 
 _2025/01/20_
@@ -111,7 +120,7 @@ _2024/02/29_
 ref:
 
 - [One simple trick to optimize React re-renders](https://kentcdodds.com/blog/optimize-react-re-renders)
-- [Before You memo()](https://overreacted.io/before-you-memo/)
+- [Before You memo() — overreacted](https://overreacted.io/before-you-memo/)
 
 ## Symbolic link
 
