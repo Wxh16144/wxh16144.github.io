@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="keywords" content="wxh,home,wuxiaohong,wuxh,吴小红" />
+    <meta name="description" content="个人首页" />
+    <meta name="viewport"
+        content="width=device-width,initial-scale=1.0, maximum-scale=1.0, minimum-scale=1, user-scalable=no" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="icon" href="favicon.ico">
+    <style>
+        canvas#canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: block;
+            z-index: -1
+        }
+
+        :root {
+            --border-color: #9abffe;
+            --text-color: #fe7f9d
+        }
+
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            position: fixed;
+            overflow: hidden;
+            background: white;
+            user-select: none
+        }
+
+        body {
+            display: flex;
+            font-family: 'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', '微软雅黑', Arial, sans-serif
+        }
+
+        #container {
+            user-select: none;
+            position: relative;
+            width: 35%;
+            margin: auto;
+            z-index: 998;
+            border-radius: 10px;
+            overflow: hidden;
+            list-style-type: none;
+            background: rgb(154, 191, 254, 0.22);
+            border: 2px solid var(--border-color, green);
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            transition: transform .5s
+        }
+
+        #container:hover {
+            background: transparent;
+            transform: translateY(-3px)
+        }
+
+        #container li.item {
+            flex: 0 1 auto;
+            height: 80px;
+            font-weight: 600;
+            font-size: 26px;
+            display: flex
+        }
+
+        #container li.item a {
+            cursor: pointer;
+            text-decoration: none;
+            color: var(--text-color, green);
+            margin: auto;
+            box-sizing: border-box;
+            padding-bottom: 3px;
+            transition: all .3s
+        }
+
+        #container li.item a:hover {
+            border-bottom: 2px solid var(--text-color, green)
+        }
+
+        #container li.item a:active {
+            color: var(--border-color, green)
+        }
+
+        #cintauber li.item a:visited {
+            color: var(--border-color, green)
+        }
+
+        @media(max-width:1199.98px) {
+            #container {
+                width: 45%
+            }
+
+            #container li.item {
+                height: 70px;
+                font-size: 22px;
+                flex-wrap: 500
+            }
+        }
+
+        @media(max-width:991.98px) {
+            #container {
+                width: 45%
+            }
+
+            #container li.item {
+                height: 60px;
+                font-size: 20px;
+                flex-wrap: 500
+            }
+        }
+
+        @media(max-width:767.98px) {
+            #container {
+                flex-direction: column;
+                width: 50%
+            }
+
+            #container li.item {
+                height: 80px;
+                font-size: 24px;
+                flex-wrap: 500
+            }
+        }
+
+        @media(max-width:575.98px) {
+            #container {
+                flex-direction: column;
+                width: 80%
+            }
+
+            #container:hover {
+                transform: none
+            }
+
+            #container li.item {
+                height: 80px;
+                font-size: 24px;
+                flex-wrap: 500
+            }
+        }
+    </style>
+    <title>W&#250; xiaohong</title>
+</head>
+
+<body>
+    <ul id="container"> </ul>
+    <canvas id="canvas"></canvas>
+</body>
+<script>
+    let arr = [
+        {
+            kid: 1,
+            target: '_self',
+            text: 'Home',
+            href: '/'
+        }
+      , {
+            kid: 3,
+            target: '_self',
+            text: 'Avatar',
+            href: 'http://wxhboy.cn/img'
+        }, {
+            kid: 4,
+            target: '_self',
+            text: 'GitHub',
+            href: 'https://github.com/wxh16144'
+        }
+    ]
+
+    function createElementToHTML(arr) {
+        let temporary = document.createElement('div');
+        for (let index = 0; index < arr.length; index++) {
+            let li_el = document.createElement('li');
+            li_el.className = 'item';
+            let a_el = document.createElement('a');
+            a_el.text = arr[index]['text'];
+            li_el.appendChild(setAtttr(a_el, arr[index]));
+            temporary.appendChild(li_el);
+        }
+        return temporary.innerHTML;
+    }
+
+    function setAtttr(el, attr) {
+        let arr = Object.keys(attr);
+        for (let index = 0; index < arr.length; index++) {
+            let key = arr[index];
+            let value = attr[key];
+            el.setAttribute(key, value);
+        }
+        return el
+    }
+    document.querySelector('#container').innerHTML = createElementToHTML(arr);
+</script>
+<script>
+    ! function () {
+        var t = document.getElementById("canvas"),
+            i = t.getContext("2d"),
+            h = t.width = window.innerWidth,
+            s = t.height = window.innerHeight,
+            a = h / 2,
+            r = s / 2,
+            e = function (t, i) {
+                this.x = t, this.y = i, this.vx = 0, this.vy = 0, this.r = 1 + 10 * Math.random(), this.sa = Math
+                    .random() * Math.PI * 2, this.ea = Math.random() * Math.PI * 2, this.rt = Math.random() * Math.PI *
+                    2, this.vrt = 0, this.h = 0
+            };
+        e.prototype = {
+            constructor: e,
+            update: function () {
+                this.vx += .1 * Math.random() - .05, this.vy += .1 * Math.random() - .05, this.vrt += .02 * Math
+                    .random() - .01, this.x += this.vx, this.y += this.vy, this.rt += this.vrt;
+                var t = a - this.x,
+                    i = r - this.y,
+                    e = Math.sqrt(t * t + i * i);
+                this.h = t / e * 360, this.x < 0 && (this.x = 0, this.vx *= -1), this.x > h && (this.x = h, this
+                    .vx *= -1), this.y < 0 && (this.y = 0, this.vy *= -1), this.y > s && (this.y = s, this
+                    .vy *= -1)
+            },
+            render: function (t) {
+                t.save(), t.strokeStyle = "black", t.fillStyle = "hsla(" + this.h + ", 100%, 50%, 0.5)", t
+                    .translate(this.x, this.y), t.rotate(this.rt), t.beginPath(), t.arc(0, 0, this.r, this.sa,
+                        this.ea), t.fill(), t.stroke(), t.restore()
+            }
+        };
+        for (var n, o = [], d = Math.floor(h * s / 1e4), v = 0; v < d; v++) n = new e(Math.random() * h, Math.random() *
+            s), o.push(n);
+        requestAnimationFrame(function t() {
+            requestAnimationFrame(t), i.clearRect(0, 0, h, s);
+            for (var a = 0; a < d; a++)(n = o[a]).update(), n.render(i);
+            for (a = 0; a < d; a++)
+                for (var r = o[a], e = a + 1; e < d; e++) {
+                    var v = o[e],
+                        y = r.x - v.x,
+                        c = r.y - v.y;
+                    Math.sqrt(y * y + c * c) < 50 && (i.strokeStyle = "rgba(0, 0, 0, 0.5)", i.beginPath(), i
+                        .moveTo(r.x, r.y), i.lineTo(v.x, v.y), i.stroke())
+                }
+        });
+        var y, c, l;
+        window.addEventListener("resize", (y = function () {
+            window.location.reload()
+        }, c = 300, function (...t) {
+            clearTimeout(l);
+            var i = this;
+            l = setTimeout(function (...t) {
+                y.apply(i, t)
+            }, c)
+        }))
+    }();
+</script>
+<script>
+</script>
+</html>
