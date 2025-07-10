@@ -106,3 +106,33 @@ export const foo: Foo = {
 ```
 
 - [Here's a quick thread on a super useful type helper you've probably never heard of (nope, not even advanced folks).](https://twitter.com/mattpocockuk/status/1622730173446557697?s=20)
+
+### 带标签的模版字符串
+
+```typescript
+
+interface TemplateStringFunction {
+  (template: TemplateStringsArray, ...args: Array<TemplateValue>): string;
+}
+
+interface Variables {
+  uuid: string;
+}
+
+type TemplateValue = (args: Variables) => string
+
+const variables = {
+  uuid: '12345',
+
+};
+
+const interpolate: TemplateStringFunction = (template, ...args) => {
+  return template.reduce((acc, str, i) => {
+    return acc + str + (args[i] ? args[i](variables) : '');
+  }, '');
+}
+
+export const v = interpolate`hello ${(c) => c.uuid}!`;
+```
+
+- [JavaScript【JS】带标签的模版字符串-Tagged Templates 【styled-components举例】](https://www.bilibili.com/video/BV1P3411o7Zd)
