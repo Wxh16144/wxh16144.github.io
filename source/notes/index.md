@@ -6,6 +6,14 @@ tags: ["notes"]
 
 一些快速记录的笔记
 
+## SSRF
+
+_2025/07/18_
+
+SSRF（Server-Side Request Forgery）是一种攻击方式，攻击者可以利用服务器向内部或外部资源发起请求，从而获取敏感信息或执行恶意操作。
+
+- [SSRF 漏洞报告](https://github.com/lobehub/lobe-chat/security/advisories/GHSA-mxhq-xw3g-rphc), 解法 [#2255](https://github.com/lobehub/lobe-chat/pull/2255)、[#4044](https://github.com/lobehub/lobe-chat/pull/4044)
+
 ## RSC `use client` & `use server`
 
 _2025/06/26_
