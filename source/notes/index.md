@@ -44,8 +44,6 @@ ref:
 - [Bash `which` vs `type`](https://gist.github.com/miguelmota/bb7f8587047c7dcb5fe38b41ba2d357d)
 - [What is the difference between which and where](https://unix.stackexchange.com/a/757150)
 
-```bash
-
 ## Web Search
 
 _2024/07/22_
