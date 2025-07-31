@@ -1,5 +1,5 @@
 ---
-title: 两台mac数据同步方案
+title: 两台 MAC 数据同步方案
 date: 2025-06-07 14:53:06
 tags: ["Mac"]
 ---
@@ -92,7 +92,7 @@ tags: ["Mac"]
 
 2. 在打开的编辑器中，添加一行来设置定时任务。例如，每天凌晨 1 点同步一次：
 
-```plaintext
+```bash
 0 1 * * * rsync -avz -e ssh mini:~/Code/test/ ~/Code/test/
 ```
 
@@ -107,7 +107,54 @@ tags: ["Mac"]
 
 你可以根据自己的需求调整同步的目录和频率，实现灵活的数据管理。
 
+### 暴露在公网
+
+_2025/07/31_ 更新
+
+如果需要将 Mac 暴露在公网，建议修改 SSH 的默认端口（22），以提高安全性。并且设置为只允许密钥登录。
+
+MacOS 修改 `/etc/ssh/sshd_config` 文件中的 `Port` 并不会生效，需要修改 `/etc/services` 文件中的 `ssh` 条目。
+
+_`/etc/services`_
+
+```diff
+- ssh            22/tcp # SSH Remote Login Protocol
+- ssh            22/udp # SSH Remote Login Protocol
++ ssh            8083/tcp # SSH Remote Login Protocol
++ ssh            8083/udp # SSH Remote Login Protocol
+```
+
+重启 SSH 服务使配置生效：
+
+```bash
+sudo launchctl unload -w /System/Library/LaunchDaemons/ssh.plist
+sudo launchctl load -w /System/Library/LaunchDaemons/ssh.plist
+```
+
+关闭密码登录则可以在 `/etc/ssh/sshd_config` 文件中添加或修改以下配置，随后重启 SSH 服务：
+
+```plaintext
+PubkeyAuthentication yes # 启用公钥认证
+PasswordAuthentication no # 禁用密码认证
+```
+
+### ⚠️ 注意
+
+修改端口后，之前配置的 `~/.ssh/config` 文件中使用的默认端口的行为需要通过 `Port` 指令来指定 22 端口。
+
+比如 GitHub 的 SSH 配置：
+
+```plaintext
+# ssh -T git@github.com
+Host github.com
+    HostName github.com
+    Port 22 # 指定端口
+    User Wxh16144
+    IdentityFile ~/.ssh/github_wxh16144_ed25519
+```
+
 ### 参考文档
 
+- [Can't change PORT listen on macOS X Mojave for built-in SSH](https://superuser.com/a/1399103)
 - [rsync 用法教程 - 阮一峰的网络日志](https://www.ruanyifeng.com/blog/2020/08/rsync.html)
 - [科技爱好者周刊（第 351 期）- rsyncUI](https://www.ruanyifeng.com/blog/2025/06/weekly-issue-351.html)
