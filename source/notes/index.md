@@ -6,6 +6,19 @@ tags: ["notes"]
 
 一些快速记录的笔记
 
+## CSR/SSR/SSG/ISR/DPR/PPR
+
+_2025/10/24_
+
+- **CSR**: Client Side Rendering，客户端（通常是浏览器）渲染；
+- **SSR**: Server Side Rendering，服务端渲染；
+- **SSG**: Static Site Generation，静态网站生成；
+- **ISR**：Incremental Site Rendering，增量式的网站渲染；
+- **DPR**：Distributed Persistent Rendering，分布式的持续渲染。
+- **PPR**：Partial Page Rendering，部分页面渲染。
+
+ref: [Next.js CSR vs SSR vs SSG vs ISR and now PPR!](https://www.youtube.com/watch?v=S5tjBqzs31w)
+
 ## SSRF
 
 _2025/07/18_
