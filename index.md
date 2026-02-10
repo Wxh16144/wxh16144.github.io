@@ -6,6 +6,32 @@ tags: ["notes"]
 
 一些快速记录的笔记
 
+## 修改 VS Code 侧边栏字体
+
+_2026/02/10_
+
+VS Code 提供的 `editor.fontSize` 只能修改代码字体信息，但是却不能修改 VS Code 本身的字体，比如：侧边栏，命令面板，设置 UI
+
+这个功能请求在 2015 年就存在了， [#519](https://github.com/Microsoft/vscode/issues/519), 在评论区中，找到一条 [解决方案](https://github.com/microsoft/vscode/issues/519#issuecomment-3691806331)
+
+我将文件定义为全局变量，方便之后修改, 仅适用于 MacOS
+
+```bash
+# https://github.com/microsoft/vscode/issues/519#issuecomment-3691806331
+export VSC_WORKBENCH_CSS_FILE=/Applications/Visual\ Studio\ Code.app/Contents/Resources/app/out/vs/workbench/workbench.desktop.main.css
+```
+
+在 `VSC_WORKBENCH_CSS_FILE` 文件底部追加这部分内容即可~
+
+```css
+/* https://github.com/microsoft/vscode/issues/519#issuecomment-3691806331 */
+.monaco-workbench {
+    font-family: "Maple Mono", "SF Mono" !important;
+}
+```
+
+- [Allow to change the font size and font of the workbench · Issue #519 · microsoft/vscode](https://github.com/Microsoft/vscode/issues/519)
+
 ## CSR/SSR/SSG/ISR/DPR/PPR
 
 _2025/10/24_
