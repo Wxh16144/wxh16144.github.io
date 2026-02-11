@@ -128,16 +128,19 @@ ZWSP(Zero Width Space) [wiki](https://en.wikipedia.org/wiki/Zero-width_space) �
     );
   }
 
-  const result = getAllCombinations(
-    '\u200b',
-    '\u200c',
-    '\u200d',
-    '\u200e',
-    '\u200f',
-    '\ufeff'
-  );
+  const zeroWidthCharacters = ['\u200b', '\u200c', '\u200d', '\u200e', '\u200f', '\ufeff'];
 
-  globalThis.console.log({ ...result }); // 发挥你的想象力
+  // ========== vanilla js ==========
+  const getPerms = (arr, prefix = "") => [
+    ...(prefix ? [prefix] : []),
+    ...arr.flatMap((v, i) =>
+      getPerms(arr.filter((_, j) => i !== j), prefix + v)
+    )
+  ];
+
+  console.log(getAllCombinations(...zeroWidthCharacters));
+  console.log('==========');
+  console.log(getPerms(zeroWidthCharacters));
   ```
 
 </details>
