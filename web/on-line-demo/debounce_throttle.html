@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="一眼就能看懂的防抖和节流动画(还能学一点canvas)"
+    />
+    <meta
+      name="keywords"
+      content="debounce,throttle,防抖,节流,js函数防抖,js函数节流,canvas,javascript,css"
+    />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>一眼就能看懂的防抖和节流动画(还能学一点canvas)</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      html,
+      body {
+        height: 100%;
+        width: 100%;
+      }
+      body {
+        display: flex;
+      }
+      #box {
+        margin: auto;
+      }
+      .tips {
+        text-align: center;
+        margin: 10px 0;
+        font-size: 18px;
+        /* font-weight: 600; */
+      }
+      input {
+        outline-color: red;
+        margin-top: 10px;
+        height: 30px;
+        width: 100%;
+        font-size: 18px;
+        padding: 0 5px;
+        box-sizing: border-box;
+      }
+      canvas {
+        border: 2px solid red;
+        display: block;
+      }
+    </style>
+  </head>
+  <div id="box">
+    <p class="tips">
+      请将鼠标移入<b>canvas</b>画布中, 或<b>input</b>框输入内容,
+      亦或者<b>改变窗体大小</b>;
+    </p>
+    <canvas width="1200" height="300"></canvas>
+    <input type="text" placeholder="请输入内容" />
+    <p class="tips" style="font-size:12px">
+      文章地址：<a
+        target="_blank"
+        href="https://juejin.cn/post/6844903919567503373"
+        >一眼就能看懂的防抖和节流动画-还能学一点canvas</a
+      >
+    </p>
+  </div>
+  <body>
+    <script>
+      const Canvas = function(canvas) {
+        const { round } = Math
+        this.canvas = canvas || document.createElement('canvas') // canvas 元素
+        this.ctx = this.canvas.getContext('2d') // 创建 context 对象
+        this.font_content_width = 0 // 左边文本区域大小
+        this.row_height = round(this.canvas.height / 3) //每一块区域的高度
+        // 渲染页面的数据
+        this.data = {
+          option: {
+            width: 2, // 每个方块的宽度
+            height: 0.8, // 每个方块的高度占整行的百分比
+            interval: 3 // 两个方块之间的空隙
+          },
+          // 函数的数据
+          lists: {
+            common_array_data: {
+              desc: '普通(common)',
+              list: /*[]*/ [...Array(1000).keys()].map(
+                v => v % Number.MAX_SAFE_INTEGER
+              ) // 初始化数据
+            },
+            debounce_array_data: {
+              desc: '防抖(debounce)',
+              list: /*[]*/ [...Array(1000).keys()].map(v => v % 2) // 初始化数据
+            },
+            throttle_array_data: {
+              desc: '节流(throttle)',
+              list: /*[]*/ [...Array(1000).keys()].map(v => v % 4) // 初始化数据
+            }
+          }
+        }
+      }
+
+      Canvas.prototype.draw_text = function() {
+        const ctx = this.ctx
+        const { width, height } = this.canvas // 获取 canvas 宽高
+        // 通过计算文本宽度，找到最长的确定为左边文本区域的宽度
+        const _set_text_content_width = (text, x = 10) => {
+          const { round } = Math
+          // 文本两边加上X间距
+          const font_width = round(ctx.measureText(text).width + x * 2)
+          if (!this.font_content_width) {
+            this.font_content_width = font_width
+            return
+          }
+          if (this.font_content_width < font_width) {
+            this.font_content_width = font_width
+          }
+        }
+        // 设置字体
+        ctx.font = '16px Arial'
+        // 绘制左边标题文字
+        Object.keys(this.data.lists).forEach((key, index) => {
+          // 获取文本
+          const text = this.data.lists[key].desc
+          // 统计宽度
+          _set_text_content_width(text, 10)
+          // 计算文本顶部
+          const top = this.row_height * (index + 0.5)
+          // 绘制文字
+          ctx.fillText(text, 10, top)
+        })
+      }
+      Canvas.prototype.init = function() {
+        this.draw_text()
+        const _start = () => {
+          this.fillRect()
+          // console.log('运行中...')
+          window.requestAnimationFrame(_start)
+        }
+        window.requestAnimationFrame(_start)
+      }
+      // 绘制小方块
+      Canvas.prototype.fillRect = function() {
+        const ctx = this.ctx
+        const { min } = Math
+        ctx.fillStyle = '#999' // 填充的颜色
+        let line_length_arr = [] // 存储三个已经绘制的长度
+        // 遍历数据
+        Object.keys(this.data.lists).forEach((key, index) => {
+          // 获取方法的数据
+          const { desc, list } = this.data.lists[key]
+          // 每个方法存储的数据
+          list.forEach((v, i) => {
+            // 获取每个方块的配置属性
+            const { width = 2, height = 0.8, interval = 2 } = this.data.option
+            // 计算每个方块X坐标  x = 左边文字标题区域 + (方块宽+间隙) * 索引(几个)
+            const x = this.font_content_width + i * (width + interval)
+            // 计算每个方块的Y坐标 y =每行高度 * ( 剩余百分百对半 + 索引(外循环) )
+            const y = this.row_height * ((1 - height) / 2 + index)
+            // 如果数组值不为0 则绘制正方形
+            if (v) {
+              ctx.fillRect(x, y, width, this.row_height * height)
+            }
+            // 把最后一个正方形的数据收集起来
+            if (i === list.length - 1) {
+              line_length_arr.push(x + width + interval)
+            }
+          })
+        })
+        // 如果没有数据需要默认为空数组；
+        line_length_arr = line_length_arr.length ? line_length_arr : [0]
+        // 取出最短的值
+        const min_line_length = min(...line_length_arr)
+        // 判断最短的是否超出右边渲染区域
+        if (min_line_length > this.canvas.width) {
+          // 擦除右边区域
+          ctx.clearRect(
+            this.font_content_width,
+            0,
+            Number.MAX_SAFE_INTEGER,
+            Number.MAX_SAFE_INTEGER
+          )
+          const lists = this.data.lists
+          Object.keys(lists).forEach(key => (lists[key].list = []))
+        }
+      }
+
+      //  实现 防抖和节流 部分
+      // 实现防抖
+      const debounce = (fn, t) => {
+        let time
+        return function(...arg) {
+          clearTimeout(time)
+          let that = this
+          time = setTimeout(function(...arg) {
+            fn.apply(that, arg)
+          }, t)
+        }
+      }
+      // 实现节流
+      const throttle = (fn, t) => {
+        let now = Date.now()
+        return function(...arg) {
+          if (Date.now() - now > t) {
+            fn.apply(this, arg)
+            now = Date.now()
+          }
+        }
+      }
+
+      // 举例使用  --绘制方法
+      const example_fn = (time = 300, living, log = false) => {
+        const debounce_fn = debounce(() => {
+          log && console.error('防抖')
+          living.data.lists.debounce_array_data.list.pop()
+          living.data.lists.debounce_array_data.list.push(1)
+        }, time)
+        const throttle_fn = throttle(() => {
+          log && console.warn('节流')
+          living.data.lists.throttle_array_data.list.pop()
+          living.data.lists.throttle_array_data.list.push(1)
+        }, time)
+        return function() {
+          log && console.log('普通')
+          living.data.lists.common_array_data.list.push(1)
+          living.data.lists.throttle_array_data.list.push(0)
+          living.data.lists.debounce_array_data.list.push(0)
+          throttle_fn()
+          debounce_fn()
+        }
+      }
+      // 创建实例
+      let C = new Canvas(document.querySelector('canvas'))
+      // 开始绘制
+      C.init()
+      // 例子
+      const fn = example_fn(300, C, false)
+      // 绑定输入框事件
+      document.querySelector('input').addEventListener('input', fn)
+      // 绑定canvas鼠标移动事件
+      document.querySelector('canvas').addEventListener('mousemove', fn)
+      // 绑定浏览器改变窗体大小事件
+      window.addEventListener('resize', fn)
+    </script>
+  </body>
+  <script>
+    var footer_option = { fixed: true };
+  </script>
+  <script src="../assets/create_footer.js"></script>
+</html>

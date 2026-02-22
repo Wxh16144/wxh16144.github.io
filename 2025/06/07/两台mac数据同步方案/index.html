@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":"yes","show_result":"yes","style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="最近购入了一台 Mac mini，放在家里写写代码用。之前的 MacBook Pro 主要是用来公司工作和出差使用。两台 Mac 的数据同步一直是个问题。 介绍今天的方案，主要是基于 SSH 和 rsync 的数据同步方案。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="两台 MAC 数据同步方案">
+<meta property="og:url" content="http://example.com/2025/06/07/%E4%B8%A4%E5%8F%B0mac%E6%95%B0%E6%8D%AE%E5%90%8C%E6%AD%A5%E6%96%B9%E6%A1%88/index.html">
+<meta property="og:site_name" content="Wuxh">
+<meta property="og:description" content="最近购入了一台 Mac mini，放在家里写写代码用。之前的 MacBook Pro 主要是用来公司工作和出差使用。两台 Mac 的数据同步一直是个问题。 介绍今天的方案，主要是基于 SSH 和 rsync 的数据同步方案。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2025-06-07T14:53:06.000Z">
+<meta property="article:modified_time" content="2026-02-22T20:33:01.672Z">
+<meta property="article:author" content="Wuxh">
+<meta property="article:tag" content="Mac">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2025/06/07/%E4%B8%A4%E5%8F%B0mac%E6%95%B0%E6%8D%AE%E5%90%8C%E6%AD%A5%E6%96%B9%E6%A1%88/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>两台 MAC 数据同步方案 | Wuxh</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Wuxh</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Front-end Development</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-notes">
+
+    <a href="/notes" rel="section"><i class="fa fa-sticky-note fa-fw"></i>笔记</a>
+
+  </li>
+        <li class="menu-item menu-item-bookmarks">
+
+    <a href="/bookmarks" rel="section"><i class="fa fa-bookmark fa-fw"></i>书签</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+  <a href="https://github.com/Wxh16144" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2025/06/07/%E4%B8%A4%E5%8F%B0mac%E6%95%B0%E6%8D%AE%E5%90%8C%E6%AD%A5%E6%96%B9%E6%A1%88/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/32004925?s=460&u=154f902e7f852def85af5716e81b275fc76cbf86&v=4">
+      <meta itemprop="name" content="Wuxh">
+      <meta itemprop="description" content="知道的越多, 不知道的就越多">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wuxh">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          两台 MAC 数据同步方案
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2025-06-07 14:53:06" itemprop="dateCreated datePublished" datetime="2025-06-07T14:53:06+00:00">2025-06-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2026-02-22 20:33:01" itemprop="dateModified" datetime="2026-02-22T20:33:01+00:00">2026-02-22</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>最近购入了一台 Mac mini，放在家里写写代码用。之前的 MacBook Pro 主要是用来公司工作和出差使用。两台 Mac 的数据同步一直是个问题。</p>
+<p>介绍今天的方案，主要是基于 SSH 和 rsync 的数据同步方案。</p>
+<span id="more"></span>
+
+<h3 id="方案概括"><a href="#方案概括" class="headerlink" title="方案概括"></a>方案概括</h3><ol>
+<li>确保两台 Mac 都安装了 SSH 服务。并且在系统偏好设置中开启远程登录。</li>
+<li>生成 SSH 密钥对（两台电脑可以复用同一个密钥对）。</li>
+<li>使用 rsync 命令进行文件同步。</li>
+</ol>
+<h3 id="具体步骤"><a href="#具体步骤" class="headerlink" title="具体步骤"></a>具体步骤</h3><ol>
+<li><p><strong>开启 SSH 服务</strong>：</p>
+<ul>
+<li>在两台 Mac 上，打开“系统偏好设置” -&gt; “共享”，勾选“远程登录”。这将允许其他计算机通过 SSH 连接到你的 Mac。</li>
+</ul>
+</li>
+<li><p><strong>生成 SSH 密钥对</strong>：</p>
+<ul>
+<li>在终端中运行以下命令生成 SSH 密钥对（如果已经有密钥对，可以跳过这一步）：</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t ed25519 -C <span class="string">&quot;mac-mini&quot;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>将公钥复制到另一台 Mac</strong>：</p>
+<p>使用 <code>ssh-copy-id</code> 命令将公钥复制到另一台 Mac 上（假设目标 Mac 的用户名为 <code>wuxh</code>，IP 地址为 <code>192.168.1.2</code>）：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-copy-id wuxh@192.168.1.2</span><br></pre></td></tr></table></figure>
+
+<p>这个时候会提示你输入目标 Mac 的密码。输入密码后，公钥将被添加到目标 Mac 的 <code>~/.ssh/authorized_keys</code> 文件中。</p>
+<p>如果 <code>ssh-copy-id</code> 命令不可用，也可以手动复制公钥到目标 Mac：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scp ~/.ssh/id_ed25519.pub wuxh@192.168.1.2:~/.ssh/authorized_keys</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>配置 ～/.ssh/config 文件</strong>（可选）：</p>
+<p>通常我们在使用 SSH 时需要输入用户名和 IP 地址。为了简化操作，可以在 <code>~/.ssh/config</code> 文件中添加配置。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Host mini</span><br><span class="line">    HostName 192.168.1.2</span><br><span class="line">    User wuxh</span><br><span class="line">    IdentityFile ~/.ssh/id_ed25519</span><br></pre></td></tr></table></figure>
+
+<p>这样，你就可以通过 <code>ssh mini</code> 来连接到目标 Mac。</p>
+</li>
+<li><p><strong>使用 rsync 同步文件</strong>：</p>
+<p>使用 <code>rsync</code> 命令进行文件同步。以下是一个将 mini 上的 <code>~/Code/test</code> 目录同步到 MacBook Pro 上的 <code>~/Code/test</code> 目录的示例命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rsync -avz -e ssh mini:~/Code/test/ ~/Code/test/</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h3 id="另外一台-Mac-上的操作"><a href="#另外一台-Mac-上的操作" class="headerlink" title="另外一台 Mac 上的操作"></a>另外一台 Mac 上的操作</h3><p>在另一台 Mac 上，你需要执行相似的步骤来配置 SSH 和 rsync。确保你已经在目标 Mac 上开启了 SSH 服务，并且将公钥复制到目标 Mac 的 <code>~/.ssh/authorized_keys</code> 文件中。</p>
+<h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h3><ul>
+<li><p>确保两台 Mac 在同一局域网内，或者可以通过公网 IP 访问。</p>
+</li>
+<li><p>使用 <code>rsync</code> 时，注意源路径和目标路径的斜杠 <code>/</code>。如果源路径以斜杠结尾，表示同步目录内容；如果不以斜杠结尾，则表示同步整个目录。</p>
+</li>
+<li><p>可以使用 <code>rsync</code> 的 <code>--dry-run</code> 或者 <code>-n</code> 选项来测试同步操作，而不实际执行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rsync -avz -n -e ssh mini:~/Code/test/ ~/Code/test/</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<h3 id="定期同步"><a href="#定期同步" class="headerlink" title="定期同步"></a>定期同步</h3><p>如果你希望定期同步两台 Mac 之间的数据，可以使用 <code>cron</code> 定时任务来自动执行 <code>rsync</code> 命令。</p>
+<ol>
+<li><p>打开终端，输入以下命令编辑 <code>cron</code> 任务：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">crontab -e</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在打开的编辑器中，添加一行来设置定时任务。例如，每天凌晨 1 点同步一次：</p>
+</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">0 1 * * * rsync -avz -e ssh mini:~/Code/test/ ~/Code/test/</span><br></pre></td></tr></table></figure>
+
+<p>   保存并退出编辑器, 这样，每天凌晨 1 点，<code>rsync</code> 命令将自动执行，将 <code>~/Code/test/</code> 目录的内容从当前 Mac 同步到目标 Mac 的 <code>~/Code/test/</code> 目录。</p>
+<blockquote>
+<p>对于不熟悉 rsync 的用户，可以参考 <a target="_blank" rel="noopener" href="https://www.ruanyifeng.com/blog/2020/08/rsync.html">rsync 用法教程</a> 来了解更多细节。<br>也可以试试 <a target="_blank" rel="noopener" href="https://github.com/rsyncOSX/RsyncUI">rsyncUI</a>，这是一个图形化的 rsync 工具，可以更方便地进行文件同步。(我没用过，感兴趣的可以试试)</p>
+</blockquote>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>通过以上步骤，你可以轻松地在两台 Mac 之间同步数据。使用 SSH 和 rsync 的组合，不仅安全可靠，而且效率高。</p>
+<p>你可以根据自己的需求调整同步的目录和频率，实现灵活的数据管理。</p>
+<h3 id="暴露在公网"><a href="#暴露在公网" class="headerlink" title="暴露在公网"></a>暴露在公网</h3><p><em>2025/07/31</em> 更新</p>
+<p>如果需要将 Mac 暴露在公网，建议修改 SSH 的默认端口（22），以提高安全性。并且设置为只允许密钥登录。</p>
+<p>MacOS 修改 <code>/etc/ssh/sshd_config</code> 文件中的 <code>Port</code> 并不会生效，需要修改 <code>/etc/services</code> 文件中的 <code>ssh</code> 条目。</p>
+<p><em><code>/etc/services</code></em></p>
+<figure class="highlight diff"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="deletion">- ssh            22/tcp # SSH Remote Login Protocol</span></span><br><span class="line"><span class="deletion">- ssh            22/udp # SSH Remote Login Protocol</span></span><br><span class="line"><span class="addition">+ ssh            8083/tcp # SSH Remote Login Protocol</span></span><br><span class="line"><span class="addition">+ ssh            8083/udp # SSH Remote Login Protocol</span></span><br></pre></td></tr></table></figure>
+
+<p>重启 SSH 服务使配置生效：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> launchctl unload -w /System/Library/LaunchDaemons/ssh.plist</span><br><span class="line"><span class="built_in">sudo</span> launchctl load -w /System/Library/LaunchDaemons/ssh.plist</span><br></pre></td></tr></table></figure>
+
+<p>关闭密码登录则可以在 <code>/etc/ssh/sshd_config</code> 文件中添加或修改以下配置，随后重启 SSH 服务：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">PubkeyAuthentication yes # 启用公钥认证</span><br><span class="line">PasswordAuthentication no # 禁用密码认证</span><br></pre></td></tr></table></figure>
+
+<h3 id="⚠️-注意"><a href="#⚠️-注意" class="headerlink" title="⚠️ 注意"></a>⚠️ 注意</h3><p>修改端口后，之前配置的 <code>~/.ssh/config</code> 文件中使用的默认端口的行为需要通过 <code>Port</code> 指令来指定 22 端口。</p>
+<p>比如 GitHub 的 SSH 配置：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># ssh -T git@github.com</span><br><span class="line">Host github.com</span><br><span class="line">    HostName github.com</span><br><span class="line">    Port 22 # 指定端口</span><br><span class="line">    User Wxh16144</span><br><span class="line">    IdentityFile ~/.ssh/github_wxh16144_ed25519</span><br></pre></td></tr></table></figure>
+
+<h3 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h3><ul>
+<li><a target="_blank" rel="noopener" href="https://superuser.com/a/1399103">Can’t change PORT listen on macOS X Mojave for built-in SSH</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.ruanyifeng.com/blog/2020/08/rsync.html">rsync 用法教程 - 阮一峰的网络日志</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.ruanyifeng.com/blog/2025/06/weekly-issue-351.html">科技爱好者周刊（第 351 期）- rsyncUI</a></li>
+</ul>
+
+    </div>
+
+    
+    
+    
+        
+
+  <div class="followme">
+    <p>欢迎关注我的其它发布渠道</p>
+
+    <div class="social-list">
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="https://zhihu.com/people/wxh16144">
+            <span class="icon">
+              <i class="fab fa-zhihu"></i>
+            </span>
+
+            <span class="label">Zhihu</span>
+          </a>
+        </div>
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="https://twitter.com/wxh16144">
+            <span class="icon">
+              <i class="fab fa-twitter"></i>
+            </span>
+
+            <span class="label">Twitter</span>
+          </a>
+        </div>
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="https://weibo.com/wxh16144">
+            <span class="icon">
+              <i class="fab fa-weibo"></i>
+            </span>
+
+            <span class="label">Weibo</span>
+          </a>
+        </div>
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="https://t.me/wxh16144">
+            <span class="icon">
+              <i class="fab fa-telegram"></i>
+            </span>
+
+            <span class="label">Telegram</span>
+          </a>
+        </div>
+    </div>
+  </div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Mac/" rel="tag"># Mac</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2025/05/15/%E4%BB%8E%E6%88%91%E8%A7%89%E5%BE%97%E5%8F%AF%E4%BB%A5%E5%88%B0%E7%A4%BE%E5%8C%BA%E8%AF%B4%E4%B8%8D%E8%A1%8C-antd%E8%B4%A1%E7%8C%AE%E8%B8%A9%E5%9D%91%E8%BF%87%E7%A8%8B/" rel="prev" title="从我觉得可以到社区说不行 antd 贡献踩坑过程">
+      <i class="fa fa-chevron-left"></i> 从我觉得可以到社区说不行 antd 贡献踩坑过程
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2099/12/01/%E5%B8%B8%E7%94%A8%E6%96%87%E6%A1%A3%E6%80%BB%E7%BB%93/" rel="next" title="常用文档 (持续更新)">
+      常用文档 (持续更新) <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%B9%E6%A1%88%E6%A6%82%E6%8B%AC"><span class="nav-number">1.</span> <span class="nav-text">方案概括</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B7%E4%BD%93%E6%AD%A5%E9%AA%A4"><span class="nav-number">2.</span> <span class="nav-text">具体步骤</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%A6%E5%A4%96%E4%B8%80%E5%8F%B0-Mac-%E4%B8%8A%E7%9A%84%E6%93%8D%E4%BD%9C"><span class="nav-number">3.</span> <span class="nav-text">另外一台 Mac 上的操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="nav-number">4.</span> <span class="nav-text">注意事项</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E6%9C%9F%E5%90%8C%E6%AD%A5"><span class="nav-number">5.</span> <span class="nav-text">定期同步</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">6.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9A%B4%E9%9C%B2%E5%9C%A8%E5%85%AC%E7%BD%91"><span class="nav-number">7.</span> <span class="nav-text">暴露在公网</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E2%9A%A0%EF%B8%8F-%E6%B3%A8%E6%84%8F"><span class="nav-number">8.</span> <span class="nav-text">⚠️ 注意</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%82%E8%80%83%E6%96%87%E6%A1%A3"><span class="nav-number">9.</span> <span class="nav-text">参考文档</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Wuxh"
+      src="https://avatars3.githubusercontent.com/u/32004925?s=460&u=154f902e7f852def85af5716e81b275fc76cbf86&v=4">
+  <p class="site-author-name" itemprop="name">Wuxh</p>
+  <div class="site-description" itemprop="description">知道的越多, 不知道的就越多</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">22</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Wxh16144" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Wxh16144" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:wxh1220@gmail.com" title="E-Mail → mailto:wxh1220@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2026</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Wuxh</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

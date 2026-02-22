@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":"yes","show_result":"yes","style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="主要是记录一下自己在 antd 参与贡献过程中遇到的一些问题和解决方案，顺便给自己留个纪念。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="从我觉得可以到社区说不行 antd 贡献踩坑过程">
+<meta property="og:url" content="http://example.com/2025/05/15/%E4%BB%8E%E6%88%91%E8%A7%89%E5%BE%97%E5%8F%AF%E4%BB%A5%E5%88%B0%E7%A4%BE%E5%8C%BA%E8%AF%B4%E4%B8%8D%E8%A1%8C-antd%E8%B4%A1%E7%8C%AE%E8%B8%A9%E5%9D%91%E8%BF%87%E7%A8%8B/index.html">
+<meta property="og:site_name" content="Wuxh">
+<meta property="og:description" content="主要是记录一下自己在 antd 参与贡献过程中遇到的一些问题和解决方案，顺便给自己留个纪念。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2025/05/15/RaygzM74rdTXKQu.png">
+<meta property="og:image" content="https://s2.loli.net/2025/05/15/rBwsWL6GIY9xHAF.png">
+<meta property="og:image" content="https://s2.loli.net/2025/05/15/EqhWZBHwPplTYuo.png">
+<meta property="og:image" content="https://s2.loli.net/2025/05/15/R274n1YPufQTI5M.png">
+<meta property="og:image" content="https://github.com/Wxh16144/refined-antd-changelog/assets/32004925/c269e70e-e8c0-4815-b5ef-0c502d2f2600">
+<meta property="og:image" content="https://github.com/Wxh16144/refined-antd-changelog/assets/32004925/44eefee9-fe5a-4159-9f9f-da99f01078f4">
+<meta property="og:image" content="https://github.com/user-attachments/assets/caaa0f0c-e013-4c5d-81a2-c7630201176a">
+<meta property="article:published_time" content="2025-05-15T10:32:05.000Z">
+<meta property="article:modified_time" content="2026-02-22T20:33:01.672Z">
+<meta property="article:author" content="Wuxh">
+<meta property="article:tag" content="Wuxh,Wuxiaohong,wxh16144,Wuxh2020,Wuxh2021">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2025/05/15/RaygzM74rdTXKQu.png">
+
+<link rel="canonical" href="http://example.com/2025/05/15/%E4%BB%8E%E6%88%91%E8%A7%89%E5%BE%97%E5%8F%AF%E4%BB%A5%E5%88%B0%E7%A4%BE%E5%8C%BA%E8%AF%B4%E4%B8%8D%E8%A1%8C-antd%E8%B4%A1%E7%8C%AE%E8%B8%A9%E5%9D%91%E8%BF%87%E7%A8%8B/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>从我觉得可以到社区说不行 antd 贡献踩坑过程 | Wuxh</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Wuxh</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Front-end Development</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-notes">
+
+    <a href="/notes" rel="section"><i class="fa fa-sticky-note fa-fw"></i>笔记</a>
+
+  </li>
+        <li class="menu-item menu-item-bookmarks">
+
+    <a href="/bookmarks" rel="section"><i class="fa fa-bookmark fa-fw"></i>书签</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+  <a href="https://github.com/Wxh16144" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2025/05/15/%E4%BB%8E%E6%88%91%E8%A7%89%E5%BE%97%E5%8F%AF%E4%BB%A5%E5%88%B0%E7%A4%BE%E5%8C%BA%E8%AF%B4%E4%B8%8D%E8%A1%8C-antd%E8%B4%A1%E7%8C%AE%E8%B8%A9%E5%9D%91%E8%BF%87%E7%A8%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/32004925?s=460&u=154f902e7f852def85af5716e81b275fc76cbf86&v=4">
+      <meta itemprop="name" content="Wuxh">
+      <meta itemprop="description" content="知道的越多, 不知道的就越多">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wuxh">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          从我觉得可以到社区说不行 antd 贡献踩坑过程
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2025-05-15 10:32:05" itemprop="dateCreated datePublished" datetime="2025-05-15T10:32:05+00:00">2025-05-15</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2026-02-22 20:33:01" itemprop="dateModified" datetime="2026-02-22T20:33:01+00:00">2026-02-22</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>主要是记录一下自己在 antd 参与贡献过程中遇到的一些问题和解决方案，顺便给自己留个纪念。</p>
+<span id="more"></span>
+
+<h2 id="第一趴"><a href="#第一趴" class="headerlink" title="第一趴"></a>第一趴</h2><p>源起 issue <a target="_blank" rel="noopener" href="https://github.com/ant-design/ant-design/issues/53759">#53759</a> 反馈 <a target="_blank" rel="noopener" href="https://ant.design/">ant.design</a> 官方文档会有一个每隔 7 天强制弹窗提示可以前往中国镜像站点问题。<br>可以看到这个问题已经被人反感了，通过 <a target="_blank" rel="noopener" href="https://github.com/ant-design/ant-design/blob/5.25.1/.dumi/scripts/mirror-modal.js#L7">这里的代码</a> 可以了解到控制弹窗的具体逻辑。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">(<span class="keyword">function</span> <span class="title function_">createMirrorModal</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">if</span> (</span><br><span class="line">    (navigator.<span class="property">languages</span>.<span class="title function_">includes</span>(<span class="string">&#x27;zh&#x27;</span>) || navigator.<span class="property">languages</span>.<span class="title function_">includes</span>(<span class="string">&#x27;zh-CN&#x27;</span>)) &amp;&amp;</span><br><span class="line">    <span class="regexp">/-cn\/?$/</span>.<span class="title function_">test</span>(<span class="variable language_">window</span>.<span class="property">location</span>.<span class="property">pathname</span>) &amp;&amp;</span><br><span class="line">    ![<span class="string">&#x27;ant-design.gitee.io&#x27;</span>, <span class="string">&#x27;ant-design.antgroup.com&#x27;</span>].<span class="title function_">includes</span>(<span class="variable language_">window</span>.<span class="property">location</span>.<span class="property">hostname</span>) &amp;&amp;</span><br><span class="line">    !<span class="variable language_">window</span>.<span class="property">location</span>.<span class="property">host</span>.<span class="title function_">includes</span>(<span class="string">&#x27;surge&#x27;</span>) &amp;&amp;</span><br><span class="line">    <span class="variable language_">window</span>.<span class="property">location</span>.<span class="property">hostname</span> !== <span class="string">&#x27;localhost&#x27;</span></span><br><span class="line">  ) &#123;</span><br><span class="line">    <span class="keyword">const</span> <span class="variable constant_">ANTD_DOT_NOT_SHOW_MIRROR_MODAL</span> = <span class="string">&#x27;ANT_DESIGN_DO_NOT_OPEN_MIRROR_MODAL&#x27;</span>;</span><br><span class="line">    <span class="keyword">const</span> lastShowTime = <span class="variable language_">window</span>.<span class="property">localStorage</span>.<span class="title function_">getItem</span>(<span class="variable constant_">ANTD_DOT_NOT_SHOW_MIRROR_MODAL</span>);</span><br><span class="line">    <span class="keyword">if</span> (</span><br><span class="line">      lastShowTime &amp;&amp;</span><br><span class="line">      lastShowTime !== <span class="string">&#x27;true&#x27;</span> &amp;&amp;</span><br><span class="line">      <span class="title class_">Date</span>.<span class="title function_">now</span>() - <span class="keyword">new</span> <span class="title class_">Date</span>(lastShowTime).<span class="title function_">getTime</span>() &lt; <span class="number">7</span> * <span class="number">24</span> * <span class="number">60</span> * <span class="number">60</span> * <span class="number">1000</span></span><br><span class="line">    ) &#123;</span><br><span class="line">      <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// ... 省略</span></span><br></pre></td></tr></table></figure>
+
+<p>大概意思是如果浏览器语言是中文，并且当前访问的地址是 <code>-cn</code> 结尾，并且不是国内镜像的话就进入弹窗逻辑。</p>
+<p>其中 <code>ant-design.gitee.io</code> 和 <code>ant-design.antgroup.com</code> 是国内的镜像站点。</p>
+<p>有意思的是对于 <code>localhost</code> 和 <code>surge</code> 的地址是不会进入逻辑的，说明自己人开发过程中也不喜欢这个弹窗。（<code>surge</code> 是 PR preview 的地址）</p>
+<blockquote>
+<p>这种逻辑性简单代码，混个 PR 贡献也不算难</p>
+</blockquote>
+<h3 id="解决方案-判断网站打开速度"><a href="#解决方案-判断网站打开速度" class="headerlink" title="解决方案 - 判断网站打开速度"></a>解决方案 - 判断网站打开速度</h3><p>一开始脑子没转过弯，提交了一个 PR <a target="_blank" rel="noopener" href="https://github.com/ant-design/ant-design/pull/53760">#53760</a> 试图将 localStorage 的值设置理解成 nextShowTime，允许设置一个未来的日期以达到不弹窗的目的。</p>
+<blockquote>
+<p>其实这里可以直接设置 <code>ANT_DESIGN_DO_NOT_OPEN_MIRROR_MODAL</code> 为未来的时间字符串就好了，使得 <code> Date.now() - new Date(lastShowTime).getTime()</code> 的值永远小于 7 天。</p>
+</blockquote>
+<p>后面在 <a target="_blank" rel="noopener" href="https://github.com/ant-design/ant-design/issues/53759#issuecomment-2861386907">#53759</a> 评论区提到可以在加入网站打开速度的条件判断来展示是否需要进行提示。</p>
+<p>所以继续在 #53760 push 代码，这里了解到了 <a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/API/Performance_API">MDN - Performance_API</a> 使用 <a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/API/PerformanceNavigationTiming/">domContentLoadedEventEnd</a> 方法判断 DOM 准备时间。超过 3秒, 则表示需要切换到国内镜像。</p>
+<p>随后闲夕大佬提出建议，七天无理由的切源提示可以换成新版本发布提示。<br><img src="https://s2.loli.net/2025/05/15/RaygzM74rdTXKQu.png" alt="image.png"></p>
+<p>并且评论区也建议改成<a target="_blank" rel="noopener" href="https://github.com/ant-design/ant-design/pull/53760#issuecomment-2861836417">新版本发布提示</a>。</p>
+<p>想着新版本提示和切源提示是两个不同的功能，所以选择关闭 #53760，对这次讨论进行归档。</p>
+<h3 id="解决方案-使用新版提示代替"><a href="#解决方案-使用新版提示代替" class="headerlink" title="解决方案 - 使用新版提示代替"></a>解决方案 - 使用新版提示代替</h3><p>从这里开始我就开始自由发挥了，因为没人告知我应该怎么做。</p>
+<p>参考一些软件新提示弹窗，比如 iTerm2 的，他会将最后一次更新说明放在弹窗中，所以我也按照这个思路进行 PR。</p>
+<p><img src="https://s2.loli.net/2025/05/15/rBwsWL6GIY9xHAF.png" alt="image.png"></p>
+<p>写了一个 <a target="_blank" rel="noopener" href="https://github.com/ant-design/ant-design/pull/53777/files#diff-8649a16e7694838bed97ae2dc92de1f76f96b0b9be006ea95b797548666cca2e">node 脚本</a>，直接截取 <a target="_blank" rel="noopener" href="https://github.com/ant-design/ant-design/blob/master/CHANGELOG.zh-CN.md">CHANGELOG.zh-CN.md</a> 最后一次更新说明的内容为新的 <code>.md</code> 文件，作为弹窗的提示信息。</p>
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="variable constant_">EN</span> <span class="keyword">from</span> <span class="string">&#x27;../../preset/latest-changelog.en-US.md&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="variable constant_">CN</span> <span class="keyword">from</span> <span class="string">&#x27;../../preset/latest-changelog.zh-CN.md&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">Change</span>(<span class="params"></span>)&#123;</span><br><span class="line">  <span class="keyword">return</span> len=== <span class="string">&#x27;cn&#x27;</span> ? <span class="language-xml"><span class="tag">&lt;<span class="name">CN</span> /&gt;</span></span> : <span class="language-xml"><span class="tag">&lt;<span class="name">EN</span> /&gt;</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里修改 dumi 主题，直接插入一个 antd 的 Modal 弹窗组件即可。但是 markdown 语法不支持直接插入组件，所以需要使用自定义 loader 进行处理。</p>
+<p>后面想到 dumi 本身就是一个文档生成工具，有一个 <a target="_blank" rel="noopener" href="https://github.com/umijs/dumi/blob/v2.4.21/src/loaders/markdown/index.ts">markdown-loader</a> 可以直接使用了。</p>
+<p>最后发现 dumi 提供的 loader 只能处理页面级别的 markdown 文件，却无法处理组件级导入的 markdown 文件，遂即需要给 dumi 提交一个 <a target="_blank" rel="noopener" href="https://github.com/umijs/dumi/pull/2281">PR #2281</a> 进行支持。</p>
+<p>经历 dumi 的 review 和 release 后，终于可以在 antd 中使用了。</p>
+<p><img src="https://s2.loli.net/2025/05/15/EqhWZBHwPplTYuo.png" alt="image.png"></p>
+<ul>
+<li>PR <a target="_blank" rel="noopener" href="https://github.com/ant-design/ant-design/pull/53777">#53777</a> 有各种 case 截图。</li>
+<li>给弹窗 mask 加了一个毛玻璃效果，我觉得更好看了 😂。</li>
+<li>还自以为的给过长的 changelog 部分进行渐变隐藏，诱导用户点击底部的 “查看完整日志” 按钮。</li>
+</ul>
+<p>从提出新版本发布弹窗方案开始到 dumi markdown-loader 改进发版，期间持续了一周， 在社区的的 review 和讨论中，最终完成了这个功能。</p>
+<p>并且我还高兴的发了一个 <a target="_blank" rel="noopener" href="https://x.com/Wxh16144/status/1920724243605537047">X (原 twitter)</a>~，不过最后 owner 可能觉得太重了，给了最早在换源弹窗中改进建议</p>
+<p>既然又切换为换源方式，当前 PR 也就没有意义了，遂即进行关闭归档。</p>
+<h2 id="第二趴"><a href="#第二趴" class="headerlink" title="第二趴"></a>第二趴</h2><p>源起 issue <a target="_blank" rel="noopener" href="https://github.com/ant-design/ant-design/issues/53806">#53806</a>、<a target="_blank" rel="noopener" href="https://github.com/ant-design/ant-design/issues/53764">#53764</a> 以及 <a target="_blank" rel="noopener" href="https://github.com/ant-design/ant-design/issues/53782">#53782</a> 等一系列问题反馈最新版本出现了 break change 的问题。</p>
+<p>既然存在 break change 那肯定是要修复的，遂即在 <a target="_blank" rel="noopener" href="https://github.com/ant-design/ant-design/pull/53767">#53767</a> 进行了修复，并且更新了 <a target="_blank" rel="noopener" href="https://github.com/ant-design/ant-design/blob/master/BUG_VERSIONS.json">BUG_VERSION.json</a> 文件。</p>
+<p>早在很早以前，我尝试用油猴脚本的方式在 ant.design/changelog 中对存在 break change 的版本进行标记。具体可以参考: <a target="_blank" rel="noopener" href="https://juejin.cn/post/7321164229545377831">Ant Design 版本控，更新日志清爽利器 - 掘金</a></p>
+<p>所以这次又让我有了提交 PR 的冲动，使其功能作为 antd 网站的一部分，具体思路还是通过 dumi 的自定义 markdown 插件方式修改 changelog 。最终  <a target="_blank" rel="noopener" href="https://github.com/ant-design/ant-design/pull/53811">PR #53811</a> 完成了这个功能。</p>
+<p>大概效果预览：</p>
+<p><img src="https://s2.loli.net/2025/05/15/R274n1YPufQTI5M.png" alt="image.png"></p>
+<p>但是经过大家一次次 review 后，我感觉到这个功能做的不是很明显。但是社区说声音可能是出去更多的考虑，一方面太多 break change 警告与其它正常 log 对比起来会有些唐突，另一方面让开发者觉得 antd 不够稳定，损害了 antd 的形象吧 /doge</p>
+<p>这次更新只是在版本后面添加了一个图标，点击后可以查看具体的 break change 的原因。</p>
+<p>所以，我又自以为的觉得还不错的功能，又发了一条 <a target="_blank" rel="noopener" href="https://x.com/Wxh16144/status/1922183971435122920">X (原 twitter)</a> 推荐大家可以使用的油猴脚本。油猴可以同时支持 v4 和 v5， 甚至还有 v3 和 npm 版本列表的支持。</p>
+<p>以下是油猴效果截图：</p>
+<table>
+<thead>
+<tr>
+<th>antd v5</th>
+<th>antd v4</th>
+<th>antd v3</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><a target="_blank" rel="noopener" href="https://ant.design/changelog-cn"><img src="https://github.com/Wxh16144/refined-antd-changelog/assets/32004925/c269e70e-e8c0-4815-b5ef-0c502d2f2600" alt="antd5"></a></td>
+<td><a target="_blank" rel="noopener" href="https://4x.ant.design/changelog-cn"><img src="https://github.com/Wxh16144/refined-antd-changelog/assets/32004925/44eefee9-fe5a-4159-9f9f-da99f01078f4" alt="antd4"></a></td>
+<td><a target="_blank" rel="noopener" href="https://3x.ant.design/changelog-cn"><img src="https://github.com/user-attachments/assets/caaa0f0c-e013-4c5d-81a2-c7630201176a" alt="antd3"></a></td>
+</tr>
+</tbody></table>
+<h2 id="End"><a href="#End" class="headerlink" title="End"></a>End</h2><p>以上两件事都是近期参与 antd 贡献的过程，真的是经历坎坷</p>
+
+    </div>
+
+    
+    
+    
+        
+
+  <div class="followme">
+    <p>欢迎关注我的其它发布渠道</p>
+
+    <div class="social-list">
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="https://zhihu.com/people/wxh16144">
+            <span class="icon">
+              <i class="fab fa-zhihu"></i>
+            </span>
+
+            <span class="label">Zhihu</span>
+          </a>
+        </div>
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="https://twitter.com/wxh16144">
+            <span class="icon">
+              <i class="fab fa-twitter"></i>
+            </span>
+
+            <span class="label">Twitter</span>
+          </a>
+        </div>
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="https://weibo.com/wxh16144">
+            <span class="icon">
+              <i class="fab fa-weibo"></i>
+            </span>
+
+            <span class="label">Weibo</span>
+          </a>
+        </div>
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="https://t.me/wxh16144">
+            <span class="icon">
+              <i class="fab fa-telegram"></i>
+            </span>
+
+            <span class="label">Telegram</span>
+          </a>
+        </div>
+    </div>
+  </div>
+
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2025/01/17/%E4%B8%80%E4%B8%AA%E5%A5%87%E6%B7%AB%E6%8A%80%E5%B7%A7%E5%AE%9E%E7%8E%B0%E7%9F%AD%E7%BD%91%E5%9D%80/" rel="prev" title="一个奇淫技巧实现短网址">
+      <i class="fa fa-chevron-left"></i> 一个奇淫技巧实现短网址
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2025/06/07/%E4%B8%A4%E5%8F%B0mac%E6%95%B0%E6%8D%AE%E5%90%8C%E6%AD%A5%E6%96%B9%E6%A1%88/" rel="next" title="两台 MAC 数据同步方案">
+      两台 MAC 数据同步方案 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%B8%80%E8%B6%B4"><span class="nav-number">1.</span> <span class="nav-text">第一趴</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88-%E5%88%A4%E6%96%AD%E7%BD%91%E7%AB%99%E6%89%93%E5%BC%80%E9%80%9F%E5%BA%A6"><span class="nav-number">1.1.</span> <span class="nav-text">解决方案 - 判断网站打开速度</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88-%E4%BD%BF%E7%94%A8%E6%96%B0%E7%89%88%E6%8F%90%E7%A4%BA%E4%BB%A3%E6%9B%BF"><span class="nav-number">1.2.</span> <span class="nav-text">解决方案 - 使用新版提示代替</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%AC%AC%E4%BA%8C%E8%B6%B4"><span class="nav-number">2.</span> <span class="nav-text">第二趴</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#End"><span class="nav-number">3.</span> <span class="nav-text">End</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Wuxh"
+      src="https://avatars3.githubusercontent.com/u/32004925?s=460&u=154f902e7f852def85af5716e81b275fc76cbf86&v=4">
+  <p class="site-author-name" itemprop="name">Wuxh</p>
+  <div class="site-description" itemprop="description">知道的越多, 不知道的就越多</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">22</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Wxh16144" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Wxh16144" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:wxh1220@gmail.com" title="E-Mail → mailto:wxh1220@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2026</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Wuxh</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":"yes","show_result":"yes","style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="我又来活跃账号了，这次分享一个我自己写的油猴脚本。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Ant Design 版本控，更新日志清爽利器">
+<meta property="og:url" content="http://example.com/2024/01/08/antd%E7%89%88%E6%9C%AC%E6%8E%A7-%E6%9B%B4%E6%96%B0%E6%97%A5%E5%BF%97%E6%B8%85%E7%88%BD%E5%88%A9%E5%99%A8/index.html">
+<meta property="og:site_name" content="Wuxh">
+<meta property="og:description" content="我又来活跃账号了，这次分享一个我自己写的油猴脚本。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://github.com/Wxh16144/refined-antd-changelog/assets/32004925/c3695c04-191f-4a39-bc44-cea2776213ad">
+<meta property="og:image" content="https://github.com/Wxh16144/refined-antd-changelog/assets/32004925/332aee4e-58a0-41f4-982a-2753ac1ba102">
+<meta property="article:published_time" content="2024-01-08T00:00:00.000Z">
+<meta property="article:modified_time" content="2026-02-22T20:33:01.671Z">
+<meta property="article:author" content="Wuxh">
+<meta property="article:tag" content="Wuxh,Wuxiaohong,wxh16144,Wuxh2020,Wuxh2021">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://github.com/Wxh16144/refined-antd-changelog/assets/32004925/c3695c04-191f-4a39-bc44-cea2776213ad">
+
+<link rel="canonical" href="http://example.com/2024/01/08/antd%E7%89%88%E6%9C%AC%E6%8E%A7-%E6%9B%B4%E6%96%B0%E6%97%A5%E5%BF%97%E6%B8%85%E7%88%BD%E5%88%A9%E5%99%A8/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Ant Design 版本控，更新日志清爽利器 | Wuxh</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Wuxh</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Front-end Development</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-notes">
+
+    <a href="/notes" rel="section"><i class="fa fa-sticky-note fa-fw"></i>笔记</a>
+
+  </li>
+        <li class="menu-item menu-item-bookmarks">
+
+    <a href="/bookmarks" rel="section"><i class="fa fa-bookmark fa-fw"></i>书签</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+  <a href="https://github.com/Wxh16144" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2024/01/08/antd%E7%89%88%E6%9C%AC%E6%8E%A7-%E6%9B%B4%E6%96%B0%E6%97%A5%E5%BF%97%E6%B8%85%E7%88%BD%E5%88%A9%E5%99%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/32004925?s=460&u=154f902e7f852def85af5716e81b275fc76cbf86&v=4">
+      <meta itemprop="name" content="Wuxh">
+      <meta itemprop="description" content="知道的越多, 不知道的就越多">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wuxh">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Ant Design 版本控，更新日志清爽利器
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2024-01-08 00:00:00" itemprop="dateCreated datePublished" datetime="2024-01-08T00:00:00+00:00">2024-01-08</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2026-02-22 20:33:01" itemprop="dateModified" datetime="2026-02-22T20:33:01+00:00">2026-02-22</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>我又来活跃账号了，这次分享一个我自己写的油猴脚本。</p>
+<span id="more"></span>
+
+<h2 id="太长不看版"><a href="#太长不看版" class="headerlink" title="太长不看版"></a>太长不看版</h2><ul>
+<li>如果期望依赖的 antd 一直保持稳定，又不缺失日常维护，可直接使用 <code>@conch-v5</code> or <code>@conch</code> 版本，若要使用 semver(数字) 版本，推荐 <code>^</code> 前缀。</li>
+<li>自荐脚本，使用 <a target="_blank" rel="noopener" href="https://greasyfork.org/en/scripts/484164-refined-ant-design-changelog">Refined Ant Design Changelog</a> 油猴脚本(<strong>本文主角</strong>)，标记/折叠不推荐版本，并提供最佳版本推荐。</li>
+<li>以上两个都不想看，可通过 antd 仓库提供的 <a target="_blank" rel="noopener" href="https://registry.npmmirror.com/antd/latest/files/BUG_VERSIONS.json">BUG_VERSIONS.json</a>  文件自检项目依赖。</li>
+</ul>
+<h2 id="缘起"><a href="#缘起" class="headerlink" title="缘起"></a>缘起</h2><p>在参与贡献时阅读了一部分脚本，发现 <a target="_blank" rel="noopener" href="https://github.com/ant-design/ant-design/blob/3fc65a0865865ef1c1f058d7758d52698c723bc2/scripts/post-script.ts#L14-L57">post-script.ts#L14-L57</a> 脚本一直在维护一个 deprecated 的版本范围，每次发布 npm 后都会将 <code>conch</code> 版本更新到特定版本。确保用户不会因为升级 antd 而导致项目报错。</p>
+<p>但是这个变量一直属于脚本内部变量，并没有暴露出来，文档也没有提及。所以我在 <a target="_blank" rel="noopener" href="https://github.com/ant-design/ant-design/pull/46746">antd#46746</a> PR 中将其独立出来，作为一个单独的文件，并添加到 npm files 中。方便开发者做一些自定义的检查。</p>
+<h2 id="BUG-VERSIONS-json"><a href="#BUG-VERSIONS-json" class="headerlink" title="BUG_VERSIONS.json"></a>BUG_VERSIONS.json</h2><p>这个文件是通过 npm api 获取的，所以只有在发布后才会更新。如果你想要获取最新的 BUG_VERSIONS，可以通过以下命令获取。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -L -o BUG_VERSIONS.json https://registry.npmmirror.com/antd/latest/files/BUG_VERSIONS.json</span><br></pre></td></tr></table></figure>
+
+<p>内容如下：</p>
+<blockquote>
+<p>key 为 antd 版本范围，value 为该范围内的 BUG 链接。</p>
+</blockquote>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;&gt;= 4.21.6 &lt; 4.22.0&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;https://github.com/ant-design/ant-design/pull/36682&quot;</span><span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">  <span class="attr">&quot;5.1.0&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;https://github.com/react-component/drawer/pull/370&quot;</span><span class="punctuation">]</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Refined-Ant-Design-Changelog"><a href="#Refined-Ant-Design-Changelog" class="headerlink" title="Refined Ant Design Changelog"></a>Refined Ant Design Changelog</h2><p>这个油猴脚本是我自己写的，主要功能是将 changelog 页中的不推荐版本标记出来，并提供最佳版本推荐，并且发布到了 <a target="_blank" rel="noopener" href="https://greasyfork.org/en/scripts/484164-refined-ant-design-changelog">Greasy Fork</a> 上。</p>
+<h3 id="脚本功能"><a href="#脚本功能" class="headerlink" title="脚本功能"></a>脚本功能</h3><ul>
+<li>通过 npm api 获取最新 BUG_VERSIONS 和 antd 版本历史。</li>
+<li>支持仅显示有 BUG 的版本。（默认关闭）</li>
+<li>支持折叠不推荐版本的更新日志。（默认关闭）</li>
+</ul>
+<h3 id="什么是不推荐版本？"><a href="#什么是不推荐版本？" class="headerlink" title="什么是不推荐版本？"></a>什么是不推荐版本？</h3><ol>
+<li>有严重 bug，这些版本可能会导致你的项目报错，无法正常运行。</li>
+<li>样式有严重问题，这些版本可能会导致你的项目样式错乱，线上项目不可用。</li>
+</ol>
+<h3 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h3><p>针对上面不推荐的版本问题 antd 推荐开发者使用 <code>^</code> 作为 semver 的前缀。但是往往很多时候，项目都存在包管理器锁文件，这些锁文件会锁定依赖的版本。所以我们需要自己从 changelog 中找到最佳版本。</p>
+<h3 id="如何找到最佳版本？"><a href="#如何找到最佳版本？" class="headerlink" title="如何找到最佳版本？"></a>如何找到最佳版本？</h3><p>在 <a target="_blank" rel="noopener" href="https://github.com/ant-design/ant-design/pull/46746#issuecomment-1873837066">antd#46746</a> PR 评论中，@afc163 提供了一个建议，将 bug 版本提交到 <a target="_blank" rel="noopener" href="https://github.com/cnpm/bug-versions/">cnpm/bug-versions</a> 仓库，使用 <code>cnpm</code> 作为包管理器时，可以通过 <code>cnpm install antd --fix-bug-versions</code> 来安装最佳版本。</p>
+<p>随即发起了 <a target="_blank" rel="noopener" href="https://github.com/ant-design/ant-design/pull/46755">antd#46755</a> PR，将 BUG_VERSIONS.json 转换为 <code>cnpm</code> 可识别的格式，利用 CI 向 cnpm/bug-versions 仓库提交 PR。</p>
+<p>计算逻辑大致如下：</p>
+<ol>
+<li><strong>排序已发布版本</strong>: 通过 <a target="_blank" rel="noopener" href="https://registry.npmjs.org/antd">npm api</a> 获取 antd 已发布版本, 并通过 semver 排序。</li>
+<li><strong>创建链表</strong>: 将前面排序的版本转换为链表结构。</li>
+<li><strong>获取 BUG 版本</strong>: 通过 <a target="_blank" rel="noopener" href="https://registry.npmmirror.com/antd/latest/files/BUG_VERSIONS.json">BUG_VERSIONS.json</a> 获取 BUG 版本。</li>
+<li><strong>匹配不推荐版本</strong>: 遍历链表, 通过 semver.satisfies 判断是否为不推荐版本。</li>
+<li><strong>计算最佳版本</strong>: 在版本链表中，向下遍历，直到找到最佳版本。</li>
+<li><strong>构建结果集</strong>: 将不推荐版本和最佳版本构建为结果集，方便后续使用。</li>
+</ol>
+<p>具体计算逻辑可参考 <a target="_blank" rel="noopener" href="https://github.com/Wxh16144/refined-antd-changelog/blob/master/src/bug-versions.ts">src/bug-versions.ts</a></p>
+<h2 id="如何开发油猴"><a href="#如何开发油猴" class="headerlink" title="如何开发油猴"></a>如何开发油猴</h2><p>有了上面的铺垫，我们就可以开始开发油猴脚本了。</p>
+<blockquote>
+<p>油猴脚本本身就是一个 iife 的 js 文件，理论上可以直接用油猴编辑器编写。可以先看看 <a target="_blank" rel="noopener" href="https://www.tampermonkey.net/documentation.php">油猴脚本开发文档</a>。</p>
+</blockquote>
+<p>但是我的脚本依赖的 <a target="_blank" rel="noopener" href="https://github.com/npm/node-semver">node-semver</a> 并没有浏览器版本，二来我也想用 ts 来写，所以我使用了 <a target="_blank" rel="noopener" href="https://vitejs.dev/">vite</a> 来进行构建。</p>
+<p><del>起初计划用宣传零配置的 parcel 进行构建，但是 parcel 会将 import 的包打包进去，导致还是不能在浏览器中运行。</del></p>
+<h3 id="使用-vite-构建"><a href="#使用-vite-构建" class="headerlink" title="使用 vite 构建"></a>使用 vite 构建</h3><p>vite 生态中也有社区维护的专门用于构建油猴脚本的插件，但看了一眼 vite 的 <a target="_blank" rel="noopener" href="https://vitejs.dev/config/build-options.html#build-lib">build library</a> 文档，vite 本身就支持构建 library，所以我直接使用 vite 进行构建。</p>
+<p>工作逻辑就是将构建产物作为 npm 的 files，发布到 npm 上，然后在油猴中通过 npm 的 unpkg cdn 进行引用即可</p>
+<p>所以直接拆分一个 <code>src/meta.user.js</code> 作为油猴脚本的入口。并且在本地开发的时候利用 <code>vite-plugin-banner</code> 将 <code>src/meta.user.js</code> 作为描述头文件，生成 <code>index.user.js</code>。</p>
+<p>为了解决油猴脚本使用 <code>@require</code> 引入会有缓存问题，还需要写了一个发布前替换版本号的脚本 <a target="_blank" rel="noopener" href="https://github.com/Wxh16144/refined-antd-changelog/blob/master/bump.js">bump.js</a>。</p>
+<p>最终只需要将 <code>src/meta.user.js</code> 作为油猴脚本发布 Greasy Fork 即可。本地调试 track <code>index.user.js</code> 即可。</p>
+<p><strong>注意</strong></p>
+<ol>
+<li>由于 vite 构建 library 时，不会 watch 变动，需要自己配置一下，可直接参考 <a target="_blank" rel="noopener" href="https://github.com/Wxh16144/refined-antd-changelog/blob/master/vite.config.ts">vite.config.ts</a>。</li>
+<li>油猴会自动识别 <code>*.user.js</code> 作为油猴脚本，为了提高本地调试体验，务必遵循这个规范。</li>
+</ol>
+<h3 id="使用效果截图"><a href="#使用效果截图" class="headerlink" title="使用效果截图"></a>使用效果截图</h3><p><strong>antd5.x</strong><br><img width="854" alt="antd5" src="https://github.com/Wxh16144/refined-antd-changelog/assets/32004925/c3695c04-191f-4a39-bc44-cea2776213ad"></p>
+<p><strong>antd4.x</strong></p>
+<img width="854" alt="antd4" src="https://github.com/Wxh16144/refined-antd-changelog/assets/32004925/332aee4e-58a0-41f4-982a-2753ac1ba102">
+
+<h3 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h3><p><strong>todo fix：</strong></p>
+<p>antd 的 changelog 页需要等待 react ssr 水合完成后才能用过 js 操作 dom，所以需要等待一段时间才能执行脚本。</p>
+<p>先用 <code>setTimeOut</code> 等待 10s 后执行脚本。或者插入了一个悬浮按钮，点击后执行脚本。（期待更好的解决方案）</p>
+<h3 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h3><p>如果你觉得这个脚本还不错，可以给我点个 star。如果你有更好的建议，也可以提 issue 或者 PR。</p>
+
+    </div>
+
+    
+    
+    
+        
+
+  <div class="followme">
+    <p>欢迎关注我的其它发布渠道</p>
+
+    <div class="social-list">
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="https://zhihu.com/people/wxh16144">
+            <span class="icon">
+              <i class="fab fa-zhihu"></i>
+            </span>
+
+            <span class="label">Zhihu</span>
+          </a>
+        </div>
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="https://twitter.com/wxh16144">
+            <span class="icon">
+              <i class="fab fa-twitter"></i>
+            </span>
+
+            <span class="label">Twitter</span>
+          </a>
+        </div>
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="https://weibo.com/wxh16144">
+            <span class="icon">
+              <i class="fab fa-weibo"></i>
+            </span>
+
+            <span class="label">Weibo</span>
+          </a>
+        </div>
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="https://t.me/wxh16144">
+            <span class="icon">
+              <i class="fab fa-telegram"></i>
+            </span>
+
+            <span class="label">Telegram</span>
+          </a>
+        </div>
+    </div>
+  </div>
+
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/08/15/%E5%A4%87%E4%BB%BD%E5%B9%B6%E5%88%86%E4%BA%AB%E4%BD%A0%E7%9A%84MacOS%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/" rel="prev" title="备份和分享你的 MacOS 应用程序配置文件">
+      <i class="fa fa-chevron-left"></i> 备份和分享你的 MacOS 应用程序配置文件
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2024/02/25/antd%E5%BF%AB%E6%8D%B7%E9%94%AE%E5%BD%95%E5%88%B6%E7%BB%84%E4%BB%B6%E6%9D%A5%E4%BA%86-%E7%A4%BE%E5%8C%BA%E7%89%88/" rel="next" title="antd 快捷键录制组件来了（社区版）">
+      antd 快捷键录制组件来了（社区版） <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%AA%E9%95%BF%E4%B8%8D%E7%9C%8B%E7%89%88"><span class="nav-number">1.</span> <span class="nav-text">太长不看版</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%98%E8%B5%B7"><span class="nav-number">2.</span> <span class="nav-text">缘起</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#BUG-VERSIONS-json"><span class="nav-number">3.</span> <span class="nav-text">BUG_VERSIONS.json</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Refined-Ant-Design-Changelog"><span class="nav-number">4.</span> <span class="nav-text">Refined Ant Design Changelog</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%84%9A%E6%9C%AC%E5%8A%9F%E8%83%BD"><span class="nav-number">4.1.</span> <span class="nav-text">脚本功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E4%B8%8D%E6%8E%A8%E8%8D%90%E7%89%88%E6%9C%AC%EF%BC%9F"><span class="nav-number">4.2.</span> <span class="nav-text">什么是不推荐版本？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88"><span class="nav-number">4.3.</span> <span class="nav-text">解决方案</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E6%89%BE%E5%88%B0%E6%9C%80%E4%BD%B3%E7%89%88%E6%9C%AC%EF%BC%9F"><span class="nav-number">4.4.</span> <span class="nav-text">如何找到最佳版本？</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%BC%80%E5%8F%91%E6%B2%B9%E7%8C%B4"><span class="nav-number">5.</span> <span class="nav-text">如何开发油猴</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-vite-%E6%9E%84%E5%BB%BA"><span class="nav-number">5.1.</span> <span class="nav-text">使用 vite 构建</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E6%95%88%E6%9E%9C%E6%88%AA%E5%9B%BE"><span class="nav-number">5.2.</span> <span class="nav-text">使用效果截图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%97%AE%E9%A2%98"><span class="nav-number">5.3.</span> <span class="nav-text">问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%80%E5%90%8E"><span class="nav-number">5.4.</span> <span class="nav-text">最后</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Wuxh"
+      src="https://avatars3.githubusercontent.com/u/32004925?s=460&u=154f902e7f852def85af5716e81b275fc76cbf86&v=4">
+  <p class="site-author-name" itemprop="name">Wuxh</p>
+  <div class="site-description" itemprop="description">知道的越多, 不知道的就越多</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">22</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Wxh16144" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Wxh16144" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:wxh1220@gmail.com" title="E-Mail → mailto:wxh1220@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2026</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Wuxh</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

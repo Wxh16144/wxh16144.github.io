@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":"yes","show_result":"yes","style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="2022 年我从 Vue 切换到 React 开发，在这过去的一年多时间，我待过 2 个团队，毫无意外的都是 React + Ant Design。我相信这是国内绝大多数团队都有使用过的 UI 框架。当然国外的 MUI 也很棒。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="我觉得 antd 模态框不好用，所以选择了二开">
+<meta property="og:url" content="http://example.com/2023/08/11/%E5%9B%A0%E4%B8%BAantd%E7%9A%84%E6%A8%A1%E6%80%81%E6%A1%86%E4%B8%8D%E5%A5%BD%E7%94%A8-%E6%88%91%E4%BA%8C%E5%BC%80%E4%BA%86/index.html">
+<meta property="og:site_name" content="Wuxh">
+<meta property="og:description" content="2022 年我从 Vue 切换到 React 开发，在这过去的一年多时间，我待过 2 个团队，毫无意外的都是 React + Ant Design。我相信这是国内绝大多数团队都有使用过的 UI 框架。当然国外的 MUI 也很棒。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-08-11T00:00:00.000Z">
+<meta property="article:modified_time" content="2026-02-22T20:33:01.673Z">
+<meta property="article:author" content="Wuxh">
+<meta property="article:tag" content="Wuxh,Wuxiaohong,wxh16144,Wuxh2020,Wuxh2021">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://example.com/2023/08/11/%E5%9B%A0%E4%B8%BAantd%E7%9A%84%E6%A8%A1%E6%80%81%E6%A1%86%E4%B8%8D%E5%A5%BD%E7%94%A8-%E6%88%91%E4%BA%8C%E5%BC%80%E4%BA%86/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>我觉得 antd 模态框不好用，所以选择了二开 | Wuxh</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Wuxh</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Front-end Development</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-notes">
+
+    <a href="/notes" rel="section"><i class="fa fa-sticky-note fa-fw"></i>笔记</a>
+
+  </li>
+        <li class="menu-item menu-item-bookmarks">
+
+    <a href="/bookmarks" rel="section"><i class="fa fa-bookmark fa-fw"></i>书签</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+  <a href="https://github.com/Wxh16144" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2023/08/11/%E5%9B%A0%E4%B8%BAantd%E7%9A%84%E6%A8%A1%E6%80%81%E6%A1%86%E4%B8%8D%E5%A5%BD%E7%94%A8-%E6%88%91%E4%BA%8C%E5%BC%80%E4%BA%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="https://avatars3.githubusercontent.com/u/32004925?s=460&u=154f902e7f852def85af5716e81b275fc76cbf86&v=4">
+      <meta itemprop="name" content="Wuxh">
+      <meta itemprop="description" content="知道的越多, 不知道的就越多">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Wuxh">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          我觉得 antd 模态框不好用，所以选择了二开
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2023-08-11 00:00:00" itemprop="dateCreated datePublished" datetime="2023-08-11T00:00:00+00:00">2023-08-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2026-02-22 20:33:01" itemprop="dateModified" datetime="2026-02-22T20:33:01+00:00">2026-02-22</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>2022 年我从 Vue 切换到 React 开发，在这过去的一年多时间，我待过 2 个团队，毫无意外的都是 React + Ant Design。我相信这是国内绝大多数团队都有使用过的 UI 框架。当然国外的 MUI 也很棒。</p>
+<span id="more"></span>
+
+<h3 id="modal-有哪些痛点"><a href="#modal-有哪些痛点" class="headerlink" title="modal 有哪些痛点"></a>modal 有哪些痛点</h3><ol>
+<li><p>在没有统一使用 Provider 管理 Modal 的情况下， 我以及我的同事使用最多的方法就是在组件中导入antd Modal，然后使用 React.useState 定义一个 state 传递给 modal 的 <del>visible</del> open 属性。以受控的形式管理弹窗的显隐。并且还需要在 <code>onCancel</code> 和  <code>onOk</code> 回调中修改 state 来关闭弹窗。</p>
+</li>
+<li><p>通常打开一个弹窗都伴随着用户点击操作，开发者需要手动对触发器添加 onClick 事件。</p>
+</li>
+<li><p>antd Modal 提供了 <code>footer</code> 属性，假设我们的业务代码比较复杂，一股脑塞入 Modal children 会很臃肿，开发者不得不将其抽离出来。但是 footer 又和业务分离，不够内聚。导致我们需要将控制弹窗的开关透传下去。</p>
+</li>
+<li><p>接第 3 点，antd Modal 提供了 <code>destroyOnClose</code> 属性，表示关闭时销毁子元素。这里经常遇到一个问题是，即使我加了这个属性，但是封装的组件包含的 state，然后直接在 children 里直接消费，这个属性的作用就不大了。</p>
+</li>
+<li><p>antd 提供的输入组件都提供了受控和非受控能力，但是 Modal 的显隐却没有非受控设计。以至于开发者想 mount 组件时默认打开弹窗。这样的操作需要开发者二次封装或者设计。</p>
+</li>
+<li><p>拖拽弹窗，一般情况下 Modal 打开都是固定位置，但是有时候输入时遮挡了用户观察，虽然我们可以使用 Drawer 代替，但有时候我们还是希望有一个可拖动的 Modal，尽管 antd 提供了可拖拽 Demo，但是我阅读起来还是有些难理解。（这条可能是一个 feature。不属于痛点。</p>
+</li>
+</ol>
+<h3 id="怎么解决呢"><a href="#怎么解决呢" class="headerlink" title="怎么解决呢"></a>怎么解决呢</h3><ol>
+<li><p>第一种方式是去 antd 官方 仓库创建一个 RFC 进行讨论，如果被采纳则可以发起一个 PR。</p>
+</li>
+<li><p>第二种方式就是二次开发， 所以有了这篇文章。</p>
+</li>
+</ol>
+<h3 id="easy-antd-modal"><a href="#easy-antd-modal" class="headerlink" title="easy-antd-modal"></a>easy-antd-modal</h3><p>它来了，我又重复造轮子了， github 仓库地址：<a target="_blank" rel="noopener" href="https://github.com/Wxh16144/easy-antd-modal">https://github.com/Wxh16144/easy-antd-modal</a></p>
+<p><strong>使用方式</strong></p>
+<figure class="highlight tsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Button</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;antd&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="title class_">Modal</span> <span class="keyword">from</span> <span class="string">&#x27;easy-antd-modal&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="title function_">default</span> () =&gt; (</span><br><span class="line">  <span class="language-xml"><span class="tag">&lt;<span class="name">Modal</span> </span></span></span><br><span class="line"><span class="tag"><span class="language-xml">    <span class="attr">title</span>=<span class="string">&quot;easy-antd-modal&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">    <span class="attr">trigger</span>=<span class="string">&#123;</span>&lt;<span class="attr">Button</span> <span class="attr">type</span>=<span class="string">&quot;primary&quot;</span>&gt;</span>Click Me<span class="tag">&lt;/<span class="name">Button</span>&gt;</span>&#125;</span></span><br><span class="line"><span class="language-xml">  &gt;</span></span><br><span class="line"><span class="language-xml">    I ❤️ antd</span></span><br><span class="line"><span class="language-xml">  <span class="tag">&lt;/<span class="name">Modal</span>&gt;</span></span></span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+
+<h4 id="hook"><a href="#hook" class="headerlink" title="hook"></a>hook</h4><p>为了解决上诉痛点 1，2，3，4，5 我封装了 <a target="_blank" rel="noopener" href="https://github.com/Wxh16144/easy-antd-modal/blob/master/src/hooks/useModalEnhanced.ts">useModalEnhanced</a> hook 对弹窗的 props 进行了 HOC</p>
+<p>这个 hook 不仅仅可以对 Modal 进行增强，还可以对 antd Drawer 封装同样的能力，以及 antd mobile 的 Mask, Modal, Popup, Dialog 组件都适用。我都进行了二次开发。</p>
+<h4 id="components"><a href="#components" class="headerlink" title="components"></a>components</h4><p>至于可拖动的弹窗，我依赖了 @dnd-kit/core 库实现了可拖拽功能组件 <a target="_blank" rel="noopener" href="https://github.com/Wxh16144/easy-antd-modal/blob/master/src/drag-modal/index.tsx">DragModal</a></p>
+<p>社区好多组件都有一个 Provider 😅，我也不例外，也加入了 <a target="_blank" rel="noopener" href="https://github.com/Wxh16144/easy-antd-modal/blob/master/src/context/index.tsx">EasyAntdModalProvider</a> 组件。可以根据开发者喜好进行自定义 props 约定。</p>
+<h3 id="feature"><a href="#feature" class="headerlink" title="feature"></a>feature</h3><ol>
+<li> 所有 antd 支持的 props 都进行了透传，所以它支持 antd4 和 antd5</li>
+<li> 对 trigger 自动绑定 onClick 事件，open state 由内部维护。</li>
+<li> content(children) 增强，支持调用 close 关闭弹窗。</li>
+<li> 保留以上功能的情况下支持拖拽，类似 Windows 弹窗。</li>
+<li> 同样的能力可以应用在 antd-mobile 组件上。</li>
+<li> 长期维护，有足够的单元测试支撑。欢迎 PR。</li>
+</ol>
+<p>具体文档/示例可以移步：<a target="_blank" rel="noopener" href="https://wxh16144.github.io/easy-antd-modal/">https://wxh16144.github.io/easy-antd-modal/</a></p>
+<h3 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h3><p>欢迎大家进行讨论，分享大家在开发过程中遇到的问题以及对 antd 的吐槽。万一哪天被就被 antd 团队采纳了呢。</p>
+<p>也希望大家可以尝试并讨论我二开的组件，<code>npm install easy-antd-modal</code>。</p>
+
+    </div>
+
+    
+    
+    
+        
+
+  <div class="followme">
+    <p>欢迎关注我的其它发布渠道</p>
+
+    <div class="social-list">
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="https://zhihu.com/people/wxh16144">
+            <span class="icon">
+              <i class="fab fa-zhihu"></i>
+            </span>
+
+            <span class="label">Zhihu</span>
+          </a>
+        </div>
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="https://twitter.com/wxh16144">
+            <span class="icon">
+              <i class="fab fa-twitter"></i>
+            </span>
+
+            <span class="label">Twitter</span>
+          </a>
+        </div>
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="https://weibo.com/wxh16144">
+            <span class="icon">
+              <i class="fab fa-weibo"></i>
+            </span>
+
+            <span class="label">Weibo</span>
+          </a>
+        </div>
+
+        <div class="social-item">
+          <a target="_blank" class="social-link" href="https://t.me/wxh16144">
+            <span class="icon">
+              <i class="fab fa-telegram"></i>
+            </span>
+
+            <span class="label">Telegram</span>
+          </a>
+        </div>
+    </div>
+  </div>
+
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2023/06/06/github-actions-workflow.zh-CN/" rel="prev" title="你好，GitHub Actions">
+      <i class="fa fa-chevron-left"></i> 你好，GitHub Actions
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2023/08/15/%E5%A4%87%E4%BB%BD%E5%B9%B6%E5%88%86%E4%BA%AB%E4%BD%A0%E7%9A%84MacOS%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/" rel="next" title="备份和分享你的 MacOS 应用程序配置文件">
+      备份和分享你的 MacOS 应用程序配置文件 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#modal-%E6%9C%89%E5%93%AA%E4%BA%9B%E7%97%9B%E7%82%B9"><span class="nav-number">1.</span> <span class="nav-text">modal 有哪些痛点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%8E%E4%B9%88%E8%A7%A3%E5%86%B3%E5%91%A2"><span class="nav-number">2.</span> <span class="nav-text">怎么解决呢</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#easy-antd-modal"><span class="nav-number">3.</span> <span class="nav-text">easy-antd-modal</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#hook"><span class="nav-number">3.1.</span> <span class="nav-text">hook</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#components"><span class="nav-number">3.2.</span> <span class="nav-text">components</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#feature"><span class="nav-number">4.</span> <span class="nav-text">feature</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9C%80%E5%90%8E"><span class="nav-number">5.</span> <span class="nav-text">最后</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Wuxh"
+      src="https://avatars3.githubusercontent.com/u/32004925?s=460&u=154f902e7f852def85af5716e81b275fc76cbf86&v=4">
+  <p class="site-author-name" itemprop="name">Wuxh</p>
+  <div class="site-description" itemprop="description">知道的越多, 不知道的就越多</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">22</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Wxh16144" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Wxh16144" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:wxh1220@gmail.com" title="E-Mail → mailto:wxh1220@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2026</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Wuxh</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

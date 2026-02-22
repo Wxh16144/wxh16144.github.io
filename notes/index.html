@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.2">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":"yes","show_result":"yes","style":"mac"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="一些快速记录的笔记 修改 VS Code 侧边栏字体2026&#x2F;02&#x2F;10 VS Code 提供的 editor.fontSize 只能修改代码字体信息，但是却不能修改 VS Code 本身的字体，比如：侧边栏，命令面板，设置 UI 这个功能请求在 2015 年就存在了， #519, 在评论区中，找到一条 解决方案 我将文件定义为全局变量，方便之后修改, 仅适用于 MacOS 12# https:&#x2F;">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Notes">
+<meta property="og:url" content="http://example.com/notes/index.html">
+<meta property="og:site_name" content="Wuxh">
+<meta property="og:description" content="一些快速记录的笔记 修改 VS Code 侧边栏字体2026&#x2F;02&#x2F;10 VS Code 提供的 editor.fontSize 只能修改代码字体信息，但是却不能修改 VS Code 本身的字体，比如：侧边栏，命令面板，设置 UI 这个功能请求在 2015 年就存在了， #519, 在评论区中，找到一条 解决方案 我将文件定义为全局变量，方便之后修改, 仅适用于 MacOS 12# https:&#x2F;">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2023/03/10/q3xV27GpdUL1JDP.png">
+<meta property="og:image" content="https://s2.loli.net/2023/02/27/uwRgE8IKvDaxTiY.png">
+<meta property="og:image" content="https://s2.loli.net/2023/02/27/GJCiN1v7noAuMhW.png">
+<meta property="og:image" content="https://s2.loli.net/2023/02/27/WcxdVzHjguhK69I.png">
+<meta property="article:published_time" content="2020-12-27T19:23:24.000Z">
+<meta property="article:modified_time" content="2026-02-22T20:33:01.675Z">
+<meta property="article:author" content="Wuxh">
+<meta property="article:tag" content="notes">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2023/03/10/q3xV27GpdUL1JDP.png">
+
+<link rel="canonical" href="http://example.com/notes/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : false,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Notes | Wuxh
+</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Wuxh</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">Front-end Development</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-notes">
+
+    <a href="/notes" rel="section"><i class="fa fa-sticky-note fa-fw"></i>笔记</a>
+
+  </li>
+        <li class="menu-item menu-item-bookmarks">
+
+    <a href="/bookmarks" rel="section"><i class="fa fa-bookmark fa-fw"></i>书签</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+  <a href="https://github.com/Wxh16144" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+  
+  
+
+          <div class="content page posts-expand">
+            
+
+    
+    
+    
+    <div class="post-block" lang="zh-CN">
+      <header class="post-header">
+
+<h1 class="post-title" itemprop="name headline">Notes
+</h1>
+
+<div class="post-meta">
+  
+
+</div>
+
+</header>
+
+      
+      
+      
+      <div class="post-body">
+          <p>一些快速记录的笔记</p>
+<h2 id="修改-VS-Code-侧边栏字体"><a href="#修改-VS-Code-侧边栏字体" class="headerlink" title="修改 VS Code 侧边栏字体"></a>修改 VS Code 侧边栏字体</h2><p><em>2026/02/10</em></p>
+<p>VS Code 提供的 <code>editor.fontSize</code> 只能修改代码字体信息，但是却不能修改 VS Code 本身的字体，比如：侧边栏，命令面板，设置 UI</p>
+<p>这个功能请求在 2015 年就存在了， <a target="_blank" rel="noopener" href="https://github.com/Microsoft/vscode/issues/519">#519</a>, 在评论区中，找到一条 <a target="_blank" rel="noopener" href="https://github.com/microsoft/vscode/issues/519#issuecomment-3691806331">解决方案</a></p>
+<p>我将文件定义为全局变量，方便之后修改, 仅适用于 MacOS</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># https://github.com/microsoft/vscode/issues/519#issuecomment-3691806331</span></span><br><span class="line"><span class="built_in">export</span> VSC_WORKBENCH_CSS_FILE=/Applications/Visual\ Studio\ Code.app/Contents/Resources/app/out/vs/workbench/workbench.desktop.main.css</span><br></pre></td></tr></table></figure>
+
+<p>在 <code>VSC_WORKBENCH_CSS_FILE</code> 文件底部追加这部分内容即可~</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* https://github.com/microsoft/vscode/issues/519#issuecomment-3691806331 */</span></span><br><span class="line"><span class="selector-class">.monaco-workbench</span> &#123;</span><br><span class="line">    <span class="attribute">font-family</span>: <span class="string">&quot;Maple Mono&quot;</span>, <span class="string">&quot;SF Mono&quot;</span> <span class="meta">!important</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/Microsoft/vscode/issues/519">Allow to change the font size and font of the workbench · Issue #519 · microsoft/vscode</a></li>
+</ul>
+<h2 id="CSR-SSR-SSG-ISR-DPR-PPR"><a href="#CSR-SSR-SSG-ISR-DPR-PPR" class="headerlink" title="CSR/SSR/SSG/ISR/DPR/PPR"></a>CSR/SSR/SSG/ISR/DPR/PPR</h2><p><em>2025/10/24</em></p>
+<ul>
+<li><strong>CSR</strong>: Client Side Rendering，客户端（通常是浏览器）渲染；</li>
+<li><strong>SSR</strong>: Server Side Rendering，服务端渲染；</li>
+<li><strong>SSG</strong>: Static Site Generation，静态网站生成；</li>
+<li><strong>ISR</strong>：Incremental Site Rendering，增量式的网站渲染；</li>
+<li><strong>DPR</strong>：Distributed Persistent Rendering，分布式的持续渲染。</li>
+<li><strong>PPR</strong>：Partial Page Rendering，部分页面渲染。</li>
+</ul>
+<p>ref: <a target="_blank" rel="noopener" href="https://www.youtube.com/watch?v=S5tjBqzs31w">Next.js CSR vs SSR vs SSG vs ISR and now PPR!</a></p>
+<h2 id="SSRF"><a href="#SSRF" class="headerlink" title="SSRF"></a>SSRF</h2><p><em>2025/07/18</em></p>
+<p>SSRF（Server-Side Request Forgery）是一种攻击方式，攻击者可以利用服务器向内部或外部资源发起请求，从而获取敏感信息或执行恶意操作。</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/lobehub/lobe-chat/security/advisories/GHSA-mxhq-xw3g-rphc">SSRF 漏洞报告</a>, 解法 <a target="_blank" rel="noopener" href="https://github.com/lobehub/lobe-chat/pull/2255">#2255</a>、<a target="_blank" rel="noopener" href="https://github.com/lobehub/lobe-chat/pull/4044">#4044</a></li>
+</ul>
+<h2 id="RSC-use-client-amp-use-server"><a href="#RSC-use-client-amp-use-server" class="headerlink" title="RSC use client &amp; use server"></a>RSC <code>use client</code> &amp; <code>use server</code></h2><p><em>2025/06/26</em></p>
+<ul>
+<li><code>use client</code> <strong>将客户端函数导出到服务器。</strong> 在底层，后端代码会将它们视为类似 <code>/src/frontend.js#LikeButton</code> 的引用。它们可以渲染为 JSX 标签，并最终转换为 <code>&lt;script&gt;</code> 标签</li>
+<li><code>use server</code> <strong>将服务器函数导出到客户端。</strong> 在底层，前端将它们视为通过 HTTP 调用后端的 <code>async</code> 函数。</li>
+</ul>
+<p>ref: <a target="_blank" rel="noopener" href="https://overreacted.io/what-does-use-client-do/">What Does “use client” Do? — overreacted</a></p>
+<h2 id="Bash-which-vs-type-vs-where"><a href="#Bash-which-vs-type-vs-where" class="headerlink" title="Bash which vs type vs where"></a>Bash <code>which</code> vs <code>type</code> vs <code>where</code></h2><p><em>2025/01/20</em></p>
+<p>我有一个命令，我想知道它是从哪里来的。我可以使用 <code>which</code> 或 <code>type</code> 命令来查找。</p>
+<ul>
+<li><p><code>which</code></p>
+<ul>
+<li>在 <code>$PATH</code> 中查找可执行文件。</li>
+<li>位于 <code>/usr/bin/which</code>。</li>
+</ul>
+</li>
+<li><p><code>type</code></p>
+<ul>
+<li>确定命令是别名、函数、内置命令、缓存的可执行文件（散列）、<code>$PATH</code> 中的二进制文件等</li>
+<li>shell 内置</li>
+</ul>
+</li>
+<li><p><code>where</code></p>
+<ul>
+<li>与 <code>which</code> 类似，但是可以列出所有匹配的命令。</li>
+<li>不仅适用于 Unix, 也适用于 Windows。</li>
+</ul>
+<p>ref:</p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://gist.github.com/miguelmota/bb7f8587047c7dcb5fe38b41ba2d357d">Bash <code>which</code> vs <code>type</code></a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://unix.stackexchange.com/a/757150">What is the difference between which and where</a></p>
+</li>
+</ul>
+<h2 id="Web-Search"><a href="#Web-Search" class="headerlink" title="Web Search"></a>Web Search</h2><p><em>2024/07/22</em></p>
+<p>1.在浏览器地址栏输入 <code>?</code> 可以快速搜索，输入 <code>?</code> 后再输入关键词，然后回车，就会跳转到搜索引擎搜索结果页面。[Copilot 自动生成]</p>
+<p>如题，如果需要在 web 端实现搜索功能可以：</p>
+<ol>
+<li><a target="_blank" rel="noopener" href="https://github.com/nextapps-de/flexsearch">FlexSearch</a> 实现全文搜索</li>
+<li>CMD K , <a target="_blank" rel="noopener" href="https://cmdk.paco.me/">https://cmdk.paco.me</a> or <a target="_blank" rel="noopener" href="https://react-cmdk.com/">https://react-cmdk.com</a></li>
+<li>命令行模糊查找 <a target="_blank" rel="noopener" href="https://github.com/junegunn/fzf">fzf</a></li>
+</ol>
+<p>read more:</p>
+<ol>
+<li><a target="_blank" rel="noopener" href="https://hacks.mozilla.org/2021/08/mdns-autocomplete-search/">How MDN’s autocomplete search works</a></li>
+<li><a target="_blank" rel="noopener" href="https://hacks.mozilla.org/2021/03/how-mdns-site-search-works/">How MDN’s site-search works</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/mdn/yari/blob/main/client/src/search.tsx">mdn/yari search.tsx</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/shuding/nextra/blob/main/packages/nextra-theme-docs/src/components/flexsearch.tsx">Nextra FlexSearch</a></li>
+</ol>
+<h2 id="ZWSP"><a href="#ZWSP" class="headerlink" title="ZWSP"></a>ZWSP</h2><p><em>2024/07/13</em></p>
+<p>ZWSP(Zero Width Space) <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Zero-width_space">wiki</a> 是一种 Unicode 字符. 可以用来做一些很骚的操作，它通常很难被察觉到。</p>
+<p>将 <code>\u200b</code>、<code>\u200c</code>、<code>\u200d</code>、<code>\u200e</code>、<code>\u200f</code>、<code>\ufeff</code> 进行一个排列组合，来达很多有趣的效果。</p>
+<details>
+  <summary>排列组合代码</summary>
+  
+  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">&#x27;lodash.permutations&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> _ <span class="keyword">from</span> <span class="string">&#x27;lodash&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">getAllCombinations</span>(<span class="params">...strings</span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> allPermutations = _.<span class="title function_">flatMap</span>(</span><br><span class="line">    _.<span class="title function_">range</span>(<span class="number">1</span>, strings.<span class="property">length</span> + <span class="number">1</span>),</span><br><span class="line">    <span class="function">(<span class="params">length</span>) =&gt;</span> _.<span class="title function_">permutations</span>(strings, length)</span><br><span class="line">  );</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> _.<span class="title function_">map</span>(</span><br><span class="line">    allPermutations,</span><br><span class="line">    <span class="function">(<span class="params">permutation</span>) =&gt;</span> permutation.<span class="title function_">join</span>(<span class="string">&#x27;&#x27;</span>)</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> zeroWidthCharacters = [<span class="string">&#x27;\u200b&#x27;</span>, <span class="string">&#x27;\u200c&#x27;</span>, <span class="string">&#x27;\u200d&#x27;</span>, <span class="string">&#x27;\u200e&#x27;</span>, <span class="string">&#x27;\u200f&#x27;</span>, <span class="string">&#x27;\ufeff&#x27;</span>];</span><br><span class="line"></span><br><span class="line"><span class="comment">// ========== vanilla js ==========</span></span><br><span class="line"><span class="keyword">const</span> <span class="title function_">getPerms</span> = (<span class="params">arr, prefix = <span class="string">&quot;&quot;</span></span>) =&gt; [</span><br><span class="line">  ...(prefix ? [prefix] : []),</span><br><span class="line">  ...arr.<span class="title function_">flatMap</span>(<span class="function">(<span class="params">v, i</span>) =&gt;</span></span><br><span class="line">    <span class="title function_">getPerms</span>(arr.<span class="title function_">filter</span>(<span class="function">(<span class="params">_, j</span>) =&gt;</span> i !== j), prefix + v)</span><br><span class="line">  )</span><br><span class="line">];</span><br><span class="line"></span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">getAllCombinations</span>(...zeroWidthCharacters));</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;==========&#x27;</span>);</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title function_">getPerms</span>(zeroWidthCharacters));</span><br></pre></td></tr></table></figure>
+
+</details>
+
+<ol>
+<li>为 git commit 做一个幽灵提交，利用它来重新触发 GitHub Actions，也可以蛊惑同事。<a target="_blank" rel="noopener" href="https://x.com/Wxh16144/status/1811819418433061291">就像这样</a></li>
+<li><a target="_blank" rel="noopener" href="https://symbl.cc/200B/">Zero Width Space on SYMBL (◕‿◕)</a></li>
+<li><a target="_blank" rel="noopener" href="https://codepoints.net/U+200B">codepoint U+200B ZERO WIDTH SPACE in Unicode</a></li>
+</ol>
+<h2 id="Library-实践"><a href="#Library-实践" class="headerlink" title="Library 实践"></a>Library 实践</h2><p><em>2024/06/24</em></p>
+<ol>
+<li>使用 <a target="_blank" rel="noopener" href="https://github.com/debug-js/debug">debug</a> 库，可以在开发环境中输出调试信息，生产环境中不输出。</li>
+<li>或者参考 <a target="_blank" rel="noopener" href="https://github.com/Wxh16144/backup-cli/commit/da278e8a8076e319d5be705cd08f2f63f1ac768a">backup-cli#da278e8</a> 使用 <code>console.log</code> 输出调试信息。</li>
+<li>TBD: 有想到再补充。</li>
+</ol>
+<h2 id="优化-React-重新渲染技巧"><a href="#优化-React-重新渲染技巧" class="headerlink" title="优化 React 重新渲染技巧"></a>优化 React 重新渲染技巧</h2><p><em>2024/02/29</em></p>
+<ol>
+<li>将昂贵的组件 <strong>“提升”</strong> 到父级，在父级中渲染频率较低。</li>
+<li>然后将昂贵的组件作为 <strong>props</strong> 传递下来。</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/Wxh16144/wxh16144.github.io/issues/5">useMemoizedFn vs useEvent vs useLatestFunc ?? vs useEffectEvent</a></li>
+</ol>
+<p>ref:</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://kentcdodds.com/blog/optimize-react-re-renders">One simple trick to optimize React re-renders</a></li>
+<li><a target="_blank" rel="noopener" href="https://overreacted.io/before-you-memo/">Before You memo() — overreacted</a></li>
+</ul>
+<h2 id="Symbolic-link"><a href="#Symbolic-link" class="headerlink" title="Symbolic link"></a>Symbolic link</h2><p><em>2024/02/08</em></p>
+<p>包含有一条以绝对路径或者相对路径的形式指向其它文件或者目录的引用 <code>ls -s 实际目标 链接名称</code></p>
+<p>examples:</p>
+<details>
+  <summary><code>ln -s $TMPDIR $ICLOUD/Temporary</code></summary>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">~ via ⬢ v18.19.0</span><br><span class="line">➜ <span class="built_in">echo</span> <span class="variable">$TMPDIR</span></span><br><span class="line">/var/folders/9d/8kq_tcb12dsdb9qz1m_h12g00000gn/T/</span><br><span class="line"></span><br><span class="line">~ via ⬢ v18.19.0</span><br><span class="line">➜ <span class="built_in">echo</span> <span class="variable">$ICLOUD</span></span><br><span class="line">/Users/wuxh/Library/Mobile Documents/com~apple~CloudDocs</span><br><span class="line"></span><br><span class="line">~ via ⬢ v18.19.0</span><br><span class="line">➜ <span class="built_in">ln</span> -s <span class="variable">$TMPDIR</span> <span class="variable">$ICLOUD</span>/Temporary</span><br></pre></td></tr></table></figure>
+</details>
+
+<h2 id="LGTM"><a href="#LGTM" class="headerlink" title="LGTM"></a>LGTM</h2><p><em>2023/11/30</em></p>
+<p>looks good to me</p>
+<h2 id="TL-DR"><a href="#TL-DR" class="headerlink" title="TL;DR"></a>TL;DR</h2><p><em>2023/10/27</em></p>
+<p>经常在一些文章中看到 TL;DR，一开始以为是某个技术的缩写，后来才知道是 <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/TL;DR">Too long; didn’t read</a> 的缩写，意思是<strong>太长不看</strong>。</p>
+<p>ref:</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/TL;DR">TL;DR - Wikipedia</a></li>
+</ul>
+<h2 id="pull-request-vs-pull-request-target"><a href="#pull-request-vs-pull-request-target" class="headerlink" title="pull_request vs pull_request_target"></a>pull_request vs pull_request_target</h2><p><em>2023/10/16</em></p>
+<p>在给 antd 修改 GitHub Actions 时，发现 preview.yml 有三个文件，于是乎提交了一个 <a target="_blank" rel="noopener" href="https://github.com/ant-design/ant-design/pull/45276">PR#45276</a> 合并，结果导致后续一系列错误。</p>
+<p><strong>pull_request</strong> 在 PR 创建的时候拉取<strong>源分支</strong>代码。但是<strong>不具备写</strong>操作（可以理解为，PR 作者是一个攻击者，他可以更改源代码修改脚本，以至于破坏仓库。</p>
+<p><strong>pull_request_target</strong> 在 PR 创建的时候拉取<strong>目标分支</strong>代码。具备<strong>读写</strong>操作。</p>
+<p>ref:</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://nathandavison.com/blog/github-actions-and-the-threat-of-malicious-pull-requests">Github Actions and the threat of malicious pull requests</a></li>
+<li><a target="_blank" rel="noopener" href="https://securitylab.github.com/research/github-actions-preventing-pwn-requests/">Keeping your GitHub Actions and workflows secure Part 1: Preventing pwn requests</a></li>
+</ul>
+<h2 id="tsconfig-json-moduleResolution"><a href="#tsconfig-json-moduleResolution" class="headerlink" title="tsconfig.json moduleResolution"></a>tsconfig.json moduleResolution</h2><p><em>2023/6/20</em></p>
+<p>起初上游包导致 antd CI 挂了，<a target="_blank" rel="noopener" href="https://github.com/ant-design/ant-design/pull/41715#discussion_r1161199605">#41715</a>。 发现上游将包改成了 Pure ESM，但是引用的 js 还是 <code>mjs</code>。</p>
+<p>最新的 typescript v5.1， moduleResolution 选项支持 5 个值：<code>classic</code>、<code>node</code>、<code>node16</code>、<code>nodenext</code>、<code>bundler</code>。<br>其中 <code>nodenext</code> 表示最新的 node 版本，也就是说它兼容 <code>node16</code>。</p>
+<p>ref:</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/621795173">moduleResolution 总结 - 余腾靖的文章 - 知乎</a></li>
+</ul>
+<h2 id="认识-Unified-和-Remark"><a href="#认识-Unified-和-Remark" class="headerlink" title="认识 Unified 和 Remark"></a>认识 Unified 和 Remark</h2><p><em>2023/04/17</em></p>
+<p>参与了一段时间的 dumi 开发，认识了 <a target="_blank" rel="noopener" href="https://unifiedjs.com/">Unified</a> 和 <a target="_blank" rel="noopener" href="https://remark.js.org/">Remark</a>。Unified 是一个用于构建插件化的工具链的框架，而 Remark 是 Unified 的一个插件，用于将 markdown 转换成 <a target="_blank" rel="noopener" href="https://astexplorer.net/">AST(抽象语法树)</a>，然后对 AST 进行操作。</p>
+<h2 id="Node-ESM"><a href="#Node-ESM" class="headerlink" title="Node ESM"></a>Node ESM</h2><p><em>2023/03/24</em></p>
+<p>最近建了一个 <a target="_blank" rel="noopener" href="https://github.com/template-pro/start-cli">快速开始 Cli</a> 的脚手架, 记一笔 node 的操作</p>
+<ol>
+<li>获取整个屏幕大小, 可以使用 <code>process.stdout?.columns</code> 或 <a target="_blank" rel="noopener" href="https://www.npmjs.com/package/term-size">term-size - npm</a>。</li>
+<li>同构 <code>__dirname</code> 可以参考 <a target="_blank" rel="noopener" href="https://stackoverflow.com/a/50052194">stack overflow</a></li>
+</ol>
+<details>
+<summary>__filename & __dirname</summary>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; dirname &#125; <span class="keyword">from</span> <span class="string">&#x27;path&#x27;</span></span><br><span class="line"><span class="keyword">import</span> &#123; fileURLToPath &#125; <span class="keyword">from</span> <span class="string">&#x27;url&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> __filename = <span class="title function_">fileURLToPath</span>(<span class="keyword">import</span>.<span class="property">meta</span>.<span class="property">url</span>);</span><br><span class="line"><span class="keyword">const</span> __dirname = <span class="title function_">dirname</span>(__filename);</span><br></pre></td></tr></table></figure>
+</details>
+<details>
+<summary>require & require.resolve</summary>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; createRequire &#125; <span class="keyword">from</span> <span class="string">&#x27;module&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="built_in">require</span> = <span class="title function_">createRequire</span>(<span class="keyword">import</span>.<span class="property">meta</span>.<span class="property">url</span>)</span><br></pre></td></tr></table></figure>
+</details>
+
+<ol start="3">
+<li>清空终端输出 <code>process.stdout.write(&#39;\x1B[2J\x1B[3J\x1B[H\x1Bc&#39;)</code> 或 <a target="_blank" rel="noopener" href="https://www.npmjs.com/package/console-clear">console-clear - npm</a>;</li>
+</ol>
+<h2 id="Github-合作者"><a href="#Github-合作者" class="headerlink" title="Github 合作者"></a>Github 合作者</h2><p><em>2023/03/10</em></p>
+<p><img src="https://s2.loli.net/2023/03/10/q3xV27GpdUL1JDP.png" alt="GitHub合作者效果图"></p>
+<p>如上图，除非他们对你的 PR 进行 review 的时候提出了建议，并且在 GitHub 点击采纳，否则不会出现<a target="_blank" rel="noopener" href="https://docs.github.com/en/github/committing-changes-to-your-project/creating-and-editing-commits/creating-a-commit-with-multiple-authors">合作者标识</a>。另外一种方式是，手动添加合作者。给予我帮助的人都应该出现在合作者一栏中。最简单方法就是在 <code>git commit</code> 的 message body 中加入如下注释：</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Co-authored-by: wxh16144 &lt;wxh16144@users.noreply.github.com&gt;</span><br></pre></td></tr></table></figure>
+
+<p>注意将 ID 替换为合作者的 GitHub ID。</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://antfu.me/posts/github-co-authors">GitHub Co-authors</a></li>
+</ul>
+<h2 id="GitHub-Merge-三种方式速记"><a href="#GitHub-Merge-三种方式速记" class="headerlink" title="GitHub Merge 三种方式速记"></a>GitHub Merge 三种方式速记</h2><p><em>2023/02/27</em></p>
+<p><strong>Merge:</strong> (创建 m 个提交节点引用 a、b、c，m 在父节点中有 Init、c)<br><img src="https://s2.loli.net/2023/02/27/uwRgE8IKvDaxTiY.png" alt="Merge"></p>
+<p><strong>Squash and merge</strong>(合并 a、b、c 以创建一个新的提交并将其添加到目标分支。’a、b、c’ 提交只有父 Init)<br><img src="https://s2.loli.net/2023/02/27/GJCiN1v7noAuMhW.png" alt="Squash and merge"></p>
+<p><strong>Rebase and merge</strong>(将 a、b、c 无缝添加到合并分支，每个提交都有一个父级)<br><img src="https://s2.loli.net/2023/02/27/WcxdVzHjguhK69I.png" alt="Rebase and merge"></p>
+<p><a target="_blank" rel="noopener" href="https://meetup-jp.toast.com/439">GitHubのMerge、Squash and Merge、Rebase and Mergeを理解する</a></p>
+<h2 id="remove-vs-removeChild"><a href="#remove-vs-removeChild" class="headerlink" title="remove vs removeChild"></a>remove vs removeChild</h2><p><em>2022/11/16</em></p>
+<ul>
+<li>remove: 把对象从它所属的 DOM 树中删除。</li>
+<li>removeChild: 方法从 DOM 中删除一个子节点。并返回删除的节点</li>
+</ul>
+<p>大多数时候使用 remove 就好了</p>
+<h2 id="innerText-vs-textContent-vs-innerHTML"><a href="#innerText-vs-textContent-vs-innerHTML" class="headerlink" title="innerText vs textContent vs innerHTML"></a>innerText vs textContent vs innerHTML</h2><p><em>2022/11/16</em></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">span</span>&gt;</span>hello<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">span</span> <span class="attr">style</span>=<span class="string">&quot;display: none;&quot;</span>&gt;</span>world<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">  <span class="keyword">const</span> div = <span class="variable language_">document</span>.<span class="title function_">querySelector</span>(<span class="string">&quot;div&quot;</span>);</span></span><br><span class="line"><span class="language-javascript">  <span class="variable language_">console</span>.<span class="title function_">log</span>(div.<span class="property">innerText</span>);</span></span><br><span class="line"><span class="language-javascript">  <span class="variable language_">console</span>.<span class="title function_">log</span>(div.<span class="property">textContent</span>);</span></span><br><span class="line"><span class="language-javascript">  <span class="variable language_">console</span>.<span class="title function_">log</span>(div.<span class="property">innerHTML</span>);</span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">hello                     // div.innerText</span><br><span class="line"></span><br><span class="line">    hello                 // div.textContent</span><br><span class="line">    world</span><br><span class="line"></span><br><span class="line">    &lt;span&gt;hello&lt;/span&gt;    // div.innerHTML</span><br><span class="line">    &lt;span style=&quot;display: none;&quot;&gt;world&lt;/span&gt;</span><br></pre></td></tr></table></figure>
+
+<p>结论</p>
+<ul>
+<li>innerText 是浏览器渲染后的可见内容</li>
+<li>textContent 准确的内容和缩进格式内容</li>
+<li>innerHtml 同 &lt;标签&gt; + textContent</li>
+</ul>
+<h2 id="append-vs-appendChild"><a href="#append-vs-appendChild" class="headerlink" title="append vs appendChild"></a>append vs appendChild</h2><p><em>2022/11/16</em></p>
+<p>都是在 Elenent 最后一个节点之后插入 Node, 推荐使用 <strong>append</strong></p>
+<p><strong>append</strong>: <code>append(param1, param2, /* … ,*/ paramN)</code><br><strong>appendChild</strong>: <code>appendChild(aChild)</code></p>
+<ul>
+<li>append 可以追加任何 DOMString 对象， appendChild 只接受 Node 对象；</li>
+<li>append 没有返回值，appendChild 返回追加的 Node 对象</li>
+<li>append 支持多个参数，appendChild 只支持一个</li>
+</ul>
+<h2 id="Shell-字符串截取"><a href="#Shell-字符串截取" class="headerlink" title="Shell 字符串截取"></a>Shell 字符串截取</h2><p><em>2022/09/02</em></p>
+<p>在使用电脑对某些文件批量重命名，或者批量截取前缀等场景时</p>
+<ul>
+<li><code>$&#123;string: start: length&#125;</code> : 从 string 字符串的左边第 start 个字符开始，向右截取 length 个字符。</li>
+<li><code>$&#123;string: start&#125;</code> : 从 string 字符串的左边第 start 个字符开始截取，直到最后。</li>
+<li><code>$&#123;string: 0-start :length&#125;</code> : 从 string 字符串的右边第 start 个字符开始，向右截取 length 个字符。</li>
+<li><code>$&#123;string: 0-start&#125;</code>: 从 string 字符串的右边第 start 个字符开始截取，直到最后。</li>
+<li><code>$&#123;string#*chars&#125;</code>: 从 string 字符串第一次出现 *chars 的位置开始，截取 *chars 右边的所有字符。</li>
+<li><code>$&#123;string##*chars&#125;</code>: 从 string 字符串最后一次出现 *chars 的位置开始，截取 *chars 右边的所有字符。</li>
+<li><code>$&#123;string%*chars&#125;</code>: 从 string 字符串第一次出现 *chars 的位置开始，截取 *chars 左边的所有字符。</li>
+<li><code>$&#123;string%%*chars&#125;</code>: string 字符串最后一次出现 *chars 的位置开始，截取 *chars 左边的所有字符。</li>
+</ul>
+<h2 id="Shell-字符串拼接（连接、合并）"><a href="#Shell-字符串拼接（连接、合并）" class="headerlink" title="Shell 字符串拼接（连接、合并）"></a>Shell 字符串拼接（连接、合并）</h2><p><em>2022/07/07</em></p>
+<p>在写一个 shell 脚本的时候，经常需要对变量字符串进行拼接，记录几种拼接方法；</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line">name=<span class="string">&quot;Shell&quot;</span></span><br><span class="line">url=<span class="string">&quot;https://wxhboy.cn/&quot;</span></span><br><span class="line"></span><br><span class="line">str1=$name<span class="variable">$url</span>  <span class="comment">#中间不能有空格</span></span><br><span class="line">str2=<span class="string">&quot;<span class="variable">$name</span> <span class="variable">$url</span>&quot;</span>  <span class="comment">#如果被双引号包围，那么中间可以有空格</span></span><br><span class="line">str3=<span class="variable">$name</span><span class="string">&quot;: &quot;</span><span class="variable">$url</span>  <span class="comment">#中间可以出现别的字符串</span></span><br><span class="line">str4=<span class="string">&quot;<span class="variable">$name</span>: <span class="variable">$url</span>&quot;</span>  <span class="comment">#这样写也可以</span></span><br><span class="line">str5=<span class="string">&quot;<span class="variable">$&#123;name&#125;</span>Script: <span class="variable">$&#123;url&#125;</span>index.html&quot;</span>  <span class="comment">#这个时候需要给变量名加上大括号</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$str1</span>  <span class="comment"># Shellhttps://wxhboy.cn/</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$str2</span>  <span class="comment"># Shell https://wxhboy.cn/</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$str3</span>  <span class="comment"># Shell: https://wxhboy.cn/</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$str4</span>  <span class="comment"># Shell: https://wxhboy.cn/</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$str5</span>  <span class="comment"># ShellScript: https://wxhboy.cn/index.html</span></span><br></pre></td></tr></table></figure>
+
+<p>ref:</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="http://c.biancheng.net/view/1114.html">Shell 字符串拼接（连接、合并）</a></li>
+</ul>
+<h2 id="dev-null"><a href="#dev-null" class="headerlink" title="/dev/null"></a>/dev/null</h2><p><em>2022/05/19</em></p>
+<p>在 Linux 命令中，经常见到 <code>xxx 2&gt;/dev/null</code>, 如为防止 Docker 容器退出使用 <code>tail -f /dev/null</code>。关于这个命令，我的理解是：</p>
+<ul>
+<li><p><code>0</code> 标准输入 stdin，<code>1</code> 标准输出 stdout， <code>2</code> 错误输出 stderr, <code>&gt;</code> 是重定向, <code>/dev/null</code> 是个只进不出的地方;</p>
+</li>
+<li><p>如果只关心<strong>正常输出</strong>，可以在命令后面这样重定向：<code>commaned 2&gt; /dev/null</code>, 这样一来，我们看到的所有输出，都是命令正常执行的输出，忽略所有错误输出。</p>
+</li>
+<li><p>如果只关心<strong>报错内容</strong>，可以在命令后面这样重定向 <code>command &gt; /dev/null</code></p>
+</li>
+</ul>
+<p>ref:</p>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.zhihu.com/question/53295083">shell 程序中 2&gt; /dev/null 代表什么意思</a></li>
+<li><a target="_blank" rel="noopener" href="https://linuxhint.com/bash_stdin_stderr_stdout/">什么是 Bash 中的标准输入、标准错误和标准输出</a></li>
+</ul>
+<h2 id="copy-amp-paste"><a href="#copy-amp-paste" class="headerlink" title="copy &amp; paste"></a>copy &amp; paste</h2><p><em>2022/03/19</em></p>
+<p>在 Mac OS 可以使用 <code>pbcopy</code> 和 <code>pbpaste</code> 在命令行中进行复制和粘贴操作:</p>
+<ul>
+<li><code>pbcopy &lt; ~/.ssh/public_key</code> 复制 public_key 内容到剪贴板。</li>
+<li><code>curl baidu.com | pbcopy</code> 复制 baidu.com 站点内容到剪贴板。</li>
+<li><code>pbpaste &gt; baidu.html</code> 粘贴剪贴板内容到 baidu.html 文件中。</li>
+</ul>
+<h2 id="Jest-unit-testing"><a href="#Jest-unit-testing" class="headerlink" title="Jest unit testing"></a>Jest unit testing</h2><p><em>2022/03/18</em></p>
+<p>在阅读 AntD 测试用例时，需要单独运行某个组件 case，或者某个组件的一条 case.</p>
+<ul>
+<li>仅运行 components/button 目录下测试用例: <code>npm run test -- components/button</code></li>
+<li>仅运行 button 用例名称为 ‘mount correctly’ 的 case : <code>npm run test -- components/button -t &quot;mount correctly&quot;</code></li>
+<li>接上条, 使用 <a target="_blank" rel="noopener" href="https://jestjs.io/docs/api#testonlyname-fn-timeout">Jest api</a> (test.only、test.skip) 暂时运行/跳过某些 case:</li>
+</ul>
+<figure class="highlight diff"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="deletion">-  it(&#x27;renders correctly&#x27;, () =&gt; &#123;</span></span><br><span class="line"><span class="addition">+  it.only(&#x27;renders correctly&#x27;, () =&gt; &#123;  /* 仅运行这条 case */</span></span><br><span class="line">     expect(mount(&lt;Button&gt;Follow&lt;/Button&gt;).render()).toMatchSnapshot();</span><br><span class="line">   &#125;);</span><br><span class="line"></span><br><span class="line"><span class="deletion">-  it(&#x27;mount correctly&#x27;, () =&gt; &#123;</span></span><br><span class="line"><span class="addition">+  it.skip(&#x27;mount correctly&#x27;, () =&gt; &#123; /* 跳过这条 case */</span></span><br><span class="line">     expect(() =&gt; mount(&lt;Button&gt;Follow&lt;/Button&gt;)).not.toThrow();</span><br><span class="line">   &#125;);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>其中 npm run test –, <code>--</code> 是指将后面的参数传递给 script; <a target="_blank" rel="noopener" href="https://github.com/npm/npm/pull/5518">Passing args into run-scripts</a>.</p>
+<h2 id="Snapshot-Testing"><a href="#Snapshot-Testing" class="headerlink" title="Snapshot Testing"></a>Snapshot Testing</h2><p><em>2022/03/09</em></p>
+<p>antfu 开源的 <a target="_blank" rel="noopener" href="https://github.com/antfu/unconfig">unconfig Repo</a> 其作用是加载通用配置文件。在仓库的单元测试中发现了快照测试。比如:<br><a target="_blank" rel="noopener" href="https://jestjs.io/docs/snapshot-testing">Jest snapshot testing</a>, 使用 <code>jest --updateSnapshot</code> 或 <code>jest -u</code> 来更新所有快照。<br><a target="_blank" rel="noopener" href="https://vitest.dev/api/#tothrowerror">vitest snapshot testing</a>, 使用 <code>vitest --update</code> 或 <code>vitest -u</code> 来更新所有快照。<br><a target="_blank" rel="noopener" href="https://github.com/avajs/ava/blob/main/docs/04-snapshot-testing.md">ava snapshot testing</a>, 使用 <code>ava --update-snapshots</code> 或 <code>ava -u</code> 来更新所有快照。</p>
+<p>顺便补充一个 <a target="_blank" rel="noopener" href="https://gist.githubusercontent.com/Wxh16144/e61f87de20ed1ce534edf0ff8258ea56/raw/b28c48054e18ced5e0c500b15210d3cea935252e/ava_puppeteer.js">ava + puppeteer.test</a> 测试示列。</p>
+<h2 id="import-maps"><a href="#import-maps" class="headerlink" title="import-maps"></a>import-maps</h2><p><em>2022/02/24</em></p>
+<p>在阅读 <a target="_blank" rel="noopener" href="https://beta.reactjs.org/">New React Docs</a> 时发现文中有交互式调试功能。点击 Download 按钮还可以下载 <code>sandbox.html</code> 文件。直接在浏览器中运行示例代码。<br>阅读了 <a target="_blank" rel="noopener" href="https://github.com/reactjs/reactjs.org/blob/main/beta/src/components/MDX/Sandpack/DownloadButton.tsx#L43-L50">reactjs.org repo</a> 后发现是 html 模版中使用了 <a target="_blank" rel="noopener" href="https://babel.dev/docs/en/babel-standalone">@babel/standalone</a> 和 <code>&lt;script type=&quot;importmap&quot;&gt;</code>。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">&quot;importmap&quot;</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">  &#123;</span></span><br><span class="line"><span class="language-javascript">    <span class="string">&quot;imports&quot;</span>: &#123;</span></span><br><span class="line"><span class="language-javascript">      <span class="string">&quot;react&quot;</span>: <span class="string">&quot;https://cdn.skypack.dev/react&quot;</span>,</span></span><br><span class="line"><span class="language-javascript">      <span class="string">&quot;react-dom&quot;</span>: <span class="string">&quot;https://cdn.skypack.dev/react-dom&quot;</span></span></span><br><span class="line"><span class="language-javascript">    &#125;</span></span><br><span class="line"><span class="language-javascript">  &#125;</span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/b23d823a183a">Javascript Import maps(中文)</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/WICG/import-maps">Github WICG/import-maps</a></li>
+</ul>
+<h2 id="markdown-it-和-feed"><a href="#markdown-it-和-feed" class="headerlink" title="markdown-it 和 feed"></a>markdown-it 和 feed</h2><p><em>2022/02/24</em></p>
+<p>笔记这栏是参考 <a target="_blank" rel="noopener" href="https://antfu.me/notes">antfu.me/notes</a> 而写的。看到有 <code>rss</code> 订阅,想着自己的笔记也实现一下。使用 hexo 的自动生成 rss 插件无法生成自己想要的。<br>阅读 <a target="_blank" rel="noopener" href="https://github.com/antfu/antfu.me">antfu.me repo</a> 后才发现，作者是使用 <a target="_blank" rel="noopener" href="https://github.com/markdown-it/markdown-it">markdown-it</a> 和 <a target="_blank" rel="noopener" href="https://github.com/jpmonette/feed">feed</a> 自己写脚本实现的。<a target="_blank" rel="noopener" href="https://github.com/antfu/antfu.me/blob/main/scripts/rss.ts">scripts/rss.ts</a></p>
+<h2 id="Vite-插件-unplugin-auto-import"><a href="#Vite-插件-unplugin-auto-import" class="headerlink" title="Vite 插件 unplugin-auto-import"></a>Vite 插件 unplugin-auto-import</h2><p><em>2022/02/16</em></p>
+<p>写 <code>TypeScript</code> 时，使用 <a target="_blank" rel="noopener" href="https://github.com/antfu/unplugin-auto-import">unplugin-auto-import</a> 实现按需自动导入 API。</p>
+<p>插件 <a target="_blank" rel="noopener" href="https://github.com/dishait/vite-auto-import-resolvers">vite-auto-import-resolvers</a> 使用了 <code>unplugin-auto-import</code> 的自定义 <code>resolvers</code>, see <a target="_blank" rel="noopener" href="https://github.com/dishait/vite-auto-import-resolvers/blob/main/src/dir.ts#L94-L118">github 实现</a>。</p>
+<h2 id="位运算符速记"><a href="#位运算符速记" class="headerlink" title="位运算符速记"></a>位运算符速记</h2><p><em>2022/02/09</em></p>
+<ul>
+<li><code>x ** y</code> =&gt; <code>Math.pow(x, y)</code></li>
+<li><code>x &lt;&lt; y</code> =&gt; <code>x * 2 ** y</code></li>
+<li><code>x &gt;&gt; 1</code> =&gt; <code>x &gt;&gt;&gt; 1</code> =&gt; <code>Math.floor(x / 2)</code></li>
+<li><code>~x</code> =&gt; <code>-(x + 1)</code></li>
+</ul>
+<h2 id="git-submodule"><a href="#git-submodule" class="headerlink" title="git submodule"></a>git submodule</h2><p><em>2022/02/09</em></p>
+<ul>
+<li>项目中添加子仓库 <code>git submodule add -b 分支 地址 目录</code></li>
+<li>克隆带子模块仓库 <code>git clone --recursive -j8 地址</code></li>
+<li>更新已克隆仓库的子仓库 <code>git submodule update --init --recursive</code></li>
+<li>更新子仓库 <code>git submodule update --remote</code></li>
+<li>推送所有子仓库而不 push 主仓库 <code>git push --recurse-submodules=only</code></li>
+</ul>
+<h2 id="git"><a href="#git" class="headerlink" title="git"></a>git</h2><p><em>2022/02/09</em></p>
+<ul>
+<li>使用 <code>git -C</code> 来指定工作目录, e.g. <code>-c $PWD</code> 指当前目录</li>
+<li><code>git commit --amend --no-edit --no-verify</code><ul>
+<li><strong>–amend</strong> 创建一个新的提交来替换当前分支的顶端</li>
+<li><strong>–no-edit</strong> 不调用编辑器，使用当前分支顶端提交信息</li>
+<li><strong>–no-verify</strong> 绕过 <a target="_blank" rel="noopener" href="https://git-scm.com/docs/githooks">githooks</a> 缩写<code>-n</code></li>
+</ul>
+</li>
+</ul>
+
+      </div>
+      
+      
+      
+    </div>
+    
+
+    
+    
+    
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9-VS-Code-%E4%BE%A7%E8%BE%B9%E6%A0%8F%E5%AD%97%E4%BD%93"><span class="nav-number">1.</span> <span class="nav-text">修改 VS Code 侧边栏字体</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CSR-SSR-SSG-ISR-DPR-PPR"><span class="nav-number">2.</span> <span class="nav-text">CSR&#x2F;SSR&#x2F;SSG&#x2F;ISR&#x2F;DPR&#x2F;PPR</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#SSRF"><span class="nav-number">3.</span> <span class="nav-text">SSRF</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#RSC-use-client-amp-use-server"><span class="nav-number">4.</span> <span class="nav-text">RSC use client &amp; use server</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Bash-which-vs-type-vs-where"><span class="nav-number">5.</span> <span class="nav-text">Bash which vs type vs where</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Web-Search"><span class="nav-number">6.</span> <span class="nav-text">Web Search</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ZWSP"><span class="nav-number">7.</span> <span class="nav-text">ZWSP</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Library-%E5%AE%9E%E8%B7%B5"><span class="nav-number">8.</span> <span class="nav-text">Library 实践</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BC%98%E5%8C%96-React-%E9%87%8D%E6%96%B0%E6%B8%B2%E6%9F%93%E6%8A%80%E5%B7%A7"><span class="nav-number">9.</span> <span class="nav-text">优化 React 重新渲染技巧</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Symbolic-link"><span class="nav-number">10.</span> <span class="nav-text">Symbolic link</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#LGTM"><span class="nav-number">11.</span> <span class="nav-text">LGTM</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TL-DR"><span class="nav-number">12.</span> <span class="nav-text">TL;DR</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#pull-request-vs-pull-request-target"><span class="nav-number">13.</span> <span class="nav-text">pull_request vs pull_request_target</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#tsconfig-json-moduleResolution"><span class="nav-number">14.</span> <span class="nav-text">tsconfig.json moduleResolution</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%A4%E8%AF%86-Unified-%E5%92%8C-Remark"><span class="nav-number">15.</span> <span class="nav-text">认识 Unified 和 Remark</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Node-ESM"><span class="nav-number">16.</span> <span class="nav-text">Node ESM</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Github-%E5%90%88%E4%BD%9C%E8%80%85"><span class="nav-number">17.</span> <span class="nav-text">Github 合作者</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#GitHub-Merge-%E4%B8%89%E7%A7%8D%E6%96%B9%E5%BC%8F%E9%80%9F%E8%AE%B0"><span class="nav-number">18.</span> <span class="nav-text">GitHub Merge 三种方式速记</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#remove-vs-removeChild"><span class="nav-number">19.</span> <span class="nav-text">remove vs removeChild</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#innerText-vs-textContent-vs-innerHTML"><span class="nav-number">20.</span> <span class="nav-text">innerText vs textContent vs innerHTML</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#append-vs-appendChild"><span class="nav-number">21.</span> <span class="nav-text">append vs appendChild</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Shell-%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%88%AA%E5%8F%96"><span class="nav-number">22.</span> <span class="nav-text">Shell 字符串截取</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Shell-%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%8B%BC%E6%8E%A5%EF%BC%88%E8%BF%9E%E6%8E%A5%E3%80%81%E5%90%88%E5%B9%B6%EF%BC%89"><span class="nav-number">23.</span> <span class="nav-text">Shell 字符串拼接（连接、合并）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#dev-null"><span class="nav-number">24.</span> <span class="nav-text">&#x2F;dev&#x2F;null</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#copy-amp-paste"><span class="nav-number">25.</span> <span class="nav-text">copy &amp; paste</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Jest-unit-testing"><span class="nav-number">26.</span> <span class="nav-text">Jest unit testing</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Snapshot-Testing"><span class="nav-number">27.</span> <span class="nav-text">Snapshot Testing</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#import-maps"><span class="nav-number">28.</span> <span class="nav-text">import-maps</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#markdown-it-%E5%92%8C-feed"><span class="nav-number">29.</span> <span class="nav-text">markdown-it 和 feed</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Vite-%E6%8F%92%E4%BB%B6-unplugin-auto-import"><span class="nav-number">30.</span> <span class="nav-text">Vite 插件 unplugin-auto-import</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%8D%E8%BF%90%E7%AE%97%E7%AC%A6%E9%80%9F%E8%AE%B0"><span class="nav-number">31.</span> <span class="nav-text">位运算符速记</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#git-submodule"><span class="nav-number">32.</span> <span class="nav-text">git submodule</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#git"><span class="nav-number">33.</span> <span class="nav-text">git</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Wuxh"
+      src="https://avatars3.githubusercontent.com/u/32004925?s=460&u=154f902e7f852def85af5716e81b275fc76cbf86&v=4">
+  <p class="site-author-name" itemprop="name">Wuxh</p>
+  <div class="site-description" itemprop="description">知道的越多, 不知道的就越多</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+        <span class="site-state-item-count">22</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/Wxh16144" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;Wxh16144" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:wxh1220@gmail.com" title="E-Mail → mailto:wxh1220@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2018 – 
+  <span itemprop="copyrightYear">2026</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Wuxh</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
