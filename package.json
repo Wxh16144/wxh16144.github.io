@@ -7,7 +7,8 @@
     "build": "hexo generate",
     "clean": "hexo clean",
     "deploy": "hexo deploy",
-    "server": "hexo server"
+    "server": "hexo server",
+    "build:gist": "npm run build -w gist-viewer ../public/gist/index.html"
   },
   "hexo": {
     "version": "5.4.2"

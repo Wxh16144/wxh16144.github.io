@@ -5,8 +5,8 @@ on:
     branches:
       - main
   schedule:
-    # https://www.matools.com/crontab?embed
-    - cron: "22 20 */7 * *"
+    # https://crontab.guru/#0_10_*/7_*_*
+    - cron: "0 10 */7 * *"
 
 jobs:
   build:
@@ -14,14 +14,13 @@ jobs:
     name: A job to deploy blog.
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v6
         with:
-          submodules: true # Checkout private submodules(themes or something else).
+          submodules: true
       - name: Use Node.js 14.x
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: 18
-      # Caching dependencies to speed up workflows. (GitHub will remove any cache entries that have not been accessed in over 7 days.)
       - name: Cache node modules
         uses: actions/cache@v4
         id: cache
@@ -37,6 +36,13 @@ jobs:
 
       - name: Build
         run: npm run build
+
+      - name: Build Gist
+        run: npm run build:gist
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_USERNAME: Wxh16144
+        continue-on-error: true
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
