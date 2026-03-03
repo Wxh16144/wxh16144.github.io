@@ -6,6 +6,26 @@ tags: ["notes"]
 
 一些快速记录的笔记
 
+## Git 超大资源仓库拉取超时解决
+
+_2026/03/03_
+
+团队游戏开发仓库因包含贴图、模型等资源，体积达 14GB+，拉取时持续出现`rpc error: DeadlineExceeded`、`early EOF`、`unexpected disconnect`等超时错误。
+
+前期尝试调整Git本地配置（LFS初始化、延长http超时、调整pack包大小、扩大http.postbuffer等）均无效果，核心原因是服务器端`upload-pack`进程存在超时阈值，单次拉取全量资源耗时超标导致连接被主动断开。
+
+最终通过分批拉取策略解决，核心脚本（macOS/Linux）：
+
+```bash
+for depth in {100..1000..100}; do
+  git fetch --depth=$depth origin master
+  sleep 5  # 每批间隔降低服务器压力
+done
+git fetch --unshallow origin master
+```
+
+执行后分批拉取数据，后续无新数据传输，最后执行 `git rev-parse --is-shallow-repository` 输出 `false`，确认仓库拉取完整。
+
 ## 修改 VS Code 侧边栏字体
 
 _2026/02/10_
