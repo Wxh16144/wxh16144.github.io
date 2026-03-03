@@ -40,7 +40,7 @@ jobs:
       - name: Build Gist
         run: npm run build:gist
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GIST_ACCESS_TOKEN }}
           GITHUB_USERNAME: Wxh16144
         continue-on-error: true
 
