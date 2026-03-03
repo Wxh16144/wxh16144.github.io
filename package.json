@@ -12,6 +12,9 @@
   "hexo": {
     "version": "5.4.2"
   },
+  "workspaces": [
+    "gist-viewer"
+  ],
   "dependencies": {
     "hexo": "^5.0.0",
     "hexo-deployer-git": "^2.1.0",
