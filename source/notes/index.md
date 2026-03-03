@@ -65,6 +65,14 @@ _2025/10/24_
 
 ref: [Next.js CSR vs SSR vs SSG vs ISR and now PPR!](https://www.youtube.com/watch?v=S5tjBqzs31w)
 
+## [MessageChannel vs BroadcastChannel](https://github.com/Wxh16144/wxh16144.github.io/issues/7)
+
+_2025/07/22_
+
+| MessageChannel | BroadcastChannel |
+| --- | --- |
+| 提供了一个简单的通信机制，允许在同一浏览器上下文中的不同脚本之间进行通信。它创建了一个双向通信通道，可以在两个端点之间发送消息。 | 允许在同一浏览器上下文中的多个脚本之间进行通信。它创建了一个广播通道，任何订阅该通道的脚本都可以接收发送到该通道的消息。 |
+
 ## SSRF
 
 _2025/07/18_
@@ -102,6 +110,12 @@ ref:
 
 - [Bash `which` vs `type`](https://gist.github.com/miguelmota/bb7f8587047c7dcb5fe38b41ba2d357d)
 - [What is the difference between which and where](https://unix.stackexchange.com/a/757150)
+
+### [useMemoizedFn vs useEvent vs useLatestFunc ?? vs useEffectEvent](https://github.com/Wxh16144/wxh16144.github.io/issues/5)
+
+_2024/08/02_
+
+`useMemoizedFn`、`useEvent`、`useLatestFunc` 和 `useEffectEvent`，它们都是用来优化函数组件中的性能和行为的工具。
 
 ## Web Search
 
