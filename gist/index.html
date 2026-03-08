@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wxh16144 的 Gist 收藏集</title>
+  <script type="importmap">
+    {
+      "imports": {
+        "react": "https://esm.sh/react@18.3.1",
+        "react-dom/client": "https://esm.sh/react-dom@18.3.1/client?external=react",
+        "lucide-react": "https://esm.sh/lucide-react@0.575.0?external=react",
+        "@octokit/core": "https://esm.sh/@octokit/core@6.1.2"
+      }
+    }
+  </script>
+  <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <style type="text/tailwindcss">
+    @theme {
+      --font-sans: "Inter", system-ui, sans-serif;
+      --color-primary: #165DFF;
+      --color-primary-hover: #0E42D2;
+      --color-secondary: #6B7280;
+      --color-dark: #1F2937;
+      --color-light: #F9FAFB;
+    }
+  </style>
+
+  <style type="text/tailwindcss">
+    @layer utilities {
+      .card-shadow { box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08); }
+      .gist-card-hover { transition: transform 0.2s, box-shadow 0.2s; }
+      .gist-card-hover:hover { 
+        transform: translateY(-2px); 
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12); 
+      }
+    }
+  </style>
+
+  <script>
+    window.GIST_CONFIG = {
+      username: 'Wxh16144',
+      data: [{"url": "https://api.github.com/gists/e6231fabd1ad4374618e976bc0456467", "forks_url": "https://api.github.com/gists/e6231fabd1ad4374618e976bc0456467/forks", "commits_url": "https://api.github.com/gists/e6231fabd1ad4374618e976bc0456467/commits", "id": "e6231fabd1ad4374618e976bc0456467", "node_id": "G_kwDOAehbPdoAIGU2MjMxZmFiZDFhZDQzNzQ2MThlOTc2YmMwNDU2NDY3", "git_pull_url": "https://gist.github.com/e6231fabd1ad4374618e976bc0456467.git", "git_push_url": "https://gist.github.com/e6231fabd1ad4374618e976bc0456467.git", "html_url": "https://gist.github.com/Wxh16144/e6231fabd1ad4374618e976bc0456467", "files": {"auto-update-repos.sh": {"filename": "auto-update-repos.sh", "type": "application/x-sh", "language": "Shell", "raw_url": "https://gist.githubusercontent.com/Wxh16144/e6231fabd1ad4374618e976bc0456467/raw/6539af6ad36ef4e2d687b96835f135f02ec9d06d/auto-update-repos.sh", "size": 5771}}, "public": true, "created_at": "2026-02-25T09:24:23Z", "updated_at": "2026-03-03T09:46:11Z", "description": "Auto Update Repos Script", "comments": 1, "user": null, "comments_enabled": true, "comments_url": "https://api.github.com/gists/e6231fabd1ad4374618e976bc0456467/comments", "owner": {"login": "Wxh16144", "id": 32004925, "node_id": "MDQ6VXNlcjMyMDA0OTI1", "avatar_url": "https://avatars.githubusercontent.com/u/32004925?v=4", "gravatar_id": "", "url": "https://api.github.com/users/Wxh16144", "html_url": "https://github.com/Wxh16144", "followers_url": "https://api.github.com/users/Wxh16144/followers", "following_url": "https://api.github.com/users/Wxh16144/following{/other_user}", "gists_url": "https://api.github.com/users/Wxh16144/gists{/gist_id}", "starred_url": "https://api.github.com/users/Wxh16144/starred{/owner}{/repo}", "subscriptions_url": "https://api.github.com/users/Wxh16144/subscriptions", "organizations_url": "https://api.github.com/users/Wxh16144/orgs", "repos_url": "https://api.github.com/users/Wxh16144/repos", "events_url": "https://api.github.com/users/Wxh16144/events{/privacy}", "received_events_url": "https://api.github.com/users/Wxh16144/received_events", "type": "User", "user_view_type": "public", "site_admin": false}, "truncated": false}, {"url": "https://api.github.com/gists/bd63cb3789be02c088a781bb03b73cf6", "forks_url": "https://api.github.com/gists/bd63cb3789be02c088a781bb03b73cf6/forks", "commits_url": "https://api.github.com/gists/bd63cb3789be02c088a781bb03b73cf6/commits", "id": "bd63cb3789be02c088a781bb03b73cf6", "node_id": "G_kwDOAehbPdoAIGJkNjNjYjM3ODliZTAyYzA4OGE3ODFiYjAzYjczY2Y2", "git_pull_url": "https://gist.github.com/bd63cb3789be02c088a781bb03b73cf6.git", "git_push_url": "https://gist.github.com/bd63cb3789be02c088a781bb03b73cf6.git", "html_url": "https://gist.github.com/Wxh16144/bd63cb3789be02c088a781bb03b73cf6", "files": {"gitlab.contribution.js": {"filename": "gitlab.contribution.js", "type": "text/javascript", "language": "JavaScript", "raw_url": "https://gist.githubusercontent.com/Wxh16144/bd63cb3789be02c088a781bb03b73cf6/raw/012843854438a68197121557726fec435e719d0c/gitlab.contribution.js", "size": 9895}}, "public": true, "created_at": "2026-02-12T07:34:02Z", "updated_at": "2026-02-12T10:09:20Z", "description": "GitLab 贡献热力图生成器 (Contribution Graph)", "comments": 1, "user": null, "comments_enabled": true, "comments_url": "https://api.github.com/gists/bd63cb3789be02c088a781bb03b73cf6/comments", "owner": {"login": "Wxh16144", "id": 32004925, "node_id": "MDQ6VXNlcjMyMDA0OTI1", "avatar_url": "https://avatars.githubusercontent.com/u/32004925?v=4", "gravatar_id": "", "url": "https://api.github.com/users/Wxh16144", "html_url": "https://github.com/Wxh16144", "followers_url": "https://api.github.com/users/Wxh16144/followers", "following_url": "https://api.github.com/users/Wxh16144/following{/other_user}", "gists_url": "https://api.github.com/users/Wxh16144/gists{/gist_id}", "starred_url": "https://api.github.com/users/Wxh16144/starred{/owner}{/repo}", "subscriptions_url": "https://api.github.com/users/Wxh16144/subscriptions", "organizations_url": "https://api.github.com/users/Wxh16144/orgs", "repos_url": "https://api.github.com/users/Wxh16144/repos", "events_url": "https://api.github.com/users/Wxh16144/events{/privacy}", "received_events_url": "https://api.github.com/users/Wxh16144/received_events", "type": "User", "user_view_type": "public", "site_admin": false}, "truncated": false}, {"url": "https://api.github.com/gists/b60bcd8b62ef29a1e75fab3177120cec", "forks_url": "https://api.github.com/gists/b60bcd8b62ef29a1e75fab3177120cec/forks", "commits_url": "https://api.github.com/gists/b60bcd8b62ef29a1e75fab3177120cec/commits", "id": "b60bcd8b62ef29a1e75fab3177120cec", "node_id": "G_kwDOAehbPdoAIGI2MGJjZDhiNjJlZjI5YTFlNzVmYWIzMTc3MTIwY2Vj", "git_pull_url": "https://gist.github.com/b60bcd8b62ef29a1e75fab3177120cec.git", "git_push_url": "https://gist.github.com/b60bcd8b62ef29a1e75fab3177120cec.git", "html_url": "https://gist.github.com/Wxh16144/b60bcd8b62ef29a1e75fab3177120cec", "files": {"app.js": {"filename": "app.js", "type": "text/javascript", "language": "JavaScript", "raw_url": "https://gist.githubusercontent.com/Wxh16144/b60bcd8b62ef29a1e75fab3177120cec/raw/4cd222e37f011ce49d71ed134762576e5814709e/app.js", "size": 2705}, "index.html": {"filename": "index.html", "type": "text/html", "language": "HTML", "raw_url": "https://gist.githubusercontent.com/Wxh16144/b60bcd8b62ef29a1e75fab3177120cec/raw/9e1fd771ca60ba62eb050a3753da7de9ad75e73d/index.html", "size": 2220}}, "public": true, "created_at": "2026-01-07T07:04:03Z", "updated_at": "2026-01-07T07:04:31Z", "description": "SSE Demo Server", "comments": 1, "user": null, "comments_enabled": true, "comments_url": "https://api.github.com/gists/b60bcd8b62ef29a1e75fab3177120cec/comments", "owner": {"login": "Wxh16144", "id": 32004925, "node_id": "MDQ6VXNlcjMyMDA0OTI1", "avatar_url": "https://avatars.githubusercontent.com/u/32004925?v=4", "gravatar_id": "", "url": "https://api.github.com/users/Wxh16144", "html_url": "https://github.com/Wxh16144", "followers_url": "https://api.github.com/users/Wxh16144/followers", "following_url": "https://api.github.com/users/Wxh16144/following{/other_user}", "gists_url": "https://api.github.com/users/Wxh16144/gists{/gist_id}", "starred_url": "https://api.github.com/users/Wxh16144/starred{/owner}{/repo}", "subscriptions_url": "https://api.github.com/users/Wxh16144/subscriptions", "organizations_url": "https://api.github.com/users/Wxh16144/orgs", "repos_url": "https://api.github.com/users/Wxh16144/repos", "events_url": "https://api.github.com/users/Wxh16144/events{/privacy}", "received_events_url": "https://api.github.com/users/Wxh16144/received_events", "type": "User", "user_view_type": "public", "site_admin": false}, "truncated": false}, {"url": "https://api.github.com/gists/4673ae719e3af65513158e27f9e4cdbf", "forks_url": "https://api.github.com/gists/4673ae719e3af65513158e27f9e4cdbf/forks", "commits_url": "https://api.github.com/gists/4673ae719e3af65513158e27f9e4cdbf/commits", "id": "4673ae719e3af65513158e27f9e4cdbf", "node_id": "G_kwDOAehbPdoAIDQ2NzNhZTcxOWUzYWY2NTUxMzE1OGUyN2Y5ZTRjZGJm", "git_pull_url": "https://gist.github.com/4673ae719e3af65513158e27f9e4cdbf.git", "git_push_url": "https://gist.github.com/4673ae719e3af65513158e27f9e4cdbf.git", "html_url": "https://gist.github.com/Wxh16144/4673ae719e3af65513158e27f9e4cdbf", "files": {"App.tsx": {"filename": "App.tsx", "type": "text/plain", "language": "TSX", "raw_url": "https://gist.githubusercontent.com/Wxh16144/4673ae719e3af65513158e27f9e4cdbf/raw/a95afbf5e0e22d7360934fd64f8655616a4839bc/App.tsx", "size": 1892}}, "public": true, "created_at": "2025-12-19T10:35:38Z", "updated_at": "2025-12-19T10:35:38Z", "description": "Ant Design Modal Animation", "comments": 0, "user": null, "comments_enabled": true, "comments_url": "https://api.github.com/gists/4673ae719e3af65513158e27f9e4cdbf/comments", "owner": {"login": "Wxh16144", "id": 32004925, "node_id": "MDQ6VXNlcjMyMDA0OTI1", "avatar_url": "https://avatars.githubusercontent.com/u/32004925?v=4", "gravatar_id": "", "url": "https://api.github.com/users/Wxh16144", "html_url": "https://github.com/Wxh16144", "followers_url": "https://api.github.com/users/Wxh16144/followers", "following_url": "https://api.github.com/users/Wxh16144/following{/other_user}", "gists_url": "https://api.github.com/users/Wxh16144/gists{/gist_id}", "starred_url": "https://api.github.com/users/Wxh16144/starred{/owner}{/repo}", "subscriptions_url": "https://api.github.com/users/Wxh16144/subscriptions", "organizations_url": "https://api.github.com/users/Wxh16144/orgs", "repos_url": "https://api.github.com/users/Wxh16144/repos", "events_url": "https://api.github.com/users/Wxh16144/events{/privacy}", "received_events_url": "https://api.github.com/users/Wxh16144/received_events", "type": "User", "user_view_type": "public", "site_admin": false}, "truncated": false}, {"url": "https://api.github.com/gists/e2498888fc009d5bd3fd071fc54493b1", "forks_url": "https://api.github.com/gists/e2498888fc009d5bd3fd071fc54493b1/forks", "commits_url": "https://api.github.com/gists/e2498888fc009d5bd3fd071fc54493b1/commits", "id": "e2498888fc009d5bd3fd071fc54493b1", "node_id": "G_kwDOAehbPdoAIGUyNDk4ODg4ZmMwMDlkNWJkM2ZkMDcxZmM1NDQ5M2Ix", "git_pull_url": "https://gist.github.com/e2498888fc009d5bd3fd071fc54493b1.git", "git_push_url": "https://gist.github.com/e2498888fc009d5bd3fd071fc54493b1.git", "html_url": "https://gist.github.com/Wxh16144/e2498888fc009d5bd3fd071fc54493b1", "files": {"scroll-spy-demo.tsx": {"filename": "scroll-spy-demo.tsx", "type": "text/plain", "language": "TSX", "raw_url": "https://gist.githubusercontent.com/Wxh16144/e2498888fc009d5bd3fd071fc54493b1/raw/f550517781c63f3f6ef2285a031be1223fae241d/scroll-spy-demo.tsx", "size": 5226}}, "public": true, "created_at": "2025-11-12T05:31:42Z", "updated_at": "2025-11-12T05:31:42Z", "description": "基于 React 和 react-intersection-observer 实现的滚动监听（Scroll Spy）组件示例，支持菜单与内容区块的联动高亮", "comments": 0, "user": null, "comments_enabled": true, "comments_url": "https://api.github.com/gists/e2498888fc009d5bd3fd071fc54493b1/comments", "owner": {"login": "Wxh16144", "id": 32004925, "node_id": "MDQ6VXNlcjMyMDA0OTI1", "avatar_url": "https://avatars.githubusercontent.com/u/32004925?v=4", "gravatar_id": "", "url": "https://api.github.com/users/Wxh16144", "html_url": "https://github.com/Wxh16144", "followers_url": "https://api.github.com/users/Wxh16144/followers", "following_url": "https://api.github.com/users/Wxh16144/following{/other_user}", "gists_url": "https://api.github.com/users/Wxh16144/gists{/gist_id}", "starred_url": "https://api.github.com/users/Wxh16144/starred{/owner}{/repo}", "subscriptions_url": "https://api.github.com/users/Wxh16144/subscriptions", "organizations_url": "https://api.github.com/users/Wxh16144/orgs", "repos_url": "https://api.github.com/users/Wxh16144/repos", "events_url": "https://api.github.com/users/Wxh16144/events{/privacy}", "received_events_url": "https://api.github.com/users/Wxh16144/received_events", "type": "User", "user_view_type": "public", "site_admin": false}, "truncated": false}, {"url": "https://api.github.com/gists/1dcfdeedaa7bb556b184bc97fa9f690f", "forks_url": "https://api.github.com/gists/1dcfdeedaa7bb556b184bc97fa9f690f/forks", "commits_url": "https://api.github.com/gists/1dcfdeedaa7bb556b184bc97fa9f690f/commits", "id": "1dcfdeedaa7bb556b184bc97fa9f690f", "node_id": "G_kwDOAehbPdoAIDFkY2ZkZWVkYWE3YmI1NTZiMTg0YmM5N2ZhOWY2OTBm", "git_pull_url": "https://gist.github.com/1dcfdeedaa7bb556b184bc97fa9f690f.git", "git_push_url": "https://gist.github.com/1dcfdeedaa7bb556b184bc97fa9f690f.git", "html_url": "https://gist.github.com/Wxh16144/1dcfdeedaa7bb556b184bc97fa9f690f", "files": {"nvm-clean-major.sh": {"filename": "nvm-clean-major.sh", "type": "application/x-sh", "language": "Shell", "raw_url": "https://gist.githubusercontent.com/Wxh16144/1dcfdeedaa7bb556b184bc97fa9f690f/raw/3bc79c8eb9bd3c6080f8b872bbf767d2ad78537b/nvm-clean-major.sh", "size": 1671}}, "public": true, "created_at": "2025-08-27T04:36:01Z", "updated_at": "2025-08-27T04:38:44Z", "description": "清理 nvm 已安装 Node.js 版本，只保留每个 major 版本的最新版本（macOS bash）", "comments": 1, "user": null, "comments_enabled": true, "comments_url": "https://api.github.com/gists/1dcfdeedaa7bb556b184bc97fa9f690f/comments", "owner": {"login": "Wxh16144", "id": 32004925, "node_id": "MDQ6VXNlcjMyMDA0OTI1", "avatar_url": "https://avatars.githubusercontent.com/u/32004925?v=4", "gravatar_id": "", "url": "https://api.github.com/users/Wxh16144", "html_url": "https://github.com/Wxh16144", "followers_url": "https://api.github.com/users/Wxh16144/followers", "following_url": "https://api.github.com/users/Wxh16144/following{/other_user}", "gists_url": "https://api.github.com/users/Wxh16144/gists{/gist_id}", "starred_url": "https://api.github.com/users/Wxh16144/starred{/owner}{/repo}", "subscriptions_url": "https://api.github.com/users/Wxh16144/subscriptions", "organizations_url": "https://api.github.com/users/Wxh16144/orgs", "repos_url": "https://api.github.com/users/Wxh16144/repos", "events_url": "https://api.github.com/users/Wxh16144/events{/privacy}", "received_events_url": "https://api.github.com/users/Wxh16144/received_events", "type": "User", "user_view_type": "public", "site_admin": false}, "truncated": false}, {"url": "https://api.github.com/gists/f02ea4b30272374c677bfc2f5d0c1c9b", "forks_url": "https://api.github.com/gists/f02ea4b30272374c677bfc2f5d0c1c9b/forks", "commits_url": "https://api.github.com/gists/f02ea4b30272374c677bfc2f5d0c1c9b/commits", "id": "f02ea4b30272374c677bfc2f5d0c1c9b", "node_id": "G_kwDOAehbPdoAIGYwMmVhNGIzMDI3MjM3NGM2NzdiZmMyZjVkMGMxYzli", "git_pull_url": "https://gist.github.com/f02ea4b30272374c677bfc2f5d0c1c9b.git", "git_push_url": "https://gist.github.com/f02ea4b30272374c677bfc2f5d0c1c9b.git", "html_url": "https://gist.github.com/Wxh16144/f02ea4b30272374c677bfc2f5d0c1c9b", "files": {"index.html": {"filename": "index.html", "type": "text/html", "language": "HTML", "raw_url": "https://gist.githubusercontent.com/Wxh16144/f02ea4b30272374c677bfc2f5d0c1c9b/raw/f15cba0701673f04117fc11e7a2bfdca06698eb4/index.html", "size": 11346}}, "public": true, "created_at": "2025-08-13T03:19:13Z", "updated_at": "2025-08-13T03:19:14Z", "description": "全球时区对照工具", "comments": 0, "user": null, "comments_enabled": true, "comments_url": "https://api.github.com/gists/f02ea4b30272374c677bfc2f5d0c1c9b/comments", "owner": {"login": "Wxh16144", "id": 32004925, "node_id": "MDQ6VXNlcjMyMDA0OTI1", "avatar_url": "https://avatars.githubusercontent.com/u/32004925?v=4", "gravatar_id": "", "url": "https://api.github.com/users/Wxh16144", "html_url": "https://github.com/Wxh16144", "followers_url": "https://api.github.com/users/Wxh16144/followers", "following_url": "https://api.github.com/users/Wxh16144/following{/other_user}", "gists_url": "https://api.github.com/users/Wxh16144/gists{/gist_id}", "starred_url": "https://api.github.com/users/Wxh16144/starred{/owner}{/repo}", "subscriptions_url": "https://api.github.com/users/Wxh16144/subscriptions", "organizations_url": "https://api.github.com/users/Wxh16144/orgs", "repos_url": "https://api.github.com/users/Wxh16144/repos", "events_url": "https://api.github.com/users/Wxh16144/events{/privacy}", "received_events_url": "https://api.github.com/users/Wxh16144/received_events", "type": "User", "user_view_type": "public", "site_admin": false}, "truncated": false}, {"url": "https://api.github.com/gists/edfd2c1220205ac2f1ce23d10f7825eb", "forks_url": "https://api.github.com/gists/edfd2c1220205ac2f1ce23d10f7825eb/forks", "commits_url": "https://api.github.com/gists/edfd2c1220205ac2f1ce23d10f7825eb/commits", "id": "edfd2c1220205ac2f1ce23d10f7825eb", "node_id": "G_kwDOAehbPdoAIGVkZmQyYzEyMjAyMDVhYzJmMWNlMjNkMTBmNzgyNWVi", "git_pull_url": "https://gist.github.com/edfd2c1220205ac2f1ce23d10f7825eb.git", "git_push_url": "https://gist.github.com/edfd2c1220205ac2f1ce23d10f7825eb.git", "html_url": "https://gist.github.com/Wxh16144/edfd2c1220205ac2f1ce23d10f7825eb", "files": {"main.js": {"filename": "main.js", "type": "text/javascript", "language": "JavaScript", "raw_url": "https://gist.githubusercontent.com/Wxh16144/edfd2c1220205ac2f1ce23d10f7825eb/raw/a4ebfc8bcc361c6ba2005b8c8ee4eb3d183bc487/main.js", "size": 689}}, "public": true, "created_at": "2025-08-08T10:35:40Z", "updated_at": "2025-08-08T10:40:27Z", "description": "Node.js tmp Module Learning - Temporary File Auto-cleanup Demo", "comments": 1, "user": null, "comments_enabled": true, "comments_url": "https://api.github.com/gists/edfd2c1220205ac2f1ce23d10f7825eb/comments", "owner": {"login": "Wxh16144", "id": 32004925, "node_id": "MDQ6VXNlcjMyMDA0OTI1", "avatar_url": "https://avatars.githubusercontent.com/u/32004925?v=4", "gravatar_id": "", "url": "https://api.github.com/users/Wxh16144", "html_url": "https://github.com/Wxh16144", "followers_url": "https://api.github.com/users/Wxh16144/followers", "following_url": "https://api.github.com/users/Wxh16144/following{/other_user}", "gists_url": "https://api.github.com/users/Wxh16144/gists{/gist_id}", "starred_url": "https://api.github.com/users/Wxh16144/starred{/owner}{/repo}", "subscriptions_url": "https://api.github.com/users/Wxh16144/subscriptions", "organizations_url": "https://api.github.com/users/Wxh16144/orgs", "repos_url": "https://api.github.com/users/Wxh16144/repos", "events_url": "https://api.github.com/users/Wxh16144/events{/privacy}", "received_events_url": "https://api.github.com/users/Wxh16144/received_events", "type": "User", "user_view_type": "public", "site_admin": false}, "truncated": false}, {"url": "https://api.github.com/gists/b151496c1d6249967efe5c167b9ac371", "forks_url": "https://api.github.com/gists/b151496c1d6249967efe5c167b9ac371/forks", "commits_url": "https://api.github.com/gists/b151496c1d6249967efe5c167b9ac371/commits", "id": "b151496c1d6249967efe5c167b9ac371", "node_id": "G_kwDOAehbPdoAIGIxNTE0OTZjMWQ2MjQ5OTY3ZWZlNWMxNjdiOWFjMzcx", "git_pull_url": "https://gist.github.com/b151496c1d6249967efe5c167b9ac371.git", "git_push_url": "https://gist.github.com/b151496c1d6249967efe5c167b9ac371.git", "html_url": "https://gist.github.com/Wxh16144/b151496c1d6249967efe5c167b9ac371", "files": {"CombinatoricsKit.ts": {"filename": "CombinatoricsKit.ts", "type": "video/MP2T", "language": "TypeScript", "raw_url": "https://gist.githubusercontent.com/Wxh16144/b151496c1d6249967efe5c167b9ac371/raw/5f78af862442045c360360979846358287ce48f0/CombinatoricsKit.ts", "size": 5761}, "test.ts": {"filename": "test.ts", "type": "video/MP2T", "language": "TypeScript", "raw_url": "https://gist.githubusercontent.com/Wxh16144/b151496c1d6249967efe5c167b9ac371/raw/8a9589880e12ee62b74e07886fdd9f2390d497c6/test.ts", "size": 1234}}, "public": true, "created_at": "2025-07-23T08:35:32Z", "updated_at": "2025-07-23T08:35:51Z", "description": "CombinatoricsKit 排列、组合、全排列与笛卡尔积工具类 (TypeScript)", "comments": 1, "user": null, "comments_enabled": true, "comments_url": "https://api.github.com/gists/b151496c1d6249967efe5c167b9ac371/comments", "owner": {"login": "Wxh16144", "id": 32004925, "node_id": "MDQ6VXNlcjMyMDA0OTI1", "avatar_url": "https://avatars.githubusercontent.com/u/32004925?v=4", "gravatar_id": "", "url": "https://api.github.com/users/Wxh16144", "html_url": "https://github.com/Wxh16144", "followers_url": "https://api.github.com/users/Wxh16144/followers", "following_url": "https://api.github.com/users/Wxh16144/following{/other_user}", "gists_url": "https://api.github.com/users/Wxh16144/gists{/gist_id}", "starred_url": "https://api.github.com/users/Wxh16144/starred{/owner}{/repo}", "subscriptions_url": "https://api.github.com/users/Wxh16144/subscriptions", "organizations_url": "https://api.github.com/users/Wxh16144/orgs", "repos_url": "https://api.github.com/users/Wxh16144/repos", "events_url": "https://api.github.com/users/Wxh16144/events{/privacy}", "received_events_url": "https://api.github.com/users/Wxh16144/received_events", "type": "User", "user_view_type": "public", "site_admin": false}, "truncated": false}, {"url": "https://api.github.com/gists/48cf1f67a40530c73375449d8a6b1b2b", "forks_url": "https://api.github.com/gists/48cf1f67a40530c73375449d8a6b1b2b/forks", "commits_url": "https://api.github.com/gists/48cf1f67a40530c73375449d8a6b1b2b/commits", "id": "48cf1f67a40530c73375449d8a6b1b2b", "node_id": "G_kwDOAehbPdoAIDQ4Y2YxZjY3YTQwNTMwYzczMzc1NDQ5ZDhhNmIxYjJi", "git_pull_url": "https://gist.github.com/48cf1f67a40530c73375449d8a6b1b2b.git", "git_push_url": "https://gist.github.com/48cf1f67a40530c73375449d8a6b1b2b.git", "html_url": "https://gist.github.com/Wxh16144/48cf1f67a40530c73375449d8a6b1b2b", "files": {"view-antd-token.tsx": {"filename": "view-antd-token.tsx", "type": "text/plain", "language": "TSX", "raw_url": "https://gist.githubusercontent.com/Wxh16144/48cf1f67a40530c73375449d8a6b1b2b/raw/81150361a41429b3e76fed20081783017cef3380/view-antd-token.tsx", "size": 5784}}, "public": true, "created_at": "2025-07-16T07:44:18Z", "updated_at": "2026-03-03T06:42:19Z", "description": "可视化 Ant Design Token", "comments": 2, "user": null, "comments_enabled": true, "comments_url": "https://api.github.com/gists/48cf1f67a40530c73375449d8a6b1b2b/comments", "owner": {"login": "Wxh16144", "id": 32004925, "node_id": "MDQ6VXNlcjMyMDA0OTI1", "avatar_url": "https://avatars.githubusercontent.com/u/32004925?v=4", "gravatar_id": "", "url": "https://api.github.com/users/Wxh16144", "html_url": "https://github.com/Wxh16144", "followers_url": "https://api.github.com/users/Wxh16144/followers", "following_url": "https://api.github.com/users/Wxh16144/following{/other_user}", "gists_url": "https://api.github.com/users/Wxh16144/gists{/gist_id}", "starred_url": "https://api.github.com/users/Wxh16144/starred{/owner}{/repo}", "subscriptions_url": "https://api.github.com/users/Wxh16144/subscriptions", "organizations_url": "https://api.github.com/users/Wxh16144/orgs", "repos_url": "https://api.github.com/users/Wxh16144/repos", "events_url": "https://api.github.com/users/Wxh16144/events{/privacy}", "received_events_url": "https://api.github.com/users/Wxh16144/received_events", "type": "User", "user_view_type": "public", "site_admin": false}, "truncated": false}, {"url": "https://api.github.com/gists/23a7fdeef32074f5fa769043b741ae32", "forks_url": "https://api.github.com/gists/23a7fdeef32074f5fa769043b741ae32/forks", "commits_url": "https://api.github.com/gists/23a7fdeef32074f5fa769043b741ae32/commits", "id": "23a7fdeef32074f5fa769043b741ae32", "node_id": "G_kwDOAehbPdoAIDIzYTdmZGVlZjMyMDc0ZjVmYTc2OTA0M2I3NDFhZTMy", "git_pull_url": "https://gist.github.com/23a7fdeef32074f5fa769043b741ae32.git", "git_push_url": "https://gist.github.com/23a7fdeef32074f5fa769043b741ae32.git", "html_url": "https://gist.github.com/Wxh16144/23a7fdeef32074f5fa769043b741ae32", "files": {"chrome-ext-bisect.js": {"filename": "chrome-ext-bisect.js", "type": "text/javascript", "language": "JavaScript", "raw_url": "https://gist.githubusercontent.com/Wxh16144/23a7fdeef32074f5fa769043b741ae32/raw/abbed9c9752f4b523335f5a01b9cb4dd5c6645ea/chrome-ext-bisect.js", "size": 8364}}, "public": true, "created_at": "2025-07-10T03:32:15Z", "updated_at": "2025-07-10T03:32:39Z", "description": " Chrome 扩展二分诊断工具", "comments": 1, "user": null, "comments_enabled": true, "comments_url": "https://api.github.com/gists/23a7fdeef32074f5fa769043b741ae32/comments", "owner": {"login": "Wxh16144", "id": 32004925, "node_id": "MDQ6VXNlcjMyMDA0OTI1", "avatar_url": "https://avatars.githubusercontent.com/u/32004925?v=4", "gravatar_id": "", "url": "https://api.github.com/users/Wxh16144", "html_url": "https://github.com/Wxh16144", "followers_url": "https://api.github.com/users/Wxh16144/followers", "following_url": "https://api.github.com/users/Wxh16144/following{/other_user}", "gists_url": "https://api.github.com/users/Wxh16144/gists{/gist_id}", "starred_url": "https://api.github.com/users/Wxh16144/starred{/owner}{/repo}", "subscriptions_url": "https://api.github.com/users/Wxh16144/subscriptions", "organizations_url": "https://api.github.com/users/Wxh16144/orgs", "repos_url": "https://api.github.com/users/Wxh16144/repos", "events_url": "https://api.github.com/users/Wxh16144/events{/privacy}", "received_events_url": "https://api.github.com/users/Wxh16144/received_events", "type": "User", "user_view_type": "public", "site_admin": false}, "truncated": false}, {"url": "https://api.github.com/gists/c7b9c14d8427fecb0b287cd36cc0de26", "forks_url": "https://api.github.com/gists/c7b9c14d8427fecb0b287cd36cc0de26/forks", "commits_url": "https://api.github.com/gists/c7b9c14d8427fecb0b287cd36cc0de26/commits", "id": "c7b9c14d8427fecb0b287cd36cc0de26", "node_id": "G_kwDOAehbPdoAIGM3YjljMTRkODQyN2ZlY2IwYjI4N2NkMzZjYzBkZTI2", "git_pull_url": "https://gist.github.com/c7b9c14d8427fecb0b287cd36cc0de26.git", "git_push_url": "https://gist.github.com/c7b9c14d8427fecb0b287cd36cc0de26.git", "html_url": "https://gist.github.com/Wxh16144/c7b9c14d8427fecb0b287cd36cc0de26", "files": {"App.tsx": {"filename": "App.tsx", "type": "text/plain", "language": "TSX", "raw_url": "https://gist.githubusercontent.com/Wxh16144/c7b9c14d8427fecb0b287cd36cc0de26/raw/5397e423244eb51c631e6e1474d1593e8cf78d7b/App.tsx", "size": 3212}}, "public": true, "created_at": "2025-03-26T09:49:17Z", "updated_at": "2025-11-12T05:32:30Z", "description": "贝塞尔曲线可视化", "comments": 1, "user": null, "comments_enabled": true, "comments_url": "https://api.github.com/gists/c7b9c14d8427fecb0b287cd36cc0de26/comments", "owner": {"login": "Wxh16144", "id": 32004925, "node_id": "MDQ6VXNlcjMyMDA0OTI1", "avatar_url": "https://avatars.githubusercontent.com/u/32004925?v=4", "gravatar_id": "", "url": "https://api.github.com/users/Wxh16144", "html_url": "https://github.com/Wxh16144", "followers_url": "https://api.github.com/users/Wxh16144/followers", "following_url": "https://api.github.com/users/Wxh16144/following{/other_user}", "gists_url": "https://api.github.com/users/Wxh16144/gists{/gist_id}", "starred_url": "https://api.github.com/users/Wxh16144/starred{/owner}{/repo}", "subscriptions_url": "https://api.github.com/users/Wxh16144/subscriptions", "organizations_url": "https://api.github.com/users/Wxh16144/orgs", "repos_url": "https://api.github.com/users/Wxh16144/repos", "events_url": "https://api.github.com/users/Wxh16144/events{/privacy}", "received_events_url": "https://api.github.com/users/Wxh16144/received_events", "type": "User", "user_view_type": "public", "site_admin": false}, "truncated": false}, {"url": "https://api.github.com/gists/f1c3af7cc6200cf72208947c7a1331f3", "forks_url": "https://api.github.com/gists/f1c3af7cc6200cf72208947c7a1331f3/forks", "commits_url": "https://api.github.com/gists/f1c3af7cc6200cf72208947c7a1331f3/commits", "id": "f1c3af7cc6200cf72208947c7a1331f3", "node_id": "G_kwDOAehbPdoAIGYxYzNhZjdjYzYyMDBjZjcyMjA4OTQ3YzdhMTMzMWYz", "git_pull_url": "https://gist.github.com/f1c3af7cc6200cf72208947c7a1331f3.git", "git_push_url": "https://gist.github.com/f1c3af7cc6200cf72208947c7a1331f3.git", "html_url": "https://gist.github.com/Wxh16144/f1c3af7cc6200cf72208947c7a1331f3", "files": {"App.tsx": {"filename": "App.tsx", "type": "text/plain", "language": "TSX", "raw_url": "https://gist.githubusercontent.com/Wxh16144/f1c3af7cc6200cf72208947c7a1331f3/raw/e2f34ee39266eb6be35d6f5e68181f4b507d842c/App.tsx", "size": 1823}}, "public": false, "created_at": "2025-03-13T08:13:45Z", "updated_at": "2025-03-13T08:13:45Z", "description": "swr 竞态", "comments": 0, "user": null, "comments_enabled": true, "comments_url": "https://api.github.com/gists/f1c3af7cc6200cf72208947c7a1331f3/comments", "owner": {"login": "Wxh16144", "id": 32004925, "node_id": "MDQ6VXNlcjMyMDA0OTI1", "avatar_url": "https://avatars.githubusercontent.com/u/32004925?v=4", "gravatar_id": "", "url": "https://api.github.com/users/Wxh16144", "html_url": "https://github.com/Wxh16144", "followers_url": "https://api.github.com/users/Wxh16144/followers", "following_url": "https://api.github.com/users/Wxh16144/following{/other_user}", "gists_url": "https://api.github.com/users/Wxh16144/gists{/gist_id}", "starred_url": "https://api.github.com/users/Wxh16144/starred{/owner}{/repo}", "subscriptions_url": "https://api.github.com/users/Wxh16144/subscriptions", "organizations_url": "https://api.github.com/users/Wxh16144/orgs", "repos_url": "https://api.github.com/users/Wxh16144/repos", "events_url": "https://api.github.com/users/Wxh16144/events{/privacy}", "received_events_url": "https://api.github.com/users/Wxh16144/received_events", "type": "User", "user_view_type": "public", "site_admin": false}, "truncated": false}, {"url": "https://api.github.com/gists/0e81bb143cdb2b2bad1942e99bd5b103", "forks_url": "https://api.github.com/gists/0e81bb143cdb2b2bad1942e99bd5b103/forks", "commits_url": "https://api.github.com/gists/0e81bb143cdb2b2bad1942e99bd5b103/commits", "id": "0e81bb143cdb2b2bad1942e99bd5b103", "node_id": "G_kwDOAehbPdoAIDBlODFiYjE0M2NkYjJiMmJhZDE5NDJlOTliZDViMTAz", "git_pull_url": "https://gist.github.com/0e81bb143cdb2b2bad1942e99bd5b103.git", "git_push_url": "https://gist.github.com/0e81bb143cdb2b2bad1942e99bd5b103.git", "html_url": "https://gist.github.com/Wxh16144/0e81bb143cdb2b2bad1942e99bd5b103", "files": {"re.tsx": {"filename": "re.tsx", "type": "text/plain", "language": "TSX", "raw_url": "https://gist.githubusercontent.com/Wxh16144/0e81bb143cdb2b2bad1942e99bd5b103/raw/9216fa1110effcabb25d0f5fa0c0b0e7e88fa448/re.tsx", "size": 1937}, "redux.tsx": {"filename": "redux.tsx", "type": "text/plain", "language": "TSX", "raw_url": "https://gist.githubusercontent.com/Wxh16144/0e81bb143cdb2b2bad1942e99bd5b103/raw/33094b49f8c7824d136cc5452fe10545b9313280/redux.tsx", "size": 3096}, "zustand.tsx": {"filename": "zustand.tsx", "type": "text/plain", "language": "TSX", "raw_url": "https://gist.githubusercontent.com/Wxh16144/0e81bb143cdb2b2bad1942e99bd5b103/raw/9375bf9dbc010d0ba1ad384d2cf5e34f9380882a/zustand.tsx", "size": 890}}, "public": true, "created_at": "2024-12-13T10:13:01Z", "updated_at": "2025-11-12T05:33:21Z", "description": "try-reselect [REDUX]", "comments": 0, "user": null, "comments_enabled": true, "comments_url": "https://api.github.com/gists/0e81bb143cdb2b2bad1942e99bd5b103/comments", "owner": {"login": "Wxh16144", "id": 32004925, "node_id": "MDQ6VXNlcjMyMDA0OTI1", "avatar_url": "https://avatars.githubusercontent.com/u/32004925?v=4", "gravatar_id": "", "url": "https://api.github.com/users/Wxh16144", "html_url": "https://github.com/Wxh16144", "followers_url": "https://api.github.com/users/Wxh16144/followers", "following_url": "https://api.github.com/users/Wxh16144/following{/other_user}", "gists_url": "https://api.github.com/users/Wxh16144/gists{/gist_id}", "starred_url": "https://api.github.com/users/Wxh16144/starred{/owner}{/repo}", "subscriptions_url": "https://api.github.com/users/Wxh16144/subscriptions", "organizations_url": "https://api.github.com/users/Wxh16144/orgs", "repos_url": "https://api.github.com/users/Wxh16144/repos", "events_url": "https://api.github.com/users/Wxh16144/events{/privacy}", "received_events_url": "https://api.github.com/users/Wxh16144/received_events", "type": "User", "user_view_type": "public", "site_admin": false}, "truncated": false}, {"url": "https://api.github.com/gists/d854dbda5fd2eb338810e552441322f5", "forks_url": "https://api.github.com/gists/d854dbda5fd2eb338810e552441322f5/forks", "commits_url": "https://api.github.com/gists/d854dbda5fd2eb338810e552441322f5/commits", "id": "d854dbda5fd2eb338810e552441322f5", "node_id": "G_kwDOAehbPdoAIGQ4NTRkYmRhNWZkMmViMzM4ODEwZTU1MjQ0MTMyMmY1", "git_pull_url": "https://gist.github.com/d854dbda5fd2eb338810e552441322f5.git", "git_push_url": "https://gist.github.com/d854dbda5fd2eb338810e552441322f5.git", "html_url": "https://gist.github.com/Wxh16144/d854dbda5fd2eb338810e552441322f5", "files": {"local-visual-setup.sh": {"filename": "local-visual-setup.sh", "type": "application/x-sh", "language": "Shell", "raw_url": "https://gist.githubusercontent.com/Wxh16144/d854dbda5fd2eb338810e552441322f5/raw/acb41d119979e4d3401a8c1bc01ccd97955d0778/local-visual-setup.sh", "size": 6631}}, "public": true, "created_at": "2024-11-01T03:22:48Z", "updated_at": "2024-11-01T04:14:30Z", "description": "Ant Design 视觉回归--本地对比脚本", "comments": 1, "user": null, "comments_enabled": true, "comments_url": "https://api.github.com/gists/d854dbda5fd2eb338810e552441322f5/comments", "owner": {"login": "Wxh16144", "id": 32004925, "node_id": "MDQ6VXNlcjMyMDA0OTI1", "avatar_url": "https://avatars.githubusercontent.com/u/32004925?v=4", "gravatar_id": "", "url": "https://api.github.com/users/Wxh16144", "html_url": "https://github.com/Wxh16144", "followers_url": "https://api.github.com/users/Wxh16144/followers", "following_url": "https://api.github.com/users/Wxh16144/following{/other_user}", "gists_url": "https://api.github.com/users/Wxh16144/gists{/gist_id}", "starred_url": "https://api.github.com/users/Wxh16144/starred{/owner}{/repo}", "subscriptions_url": "https://api.github.com/users/Wxh16144/subscriptions", "organizations_url": "https://api.github.com/users/Wxh16144/orgs", "repos_url": "https://api.github.com/users/Wxh16144/repos", "events_url": "https://api.github.com/users/Wxh16144/events{/privacy}", "received_events_url": "https://api.github.com/users/Wxh16144/received_events", "type": "User", "user_view_type": "public", "site_admin": false}, "truncated": false}, {"url": "https://api.github.com/gists/610fe8126254e6904e4aa9937ad40b86", "forks_url": "https://api.github.com/gists/610fe8126254e6904e4aa9937ad40b86/forks", "commits_url": "https://api.github.com/gists/610fe8126254e6904e4aa9937ad40b86/commits", "id": "610fe8126254e6904e4aa9937ad40b86", "node_id": "G_kwDOAehbPdoAIDYxMGZlODEyNjI1NGU2OTA0ZTRhYTk5MzdhZDQwYjg2", "git_pull_url": "https://gist.github.com/610fe8126254e6904e4aa9937ad40b86.git", "git_push_url": "https://gist.github.com/610fe8126254e6904e4aa9937ad40b86.git", "html_url": "https://gist.github.com/Wxh16144/610fe8126254e6904e4aa9937ad40b86", "files": {"magic.vue": {"filename": "magic.vue", "type": "text/plain", "language": "Vue", "raw_url": "https://gist.githubusercontent.com/Wxh16144/610fe8126254e6904e4aa9937ad40b86/raw/644c0a0270b51f2543a3243f777624ec02ec74e3/magic.vue", "size": 631}}, "public": false, "created_at": "2024-09-06T08:23:24Z", "updated_at": "2024-09-06T08:23:24Z", "description": "", "comments": 0, "user": null, "comments_enabled": true, "comments_url": "https://api.github.com/gists/610fe8126254e6904e4aa9937ad40b86/comments", "owner": {"login": "Wxh16144", "id": 32004925, "node_id": "MDQ6VXNlcjMyMDA0OTI1", "avatar_url": "https://avatars.githubusercontent.com/u/32004925?v=4", "gravatar_id": "", "url": "https://api.github.com/users/Wxh16144", "html_url": "https://github.com/Wxh16144", "followers_url": "https://api.github.com/users/Wxh16144/followers", "following_url": "https://api.github.com/users/Wxh16144/following{/other_user}", "gists_url": "https://api.github.com/users/Wxh16144/gists{/gist_id}", "starred_url": "https://api.github.com/users/Wxh16144/starred{/owner}{/repo}", "subscriptions_url": "https://api.github.com/users/Wxh16144/subscriptions", "organizations_url": "https://api.github.com/users/Wxh16144/orgs", "repos_url": "https://api.github.com/users/Wxh16144/repos", "events_url": "https://api.github.com/users/Wxh16144/events{/privacy}", "received_events_url": "https://api.github.com/users/Wxh16144/received_events", "type": "User", "user_view_type": "public", "site_admin": false}, "truncated": false}, {"url": "https://api.github.com/gists/f438f8a67dd97f54181e5b33abf742f7", "forks_url": "https://api.github.com/gists/f438f8a67dd97f54181e5b33abf742f7/forks", "commits_url": "https://api.github.com/gists/f438f8a67dd97f54181e5b33abf742f7/commits", "id": "f438f8a67dd97f54181e5b33abf742f7", "node_id": "G_kwDOAehbPdoAIGY0MzhmOGE2N2RkOTdmNTQxODFlNWIzM2FiZjc0MmY3", "git_pull_url": "https://gist.github.com/f438f8a67dd97f54181e5b33abf742f7.git", "git_push_url": "https://gist.github.com/f438f8a67dd97f54181e5b33abf742f7.git", "html_url": "https://gist.github.com/Wxh16144/f438f8a67dd97f54181e5b33abf742f7", "files": {"nginx.conf": {"filename": "nginx.conf", "type": "text/plain", "language": "Nginx", "raw_url": "https://gist.githubusercontent.com/Wxh16144/f438f8a67dd97f54181e5b33abf742f7/raw/9b1e8e0c686c8472f3a244f68f0b579b62128766/nginx.conf", "size": 932}}, "public": true, "created_at": "2024-07-26T06:19:47Z", "updated_at": "2024-07-26T07:56:18Z", "description": "Docker Nginx minimal configuration", "comments": 1, "user": null, "comments_enabled": true, "comments_url": "https://api.github.com/gists/f438f8a67dd97f54181e5b33abf742f7/comments", "owner": {"login": "Wxh16144", "id": 32004925, "node_id": "MDQ6VXNlcjMyMDA0OTI1", "avatar_url": "https://avatars.githubusercontent.com/u/32004925?v=4", "gravatar_id": "", "url": "https://api.github.com/users/Wxh16144", "html_url": "https://github.com/Wxh16144", "followers_url": "https://api.github.com/users/Wxh16144/followers", "following_url": "https://api.github.com/users/Wxh16144/following{/other_user}", "gists_url": "https://api.github.com/users/Wxh16144/gists{/gist_id}", "starred_url": "https://api.github.com/users/Wxh16144/starred{/owner}{/repo}", "subscriptions_url": "https://api.github.com/users/Wxh16144/subscriptions", "organizations_url": "https://api.github.com/users/Wxh16144/orgs", "repos_url": "https://api.github.com/users/Wxh16144/repos", "events_url": "https://api.github.com/users/Wxh16144/events{/privacy}", "received_events_url": "https://api.github.com/users/Wxh16144/received_events", "type": "User", "user_view_type": "public", "site_admin": false}, "truncated": false}, {"url": "https://api.github.com/gists/8587cd3bb607e783e70d8455877e137e", "forks_url": "https://api.github.com/gists/8587cd3bb607e783e70d8455877e137e/forks", "commits_url": "https://api.github.com/gists/8587cd3bb607e783e70d8455877e137e/commits", "id": "8587cd3bb607e783e70d8455877e137e", "node_id": "G_kwDOAehbPdoAIDg1ODdjZDNiYjYwN2U3ODNlNzBkODQ1NTg3N2UxMzdl", "git_pull_url": "https://gist.github.com/8587cd3bb607e783e70d8455877e137e.git", "git_push_url": "https://gist.github.com/8587cd3bb607e783e70d8455877e137e.git", "html_url": "https://gist.github.com/Wxh16144/8587cd3bb607e783e70d8455877e137e", "files": {"remove-dirs.js": {"filename": "remove-dirs.js", "type": "text/javascript", "language": "JavaScript", "raw_url": "https://gist.githubusercontent.com/Wxh16144/8587cd3bb607e783e70d8455877e137e/raw/77771def874021e7a6383e05c498405ff25f76cc/remove-dirs.js", "size": 1132}, "rename-remote.ts": {"filename": "rename-remote.ts", "type": "video/MP2T", "language": "TypeScript", "raw_url": "https://gist.githubusercontent.com/Wxh16144/8587cd3bb607e783e70d8455877e137e/raw/921170636a0d111ba1b8fadbe55e5523115c2121/rename-remote.ts", "size": 1792}}, "public": false, "created_at": "2024-02-08T08:05:42Z", "updated_at": "2024-12-13T09:46:15Z", "description": "一些临时脚本 :)", "comments": 1, "user": null, "comments_enabled": true, "comments_url": "https://api.github.com/gists/8587cd3bb607e783e70d8455877e137e/comments", "owner": {"login": "Wxh16144", "id": 32004925, "node_id": "MDQ6VXNlcjMyMDA0OTI1", "avatar_url": "https://avatars.githubusercontent.com/u/32004925?v=4", "gravatar_id": "", "url": "https://api.github.com/users/Wxh16144", "html_url": "https://github.com/Wxh16144", "followers_url": "https://api.github.com/users/Wxh16144/followers", "following_url": "https://api.github.com/users/Wxh16144/following{/other_user}", "gists_url": "https://api.github.com/users/Wxh16144/gists{/gist_id}", "starred_url": "https://api.github.com/users/Wxh16144/starred{/owner}{/repo}", "subscriptions_url": "https://api.github.com/users/Wxh16144/subscriptions", "organizations_url": "https://api.github.com/users/Wxh16144/orgs", "repos_url": "https://api.github.com/users/Wxh16144/repos", "events_url": "https://api.github.com/users/Wxh16144/events{/privacy}", "received_events_url": "https://api.github.com/users/Wxh16144/received_events", "type": "User", "user_view_type": "public", "site_admin": false}, "truncated": false}, {"url": "https://api.github.com/gists/755823441ed2267a76580eac163b2b29", "forks_url": "https://api.github.com/gists/755823441ed2267a76580eac163b2b29/forks", "commits_url": "https://api.github.com/gists/755823441ed2267a76580eac163b2b29/commits", "id": "755823441ed2267a76580eac163b2b29", "node_id": "G_kwDOAehbPdoAIDc1NTgyMzQ0MWVkMjI2N2E3NjU4MGVhYzE2M2IyYjI5", "git_pull_url": "https://gist.github.com/755823441ed2267a76580eac163b2b29.git", "git_push_url": "https://gist.github.com/755823441ed2267a76580eac163b2b29.git", "html_url": "https://gist.github.com/Wxh16144/755823441ed2267a76580eac163b2b29", "files": {"context-menu.tsx": {"filename": "context-menu.tsx", "type": "text/plain", "language": "TSX", "raw_url": "https://gist.githubusercontent.com/Wxh16144/755823441ed2267a76580eac163b2b29/raw/dd5d40b8cb8a5c385a6811fa6244bf0cbd31e802/context-menu.tsx", "size": 2138}}, "public": false, "created_at": "2024-02-02T07:48:34Z", "updated_at": "2024-02-02T07:48:34Z", "description": "Ant Design Components", "comments": 0, "user": null, "comments_enabled": true, "comments_url": "https://api.github.com/gists/755823441ed2267a76580eac163b2b29/comments", "owner": {"login": "Wxh16144", "id": 32004925, "node_id": "MDQ6VXNlcjMyMDA0OTI1", "avatar_url": "https://avatars.githubusercontent.com/u/32004925?v=4", "gravatar_id": "", "url": "https://api.github.com/users/Wxh16144", "html_url": "https://github.com/Wxh16144", "followers_url": "https://api.github.com/users/Wxh16144/followers", "following_url": "https://api.github.com/users/Wxh16144/following{/other_user}", "gists_url": "https://api.github.com/users/Wxh16144/gists{/gist_id}", "starred_url": "https://api.github.com/users/Wxh16144/starred{/owner}{/repo}", "subscriptions_url": "https://api.github.com/users/Wxh16144/subscriptions", "organizations_url": "https://api.github.com/users/Wxh16144/orgs", "repos_url": "https://api.github.com/users/Wxh16144/repos", "events_url": "https://api.github.com/users/Wxh16144/events{/privacy}", "received_events_url": "https://api.github.com/users/Wxh16144/received_events", "type": "User", "user_view_type": "public", "site_admin": false}, "truncated": false}, {"url": "https://api.github.com/gists/b82efcb94b210ebff6d3364883fe70e4", "forks_url": "https://api.github.com/gists/b82efcb94b210ebff6d3364883fe70e4/forks", "commits_url": "https://api.github.com/gists/b82efcb94b210ebff6d3364883fe70e4/commits", "id": "b82efcb94b210ebff6d3364883fe70e4", "node_id": "G_kwDOAehbPdoAIGI4MmVmY2I5NGIyMTBlYmZmNmQzMzY0ODgzZmU3MGU0", "git_pull_url": "https://gist.github.com/b82efcb94b210ebff6d3364883fe70e4.git", "git_push_url": "https://gist.github.com/b82efcb94b210ebff6d3364883fe70e4.git", "html_url": "https://gist.github.com/Wxh16144/b82efcb94b210ebff6d3364883fe70e4", "files": {"SuspendableImage.tsx": {"filename": "SuspendableImage.tsx", "type": "text/plain", "language": "TSX", "raw_url": "https://gist.githubusercontent.com/Wxh16144/b82efcb94b210ebff6d3364883fe70e4/raw/9737dabfc601167682baadb2a1f048875982bd1b/SuspendableImage.tsx", "size": 694}}, "public": true, "created_at": "2024-01-11T04:49:01Z", "updated_at": "2024-01-11T04:49:01Z", "description": "", "comments": 0, "user": null, "comments_enabled": true, "comments_url": "https://api.github.com/gists/b82efcb94b210ebff6d3364883fe70e4/comments", "owner": {"login": "Wxh16144", "id": 32004925, "node_id": "MDQ6VXNlcjMyMDA0OTI1", "avatar_url": "https://avatars.githubusercontent.com/u/32004925?v=4", "gravatar_id": "", "url": "https://api.github.com/users/Wxh16144", "html_url": "https://github.com/Wxh16144", "followers_url": "https://api.github.com/users/Wxh16144/followers", "following_url": "https://api.github.com/users/Wxh16144/following{/other_user}", "gists_url": "https://api.github.com/users/Wxh16144/gists{/gist_id}", "starred_url": "https://api.github.com/users/Wxh16144/starred{/owner}{/repo}", "subscriptions_url": "https://api.github.com/users/Wxh16144/subscriptions", "organizations_url": "https://api.github.com/users/Wxh16144/orgs", "repos_url": "https://api.github.com/users/Wxh16144/repos", "events_url": "https://api.github.com/users/Wxh16144/events{/privacy}", "received_events_url": "https://api.github.com/users/Wxh16144/received_events", "type": "User", "user_view_type": "public", "site_admin": false}, "truncated": false}, {"url": "https://api.github.com/gists/09590c5cfb72c3518e5b8008a712d0a9", "forks_url": "https://api.github.com/gists/09590c5cfb72c3518e5b8008a712d0a9/forks", "commits_url": "https://api.github.com/gists/09590c5cfb72c3518e5b8008a712d0a9/commits", "id": "09590c5cfb72c3518e5b8008a712d0a9", "node_id": "G_kwDOAehbPdoAIDA5NTkwYzVjZmI3MmMzNTE4ZTViODAwOGE3MTJkMGE5", "git_pull_url": "https://gist.github.com/09590c5cfb72c3518e5b8008a712d0a9.git", "git_push_url": "https://gist.github.com/09590c5cfb72c3518e5b8008a712d0a9.git", "html_url": "https://gist.github.com/Wxh16144/09590c5cfb72c3518e5b8008a712d0a9", "files": {"Map.tsx": {"filename": "Map.tsx", "type": "text/plain", "language": "TSX", "raw_url": "https://gist.githubusercontent.com/Wxh16144/09590c5cfb72c3518e5b8008a712d0a9/raw/d3163423ccedb21a43f1dce31e1ed52183b0a16e/Map.tsx", "size": 2278}}, "public": true, "created_at": "2023-12-04T06:58:43Z", "updated_at": "2025-11-12T05:34:04Z", "description": "React Components Demos", "comments": 0, "user": null, "comments_enabled": true, "comments_url": "https://api.github.com/gists/09590c5cfb72c3518e5b8008a712d0a9/comments", "owner": {"login": "Wxh16144", "id": 32004925, "node_id": "MDQ6VXNlcjMyMDA0OTI1", "avatar_url": "https://avatars.githubusercontent.com/u/32004925?v=4", "gravatar_id": "", "url": "https://api.github.com/users/Wxh16144", "html_url": "https://github.com/Wxh16144", "followers_url": "https://api.github.com/users/Wxh16144/followers", "following_url": "https://api.github.com/users/Wxh16144/following{/other_user}", "gists_url": "https://api.github.com/users/Wxh16144/gists{/gist_id}", "starred_url": "https://api.github.com/users/Wxh16144/starred{/owner}{/repo}", "subscriptions_url": "https://api.github.com/users/Wxh16144/subscriptions", "organizations_url": "https://api.github.com/users/Wxh16144/orgs", "repos_url": "https://api.github.com/users/Wxh16144/repos", "events_url": "https://api.github.com/users/Wxh16144/events{/privacy}", "received_events_url": "https://api.github.com/users/Wxh16144/received_events", "type": "User", "user_view_type": "public", "site_admin": false}, "truncated": false}, {"url": "https://api.github.com/gists/742ba8845786c9e09001653ca6e5c651", "forks_url": "https://api.github.com/gists/742ba8845786c9e09001653ca6e5c651/forks", "commits_url": "https://api.github.com/gists/742ba8845786c9e09001653ca6e5c651/commits", "id": "742ba8845786c9e09001653ca6e5c651", "node_id": "G_kwDOAehbPdoAIDc0MmJhODg0NTc4NmM5ZTA5MDAxNjUzY2E2ZTVjNjUx", "git_pull_url": "https://gist.github.com/742ba8845786c9e09001653ca6e5c651.git", "git_push_url": "https://gist.github.com/742ba8845786c9e09001653ca6e5c651.git", "html_url": "https://gist.github.com/Wxh16144/742ba8845786c9e09001653ca6e5c651", "files": {".gitconfig": {"filename": ".gitconfig", "type": "text/plain", "language": "Git Config", "raw_url": "https://gist.githubusercontent.com/Wxh16144/742ba8845786c9e09001653ca6e5c651/raw/280d0c09154d9b9be01d93f5adb2598f531afba9/.gitconfig", "size": 1735}, ".zshrc": {"filename": ".zshrc", "type": "text/plain", "language": "Shell", "raw_url": "https://gist.githubusercontent.com/Wxh16144/742ba8845786c9e09001653ca6e5c651/raw/b37e51deb938a3d9b54d759b2846708739993f1b/.zshrc", "size": 4673}, "custom_alias.zsh": {"filename": "custom_alias.zsh", "type": "text/plain", "language": "Shell", "raw_url": "https://gist.githubusercontent.com/Wxh16144/742ba8845786c9e09001653ca6e5c651/raw/1675df448ea316298199f05d4588087818c3a3a3/custom_alias.zsh", "size": 6598}, "iterm2.zsh": {"filename": "iterm2.zsh", "type": "text/plain", "language": "Shell", "raw_url": "https://gist.githubusercontent.com/Wxh16144/742ba8845786c9e09001653ca6e5c651/raw/cd2f245c71ec799f16a9a3aefbd9dc60cbe787a9/iterm2.zsh", "size": 546}, "my-iterm2.json": {"filename": "my-iterm2.json", "type": "application/json", "language": "JSON", "raw_url": "https://gist.githubusercontent.com/Wxh16144/742ba8845786c9e09001653ca6e5c651/raw/2cdba839f838be0193a1054c317205d4c0551a09/my-iterm2.json", "size": 9107}, "nvm_custom.zsh": {"filename": "nvm_custom.zsh", "type": "text/plain", "language": "Shell", "raw_url": "https://gist.githubusercontent.com/Wxh16144/742ba8845786c9e09001653ca6e5c651/raw/c71eb36e652977558b069d63627d592ac7315276/nvm_custom.zsh", "size": 1190}}, "public": true, "created_at": "2022-06-10T21:25:37Z", "updated_at": "2024-12-13T09:46:59Z", "description": "oh-my-zsh", "comments": 1, "user": null, "comments_enabled": true, "comments_url": "https://api.github.com/gists/742ba8845786c9e09001653ca6e5c651/comments", "owner": {"login": "Wxh16144", "id": 32004925, "node_id": "MDQ6VXNlcjMyMDA0OTI1", "avatar_url": "https://avatars.githubusercontent.com/u/32004925?v=4", "gravatar_id": "", "url": "https://api.github.com/users/Wxh16144", "html_url": "https://github.com/Wxh16144", "followers_url": "https://api.github.com/users/Wxh16144/followers", "following_url": "https://api.github.com/users/Wxh16144/following{/other_user}", "gists_url": "https://api.github.com/users/Wxh16144/gists{/gist_id}", "starred_url": "https://api.github.com/users/Wxh16144/starred{/owner}{/repo}", "subscriptions_url": "https://api.github.com/users/Wxh16144/subscriptions", "organizations_url": "https://api.github.com/users/Wxh16144/orgs", "repos_url": "https://api.github.com/users/Wxh16144/repos", "events_url": "https://api.github.com/users/Wxh16144/events{/privacy}", "received_events_url": "https://api.github.com/users/Wxh16144/received_events", "type": "User", "user_view_type": "public", "site_admin": false}, "truncated": false}, {"url": "https://api.github.com/gists/e61f87de20ed1ce534edf0ff8258ea56", "forks_url": "https://api.github.com/gists/e61f87de20ed1ce534edf0ff8258ea56/forks", "commits_url": "https://api.github.com/gists/e61f87de20ed1ce534edf0ff8258ea56/commits", "id": "e61f87de20ed1ce534edf0ff8258ea56", "node_id": "G_kwDOAehbPdoAIGU2MWY4N2RlMjBlZDFjZTUzNGVkZjBmZjgyNThlYTU2", "git_pull_url": "https://gist.github.com/e61f87de20ed1ce534edf0ff8258ea56.git", "git_push_url": "https://gist.github.com/e61f87de20ed1ce534edf0ff8258ea56.git", "html_url": "https://gist.github.com/Wxh16144/e61f87de20ed1ce534edf0ff8258ea56", "files": {"80 行代码实现简易 RxJS.js": {"filename": "80 行代码实现简易 RxJS.js", "type": "text/javascript", "language": "JavaScript", "raw_url": "https://gist.githubusercontent.com/Wxh16144/e61f87de20ed1ce534edf0ff8258ea56/raw/511953402c93d4821159eb582b68c47faf5cb07d/80%20%E8%A1%8C%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0%E7%AE%80%E6%98%93%20RxJS.js", "size": 2503}, "ava_puppeteer.js": {"filename": "ava_puppeteer.js", "type": "text/javascript", "language": "JavaScript", "raw_url": "https://gist.githubusercontent.com/Wxh16144/e61f87de20ed1ce534edf0ff8258ea56/raw/401a1661e91700829d34d4d188b6b0eed24a2ecd/ava_puppeteer.js", "size": 893}, "download.sh": {"filename": "download.sh", "type": "application/x-sh", "language": "Shell", "raw_url": "https://gist.githubusercontent.com/Wxh16144/e61f87de20ed1ce534edf0ff8258ea56/raw/495a934e5383df1ce8780bba33b28cf70b3c36f0/download.sh", "size": 2287}, "二叉树遍历.js": {"filename": "二叉树遍历.js", "type": "text/javascript", "language": "JavaScript", "raw_url": "https://gist.githubusercontent.com/Wxh16144/e61f87de20ed1ce534edf0ff8258ea56/raw/c2e2ba6ca19fba20915f5e8268b1d301b9eba6d7/%E4%BA%8C%E5%8F%89%E6%A0%91%E9%81%8D%E5%8E%86.js", "size": 1361}, "全序列.js": {"filename": "全序列.js", "type": "text/javascript", "language": "JavaScript", "raw_url": "https://gist.githubusercontent.com/Wxh16144/e61f87de20ed1ce534edf0ff8258ea56/raw/e492d37e0dff83de4383c243f0753d2203294022/%E5%85%A8%E5%BA%8F%E5%88%97.js", "size": 1237}, "数字金额大写转换.js": {"filename": "数字金额大写转换.js", "type": "text/javascript", "language": "JavaScript", "raw_url": "https://gist.githubusercontent.com/Wxh16144/e61f87de20ed1ce534edf0ff8258ea56/raw/e3b78c80d028e2be6349bae7a25800be5b62bb74/%E6%95%B0%E5%AD%97%E9%87%91%E9%A2%9D%E5%A4%A7%E5%86%99%E8%BD%AC%E6%8D%A2.js", "size": 982}, "统计方法调用次数.js": {"filename": "统计方法调用次数.js", "type": "text/javascript", "language": "JavaScript", "raw_url": "https://gist.githubusercontent.com/Wxh16144/e61f87de20ed1ce534edf0ff8258ea56/raw/3cdce3762d18c5b3d52e5ed3a08cadc35ede2681/%E7%BB%9F%E8%AE%A1%E6%96%B9%E6%B3%95%E8%B0%83%E7%94%A8%E6%AC%A1%E6%95%B0.js", "size": 1139}, "解析文本内容中的 Licenses": {"filename": "解析文本内容中的 Licenses", "type": "text/plain", "language": null, "raw_url": "https://gist.githubusercontent.com/Wxh16144/e61f87de20ed1ce534edf0ff8258ea56/raw/a4a2f1062e874e2c88199d3e1135d98e9b380be7/%E8%A7%A3%E6%9E%90%E6%96%87%E6%9C%AC%E5%86%85%E5%AE%B9%E4%B8%AD%E7%9A%84%20Licenses", "size": 5082}}, "public": false, "created_at": "2022-02-09T16:46:51Z", "updated_at": "2023-09-18T04:04:21Z", "description": "Code Snippet", "comments": 0, "user": null, "comments_enabled": true, "comments_url": "https://api.github.com/gists/e61f87de20ed1ce534edf0ff8258ea56/comments", "owner": {"login": "Wxh16144", "id": 32004925, "node_id": "MDQ6VXNlcjMyMDA0OTI1", "avatar_url": "https://avatars.githubusercontent.com/u/32004925?v=4", "gravatar_id": "", "url": "https://api.github.com/users/Wxh16144", "html_url": "https://github.com/Wxh16144", "followers_url": "https://api.github.com/users/Wxh16144/followers", "following_url": "https://api.github.com/users/Wxh16144/following{/other_user}", "gists_url": "https://api.github.com/users/Wxh16144/gists{/gist_id}", "starred_url": "https://api.github.com/users/Wxh16144/starred{/owner}{/repo}", "subscriptions_url": "https://api.github.com/users/Wxh16144/subscriptions", "organizations_url": "https://api.github.com/users/Wxh16144/orgs", "repos_url": "https://api.github.com/users/Wxh16144/repos", "events_url": "https://api.github.com/users/Wxh16144/events{/privacy}", "received_events_url": "https://api.github.com/users/Wxh16144/received_events", "type": "User", "user_view_type": "public", "site_admin": false}, "truncated": false}, {"url": "https://api.github.com/gists/62a6bfa4e1b87b70ad7b2e79285787d4", "forks_url": "https://api.github.com/gists/62a6bfa4e1b87b70ad7b2e79285787d4/forks", "commits_url": "https://api.github.com/gists/62a6bfa4e1b87b70ad7b2e79285787d4/commits", "id": "62a6bfa4e1b87b70ad7b2e79285787d4", "node_id": "G_kwDOAehbPdoAIDYyYTZiZmE0ZTFiODdiNzBhZDdiMmU3OTI4NTc4N2Q0", "git_pull_url": "https://gist.github.com/62a6bfa4e1b87b70ad7b2e79285787d4.git", "git_push_url": "https://gist.github.com/62a6bfa4e1b87b70ad7b2e79285787d4.git", "html_url": "https://gist.github.com/Wxh16144/62a6bfa4e1b87b70ad7b2e79285787d4", "files": {"study.sh": {"filename": "study.sh", "type": "application/x-sh", "language": "Shell", "raw_url": "https://gist.githubusercontent.com/Wxh16144/62a6bfa4e1b87b70ad7b2e79285787d4/raw/ce2dd03366d0ea4d94070855a5d695e12dda99f8/study.sh", "size": 6318}}, "public": false, "created_at": "2021-11-30T05:50:17Z", "updated_at": "2021-11-30T05:50:17Z", "description": "snippets", "comments": 0, "user": null, "comments_enabled": true, "comments_url": "https://api.github.com/gists/62a6bfa4e1b87b70ad7b2e79285787d4/comments", "owner": {"login": "Wxh16144", "id": 32004925, "node_id": "MDQ6VXNlcjMyMDA0OTI1", "avatar_url": "https://avatars.githubusercontent.com/u/32004925?v=4", "gravatar_id": "", "url": "https://api.github.com/users/Wxh16144", "html_url": "https://github.com/Wxh16144", "followers_url": "https://api.github.com/users/Wxh16144/followers", "following_url": "https://api.github.com/users/Wxh16144/following{/other_user}", "gists_url": "https://api.github.com/users/Wxh16144/gists{/gist_id}", "starred_url": "https://api.github.com/users/Wxh16144/starred{/owner}{/repo}", "subscriptions_url": "https://api.github.com/users/Wxh16144/subscriptions", "organizations_url": "https://api.github.com/users/Wxh16144/orgs", "repos_url": "https://api.github.com/users/Wxh16144/repos", "events_url": "https://api.github.com/users/Wxh16144/events{/privacy}", "received_events_url": "https://api.github.com/users/Wxh16144/received_events", "type": "User", "user_view_type": "public", "site_admin": false}, "truncated": false}],
+      lastUpdate: '2026/3/8 10:07:58'
+    };
+  </script>
+</head>
+<body class="bg-gray-50 min-h-screen">
+  <div id="root"></div>
+
+  <script type="text/babel" data-type="module">
+    import React, { useState, useEffect, useMemo } from 'react';
+    import { createRoot } from 'react-dom/client';
+    import { Octokit } from '@octokit/core';
+    import { Search, Github, FileCode, ExternalLink, RefreshCw, CheckCircle, Clock, AlertCircle } from 'lucide-react';
+
+    const SearchBar = ({ searchText, setSearchText }) => (
+      <div className="w-full md:w-72 lg:w-96 transition-all duration-300">
+        <div className="relative">
+          <input
+            type="text"
+            value={searchText}
+            onChange={(e) => setSearchText(e.target.value)}
+            placeholder="搜索关键词、语言..."
+            className="w-full px-4 py-2 pl-10 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-primary/30 focus:border-primary transition-all"
+          />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-secondary w-4 h-4" />
+        </div>
+      </div>
+    );
+
+    const FilterBar = ({ activeLang, setActiveLang, languages }) => (
+      <div className="container mx-auto px-4 py-2 flex flex-wrap gap-2 mb-2">
+        <button
+          onClick={() => setActiveLang('all')}
+          className={`px-3 py-1 rounded-full text-sm transition ${activeLang === 'all' ? 'bg-primary text-white' : 'bg-gray-200 text-dark hover:bg-gray-300'}`}
+        >
+          全部
+        </button>
+        {languages.map(lang => (
+          <button
+            key={lang}
+            onClick={() => setActiveLang(lang)}
+            className={`px-3 py-1 rounded-full text-sm transition ${activeLang === lang ? 'bg-primary text-white' : 'bg-gray-200 text-dark hover:bg-gray-300'}`}
+          >
+            {lang}
+          </button>
+        ))}
+      </div>
+    );
+
+    const RefreshButton = ({ onRefresh, loading, success, lastUpdateDate, variant = 'default' }) => {
+      const [showSuccess, setShowSuccess] = useState(false);
+      
+      const isOutdated = useMemo(() => {
+         if (!lastUpdateDate) return false;
+         // Consider data outdated if older than 24 hours
+         return (new Date() - new Date(lastUpdateDate)) > 1000 * 60 * 60 * 24;
+      }, [lastUpdateDate]);
+
+      useEffect(() => {
+        if (success) {
+          setShowSuccess(true);
+          const timer = setTimeout(() => setShowSuccess(false), 3000);
+          return () => clearTimeout(timer);
+        }
+      }, [success]);
+
+      // Footer / Simple Icon style
+      if (variant === 'simple') {
+         return (
+            <button 
+              onClick={onRefresh} 
+              disabled={loading || showSuccess}
+              className={`flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-medium transition-all ${
+                 loading ? 'text-white/50 cursor-wait' :
+                 showSuccess ? 'text-green-400 bg-green-900/30' : 
+                 'text-white/80 hover:text-white hover:bg-white/10'
+              }`}
+              title="同步最新数据"
+            >
+              {loading ? <RefreshCw className="w-3.5 h-3.5 animate-spin" /> : showSuccess ? <CheckCircle className="w-3.5 h-3.5" /> : <RefreshCw className="w-3.5 h-3.5" />}
+              <span>{loading ? '同步中' : showSuccess ? '已同步' : '更新'}</span>
+            </button>
+         );
+      }
+
+      // Default Header Button Style
+      let statusClasses = "";
+      let icon = <RefreshCw className="w-4 h-4" />;
+      let text = "同步最新";
+
+      if (loading) {
+         statusClasses = "bg-white text-secondary border-gray-200 cursor-wait";
+         icon = <RefreshCw className="w-4 h-4 animate-spin" />;
+         text = "更新中...";
+      } else if (showSuccess) {
+         statusClasses = "bg-green-50 text-green-600 border-green-200";
+         icon = <CheckCircle className="w-4 h-4" />;
+         text = "已更新";
+      } else if (isOutdated) {
+         // Outdated state: Orange/Warning color to fetch attention
+         statusClasses = "bg-orange-50 text-orange-600 border-orange-200 hover:bg-orange-100 hover:shadow-md hover:-translate-y-0.5";
+         icon = <AlertCircle className="w-4 h-4" />;
+         text = "数据较陈旧，点此更新";
+      } else {
+         // Normal state
+         statusClasses = "bg-white text-secondary border-gray-200 hover:text-primary hover:border-primary/30 hover:shadow-md hover:-translate-y-0.5";
+         icon = <RefreshCw className="w-4 h-4" />;
+         text = "同步数据";
+      }
+
+      return (
+        <button
+          onClick={onRefresh}
+          disabled={loading || showSuccess}
+          className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-300 border shadow-sm ${statusClasses}`}
+        >
+          {icon} <span className="hidden sm:inline">{text}</span>
+        </button>
+      );
+    };
+
+    const Header = ({ title, searchText, setSearchText, activeLang, setActiveLang, languages, onRefresh, refreshLoading, refreshSuccess, lastUpdateDate }) => (
+      <header className="bg-white card-shadow sticky top-0 z-30 transition-all">
+        <div className="container mx-auto px-4 py-4 flex flex-col md:flex-row justify-between items-center gap-4">
+          <div className="flex items-center w-full md:w-auto justify-between">
+            <div 
+              className="flex items-center cursor-pointer hover:opacity-80 transition-opacity"
+              onClick={() => { setSearchText(''); setActiveLang('all'); }}
+            >
+              <Github className="w-8 h-8 text-primary mr-3" />
+              <h1 className="text-2xl font-bold text-dark truncate max-w-[200px] md:max-w-none">{title}</h1>
+            </div>
+            <div className="md:hidden">
+               <RefreshButton onRefresh={onRefresh} loading={refreshLoading} success={refreshSuccess} lastUpdateDate={lastUpdateDate} />
+            </div>
+          </div>
+          <div className="flex w-full md:w-auto items-center gap-4">
+            <SearchBar searchText={searchText} setSearchText={setSearchText} />
+            <div className="hidden md:block">
+              <RefreshButton onRefresh={onRefresh} loading={refreshLoading} success={refreshSuccess} lastUpdateDate={lastUpdateDate} />
+            </div>
+          </div>
+        </div>
+        <FilterBar activeLang={activeLang} setActiveLang={setActiveLang} languages={languages} />
+      </header>
+    );
+
+    const EmptyState = () => (
+      <div className="container mx-auto px-4 py-20 text-center flex flex-col items-center">
+        <FileCode className="w-16 h-16 text-gray-300 mb-4" />
+        <h3 className="text-xl text-dark font-medium mb-2">未找到匹配的 Gist</h3>
+        <p className="text-secondary">请尝试调整搜索关键词或筛选条件。</p>
+      </div>
+    );
+
+    const GistCard = ({ gist }) => {
+      const files = Object.values(gist.files);
+      const firstFile = files[0];
+      const gistLang = firstFile.language || 'Text';
+      const gistDesc = gist.description || '无描述';
+      
+      const diffDays = Math.ceil(Math.abs(new Date() - new Date(gist.updated_at)) / (1000 * 60 * 60 * 24));
+      const activeStyle = diffDays <= 7 ? "bg-green-100 text-green-700 border-green-200" : (diffDays <= 30 ? "bg-blue-50 text-blue-600 border-blue-100" : "bg-gray-50 text-gray-500 border-gray-100");
+      const activeLabel = diffDays <= 7 ? "Recent" : (diffDays <= 30 ? "Active" : "");
+
+      return (
+        <div className={`bg-white rounded-xl card-shadow gist-card-hover overflow-hidden flex flex-col border-t-4 ${diffDays <= 7 ? 'border-t-green-500' : (diffDays <= 30 ? 'border-t-blue-400' : 'border-t-gray-200')}`}>
+          <div className="p-6 flex-grow">
+            <div className="flex justify-between items-start mb-3">
+              <h3 className="text-lg font-semibold text-dark truncate w-3/4" title={gistDesc}>{gistDesc}</h3>
+              <span className="px-2 py-1 bg-primary/10 text-primary text-xs rounded-full whitespace-nowrap">{gistLang}</span>
+            </div>
+            <div className="mb-4 space-y-1">
+              {files.map((file, index) => (
+                <div key={index} className="truncate">
+                  <a href={file.raw_url} target="_blank" rel="noopener noreferrer" className="group inline-flex items-center text-sm text-secondary hover:text-primary transition-colors max-w-full">
+                    <FileCode className="w-3 h-3 mr-2 flex-shrink-0 group-hover:text-primary" />
+                    <span className="truncate">{file.filename}</span>
+                    <ExternalLink className="w-3 h-3 ml-1 opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0" />
+                  </a>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className="bg-gray-50 px-4 py-3 border-t border-gray-100 mt-auto">
+            <div className="flex items-center justify-between gap-4">
+               <div className="flex flex-col gap-0.5 text-[10px] text-gray-400">
+                  <span className="flex items-center opacity-80">创建: {new Date(gist.created_at).toLocaleDateString('zh-CN')}</span>
+                  <div className="flex items-center gap-2">
+                     <span className={`flex items-center ${diffDays <= 30 ? 'text-gray-600 font-medium' : ''}`}>
+                       更新: {new Date(gist.updated_at).toLocaleDateString('zh-CN')}
+                     </span>
+                     {activeLabel && <span className={`px-1.5 py-0.5 text-[9px] rounded border ${activeStyle}`}>{activeLabel}</span>}
+                  </div>
+               </div>
+               <a href={gist.html_url} target="_blank" rel="noopener noreferrer" className="flex-shrink-0 flex items-center justify-center px-3 py-1.5 rounded-md bg-white border border-gray-200 text-xs text-gray-600 font-medium hover:text-primary hover:border-primary hover:shadow-sm transition-all">
+                 <Github className="w-3.5 h-3.5 mr-1.5" />查看源码
+               </a>
+            </div>
+          </div>
+        </div>
+      );
+    };
+
+    const GistList = ({ gists }) => (
+      <div className="columns-1 md:columns-2 lg:columns-3 gap-6 px-2 pb-8">
+        {gists.map(gist => <div key={gist.id} className="break-inside-avoid mb-6"><GistCard gist={gist} /></div>)}
+      </div>
+    );
+
+    const Footer = ({ lastUpdate, onRefresh, loading, success }) => (
+      <footer className="bg-dark text-white/90 py-3 fixed bottom-0 left-0 right-0 z-20 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)] backdrop-blur-sm bg-dark/90 supports-[backdrop-filter]:bg-dark/80">
+        <div className="container mx-auto px-4 flex flex-col sm:flex-row justify-between items-center gap-2 text-xs sm:text-sm">
+           <div className="opacity-75 flex items-center gap-2">
+             <a href="https://github.com/wxh16144/gist-viewer" target="_blank" rel="noopener noreferrer" className="hover:text-white hover:underline transition-all font-medium">Gist Viewer</a>
+             <span className="hidden sm:inline">|</span>
+             <span className="hidden sm:inline">Pure Static Collection</span>
+           </div>
+           <div className="flex items-center gap-3 bg-white/5 rounded-full px-4 py-1 border border-white/10">
+             <span className="opacity-70 hidden sm:inline">数据快照:</span>
+             <span className="font-mono text-white/95">{lastUpdate}</span>
+             <div className="h-3 w-px bg-white/20 mx-1"></div>
+             <RefreshButton onRefresh={onRefresh} loading={loading} success={success} variant="simple" />
+           </div>
+        </div>
+      </footer>
+    );
+
+    const App = () => {
+      const { username, data: initialData, lastUpdate: initialUpdate } = window.GIST_CONFIG;
+      const [gistData, setGistData] = useState(() => (initialData || []).sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at)));
+      
+      const [lastUpdateDisplay, setLastUpdateDisplay] = useState(initialUpdate);
+      // Try to parse initial update time, fallback to now if invalid
+      const [lastUpdateDate, setLastUpdateDate] = useState(() => {
+          const d = new Date(initialUpdate);
+          return isNaN(d.getTime()) ? new Date() : d;
+      });
+
+      const [isRefreshing, setIsRefreshing] = useState(false);
+      const [refreshSuccess, setRefreshSuccess] = useState(false);
+      const [activeLang, setActiveLang] = useState('all');
+      const [searchText, setSearchText] = useState('');
+      const [languages, setLanguages] = useState([]);
+
+      const handleRefresh = async () => {
+        if (!username) return alert("无法获取用户名");
+        setIsRefreshing(true); setRefreshSuccess(false);
+        try {
+          const token = localStorage.getItem('GITHUB_TOKEN');
+          const octokit = new Octokit(token ? { auth: token } : {});
+          
+          const res = await octokit.request('GET /users/{username}/gists', {
+            username: username,
+            per_page: 100
+          });
+
+          if (res.status !== 200) throw new Error(res.status);
+          
+          const newData = res.data;
+          
+          if (Array.isArray(newData)) {
+            setGistData(newData.sort((a, b) => new Date(b.updated_at) - new Date(a.updated_at)));
+            
+            const now = new Date();
+            setLastUpdateDisplay(now.toLocaleString('zh-CN') + ' (实时)');
+            setLastUpdateDate(now);
+            
+            setRefreshSuccess(true);
+          }
+        } catch (e) { alert(`更新失败: ${e.message}`); } 
+        finally { setIsRefreshing(false); }
+      };
+
+      useEffect(() => {
+        const langSet = new Set();
+        gistData.forEach(g => Object.values(g.files).forEach(f => { if(f.language) langSet.add(f.language); }));
+        setLanguages(Array.from(langSet).sort());
+      }, [gistData]);
+
+      useEffect(() => {
+        const p = new URLSearchParams(window.location.search);
+        setActiveLang(p.get('lang') || 'all'); setSearchText(p.get('search') || '');
+      }, []);
+
+      useEffect(() => {
+        const p = new URLSearchParams();
+        if (activeLang !== 'all') p.set('lang', activeLang);
+        if (searchText) p.set('search', searchText);
+        window.history.replaceState({}, '', `${window.location.pathname}${p.toString() ? '?' + p.toString() : ''}`);
+      }, [activeLang, searchText]);
+
+      const filteredGists = gistData.filter(gist => {
+        if (activeLang !== 'all' && !Object.values(gist.files).some(f => f.language === activeLang)) return false;
+        if (searchText) {
+          const content = `${gist.description || ''} ${Object.values(gist.files).map(f => f.language || '').join(' ')} ${Object.keys(gist.files).join(' ')}`.toLowerCase();
+          if (!content.includes(searchText.toLowerCase())) return false;
+        }
+        return true;
+      });
+
+      return (
+        <div className="flex flex-col min-h-screen">
+          <Header title="Wxh16144 的 Gist 收藏集" 
+            searchText={searchText} setSearchText={setSearchText}
+            activeLang={activeLang} setActiveLang={setActiveLang} 
+            languages={languages}
+            onRefresh={handleRefresh} refreshLoading={isRefreshing} refreshSuccess={refreshSuccess}
+            lastUpdateDate={lastUpdateDate}
+          />
+          <main className="container mx-auto px-4 py-8 flex-grow pb-24">
+            {filteredGists.length === 0 ? <EmptyState /> : <GistList gists={filteredGists} />}
+          </main>
+          <Footer 
+             lastUpdate={lastUpdateDisplay} 
+             onRefresh={handleRefresh} 
+             loading={isRefreshing} 
+             success={refreshSuccess} 
+          />
+        </div>
+      );
+    };
+
+    const root = createRoot(document.getElementById('root'));
+    root.render(<App />);
+  </script>
+</body>
+</html>
