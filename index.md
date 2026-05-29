@@ -105,6 +105,10 @@ _2025/01/20_
 - `where`
   - 与 `which` 类似，但是可以列出所有匹配的命令。
   - 不仅适用于 Unix, 也适用于 Windows。
+- `whence`
+  - zsh 内置命令，类似于 `type`，但输出更简洁。
+  - `whence -v` 等价于 `type`，显示命令的详细类型信息。
+  - `whence -c` 等价于 `which`，仅输出路径。
   
 ref:
 
