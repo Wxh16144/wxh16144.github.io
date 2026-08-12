@@ -1,0 +1,252 @@
+[
+  {
+    "old": "/2021/11/27/Docker-创建-gitlab-ce-服务/",
+    "title": "Docker 创建 gitlab ce 服务",
+    "new": "/docker-gitlab"
+  },
+  {
+    "old": "/2021/11/27/Docker-创建-npm-私服/",
+    "title": "Docker 创建 npm 私服",
+    "new": "/docker-npm-registry"
+  },
+  {
+    "old": "/2018/08/21/H5竖屏提示/",
+    "title": "H5竖屏提示",
+    "new": "/landscape-prompt"
+  },
+  {
+    "old": "/2019/08/13/JS宏任务和微任务/",
+    "title": "JS宏任务和微任务",
+    "new": "/js-tasks"
+  },
+  {
+    "old": "/2022/05/07/Linux-命令之-grep-xargs-awk/",
+    "title": "Linux 命令之 grep xargs awk",
+    "new": "/linux-text-tools"
+  },
+  {
+    "old": "/2018/09/13/Swiper-js在iOS11出现错误/",
+    "title": "使用 Swiper.js 在 iOS < 11 时出现错误",
+    "new": "/swiper-ios-10"
+  },
+  {
+    "old": "/2099/12/01/TS的一些特殊示例/",
+    "title": "TS的一些特殊示例 (持续更新)",
+    "new": "/typescript-patterns"
+  },
+  {
+    "old": "/2021/02/22/Windows10-VSCode-SSH-Remote-过程试图写入的管道不存在解决方案/",
+    "title": "Windows10 VSCode SSH Remote 过程试图写入的管道不存在解决方案",
+    "new": "/vscode-ssh-pipe-error"
+  },
+  {
+    "old": "/2024/02/25/antd快捷键录制组件来了-社区版/",
+    "title": "antd 快捷键录制组件来了（社区版）",
+    "new": "/antd-hotkey-recorder"
+  },
+  {
+    "old": "/2024/01/08/antd版本控-更新日志清爽利器/",
+    "title": "Ant Design 版本控，更新日志清爽利器",
+    "new": "/antd-changelog"
+  },
+  {
+    "old": "/2024/06/27/antd自定义组件空状态速记/",
+    "title": "Ant Design 自定义组件空状态速记",
+    "new": "/antd-empty-state"
+  },
+  {
+    "old": "/2019/04/20/create-js使用分享/",
+    "title": "create.js使用分享",
+    "new": "/create-js"
+  },
+  {
+    "old": "/2023/06/06/github-actions-workflow.zh-CN/",
+    "title": "你好，GitHub Actions",
+    "new": "/github-actions"
+  },
+  {
+    "old": "/2019/03/27/node-js获取控制台中命令行参数/",
+    "title": "node.js 获取控制台中命令行参数",
+    "new": "/node-cli-args"
+  },
+  {
+    "old": "/2019/06/17/node-js获取本机ip/",
+    "title": "node-js获取本机ip",
+    "new": "/node-local-ip"
+  },
+  {
+    "old": "/2018/08/16/node-socket.io/",
+    "title": "node-socket.io",
+    "new": "/node-socket-io"
+  },
+  {
+    "old": "/2018/11/06/npm-plugin_vue-photo-preview/",
+    "title": "NPM PLUGIN vue-photo-preview",
+    "new": "/vue-photo-preview"
+  },
+  {
+    "old": "/2018/10/26/vue中json转excel文件/",
+    "title": "Json生成Excel文件并下载到本地",
+    "new": "/vue-json-excel"
+  },
+  {
+    "old": "/2025/01/17/一个奇淫技巧实现短网址/",
+    "title": "一个奇淫技巧实现短网址",
+    "new": "/github-short-urls"
+  },
+  {
+    "old": "/2025/06/07/两台mac数据同步方案/",
+    "title": "两台 MAC 数据同步方案",
+    "new": "/mac-data-sync"
+  },
+  {
+    "old": "/2025/05/15/从我觉得可以到社区说不行-antd贡献踩坑过程/",
+    "title": "从我觉得可以到社区说不行 antd 贡献踩坑过程",
+    "new": "/antd-contribution"
+  },
+  {
+    "old": "/2019/05/21/仿微信关键字触发表情包动画效果/",
+    "title": "仿微信关键字触发表情包动画效果",
+    "new": "/wechat-emoji-animation"
+  },
+  {
+    "old": "/2022/03/22/使用-gitconfig配置多用户需求/",
+    "title": "使用.gitconfig配置多用户需求",
+    "new": "/git-identities"
+  },
+  {
+    "old": "/2021/12/16/使用-rsync-增量备份远端文件/",
+    "title": "使用 rsync 增量备份远端文件",
+    "new": "/rsync-backups"
+  },
+  {
+    "old": "/2022/11/10/使用FFmpeg拼接两个视频/",
+    "title": "使用FFmpeg拼接两个视频",
+    "new": "/ffmpeg-merge-videos"
+  },
+  {
+    "old": "/2021/10/02/使用config文件来维护SSH密钥/",
+    "title": "使用config文件来维护SSH密钥",
+    "new": "/ssh-config"
+  },
+  {
+    "old": "/2022/04/16/使用ohmyposh美化终端/",
+    "title": "使用ohmyposh美化终端",
+    "new": "/oh-my-posh"
+  },
+  {
+    "old": "/2019/05/28/元素固定宽度文本不换行并且全部展示/",
+    "title": "元素固定宽度文本不换行并且全部展示",
+    "new": "/single-line-text"
+  },
+  {
+    "old": "/2018/09/25/关于IOS一系列适配问题/",
+    "title": "关于IOS一系列适配问题",
+    "new": "/ios-web-fixes"
+  },
+  {
+    "old": "/2022/01/13/写一个简单的CLI/",
+    "title": "写一个简单的CLI",
+    "new": "/simple-cli"
+  },
+  {
+    "old": "/2022/03/04/分享一个关于我自己的命令行工具/",
+    "title": "分享一个关于我自己的命令行工具",
+    "new": "/personal-cli"
+  },
+  {
+    "old": "/2024/05/06/前端一些包总是需要依赖python/",
+    "title": "前端一些包总是需要依赖python",
+    "new": "/frontend-python-deps"
+  },
+  {
+    "old": "/2023/08/11/因为antd的模态框不好用-我二开了/",
+    "title": "我觉得 antd 模态框不好用，所以选择了二开",
+    "new": "/antd-modal"
+  },
+  {
+    "old": "/2019/07/24/在CentOS7安装PHP并配置Nginx/",
+    "title": "在CentOS7安装PHP并配置Nginx",
+    "new": "/centos-php-nginx"
+  },
+  {
+    "old": "/2023/08/15/备份并分享你的MacOS配置文件/",
+    "title": "备份和分享你的 MacOS 应用程序配置文件",
+    "new": "/macos-app-settings"
+  },
+  {
+    "old": "/2099/12/01/常用文档总结/",
+    "title": "常用文档 (持续更新)",
+    "new": "/dev-resources"
+  },
+  {
+    "old": "/2019/08/19/手写防抖和节流/",
+    "title": "手写防抖和节流",
+    "new": "/debounce-throttle"
+  },
+  {
+    "old": "/2018/11/19/日期使用需要注意的地方/",
+    "title": "new Date 使用需要注意的地方",
+    "new": "/js-date-pitfalls"
+  },
+  {
+    "old": "/2099/12/02/更好的理解 React/",
+    "title": "有助于更好的理解 React 的文章 (持续更新)",
+    "new": "/react-notes"
+  },
+  {
+    "old": "/2019/07/26/用Vue-extend写一个全局使用的Alert/",
+    "title": "用Vue.extend写一个全局使用的Alert",
+    "new": "/vue-global-alert"
+  },
+  {
+    "old": "/2019/08/01/用css3渐变背景实现进度条/",
+    "title": "用CSS3渐变背景实现进度条",
+    "new": "/css-gradient-progress"
+  },
+  {
+    "old": "/2022/12/08/给antd贡献github-action-workflow/",
+    "title": "给antd贡献github-action-workflow",
+    "new": "/antd-github-actions"
+  },
+  {
+    "old": "/2019/08/07/装饰者模式之AOP实现中间件/",
+    "title": "装饰者模式之AOP实现\"中间件模式",
+    "new": "/aop-middleware"
+  },
+  {
+    "old": "/2022/04/12/解决SourceTree提交时候husky命令失败问题/",
+    "title": "解决SourceTree提交时候husky命令失败问题",
+    "new": "/sourcetree-husky"
+  },
+  {
+    "old": "/2018/09/03/解决微信H5在IOS中无法自动播放音乐问题/",
+    "title": "解决微信H5在IOS中无法自动播放音乐问题",
+    "new": "/wechat-ios-audio"
+  },
+  {
+    "old": "/2021/12/25/解决群晖此系统的可用硬盘空间不足问题/",
+    "title": "解决群晖此系统的可用硬盘空间不足问题",
+    "new": "/synology-disk-space"
+  },
+  {
+    "old": "/2022/02/23/记一笔Vue-v-bind的一个语法糖/",
+    "title": "记一笔Vue v-bind的一些语法糖",
+    "new": "/vue-v-bind"
+  },
+  {
+    "old": "/2020/07/14/记录Git别名的一些玩法/",
+    "title": "记录Git别名的一些玩法",
+    "new": "/git-aliases"
+  },
+  {
+    "old": "/2021/11/17/记录一下npm源的一些配置/",
+    "title": "记录一下npm源的一些配置",
+    "new": "/npm-registries"
+  },
+  {
+    "old": "/2021/10/02/记录一次迁移Docker挂载目录/",
+    "title": "记录一次迁移Docker挂载目录",
+    "new": "/docker-volume-migration"
+  }
+]
