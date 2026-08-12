@@ -1,3 +1,1 @@
-<html>
-<meta http-equiv="refresh" content="0;url={{ URL }}">
-</html>
+<!DOCTYPE html><meta charset="utf-8"><meta http-equiv="refresh" content="0;url={{ URL }}"><script>location.replace('{{ URL }}')</script>
