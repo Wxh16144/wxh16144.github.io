@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>生活小记录</title>
+    <style>
+      :root {
+        --paper: #f7f1e3;
+        --ink: #3f3a33;
+        --line: #cbb996;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: 'KaiTi', 'STKaiti', '楷体', 'Songti SC', 'SimSun', serif;
+        min-height: 100vh;
+        padding: 32px 16px 170px; /* 底部留白，避免被固定 footer 遮挡 */
+        background-color: var(--paper);
+        /* 旧纸张的颗粒感 */
+        background-image: radial-gradient(rgba(0, 0, 0, 0.035) 1px, transparent 1px);
+        background-size: 5px 5px;
+        color: var(--ink);
+      }
+
+      main {
+        max-width: 880px;
+        margin: 0 auto;
+        padding: 44px 28px 56px;
+        background: #fdf9ef;
+        border: 3px double var(--line);
+        box-shadow: 0 4px 18px rgba(90, 70, 40, 0.12);
+      }
+
+      h1 {
+        text-align: center;
+        font-size: 2.7rem;
+        font-weight: normal;
+        letter-spacing: 0.4em;
+        text-indent: 0.4em; /* 抵消 letter-spacing 造成的视觉偏移 */
+      }
+
+      .subtitle {
+        margin: 10px 0 44px;
+        text-align: center;
+        font-size: 0.85rem;
+        line-height: 1.8;
+        letter-spacing: 0.12em;
+        color: #8a8178;
+      }
+
+      .photos {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+        gap: 30px;
+        justify-items: center;
+      }
+
+      /* 拍立得相纸 */
+      .photo {
+        position: relative;
+        width: 100%;
+        max-width: 240px;
+        padding: 10px 10px 12px;
+        background: #fffdf6;
+        border: 1px solid #e6dcc3;
+        box-shadow: 3px 4px 10px rgba(90, 70, 40, 0.18);
+        transform: rotate(var(--tilt, 0deg));
+        transition: transform 0.25s ease;
+      }
+      .photo:nth-child(odd) {
+        --tilt: -2deg;
+      }
+      .photo:nth-child(even) {
+        --tilt: 2.4deg;
+      }
+      .photo:nth-child(3n) {
+        --tilt: 1.2deg;
+      }
+      .photo:hover {
+        z-index: 2;
+        transform: rotate(0deg) scale(1.05);
+      }
+
+      .photo img {
+        display: block;
+        width: 100%;
+        height: 190px;
+        object-fit: cover;
+        /* 保留图片原始色彩 */
+        background: #eee;
+      }
+
+      .photo figcaption {
+        margin-top: 10px;
+        text-align: center;
+        font-size: 0.85rem;
+        letter-spacing: 0.15em;
+        color: #6d655a;
+      }
+
+      /* 未填图片时的占位框 */
+      .photo.placeholder {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 212px;
+        border: 1px dashed var(--line);
+        background: transparent;
+        box-shadow: none;
+        color: #b3a78f;
+        font-size: 0.9rem;
+        letter-spacing: 0.2em;
+      }
+
+      footer {
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 999;
+        width: 100vw;
+        padding: 10px 16px 14px;
+        text-align: center;
+        background: rgba(253, 249, 239, 0.92);
+        border-top: 1px solid var(--line);
+      }
+
+      /* 图源声明、AI 生成注：小字提示 */
+      .notice {
+        margin-top: 4px;
+        font-size: 0.78rem;
+        letter-spacing: 0.05em;
+        color: #b3a78f;
+      }
+      .notice a {
+        color: inherit;
+        text-decoration: underline;
+        text-underline-offset: 2px;
+      }
+
+      /* 备案号：大、粗、醒目，置于底部栏内 */
+      #icp-link {
+        display: inline-block;
+        margin-top: 6px;
+        padding: 6px 22px;
+        background: #fffdf6;
+        border: 2px solid var(--ink);
+        box-shadow: 3px 3px 0 rgba(63, 58, 51, 0.15);
+        color: var(--ink);
+        font-size: 1.05rem;
+        font-weight: bold;
+        letter-spacing: 0.12em;
+        text-decoration: none;
+        transition: background 0.2s, color 0.2s;
+      }
+      #icp-link:hover {
+        background: var(--ink);
+        color: #fffdf6;
+      }
+
+      @media (max-width: 520px) {
+        main {
+          padding: 28px 16px 40px;
+        }
+        h1 {
+          font-size: 1.9rem;
+        }
+        #icp-link {
+          font-size: 0.95rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>生活小记录</h1>
+      <p class="subtitle">
+        用于个人技术学习、随笔记录、文章分享，非经营性，无商业售卖、广告、资讯发布、论坛留言功能
+      </p>
+      <div class="photos" id="photos"></div>
+    </main>
+
+    <footer>
+      <p class="notice">
+        本页面由 DeepSeek V4 Flash AI 生成
+      </p>
+      <p class="notice">
+        部分图片来源互联网，侵删联系:
+        <a href="mailto:wxh16144@qq.com">wxh16144@qq.com</a>
+      </p>
+      <a id="icp-link" href="https://beian.miit.gov.cn" target="_blank" rel="noopener"></a>
+    </footer>
+
+    <script>
+      // ==================== 站点配置（只改这里） ====================
+      // 备案号与图片地址都写在这个对象里，改完保存刷新即可。
+      var CONFIG = {
+        // ---- 备案号（清晰显示在页面底部）----
+        // icp: '浙ICP备17045739号',
+        icp: "蜀ICP备2026046641号-1",
+        // ---- 备案号点击后的跳转地址 ----
+        icpUrl: 'https://beian.miit.gov.cn',
+
+        // ---- 图片列表（4 ~ 5 张）----
+        // 注意事项：
+        //   1. 建议用相对路径，把图片放在本目录下（如 './images/xxx.jpg'），
+        //      不要使用国内无法访问的图床（Google / Unsplash / Twitter 等）。
+        //   2. 内容保持生活化、健康向上，避免可能触发审核的题材。
+        //   3. 图片不需要太清晰，复古旧照片的感觉更搭；
+        //      留空 src 会显示占位框，方便你稍后填充。
+        images: [
+          { src: 'https://registry.npmmirror.com/@wuxh/img/latest/files/t.jpg', caption: '手绘好奇猫v0.1' },
+          { src: 'https://registry.npmmirror.com/@wuxh/img/latest/files/w.jpg', caption: '手绘好奇猫v0.2' },
+          { src: 'https://registry.npmmirror.com/@wuxh/img/latest/files/b.jpg', caption: '原版好奇猫' },
+          { src: 'https://registry.npmmirror.com/@wuxh/img/latest/files/r.jpg', caption: '女生' },
+          { src: 'https://registry.npmmirror.com/@wuxh/img/latest/files/q.jpg', caption: '男生' },
+          { src: 'https://registry.npmmirror.com/@wuxh/img/latest/files/u.jpg', caption: '杰尼龟' },
+        ],
+      }
+      // ===========================================================
+
+      // ---- 渲染逻辑（一般不需要改） ----
+      ;(function () {
+        var photos = document.getElementById('photos')
+
+        CONFIG.images.forEach(function (item, i) {
+          var figure = document.createElement('figure')
+          figure.className = 'photo'
+
+          if (item && item.src) {
+            var img = document.createElement('img')
+            img.src = item.src
+            img.alt = (item.caption || '生活小记录') + ' ' + (i + 1)
+            img.loading = 'lazy'
+            figure.appendChild(img)
+
+            if (item.caption) {
+              var cap = document.createElement('figcaption')
+              cap.textContent = item.caption
+              figure.appendChild(cap)
+            }
+          } else {
+            figure.className = 'photo placeholder'
+            var span = document.createElement('span')
+            span.textContent = '图片待补充 (' + (i + 1) + ')'
+            figure.appendChild(span)
+          }
+          photos.appendChild(figure)
+        })
+
+        var link = document.getElementById('icp-link')
+        if (CONFIG.icp) {
+          link.textContent = CONFIG.icp
+        }
+        if (CONFIG.icpUrl) {
+          link.href = CONFIG.icpUrl
+        }
+      })()
+    </script>
+  </body>
+</html>
