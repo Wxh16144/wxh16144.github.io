@@ -1,0 +1,45 @@
+<%
+  // 未来日期(如 2099 的常青文章)显示时归一化为构建当天,排序仍按真实日期
+  const now = new Date();
+  const displayDate = (d) => {
+    const dateObj = new Date(d);
+    return dateObj > now ? now : dateObj;
+  };
+
+  // Group consecutive posts by year for the watermark headings below
+  const yearGroups = [];
+  posts.forEach(function (post) {
+    const year = date(displayDate(post.date), 'YYYY');
+    const lastGroup = yearGroups[yearGroups.length - 1];
+    if (!lastGroup || lastGroup.year !== year) {
+      yearGroups.push({ year: year, posts: [{ post: post, shown: displayDate(post.date) }] });
+    } else {
+      lastGroup.posts.push({ post: post, shown: displayDate(post.date) });
+    }
+  });
+%>
+<div class="home">
+  <div class="post-list-wrap">
+    <% yearGroups.forEach(function (group) { %>
+    <div class="year-group">
+      <div class="year-watermark" aria-hidden="true"><%= group.year %></div>
+      <ul class="post-list">
+        <% group.posts.forEach(function (item) { %>
+        <li>
+          <span class="post-date"><%= date(item.shown, 'MM-DD') %></span>
+          <a class="post-title" href="<%= url_for(item.post.path) %>"><%= item.post.title %></a>
+        </li>
+        <% }) %>
+      </ul>
+    </div>
+    <% }) %>
+  </div>
+  <% if (theme.bio && theme.bio.length) { %>
+  <aside class="bio">
+    <% if (theme.avatar) { %>
+    <img class="avatar" src="<%= theme.avatar %>" alt="<%= config.author %>">
+    <% } %>
+    <% theme.bio.forEach(function (p) { %><p><%= p %></p><% }) %>
+  </aside>
+  <% } %>
+</div>

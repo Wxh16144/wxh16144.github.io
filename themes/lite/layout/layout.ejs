@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="<%= config.language %>">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title><%= page.title ? (page.title + ' - ' + config.title) : (config.title + (config.subtitle ? ' · ' + config.subtitle : '')) %></title>
+  <% if (page.description || config.description) { %>
+  <meta name="description" content="<%= page.description || config.description %>">
+  <% } %>
+  <link rel="stylesheet" href="<%= url_for('css/style.css') %>">
+  <link rel="stylesheet" href="<%= theme.cdn.markdown_css %>">
+  <link rel="stylesheet" href="<%= theme.cdn.highlight_light %>" media="(prefers-color-scheme: light)">
+  <link rel="stylesheet" href="<%= theme.cdn.highlight_dark %>" media="(prefers-color-scheme: dark)">
+</head>
+<body>
+  <div class="container">
+    <%- partial('_partial/header') %>
+    <main class="main"><%- body %></main>
+    <%- partial('_partial/footer') %>
+  </div>
+  <script src="<%= url_for('js/bundle.js') %>"></script>
+</body>
+</html>

@@ -1,0 +1,16 @@
+<%- partial('_partial/toc') %>
+<article class="post">
+  <h1 class="page-title"><%= page.title %></h1>
+  <div class="post-meta"><%= date(page.date, config.date_format) %></div>
+  <div class="markdown-body">
+    <%- page.content %>
+  </div>
+  <p class="post-license">
+    <a href="<%= theme.footer.license_url %>" target="_blank" rel="noopener noreferrer"><%= theme.footer.license %></a>
+    <%- theme.footer.since + '–PRESENT' %> © <%= config.author %>
+  </p>
+  <p class="post-back">
+    <a href="<%= url_for('/') %>">cd ..</a>
+    <a href="<%= md_url(page.path) %>">md</a>
+  </p>
+</article>

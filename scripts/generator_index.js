@@ -1,14 +1,13 @@
-/**
- * 根据 redirect-map.json 生成静态跳转页
- * 挂在 hexo 构建流程里（after_generate），复用 template/redirect.swig
- */
+// 根据 redirect-map.json 生成静态跳转页（未装 hexo-renderer-swig，直接拼 HTML）
 const fs = require('fs')
 const path = require('path')
 
-const mapFile     = path.resolve(hexo.base_dir, 'redirect-map.json')
-const templatePath = path.resolve(hexo.base_dir, 'template/redirect.swig')
+const mapFile = path.resolve(hexo.base_dir, 'redirect-map.json')
 
-hexo.extend.filter.register('after_generate', async () => {
+const redirectHtml = url =>
+  `<!DOCTYPE html><meta charset="utf-8"><meta http-equiv="refresh" content="0;url=${url}"><script>location.replace('${url}')</script>`
+
+hexo.extend.filter.register('after_generate', () => {
   let map
   try {
     map = JSON.parse(fs.readFileSync(mapFile, 'utf8'))
@@ -20,8 +19,7 @@ hexo.extend.filter.register('after_generate', async () => {
   for (const item of map) {
     if (!item.new) continue // new 还没填的跳过
     const routePath = item.old.replace(/^\/+/, '') + 'index.html'
-    const code = await hexo.render.render({ path: templatePath }, { URL: item.new })
-    hexo.route.set(routePath, code)
+    hexo.route.set(routePath, redirectHtml(item.new))
     hexo.log.info(`重定向: ${item.old} → ${item.new}`)
   }
 })

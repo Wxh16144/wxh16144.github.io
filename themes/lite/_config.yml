@@ -1,0 +1,42 @@
+# Lite theme
+# A minimal, CDN-only theme inspired by https://brentfitzgerald.com/
+# No comments / analytics / search / pjax / math — just posts + markdown + highlight.
+#
+# Top nav is auto-discovered (scripts/nav.js): any top-level source/ folder with
+# an index.* or README.* at its root shows up automatically, no list to maintain.
+
+# Short bio shown next to the post list on the home page, one paragraph per item
+bio:
+  - "Wuxh，前端工程师，Ant Design 贡献者（Top 20）与 UmiJS 团队成员。"
+  - "丰富的多端开发经验：Electron 桌面应用、H5、小程序、PC。"
+  - "这里记录工程实践与开源路上的笔记。"
+
+# Avatar shown above the bio
+avatar: https://github.com/wxh16144.png
+
+footer:
+  since: 2018
+  license: CC BY-NC-SA 4.0
+  license_url: https://creativecommons.org/licenses/by-nc-sa/4.0/
+
+social:
+  github: https://github.com/Wxh16144
+
+# Sidebar TOC. min_depth/max_depth/min_items below are the defaults applied
+# everywhere (posts included) once a page has enough headings. `groups` lets
+# specific paths override those defaults if they ever need different settings.
+toc:
+  enable: true
+  min_depth: 2
+  max_depth: 3
+  min_items: 2
+  groups:
+    - paths:
+        - notes/**
+        - bookmarks/**
+
+# CDN resources — markdown body style + highlight.js theme (light/dark switch via prefers-color-scheme)
+cdn:
+  markdown_css: https://registry.npmmirror.com/github-markdown-css/5.9.0/files/github-markdown.css
+  highlight_light: https://registry.npmmirror.com/highlight.js/11.12.0/files/styles/github.min.css
+  highlight_dark: https://registry.npmmirror.com/highlight.js/11.12.0/files/styles/github-dark.min.css
