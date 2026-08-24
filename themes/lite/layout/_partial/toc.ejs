@@ -1,0 +1,10 @@
+<%
+  const toc = page_toc(page)
+%>
+<% if (toc.length) { %>
+<nav class="page-toc" id="page-toc">
+  <% toc.forEach(function (item) { %>
+    <a class="toc-lv-<%= item.level %>" href="#<%= item.id %>" data-target="<%= item.id %>"><%- item.text %></a>
+  <% }) %>
+</nav>
+<% } %>

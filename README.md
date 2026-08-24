@@ -1,1 +1,1 @@
-# my-Blog@next https://wxhboy.cn
+# my-Blog@Lite https://wxhboy.cn
