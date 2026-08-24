@@ -6,7 +6,6 @@ author: Wxh16144
 
 很荣幸加入 Ant Design 团队成为社区成员。 antd 博客搬运，原文地址：[你好，GitHub Actions - Ant Design blog's](https://ant.design/docs/blog/github-actions-workflow-cn)
 
-<!--more-->
 
 大家好，我是 [Wxh16144](https://github.com/Wxh16144)，通过学习 Ant Design 的组件库和参与社区贡献，我发现了一些提高开发效率和代码质量的工具。借此机会，希望与大家分享我的经验，帮助大家更好地了解 Ant Design，并将这些技巧应用到自己的项目中。
 

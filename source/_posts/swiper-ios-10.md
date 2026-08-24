@@ -7,7 +7,6 @@ date: 2018-09-13 01:52:38
 使用 Swiper.js 在 iOS < 11 时出现下列错误
 SyntaxError: Unexpected keyword 'const'. Const declarations are not supported in strict mode.
 
-<!--more-->
 
 ### 前言
 

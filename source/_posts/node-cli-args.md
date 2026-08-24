@@ -5,7 +5,6 @@ date: 2019-03-27 09:52:22
 
 postcss style.css -r viewportWidth=750; 如何获取到 viewportWidth=750 这个参数呢
 
-<!--more-->
 
 ### 场景需要
 
