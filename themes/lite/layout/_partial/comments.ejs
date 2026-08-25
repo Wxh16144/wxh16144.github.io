@@ -1,0 +1,27 @@
+<%
+  // Set up https://giscus.app on Wxh16144/wxh16144.github.io (needs Discussions
+  // enabled, with a "Comments" category in Announcement format so only this app
+  // can open new discussion threads), then paste the generated ids below.
+  const repoId = 'MDEwOlJlcG9zaXRvcnkzMjQ3NTI1NzU=';
+  const categoryId = 'DIC_kwDOE1tUv84DEIG7';
+%>
+<% if (repoId && categoryId && page.comments !== false) { %>
+<div class="comments">
+  <script src="https://giscus.app/client.js"
+    data-repo="Wxh16144/wxh16144.github.io"
+    data-repo-id="<%= repoId %>"
+    data-category="Comments"
+    data-category-id="<%= categoryId %>"
+    data-mapping="pathname"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="bottom"
+    data-theme="preferred_color_scheme"
+    data-lang="zh-CN"
+    data-loading="lazy"
+    crossorigin="anonymous"
+    async>
+  </script>
+</div>
+<% } %>

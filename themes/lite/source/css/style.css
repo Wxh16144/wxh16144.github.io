@@ -216,6 +216,12 @@ hr.dashed {
   font-size: 0.9em;
 }
 
+.comments {
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 1px dashed var(--border);
+}
+
 .post-license a {
   color: var(--muted);
   text-decoration: none;
