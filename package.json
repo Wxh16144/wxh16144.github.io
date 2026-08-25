@@ -24,6 +24,7 @@
     "hexo-renderer-marked": "^7.0.1",
     "hexo-server": "^3.0.0",
     "html-minifier-terser": "^7.2.0",
+    "clean-css": "^5.3.3",
     "wxh16144": "latest"
   }
 }

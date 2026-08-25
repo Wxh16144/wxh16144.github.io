@@ -9,9 +9,11 @@
   <% } %>
   <link rel="icon" href="<%= url_for('favicon.png') %>">
   <link rel="stylesheet" href="<%= url_for('css/style.css') %>">
+  <% if (page.content) { %>
   <link rel="stylesheet" href="<%= theme.cdn.markdown_css %>">
   <link rel="stylesheet" href="<%= theme.cdn.highlight_light %>" media="(prefers-color-scheme: light)">
   <link rel="stylesheet" href="<%= theme.cdn.highlight_dark %>" media="(prefers-color-scheme: dark)">
+  <% } %>
   <script src="<%= url_for('js/bundle.js') %>" defer></script>
 </head>
 <body>
