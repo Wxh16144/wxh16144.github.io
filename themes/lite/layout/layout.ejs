@@ -12,6 +12,7 @@
   <link rel="stylesheet" href="<%= theme.cdn.markdown_css %>">
   <link rel="stylesheet" href="<%= theme.cdn.highlight_light %>" media="(prefers-color-scheme: light)">
   <link rel="stylesheet" href="<%= theme.cdn.highlight_dark %>" media="(prefers-color-scheme: dark)">
+  <script src="<%= url_for('js/bundle.js') %>" defer></script>
 </head>
 <body>
   <div class="container">
@@ -19,6 +20,5 @@
     <main class="main"><%- body %></main>
     <%- partial('_partial/footer') %>
   </div>
-  <script src="<%= url_for('js/bundle.js') %>"></script>
 </body>
 </html>
