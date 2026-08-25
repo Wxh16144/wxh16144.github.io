@@ -161,7 +161,6 @@ hr.dashed {
 .avatar {
   display: block;
   width: 100%;
-  max-width: 220px;
   margin-bottom: 16px;
   border: 1px solid var(--border);
 }
@@ -170,6 +169,13 @@ hr.dashed {
   .home {
     flex-direction: column-reverse;
     gap: 24px;
+  }
+
+  .avatar {
+    width: 72px;
+    height: 72px;
+    object-fit: cover;
+    margin-bottom: 12px;
   }
 }
 

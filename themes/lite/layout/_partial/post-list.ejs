@@ -37,7 +37,7 @@
   <% if (theme.bio && theme.bio.length) { %>
   <aside class="bio">
     <% if (theme.avatar) { %>
-    <img class="avatar" src="<%= theme.avatar %>" alt="<%= config.author %>">
+    <img class="avatar" src="<%= url_for(theme.avatar) %>" alt="<%= config.author %>">
     <% } %>
     <% theme.bio.forEach(function (p) { %><p><%= p %></p><% }) %>
   </aside>
