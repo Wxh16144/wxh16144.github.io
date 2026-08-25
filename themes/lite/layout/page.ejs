@@ -4,5 +4,9 @@
   <div class="markdown-body">
     <%- page.content %>
   </div>
+  <p class="post-back">
+    <a href="<%= url_for('/') %>">cd ..</a>
+    <a href="<%= md_url(page.path) %>">.md</a>
+  </p>
 </article>
 <%- partial('_partial/comments') %>
