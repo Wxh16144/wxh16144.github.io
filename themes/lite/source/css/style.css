@@ -161,8 +161,13 @@ hr.dashed {
 .avatar {
   display: block;
   width: 100%;
+  max-width: 260px;
+  height: auto;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
   margin-bottom: 16px;
   border: 1px solid var(--border);
+  background-color: var(--border);
 }
 
 @media (max-width: 640px) {

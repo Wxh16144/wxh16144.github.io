@@ -11,8 +11,8 @@ bio:
   - "丰富的多端开发经验：Electron 桌面应用、H5、小程序、PC。"
   - "这里记录工程实践与开源路上的笔记。"
 
-# Avatar shown above the bio (place the image at themes/lite/source/avatar.jpg)
-avatar: avatar.jpg
+# Avatar shown above the bio (place the image at themes/lite/source/avatar.webp)
+avatar: avatar.webp
 
 footer:
   since: 2018
