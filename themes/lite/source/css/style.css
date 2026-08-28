@@ -215,6 +215,16 @@ hr.dashed {
   font-size: 15px;
 }
 
+/* highlight.js github.css sets `pre code.hljs { padding: 1em; background: ... }`,
+   which stacks on top of github-markdown-css's own `pre { padding: 16px }`.
+   Reset the inner code so only the <pre> padding (and its muted background)
+   remains — avoids double padding and a mismatched code background. */
+.markdown-body pre code.hljs {
+  padding: 0;
+  overflow: visible;
+  background: transparent;
+}
+
 .site-footer {
   color: var(--muted);
   font-size: 0.9em;
