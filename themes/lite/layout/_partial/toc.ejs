@@ -3,8 +3,14 @@
 %>
 <% if (toc.length) { %>
 <nav class="page-toc" id="page-toc">
-  <% toc.forEach(function (item) { %>
-    <a class="toc-lv-<%= item.level %>" href="#<%= item.id %>" data-target="<%= item.id %>"><%- item.text %></a>
-  <% }) %>
+  <button class="toc-toggle" type="button" aria-expanded="false" aria-controls="page-toc-list">
+    <span>目录</span>
+    <span class="toc-toggle-icon" aria-hidden="true"></span>
+  </button>
+  <div class="toc-list" id="page-toc-list">
+    <% toc.forEach(function (item) { %>
+      <a class="toc-lv-<%= item.level %>" href="#<%= item.id %>" data-target="<%= item.id %>"><%- item.text %></a>
+    <% }) %>
+  </div>
 </nav>
 <% } %>
