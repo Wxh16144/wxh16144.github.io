@@ -1,15 +1,15 @@
 [submodule "source/bookmarks"]
 	path = source/bookmarks
-	url = git@github.com:Wxh16144/bookmarks.git
+	url = https://github.com/Wxh16144/bookmarks.git
 	branch = main
 [submodule "source/about"]
 	path = source/about
-	url = git@github.com:wxh16144/wxh16144.git
+	url = https://github.com/wxh16144/wxh16144.git
 	branch = main
 [submodule "source/web"]
 	path = source/web
-	url = git@github.com:Wxh16144/wxh16144.github.io.git
+	url = https://github.com/Wxh16144/wxh16144.github.io.git
 	branch = website
 [submodule "gist-viewer"]
 	path = gist-viewer
-	url = git@github.com:Wxh16144/gist-viewer.git
+	url = https://github.com/Wxh16144/gist-viewer.git
