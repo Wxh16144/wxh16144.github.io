@@ -1,0 +1,231 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>装饰者模式之AOP实现&#34;中间件模式&#34; - Wxh16144</title><meta name="description" content="知道的越多, 不知道的就越多"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/style.css"><link rel="stylesheet" href="https://registry.npmmirror.com/github-markdown-css/5.9.0/files/github-markdown.css"><link rel="stylesheet" href="https://registry.npmmirror.com/highlight.js/11.12.0/files/styles/github.min.css" media="(prefers-color-scheme:light)"><link rel="stylesheet" href="https://registry.npmmirror.com/highlight.js/11.12.0/files/styles/github-dark.min.css" media="(prefers-color-scheme:dark)"><script src="/js/bundle.js" defer="defer"></script><meta name="generator" content="Hexo 8.1.2"></head><body><div class="container"><header class="site-header"><a class="site-title" href="/">Wxh16144</a><nav class="site-nav"><a href="/about/">about</a> <a href="/bookmarks/">bookmarks</a> <a href="/notes/">notes</a><details class="links-toggle"><summary>find me</summary><div class="links-list"><span class="links-hint">$ npx wxh16144</span> <a href="https://github.com/wxh16144" target="_blank" rel="noopener noreferrer">github</a> <a href="https://twitter.com/wxh16144" target="_blank" rel="noopener noreferrer">twitter</a> <a href="https://x.com/wxh16144" target="_blank" rel="noopener noreferrer">x</a> <a href="https://weibo.com/wxh16144" target="_blank" rel="noopener noreferrer">weibo</a> <a href="https://zhihu.com/people/wxh16144" target="_blank" rel="noopener noreferrer">zhihu</a> <a href="https://t.me/wxh16144" target="_blank" rel="noopener noreferrer">telegram</a> <a href="https://wxh16144.github.io" target="_blank" rel="noopener noreferrer">blog</a> <a href="mailto:wxh16144@qq.com" target="_blank" rel="noopener noreferrer">email</a> <a href="https://dev.to/wxh16144" target="_blank" rel="noopener noreferrer">dev</a> <a href="https://npmjs.com/~wxh16144" target="_blank" rel="noopener noreferrer">npm</a> <a href="https://hub.docker.com/u/wxh16144" target="_blank" rel="noopener noreferrer">docker</a> <a href="https://v2ex.com/member/wxh16144" target="_blank" rel="noopener noreferrer">v2ex</a> <a href="https://wakatime.com/@wxh16144" target="_blank" rel="noopener noreferrer">wakatime</a> <a href="https://strava.com/athletes/wxh16144" target="_blank" rel="noopener noreferrer">strava</a> <a href="https://steamcommunity.com/id/wxh16144" target="_blank" rel="noopener noreferrer">steam</a></div></details></nav></header><hr class="dashed"><main class="main"><nav class="page-toc" id="page-toc"><button class="toc-toggle" type="button" aria-expanded="false" aria-controls="page-toc-list"><span>目录</span> <span class="toc-toggle-icon" aria-hidden="true"></span></button><div class="toc-list" id="page-toc-list"><a class="toc-lv-3" href="#AOP" data-target="AOP">AOP</a> <a class="toc-lv-3" href="#express-与-koa-的中间件" data-target="express-与-koa-的中间件">express 与 koa 的中间件</a> <a class="toc-lv-3" href="#借用中间件" data-target="借用中间件">借用中间件</a> <a class="toc-lv-3" href="#实际应用" data-target="实际应用">实际应用</a> <a class="toc-lv-3" href="#总结" data-target="总结">总结</a> <a class="toc-lv-3" href="#参考文档" data-target="参考文档">参考文档</a></div></nav><article class="post"><h1 class="page-title">装饰者模式之AOP实现&#34;中间件模式&#34;</h1><div class="post-meta">2019-08-07</div><div class="markdown-body"><p>装饰者模式的定义: 在不改变对象自身的基础上, 在程序运行期间给对象动态地添加方法.</p><h3 id="AOP"><a href="#AOP" class="headerlink" title="AOP"></a>AOP</h3><p>在前端, 可以通过 <code>before</code> 和 <code>after</code> 函数来实现:</p><pre><code class="hljs javascript"><span class="hljs-title class_">Function</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">before</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params">fn</span>) &#123;
+  <span class="hljs-comment">// 函数处理前执行fn</span>
+  <span class="hljs-keyword">var</span> self = <span class="hljs-variable language_">this</span>;
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;
+    fn.<span class="hljs-title function_">call</span>(<span class="hljs-variable language_">this</span>);
+    self.<span class="hljs-title function_">apply</span>(<span class="hljs-variable language_">this</span>, <span class="hljs-variable language_">arguments</span>);
+  &#125;;
+&#125;;</code></pre><pre><code class="hljs javascript"><span class="hljs-title class_">Function</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">after</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params">fn</span>) &#123;
+  <span class="hljs-comment">// 函数处理后执行fn</span>
+  <span class="hljs-keyword">var</span> self = <span class="hljs-variable language_">this</span>;
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;
+    self.<span class="hljs-title function_">apply</span>(<span class="hljs-variable language_">this</span>, <span class="hljs-variable language_">arguments</span>);
+    fn.<span class="hljs-title function_">call</span>(<span class="hljs-variable language_">this</span>);
+  &#125;;
+&#125;;</code></pre><p>实现思路是对被处理的函数通过闭包封装在新的函数里, 在新的函数内部按照顺序执行传入的参数 <code>fn</code> 和被处理的函数。</p><p><strong>举个栗子</strong>: 用户提交表单数据之前需要用户行为统计, 代码应该是这样写:</p><pre><code class="hljs javascript"><span class="hljs-keyword">function</span> <span class="hljs-title function_">report</span>(<span class="hljs-params"></span>) &#123;
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;上报数据&#x27;</span>);
+&#125;
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">submit</span>(<span class="hljs-params"></span>) &#123;
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;提交数据&#x27;</span>);
+&#125;
+submit.<span class="hljs-title function_">before</span>(report)(); <span class="hljs-comment">// 提交之前执行提交报告</span>
+<span class="hljs-comment">// 执行结果: 上报数据  =&gt; 提交数据</span>
+
+<span class="hljs-comment">// 等同于</span>
+report.<span class="hljs-title function_">after</span>(submit)(); <span class="hljs-comment">// 提交报告后执行数据提交</span>
+<span class="hljs-comment">// 执行结果: 上报数据 =&gt; 提交数据</span></code></pre><p>从代码可以看出已经把统计和数据提交业务隔离起来, 互不影响。</p><p>但是如果提交数据之前, 需要数据验证并且依据验证结果判断是否能提交,这里要改动 <code>before</code> 函数:</p><pre><code class="hljs javascript"><span class="hljs-title class_">Function</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">before</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params">fn</span>) &#123;
+  <span class="hljs-keyword">var</span> self = <span class="hljs-variable language_">this</span>;
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;
+    <span class="hljs-comment">// 函数处理后执行fn</span>
+    <span class="hljs-keyword">var</span> res = fn.<span class="hljs-title function_">call</span>(<span class="hljs-variable language_">this</span>);
+    <span class="hljs-keyword">if</span> (res) self.<span class="hljs-title function_">apply</span>(<span class="hljs-variable language_">this</span>, <span class="hljs-variable language_">arguments</span>); <span class="hljs-comment">// 返回成功则执行函数</span>
+  &#125;;
+&#125;;</code></pre><pre><code class="hljs javascript"><span class="hljs-keyword">function</span> <span class="hljs-title function_">report</span>(<span class="hljs-params"></span>) &#123;
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;上报数据&#x27;</span>);
+  <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+&#125;
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">validate</span>(<span class="hljs-params"></span>) &#123;
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;验证不通过&#x27;</span>);
+  <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;
+&#125;
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">submit</span>(<span class="hljs-params"></span>) &#123;
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;提交数据&#x27;</span>);
+&#125;
+
+submit.<span class="hljs-title function_">before</span>(report).<span class="hljs-title function_">before</span>(validate)();
+<span class="hljs-comment">// 执行结果: 验证不通过</span></code></pre><pre><code class="hljs javascript"><span class="hljs-keyword">function</span> <span class="hljs-title function_">report</span>(<span class="hljs-params"></span>) &#123;
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;上报数据&#x27;</span>);
+  <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+&#125;
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">validate</span>(<span class="hljs-params"></span>) &#123;
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;验证通过&#x27;</span>);
+  <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+&#125;
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">submit</span>(<span class="hljs-params"></span>) &#123;
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;提交数据&#x27;</span>);
+&#125;
+
+submit.<span class="hljs-title function_">before</span>(report).<span class="hljs-title function_">before</span>(validate)();
+<span class="hljs-comment">// 执行结果: 验证通过 =&gt; 上报数据 =&gt; 提交数据</span></code></pre><p><strong>AOP</strong> 思想在前端分解隔离业务已经做到位了, 但是却有了一串长长的链式出来, 如果处理不当很容易让维护者看晕;</p><p>例如下面这样:</p><pre><code class="hljs javascript"><span class="hljs-comment">// 提交数据前, 验证数据, 然后上报, 在提交之后做返回首页的跳转</span>
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">report</span>(<span class="hljs-params"></span>) &#123;
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;上报数据&#x27;</span>);
+  <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+&#125;
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">validate</span>(<span class="hljs-params"></span>) &#123;
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;验证通过&#x27;</span>);
+  <span class="hljs-keyword">return</span> <span class="hljs-literal">true</span>;
+&#125;
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">submit</span>(<span class="hljs-params"></span>) &#123;
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;提交数据&#x27;</span>);
+&#125;
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">goTo</span>(<span class="hljs-params"></span>) &#123;
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;返回首页&#x27;</span>);
+&#125;
+submit.<span class="hljs-title function_">before</span>(report).<span class="hljs-title function_">before</span>(validate).<span class="hljs-title function_">after</span>(goTo)();
+<span class="hljs-comment">// 执行结果: 验证通过 =&gt; 上报数据 =&gt; 提交数据</span></code></pre><h3 id="express-与-koa-的中间件"><a href="#express-与-koa-的中间件" class="headerlink" title="express 与 koa 的中间件"></a>express 与 koa 的中间件</h3><p><code>express</code> 和 <code>koa</code> 本身都是非常轻量的框架, <code>express</code> 是集合路由和其他几个中间件合成的 <strong>web</strong> 开发框架.</p><p><code>koa</code> 是<code>express</code> 原班人马重新打造一个更轻量的框架, 所以 <code>koa</code> 已经被剥离所有中间件, 甚至连 <code>router</code> 中间件也被抽离出来, 任由用户自行添加第三方中间件。</p><p><code>express</code> 和 <code>koa</code> 中间件原理一样, 直接就抽 <code>express</code> 来说:</p><pre><code class="hljs javascript"><span class="hljs-keyword">var</span> express = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;express&#x27;</span>);
+<span class="hljs-keyword">var</span> app = <span class="hljs-title function_">express</span>();
+
+app.<span class="hljs-title function_">use</span>(<span class="hljs-keyword">function</span> (<span class="hljs-params">req, res, next</span>) &#123;
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;数据统计&#x27;</span>);
+  <span class="hljs-title function_">next</span>(); <span class="hljs-comment">// 执行权利传递给</span>
+&#125;);
+
+app.<span class="hljs-title function_">use</span>(<span class="hljs-keyword">function</span> (<span class="hljs-params">req, res, next</span>) &#123;
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;日志统计&#x27;</span>);
+  <span class="hljs-title function_">next</span>(); <span class="hljs-comment">// 执行权利传递给</span>
+&#125;);
+
+app.<span class="hljs-title function_">get</span>(<span class="hljs-string">&#x27;/&#x27;</span>, <span class="hljs-keyword">function</span> (<span class="hljs-params">req, res, next</span>) &#123;
+  res.<span class="hljs-title function_">send</span>(<span class="hljs-string">&#x27;Hello World!&#x27;</span>);
+&#125;);
+
+app.<span class="hljs-title function_">listen</span>(<span class="hljs-number">3000</span>);
+<span class="hljs-comment">// 整个请求处理过程就是先数据统计、日志统计, 最后返回一个Hello World！</span></code></pre><p>上图运作流程图如下:<br><img src="https://i.loli.net/2021/02/21/UcW76tIACJpTViF.png" alt="aop-image.png"></p><p>从上图来看, 每一个<strong>管道</strong>都是一个中间件, 每个中间件通过<code>next</code>方法传递执行权给下一个中间件, <code>expres</code>s 就是一个收集并调用各种中间件的容器。</p><p>中间件就是一个函数, 通过 <code>express</code> 的 <strong>use</strong> 方法接收中间件, 每个中间件有 <code>express</code> 传入的 <code>req</code>, <code>res</code> 和 <code>next</code> 参数。</p><p>如果要把请求传递给下一个中间件必须使用 <code>next()</code> 方法。当调用 <code>res.send</code> 方法则此次请求结束, <strong>node</strong> 直接返回请求给客户, 但是若在 <code>res.send</code> 方法之后调用 <code>next</code> 方法, 整个中间件链式调用还会往下执行, 因为当前 <em>hello world</em> 所处的函数也是一块中间件, 而 <code>res.send</code> 只是一个方法用于返回请求。</p><h3 id="借用中间件"><a href="#借用中间件" class="headerlink" title="借用中间件"></a>借用中间件</h3><p>我们可以借用中间件思想来分解我们的前端业务逻辑, 通过<code>next</code>方法层层传递给下一个业务。<br>做到这几点首先必须有个管理中间件的对象, 我们先创建一个名为 <strong>Middleware</strong> 的对象:</p><pre><code class="hljs javascript"><span class="hljs-keyword">function</span> <span class="hljs-title function_">Middleware</span>(<span class="hljs-params"></span>) &#123;
+  <span class="hljs-variable language_">this</span>.<span class="hljs-property">cache</span> = [];
+&#125;</code></pre><p><strong>Middleware</strong>通过数组缓存中间件。下面是<strong>next</strong>和<strong>use</strong>方法:</p><pre><code class="hljs javascript"><span class="hljs-title class_">Middleware</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">use</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params">fn</span>) &#123;
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> fn !== <span class="hljs-string">&#x27;function&#x27;</span>) &#123;
+    <span class="hljs-keyword">throw</span> <span class="hljs-string">&#x27;middleware must be a function&#x27;</span>;
+  &#125;
+  <span class="hljs-variable language_">this</span>.<span class="hljs-property">cache</span>.<span class="hljs-title function_">push</span>(fn);
+  <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>;
+&#125;;
+
+<span class="hljs-title class_">Middleware</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">next</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params">fn</span>) &#123;
+  <span class="hljs-keyword">if</span> (<span class="hljs-variable language_">this</span>.<span class="hljs-property">middlewares</span> &amp;&amp; <span class="hljs-variable language_">this</span>.<span class="hljs-property">middlewares</span>.<span class="hljs-property">length</span> &gt; <span class="hljs-number">0</span>) &#123;
+    <span class="hljs-keyword">var</span> ware = <span class="hljs-variable language_">this</span>.<span class="hljs-property">middlewares</span>.<span class="hljs-title function_">shift</span>();
+    ware.<span class="hljs-title function_">call</span>(<span class="hljs-variable language_">this</span>, <span class="hljs-variable language_">this</span>.<span class="hljs-property">next</span>.<span class="hljs-title function_">bind</span>(<span class="hljs-variable language_">this</span>));
+  &#125;
+&#125;;
+<span class="hljs-comment">// 执行请求</span>
+<span class="hljs-title class_">Middleware</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">handleRequest</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;
+  <span class="hljs-comment">// 复制</span>
+  <span class="hljs-variable language_">this</span>.<span class="hljs-property">middlewares</span> = <span class="hljs-variable language_">this</span>.<span class="hljs-property">cache</span>.<span class="hljs-title function_">map</span>(<span class="hljs-keyword">function</span> (<span class="hljs-params">fn</span>) &#123;
+    <span class="hljs-keyword">return</span> fn;
+  &#125;);
+  <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">next</span>();
+&#125;;</code></pre><p>我们用<strong>Middleware</strong>简单使用一下:</p><pre><code class="hljs javascript"><span class="hljs-keyword">var</span> middleware = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Middleware</span>();
+middleware
+  .<span class="hljs-title function_">use</span>(<span class="hljs-keyword">function</span> (<span class="hljs-params">next</span>) &#123;
+    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-number">1</span>);
+    <span class="hljs-title function_">next</span>();
+  &#125;)
+  .<span class="hljs-title function_">use</span>(<span class="hljs-keyword">function</span> (<span class="hljs-params">next</span>) &#123;
+    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-number">2</span>);
+    <span class="hljs-title function_">next</span>();
+  &#125;)
+  .<span class="hljs-title function_">use</span>(<span class="hljs-keyword">function</span> (<span class="hljs-params">next</span>) &#123;
+    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-number">3</span>);
+    <span class="hljs-comment">// next();</span>
+  &#125;)
+  .<span class="hljs-title function_">use</span>(<span class="hljs-keyword">function</span> (<span class="hljs-params">next</span>) &#123;
+    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-number">4</span>);
+    <span class="hljs-title function_">next</span>();
+  &#125;);
+middleware.<span class="hljs-title function_">handleRequest</span>();
+<span class="hljs-comment">// 执行结果: 1 =&gt; 2 =&gt; 3</span></code></pre><p><code>4</code> 没有出来是因为上一层中间件没有调用<code>next</code>方法;</p><p>升级一下 <strong>Middleware</strong> 高级使用:</p><pre><code class="hljs javascript">middleware
+  .<span class="hljs-title function_">use</span>(<span class="hljs-keyword">function</span> (<span class="hljs-params">next</span>) &#123;
+    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-number">1</span>);
+    <span class="hljs-title function_">next</span>();
+    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;1结束&#x27;</span>);
+  &#125;)
+  .<span class="hljs-title function_">use</span>(<span class="hljs-keyword">function</span> (<span class="hljs-params">next</span>) &#123;
+    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-number">2</span>);
+    <span class="hljs-title function_">next</span>();
+    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;2结束&#x27;</span>);
+  &#125;)
+  .<span class="hljs-title function_">use</span>(<span class="hljs-keyword">function</span> (<span class="hljs-params">next</span>) &#123;
+    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-number">3</span>);
+    <span class="hljs-title function_">next</span>();
+    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;3结束&#x27;</span>);
+  &#125;);
+<span class="hljs-comment">// 输出结果: 1 =&gt; 2 =&gt; 3 =&gt; 3结束 =&gt; 2结束 =&gt; 1结束</span></code></pre><p>上面代码的流程图:<br><img src="/images/%E8%A3%85%E9%A5%B0%E8%80%85%E6%A8%A1%E5%BC%8F%E4%B9%8BAOP%E5%AE%9E%E7%8E%B0%E4%B8%AD%E9%97%B4%E4%BB%B6%E6%A8%A1%E5%BC%8F/test.webp" alt="流程图"></p><p>可以看出: 每一个中间件执行权利传递给下一个中间件并等待其结束以后又回到当前并做别的事情, 方法非常巧妙, 有这特性我们可以玩转中间件。</p><h3 id="实际应用"><a href="#实际应用" class="headerlink" title="实际应用"></a>实际应用</h3><pre><code class="hljs javascript"><span class="hljs-comment">/**</span>
+<span class="hljs-comment"> * <span class="hljs-doctag">@param</span> data 验证的数据</span>
+<span class="hljs-comment"> * <span class="hljs-doctag">@param</span> next 下一个步骤方法</span>
+<span class="hljs-comment"> */</span>
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">validate</span>(<span class="hljs-params">data, next</span>) &#123;
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;validate&#x27;</span>, data); <span class="hljs-comment">// 验证</span>
+  <span class="hljs-title function_">next</span>(); <span class="hljs-comment">// 通过验证</span>
+&#125;
+
+<span class="hljs-comment">/**</span>
+<span class="hljs-comment"> * <span class="hljs-doctag">@param</span> data 发送的数据</span>
+<span class="hljs-comment"> * <span class="hljs-doctag">@param</span> next 下一个步骤方法</span>
+<span class="hljs-comment"> */</span>
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">send</span>(<span class="hljs-params">data, next</span>) &#123;
+  <span class="hljs-built_in">setTimeout</span>(<span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;
+    <span class="hljs-comment">// 模拟异步</span>
+    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;send&#x27;</span>, data); <span class="hljs-comment">// 已发送数据</span>
+    <span class="hljs-title function_">next</span>();
+  &#125;, <span class="hljs-number">1000</span>);
+&#125;
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">goTo</span>(<span class="hljs-params">url, next</span>) &#123;
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;goTo&#x27;</span>, url); <span class="hljs-comment">// 跳转</span>
+&#125;</code></pre><p><strong>validate</strong> 和 <strong>send</strong> 函数都需要数据参数, 目前 <strong>Middleware</strong> 只传 <code>next</code>, 需要传递 <code>data</code> 数据才能顺利执行下去, 然而每个中间件需要的数据不一定都一致 (就像 goTo 与 validate、send )。</p><p>我们需要引入一个 <code>options</code> 对象来包裹这一串逻辑需要的数据, 每个中间件在 <code>options</code> 内提取自己所需的数据, 这样就能满足所有中间件, 函数做相应调整;</p><pre><code class="hljs javascript"><span class="hljs-keyword">function</span> <span class="hljs-title function_">Middleware</span>(<span class="hljs-params"></span>) &#123;
+  <span class="hljs-variable language_">this</span>.<span class="hljs-property">cache</span> = [];
+  <span class="hljs-variable language_">this</span>.<span class="hljs-property">options</span> = <span class="hljs-literal">null</span>; <span class="hljs-comment">// 缓存options</span>
+&#125;
+
+<span class="hljs-title class_">Middleware</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">use</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params">fn</span>) &#123;
+  <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> fn !== <span class="hljs-string">&#x27;function&#x27;</span>) &#123;
+    <span class="hljs-keyword">throw</span> <span class="hljs-string">&#x27;middleware must be a function&#x27;</span>;
+  &#125;
+  <span class="hljs-variable language_">this</span>.<span class="hljs-property">cache</span>.<span class="hljs-title function_">push</span>(fn);
+  <span class="hljs-keyword">return</span> <span class="hljs-variable language_">this</span>;
+&#125;;
+
+<span class="hljs-title class_">Middleware</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">next</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params">fn</span>) &#123;
+  <span class="hljs-keyword">if</span> (<span class="hljs-variable language_">this</span>.<span class="hljs-property">middlewares</span> &amp;&amp; <span class="hljs-variable language_">this</span>.<span class="hljs-property">middlewares</span>.<span class="hljs-property">length</span> &gt; <span class="hljs-number">0</span>) &#123;
+    <span class="hljs-keyword">var</span> ware = <span class="hljs-variable language_">this</span>.<span class="hljs-property">middlewares</span>.<span class="hljs-title function_">shift</span>();
+    ware.<span class="hljs-title function_">call</span>(<span class="hljs-variable language_">this</span>, <span class="hljs-variable language_">this</span>.<span class="hljs-property">options</span>, <span class="hljs-variable language_">this</span>.<span class="hljs-property">next</span>.<span class="hljs-title function_">bind</span>(<span class="hljs-variable language_">this</span>)); <span class="hljs-comment">// 传入options与next</span>
+  &#125;
+&#125;;
+<span class="hljs-comment">/**</span>
+<span class="hljs-comment"> * <span class="hljs-doctag">@param</span> options 数据的入口</span>
+<span class="hljs-comment"> * <span class="hljs-doctag">@param</span> next 下一个步骤方法</span>
+<span class="hljs-comment"> */</span>
+<span class="hljs-title class_">Middleware</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">handleRequest</span> = <span class="hljs-keyword">function</span> (<span class="hljs-params">options</span>) &#123;
+  <span class="hljs-variable language_">this</span>.<span class="hljs-property">middlewares</span> = <span class="hljs-variable language_">this</span>.<span class="hljs-property">cache</span>.<span class="hljs-title function_">map</span>(<span class="hljs-keyword">function</span> (<span class="hljs-params">fn</span>) &#123;
+    <span class="hljs-keyword">return</span> fn;
+  &#125;);
+  <span class="hljs-variable language_">this</span>.<span class="hljs-property">options</span> = options; <span class="hljs-comment">// 缓存数据</span>
+  <span class="hljs-variable language_">this</span>.<span class="hljs-title function_">next</span>();
+&#125;;</code></pre><p>业务逻辑做相应修改:</p><pre><code class="hljs javascript"><span class="hljs-keyword">function</span> <span class="hljs-title function_">validate</span>(<span class="hljs-params">options, next</span>) &#123;
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;validate&#x27;</span>, options.<span class="hljs-property">data</span>);
+  <span class="hljs-title function_">next</span>(); <span class="hljs-comment">// 通过验证</span>
+&#125;
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">send</span>(<span class="hljs-params">options, next</span>) &#123;
+  <span class="hljs-built_in">setTimeout</span>(<span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) &#123;
+    <span class="hljs-comment">//模拟异步</span>
+    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;send&#x27;</span>, options.<span class="hljs-property">data</span>);
+    options.<span class="hljs-property">url</span> = <span class="hljs-string">&#x27;www.baidu.com&#x27;</span>; <span class="hljs-comment">// 设置跳转的url</span>
+    <span class="hljs-title function_">next</span>();
+  &#125;, <span class="hljs-number">3000</span>);
+&#125;
+<span class="hljs-keyword">function</span> <span class="hljs-title function_">goTo</span>(<span class="hljs-params">options</span>) &#123;
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;goTo&#x27;</span>, options.<span class="hljs-property">url</span>);
+&#125;
+
+<span class="hljs-keyword">var</span> submitForm = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Middleware</span>();
+submitForm.<span class="hljs-title function_">use</span>(validate).<span class="hljs-title function_">use</span>(send).<span class="hljs-title function_">use</span>(goTo);
+submitForm.<span class="hljs-title function_">handleRequest</span>(&#123; <span class="hljs-attr">data</span>: &#123; <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;xiaoxiong&#x27;</span>, <span class="hljs-attr">age</span>: <span class="hljs-number">20</span> &#125; &#125;);
+<span class="hljs-comment">// 执行结果:</span>
+<span class="hljs-comment">// validate Object &#123;name: &quot;xiaoxiong&quot;, age: 20&#125;</span>
+<span class="hljs-comment">// send Object &#123;name: &quot;xiaoxiong&quot;, age: 20&#125;</span>
+<span class="hljs-comment">// goTo www.baidu.com</span>
+
+submitForm.<span class="hljs-title function_">handleRequest</span>(&#123; <span class="hljs-attr">data</span>: &#123; <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;xiaohong&#x27;</span>, <span class="hljs-attr">age</span>: <span class="hljs-number">21</span> &#125; &#125;); <span class="hljs-comment">//触发第二次, 改变数据内容</span>
+
+<span class="hljs-comment">// 执行结果:</span>
+<span class="hljs-comment">// validate Object &#123;name: &quot;xiaohong&quot;, age: 21&#125;</span>
+<span class="hljs-comment">// send Object &#123;name: &quot;xiaohong&quot;, age: 21&#125;</span>
+<span class="hljs-comment">// goTo www.baidu.com</span></code></pre><p>以上代码大功告成。</p><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>通过以上代码, 实现了业务隔离, 满足每个业务所需的数据, 又能很好控制业务下发执行的权利, 所以 <strong>中间件</strong> 模式算是一种不错的设计。<br>从代码阅读和代码编写的角度来说难度并不大, 只要维护人员拥有该方面的知识, 问题就不大了。</p><h3 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h3><ul><li><a target="_blank" rel="noopener" href="https://juejin.im/post/59df4f74f265da430f311909">JavaScript 设计模式</a>;</li><li><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MjM5MTA1MjAxMQ==&mid=2651226331&idx=1&sn=566e33d09436520f09779a73d486f520&chksm=bd49595f8a3ed049bcfd661d3359a085611611c48f35d520091ac518ded1bdfeebcee0a9f784&mpshare=1&scene=1&srcid=0807XBLVUO981DW1HqRxUrFu&sharer_sharetime=1565138671682&sharer_shareid=c8544bd524fe5961efc31247bc0f6855#rd">编写可维护代码之“中间件模式”</a></li></ul></div><p class="post-license"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener noreferrer">CC BY-NC-SA 4.0</a> 2018–PRESENT © Wuxh</p><p class="post-back"><a href="/">cd ..</a> <a href="/aop-middleware.md">.md</a></p></article><div class="comments"><script src="https://giscus.app/client.js" data-repo="Wxh16144/wxh16144.github.io" data-repo-id="MDEwOlJlcG9zaXRvcnkzMjQ3NTI1NzU=" data-category="Comments" data-category-id="DIC_kwDOE1tUv84DEIG7" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="preferred_color_scheme" data-lang="zh-CN" data-loading="lazy" crossorigin="anonymous" async></script></div></main><hr class="dashed"><footer class="site-footer"><span>2018~2026 Wuxh</span></footer></div></body></html>

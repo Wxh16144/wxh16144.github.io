@@ -1,0 +1,81 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>node-socket.io - Wxh16144</title><meta name="description" content="知道的越多, 不知道的就越多"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/style.css"><link rel="stylesheet" href="https://registry.npmmirror.com/github-markdown-css/5.9.0/files/github-markdown.css"><link rel="stylesheet" href="https://registry.npmmirror.com/highlight.js/11.12.0/files/styles/github.min.css" media="(prefers-color-scheme:light)"><link rel="stylesheet" href="https://registry.npmmirror.com/highlight.js/11.12.0/files/styles/github-dark.min.css" media="(prefers-color-scheme:dark)"><script src="/js/bundle.js" defer="defer"></script><meta name="generator" content="Hexo 8.1.2"></head><body><div class="container"><header class="site-header"><a class="site-title" href="/">Wxh16144</a><nav class="site-nav"><a href="/about/">about</a> <a href="/bookmarks/">bookmarks</a> <a href="/notes/">notes</a><details class="links-toggle"><summary>find me</summary><div class="links-list"><span class="links-hint">$ npx wxh16144</span> <a href="https://github.com/wxh16144" target="_blank" rel="noopener noreferrer">github</a> <a href="https://twitter.com/wxh16144" target="_blank" rel="noopener noreferrer">twitter</a> <a href="https://x.com/wxh16144" target="_blank" rel="noopener noreferrer">x</a> <a href="https://weibo.com/wxh16144" target="_blank" rel="noopener noreferrer">weibo</a> <a href="https://zhihu.com/people/wxh16144" target="_blank" rel="noopener noreferrer">zhihu</a> <a href="https://t.me/wxh16144" target="_blank" rel="noopener noreferrer">telegram</a> <a href="https://wxh16144.github.io" target="_blank" rel="noopener noreferrer">blog</a> <a href="mailto:wxh16144@qq.com" target="_blank" rel="noopener noreferrer">email</a> <a href="https://dev.to/wxh16144" target="_blank" rel="noopener noreferrer">dev</a> <a href="https://npmjs.com/~wxh16144" target="_blank" rel="noopener noreferrer">npm</a> <a href="https://hub.docker.com/u/wxh16144" target="_blank" rel="noopener noreferrer">docker</a> <a href="https://v2ex.com/member/wxh16144" target="_blank" rel="noopener noreferrer">v2ex</a> <a href="https://wakatime.com/@wxh16144" target="_blank" rel="noopener noreferrer">wakatime</a> <a href="https://strava.com/athletes/wxh16144" target="_blank" rel="noopener noreferrer">strava</a> <a href="https://steamcommunity.com/id/wxh16144" target="_blank" rel="noopener noreferrer">steam</a></div></details></nav></header><hr class="dashed"><main class="main"><nav class="page-toc" id="page-toc"><button class="toc-toggle" type="button" aria-expanded="false" aria-controls="page-toc-list"><span>目录</span> <span class="toc-toggle-icon" aria-hidden="true"></span></button><div class="toc-list" id="page-toc-list"><a class="toc-lv-3" href="#添加依赖" data-target="添加依赖">添加依赖</a> <a class="toc-lv-3" href="#目录结构" data-target="目录结构">目录结构</a> <a class="toc-lv-3" href="#配置服务-app-js" data-target="配置服务-app-js">配置服务 app.js</a> <a class="toc-lv-3" href="#路由配置" data-target="路由配置">路由配置</a> <a class="toc-lv-3" href="#主角-socket-io-服务端" data-target="主角-socket-io-服务端">主角 socket.io (服务端)</a> <a class="toc-lv-3" href="#index-html-客户端" data-target="index-html-客户端">index.html (客户端)</a> <a class="toc-lv-3" href="#index-js" data-target="index-js">index.js</a> <a class="toc-lv-3" href="#注意事项" data-target="注意事项">注意事项</a></div></nav><article class="post"><h1 class="page-title">node-socket.io</h1><div class="post-meta">2018-08-16</div><div class="markdown-body"><p>一个 node.js + socket.io 示例</p><h3 id="添加依赖"><a href="#添加依赖" class="headerlink" title="添加依赖"></a>添加依赖</h3><pre><code class="hljs shell">np init -y
+npm i express socket.io body-parser -S -D
+npm start</code></pre><h3 id="目录结构"><a href="#目录结构" class="headerlink" title="目录结构"></a>目录结构</h3><pre><code class="hljs tree">├── app.js
+├── public
+│   ├── css
+│   │   └── style.css
+│   └── js
+│       ├── index.js
+│       └── vue.js
+└── views
+    └── index.html</code></pre><h3 id="配置服务-app-js"><a href="#配置服务-app-js" class="headerlink" title="配置服务 app.js"></a>配置服务 app.js</h3><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> http = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;http&quot;</span>); <span class="hljs-comment">//引入http模块</span>
+<span class="hljs-keyword">const</span> fs = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;fs&quot;</span>); <span class="hljs-comment">//引入fs模块</span>
+<span class="hljs-keyword">const</span> path = <span class="hljs-built_in">require</span>(<span class="hljs-string">&quot;path&quot;</span>); <span class="hljs-comment">//引入path模块</span>
+<span class="hljs-keyword">const</span> express = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;express&#x27;</span>); <span class="hljs-comment">//引入express模块</span>
+<span class="hljs-keyword">const</span> app = <span class="hljs-title function_">express</span>();
+<span class="hljs-keyword">const</span> server = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;http&#x27;</span>).<span class="hljs-title function_">createServer</span>(app); <span class="hljs-comment">//开启服务</span>
+<span class="hljs-keyword">const</span> io = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;socket.io&#x27;</span>)(server); <span class="hljs-comment">//引入socket.io</span>
+
+.... <span class="hljs-comment">// 配置路由 下面讲到</span>
+
+.... <span class="hljs-comment">// 这里写socket.io  下面会讲到</span>
+
+<span class="hljs-keyword">const</span> port = <span class="hljs-number">3000</span>; <span class="hljs-comment">//端口号</span>
+server.<span class="hljs-title function_">listen</span>(port, <span class="hljs-function"><span class="hljs-params">err</span> =&gt;</span> &#123;
+    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(err ? <span class="hljs-string">&#x27;Server Error&#x27;</span> : <span class="hljs-string">`http://localhost:<span class="hljs-subst">$&#123;port&#125;</span>`</span>); <span class="hljs-comment">//开启服务</span>
+&#125;);
+</code></pre><h3 id="路由配置"><a href="#路由配置" class="headerlink" title="路由配置"></a>路由配置</h3><pre><code class="hljs javascript"><span class="hljs-comment">//读取文件的方法</span>
+<span class="hljs-keyword">const</span> <span class="hljs-title function_">readFile</span> = filePath =&gt; &#123;
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">Promise</span>(<span class="hljs-function">(<span class="hljs-params">resolve, reject</span>) =&gt;</span> &#123;
+    fs.<span class="hljs-title function_">readFile</span>(path.<span class="hljs-title function_">join</span>(__dirname, filePath), <span class="hljs-string">&#x27;utf-8&#x27;</span>, <span class="hljs-function">(<span class="hljs-params">err, data</span>) =&gt;</span> &#123;
+      err ? <span class="hljs-title function_">reject</span>(err) : <span class="hljs-title function_">resolve</span>(data);
+    &#125;);
+  &#125;);
+&#125;;
+
+app.<span class="hljs-title function_">use</span>(express.<span class="hljs-title function_">static</span>(path.<span class="hljs-title function_">join</span>(__dirname, <span class="hljs-string">&#x27;/&#x27;</span>))); <span class="hljs-comment">//开启公共路径</span>
+<span class="hljs-comment">//配置根路径</span>
+app.<span class="hljs-title function_">get</span>(<span class="hljs-string">&#x27;/&#x27;</span>, <span class="hljs-function">(<span class="hljs-params">req, res</span>) =&gt;</span> &#123;
+  <span class="hljs-title function_">readFile</span>(<span class="hljs-string">&#x27;./views/index.html&#x27;</span>).<span class="hljs-title function_">then</span>(<span class="hljs-function"><span class="hljs-params">data</span> =&gt;</span> &#123;
+    res.<span class="hljs-title function_">send</span>(data);
+  &#125;);
+&#125;);
+<span class="hljs-comment">//配置404</span>
+app.<span class="hljs-title function_">use</span>(<span class="hljs-function">(<span class="hljs-params">req, res, next</span>) =&gt;</span> &#123;
+  res.<span class="hljs-title function_">send</span>(<span class="hljs-string">&quot;&lt;h1&gt;页面找不到了!&lt;a href=&#x27;/&#x27;&gt;点我&lt;/a&gt;回家!&lt;/h1&gt;&quot;</span>);
+&#125;);</code></pre><h3 id="主角-socket-io-服务端"><a href="#主角-socket-io-服务端" class="headerlink" title="主角 socket.io (服务端)"></a>主角 socket.io (服务端)</h3><pre><code class="hljs javascript"><span class="hljs-comment">//用户连接触发事件</span>
+io.<span class="hljs-title function_">on</span>(<span class="hljs-string">&#x27;connection&#x27;</span>, <span class="hljs-function"><span class="hljs-params">socket</span> =&gt;</span> &#123;
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;用户连接&#x27;</span>, socket.<span class="hljs-property">request</span>.<span class="hljs-property">headers</span>.<span class="hljs-property">cookie</span>); <span class="hljs-comment">//打印出连接用户id</span>
+&#125;);
+
+<span class="hljs-comment">//用户向服务器发送数据</span>
+socket.<span class="hljs-title function_">on</span>(<span class="hljs-string">&#x27;hi&#x27;</span>, <span class="hljs-function"><span class="hljs-params">data</span> =&gt;</span> &#123;
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`用户发送:<span class="hljs-subst">$&#123;data&#125;</span>`</span>); <span class="hljs-comment">//输出用户发送过来的内容</span>
+&#125;);
+
+<span class="hljs-comment">//服务器向用户发送数据</span>
+socket.<span class="hljs-title function_">emit</span>(<span class="hljs-string">&#x27;back_hi&#x27;</span>, <span class="hljs-string">`服务器:<span class="hljs-subst">$&#123;<span class="hljs-built_in">Date</span>.now()&#125;</span>!`</span>);
+
+<span class="hljs-comment">//服务器向所有用户发送数据</span>
+socket.<span class="hljs-property">broadcast</span>.<span class="hljs-title function_">emit</span>(<span class="hljs-string">&#x27;back_hi&#x27;</span>, data);
+
+<span class="hljs-comment">//用户断开连接发送数据</span>
+socket.<span class="hljs-title function_">on</span>(<span class="hljs-string">&#x27;disconnect&#x27;</span>, <span class="hljs-function"><span class="hljs-params">data</span> =&gt;</span> &#123;
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;断开&#x27;</span>, data);
+&#125;);</code></pre><h3 id="index-html-客户端"><a href="#index-html-客户端" class="headerlink" title="index.html (客户端)"></a>index.html (客户端)</h3><pre><code class="hljs html"><span class="hljs-meta">&lt;!DOCTYPE <span class="hljs-keyword">html</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">&quot;en&quot;</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">&quot;UTF-8&quot;</span> /&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;./socket.io/socket.io.js&quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>node_demo<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
+  <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;./public/js/index.js &quot;</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span></code></pre><h3 id="index-js"><a href="#index-js" class="headerlink" title="index.js"></a>index.js</h3><pre><code class="hljs javascript">socket = io.<span class="hljs-title function_">connect</span>(); <span class="hljs-comment">//创建连接</span>
+
+ocket.<span class="hljs-title function_">emit</span>(<span class="hljs-string">&#x27;hi&#x27;</span>, <span class="hljs-string">&#x27;你好&#x27;</span>); <span class="hljs-comment">//发送数据</span>
+
+<span class="hljs-comment">//收到服务器返回的事件</span>
+socket.<span class="hljs-title function_">on</span>(<span class="hljs-string">&#x27;back_hi&#x27;</span>, <span class="hljs-function"><span class="hljs-params">msg</span> =&gt;</span> &#123;
+  <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(msg);
+&#125;);</code></pre><h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h3><ul><li>配置 app.js 的顺序不要错</li><li>一定要开启公共路径</li><li>配置根路径一定要读取文件发送客户端响应</li></ul></div><p class="post-license"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener noreferrer">CC BY-NC-SA 4.0</a> 2018–PRESENT © Wuxh</p><p class="post-back"><a href="/">cd ..</a> <a href="/node-socket-io.md">.md</a></p></article><div class="comments"><script src="https://giscus.app/client.js" data-repo="Wxh16144/wxh16144.github.io" data-repo-id="MDEwOlJlcG9zaXRvcnkzMjQ3NTI1NzU=" data-category="Comments" data-category-id="DIC_kwDOE1tUv84DEIG7" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="preferred_color_scheme" data-lang="zh-CN" data-loading="lazy" crossorigin="anonymous" async></script></div></main><hr class="dashed"><footer class="site-footer"><span>2018~2026 Wuxh</span></footer></div></body></html>

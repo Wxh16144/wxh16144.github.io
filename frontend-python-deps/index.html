@@ -1,0 +1,250 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>前端一些包总是需要依赖python - Wxh16144</title><meta name="description" content="知道的越多, 不知道的就越多"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/style.css"><link rel="stylesheet" href="https://registry.npmmirror.com/github-markdown-css/5.9.0/files/github-markdown.css"><link rel="stylesheet" href="https://registry.npmmirror.com/highlight.js/11.12.0/files/styles/github.min.css" media="(prefers-color-scheme:light)"><link rel="stylesheet" href="https://registry.npmmirror.com/highlight.js/11.12.0/files/styles/github-dark.min.css" media="(prefers-color-scheme:dark)"><script src="/js/bundle.js" defer="defer"></script><meta name="generator" content="Hexo 8.1.2"></head><body><div class="container"><header class="site-header"><a class="site-title" href="/">Wxh16144</a><nav class="site-nav"><a href="/about/">about</a> <a href="/bookmarks/">bookmarks</a> <a href="/notes/">notes</a><details class="links-toggle"><summary>find me</summary><div class="links-list"><span class="links-hint">$ npx wxh16144</span> <a href="https://github.com/wxh16144" target="_blank" rel="noopener noreferrer">github</a> <a href="https://twitter.com/wxh16144" target="_blank" rel="noopener noreferrer">twitter</a> <a href="https://x.com/wxh16144" target="_blank" rel="noopener noreferrer">x</a> <a href="https://weibo.com/wxh16144" target="_blank" rel="noopener noreferrer">weibo</a> <a href="https://zhihu.com/people/wxh16144" target="_blank" rel="noopener noreferrer">zhihu</a> <a href="https://t.me/wxh16144" target="_blank" rel="noopener noreferrer">telegram</a> <a href="https://wxh16144.github.io" target="_blank" rel="noopener noreferrer">blog</a> <a href="mailto:wxh16144@qq.com" target="_blank" rel="noopener noreferrer">email</a> <a href="https://dev.to/wxh16144" target="_blank" rel="noopener noreferrer">dev</a> <a href="https://npmjs.com/~wxh16144" target="_blank" rel="noopener noreferrer">npm</a> <a href="https://hub.docker.com/u/wxh16144" target="_blank" rel="noopener noreferrer">docker</a> <a href="https://v2ex.com/member/wxh16144" target="_blank" rel="noopener noreferrer">v2ex</a> <a href="https://wakatime.com/@wxh16144" target="_blank" rel="noopener noreferrer">wakatime</a> <a href="https://strava.com/athletes/wxh16144" target="_blank" rel="noopener noreferrer">strava</a> <a href="https://steamcommunity.com/id/wxh16144" target="_blank" rel="noopener noreferrer">steam</a></div></details></nav></header><hr class="dashed"><main class="main"><nav class="page-toc" id="page-toc"><button class="toc-toggle" type="button" aria-expanded="false" aria-controls="page-toc-list"><span>目录</span> <span class="toc-toggle-icon" aria-hidden="true"></span></button><div class="toc-list" id="page-toc-list"><a class="toc-lv-3" href="#canvas" data-target="canvas">canvas</a> <a class="toc-lv-3" href="#node-sass" data-target="node-sass">node-sass</a> <a class="toc-lv-3" href="#tree-sitter-yaml" data-target="tree-sitter-yaml">tree-sitter-yaml</a></div></nav><article class="post"><h1 class="page-title">前端一些包总是需要依赖python</h1><div class="post-meta">2024-05-06</div><div class="markdown-body"><p>如题，安装 npm 包时，经常需要宿主环境存在 python 经常遇到问题，罪魁祸首就是 <code>node-gyp</code></p><p>写一个笔记记录一下平时解决的解决方案…</p><span id="more"></span><h3 id="canvas"><a href="#canvas" class="headerlink" title="canvas"></a>canvas</h3><p><em>错误日志:</em></p><details><summary>Click to expand</summary><pre><code class="hljs plaintext">npm WARN deprecated is-data-descriptor@1.0.0: Please upgrade to v1.0.1
+npm WARN deprecated is-accessor-descriptor@1.0.0: Please upgrade to v1.0.1
+npm WARN deprecated stable@0.1.8: Modern JS already guarantees Array#sort() is a stable sort, so this library is deprecated. See the compatibility table on MDN: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort#browser_compatibility
+npm WARN deprecated source-map-url@0.4.1: See https://github.com/lydell/source-map-url#deprecated
+npm WARN deprecated urix@0.1.0: Please see https://github.com/lydell/urix#deprecated
+npm WARN deprecated resolve-url@0.2.1: https://github.com/lydell/resolve-url#deprecated
+npm WARN deprecated source-map-resolve@0.5.3: See https://github.com/lydell/source-map-resolve#deprecated
+npm WARN deprecated domexception@4.0.0: Use your platform&#x27;s native DOMException instead
+npm WARN deprecated sourcemap-codec@1.4.8: Please use @jridgewell/sourcemap-codec instead
+npm WARN deprecated workbox-cacheable-response@6.6.0: workbox-background-sync@6.6.0
+npm WARN deprecated workbox-google-analytics@6.6.0: It is not compatible with newer versions of GA starting with v4, as long as you are using GAv3 it should be ok, but the package is not longer being maintained
+npm ERR! code 1
+npm ERR! path /Users/wuxh/Code/oss/yft-design/node_modules/canvas
+npm ERR! command failed
+npm ERR! command sh -c node-pre-gyp install --fallback-to-build --update-binary
+npm ERR! Failed to execute &#x27;/Users/wuxh/.nvm/versions/node/v18.19.1/bin/node /Users/wuxh/.nvm/versions/node/v18.19.1/lib/node_modules/npm/node_modules/node-gyp/bin/node-gyp.js configure --fallback-to-build --update-binary --module=/Users/wuxh/Code/oss/yft-design/node_modules/canvas/build/Release/canvas.node --module_name=canvas --module_path=/Users/wuxh/Code/oss/yft-design/node_modules/canvas/build/Release --napi_version=9 --node_abi_napi=napi --napi_build_version=0 --node_napi_label=node-v108&#x27; (1)
+npm ERR! node-pre-gyp info it worked if it ends with ok
+npm ERR! node-pre-gyp info using node-pre-gyp@1.0.11
+npm ERR! node-pre-gyp info using node@18.19.1 | darwin | arm64
+npm ERR! node-pre-gyp http GET https://registry.npmmirror.com/-/binary/canvas/v2.11.2/canvas-v2.11.2-node-v108-darwin-unknown-arm64.tar.gz
+npm ERR! node-pre-gyp ERR! install response status 404 Not Found on https://registry.npmmirror.com/-/binary/canvas/v2.11.2/canvas-v2.11.2-node-v108-darwin-unknown-arm64.tar.gz
+npm ERR! node-pre-gyp WARN Pre-built binaries not installable for canvas@2.11.2 and node@18.19.1 (node-v108 ABI, unknown) (falling back to source compile with node-gyp)
+npm ERR! node-pre-gyp WARN Hit error response status 404 Not Found on https://registry.npmmirror.com/-/binary/canvas/v2.11.2/canvas-v2.11.2-node-v108-darwin-unknown-arm64.tar.gz
+npm ERR! gyp info it worked if it ends with ok
+npm ERR! gyp info using node-gyp@10.0.1
+npm ERR! gyp info using node@18.19.1 | darwin | arm64
+npm ERR! gyp info ok
+npm ERR! gyp info it worked if it ends with ok
+npm ERR! gyp info using node-gyp@10.0.1
+npm ERR! gyp info using node@18.19.1 | darwin | arm64
+npm ERR! gyp info find Python using Python version 3.9.6 found at &quot;/Library/Developer/CommandLineTools/usr/bin/python3&quot;
+npm ERR! gyp info spawn /Library/Developer/CommandLineTools/usr/bin/python3
+npm ERR! gyp info spawn args [
+npm ERR! gyp info spawn args &#x27;/Users/wuxh/.nvm/versions/node/v18.19.1/lib/node_modules/npm/node_modules/node-gyp/gyp/gyp_main.py&#x27;,
+npm ERR! gyp info spawn args &#x27;binding.gyp&#x27;,
+npm ERR! gyp info spawn args &#x27;-f&#x27;,
+npm ERR! gyp info spawn args &#x27;make&#x27;,
+npm ERR! gyp info spawn args &#x27;-I&#x27;,
+npm ERR! gyp info spawn args &#x27;/Users/wuxh/Code/oss/yft-design/node_modules/canvas/build/config.gypi&#x27;,
+npm ERR! gyp info spawn args &#x27;-I&#x27;,
+npm ERR! gyp info spawn args &#x27;/Users/wuxh/.nvm/versions/node/v18.19.1/lib/node_modules/npm/node_modules/node-gyp/addon.gypi&#x27;,
+npm ERR! gyp info spawn args &#x27;-I&#x27;,
+npm ERR! gyp info spawn args &#x27;/Users/wuxh/Library/Caches/node-gyp/18.19.1/include/node/common.gypi&#x27;,
+npm ERR! gyp info spawn args &#x27;-Dlibrary=shared_library&#x27;,
+npm ERR! gyp info spawn args &#x27;-Dvisibility=default&#x27;,
+npm ERR! gyp info spawn args &#x27;-Dnode_root_dir=/Users/wuxh/Library/Caches/node-gyp/18.19.1&#x27;,
+npm ERR! gyp info spawn args &#x27;-Dnode_gyp_dir=/Users/wuxh/.nvm/versions/node/v18.19.1/lib/node_modules/npm/node_modules/node-gyp&#x27;,
+npm ERR! gyp info spawn args &#x27;-Dnode_lib_file=/Users/wuxh/Library/Caches/node-gyp/18.19.1/&lt;(target_arch)/node.lib&#x27;,
+npm ERR! gyp info spawn args &#x27;-Dmodule_root_dir=/Users/wuxh/Code/oss/yft-design/node_modules/canvas&#x27;,
+npm ERR! gyp info spawn args &#x27;-Dnode_engine=v8&#x27;,
+npm ERR! gyp info spawn args &#x27;--depth=.&#x27;,
+npm ERR! gyp info spawn args &#x27;--no-parallel&#x27;,
+npm ERR! gyp info spawn args &#x27;--generator-output&#x27;,
+npm ERR! gyp info spawn args &#x27;build&#x27;,
+npm ERR! gyp info spawn args &#x27;-Goutput_dir=.&#x27;
+npm ERR! gyp info spawn args ]
+npm ERR! /bin/sh: pkg-config: command not found
+npm ERR! gyp: Call to &#x27;pkg-config pixman-1 --libs&#x27; returned exit status 127 while in binding.gyp. while trying to load binding.gyp
+npm ERR! gyp ERR! configure error
+npm ERR! gyp ERR! stack Error: `gyp` failed with exit code: 1
+npm ERR! gyp ERR! stack at ChildProcess.&lt;anonymous&gt; (/Users/wuxh/.nvm/versions/node/v18.19.1/lib/node_modules/npm/node_modules/node-gyp/lib/configure.js:271:18)
+npm ERR! gyp ERR! stack at ChildProcess.emit (node:events:517:28)
+npm ERR! gyp ERR! stack at ChildProcess._handle.onexit (node:internal/child_process:292:12)
+npm ERR! gyp ERR! System Darwin 23.3.0
+npm ERR! gyp ERR! command &quot;/Users/wuxh/.nvm/versions/node/v18.19.1/bin/node&quot; &quot;/Users/wuxh/.nvm/versions/node/v18.19.1/lib/node_modules/npm/node_modules/node-gyp/bin/node-gyp.js&quot; &quot;configure&quot; &quot;--fallback-to-build&quot; &quot;--update-binary&quot; &quot;--module=/Users/wuxh/Code/oss/yft-design/node_modules/canvas/build/Release/canvas.node&quot; &quot;--module_name=canvas&quot; &quot;--module_path=/Users/wuxh/Code/oss/yft-design/node_modules/canvas/build/Release&quot; &quot;--napi_version=9&quot; &quot;--node_abi_napi=napi&quot; &quot;--napi_build_version=0&quot; &quot;--node_napi_label=node-v108&quot;
+npm ERR! gyp ERR! cwd /Users/wuxh/Code/oss/yft-design/node_modules/canvas
+npm ERR! gyp ERR! node -v v18.19.1
+npm ERR! gyp ERR! node-gyp -v v10.0.1
+npm ERR! gyp ERR! not ok
+npm ERR! node-pre-gyp ERR! build error
+npm ERR! node-pre-gyp ERR! stack Error: Failed to execute &#x27;/Users/wuxh/.nvm/versions/node/v18.19.1/bin/node /Users/wuxh/.nvm/versions/node/v18.19.1/lib/node_modules/npm/node_modules/node-gyp/bin/node-gyp.js configure --fallback-to-build --update-binary --module=/Users/wuxh/Code/oss/yft-design/node_modules/canvas/build/Release/canvas.node --module_name=canvas --module_path=/Users/wuxh/Code/oss/yft-design/node_modules/canvas/build/Release --napi_version=9 --node_abi_napi=napi --napi_build_version=0 --node_napi_label=node-v108&#x27; (1)
+npm ERR! node-pre-gyp ERR! stack     at ChildProcess.&lt;anonymous&gt; (/Users/wuxh/Code/oss/yft-design/node_modules/@mapbox/node-pre-gyp/lib/util/compile.js:89:23)
+npm ERR! node-pre-gyp ERR! stack     at ChildProcess.emit (node:events:517:28)
+npm ERR! node-pre-gyp ERR! stack     at maybeClose (node:internal/child_process:1098:16)
+npm ERR! node-pre-gyp ERR! stack     at ChildProcess._handle.onexit (node:internal/child_process:303:5)
+npm ERR! node-pre-gyp ERR! System Darwin 23.3.0
+npm ERR! node-pre-gyp ERR! command &quot;/Users/wuxh/.nvm/versions/node/v18.19.1/bin/node&quot; &quot;/Users/wuxh/Code/oss/yft-design/node_modules/.bin/node-pre-gyp&quot; &quot;install&quot; &quot;--fallback-to-build&quot; &quot;--update-binary&quot;
+npm ERR! node-pre-gyp ERR! cwd /Users/wuxh/Code/oss/yft-design/node_modules/canvas
+npm ERR! node-pre-gyp ERR! node -v v18.19.1
+npm ERR! node-pre-gyp ERR! node-pre-gyp -v v1.0.11
+npm ERR! node-pre-gyp ERR! not ok
+
+npm ERR! A complete log of this run can be found in: /Users/wuxh/.npm/_logs/2024-04-02T14_38_31_913Z-debug-0.log</code></pre></details><p>解决方案: <a target="_blank" rel="noopener" href="https://github.com/Automattic/node-canvas/issues/1733#issuecomment-808916786">Can’t install on Apple M1</a>、<a target="_blank" rel="noopener" href="https://github.com/Automattic/node-canvas?tab=readme-ov-file#compiling">node-canvas#Compiling</a></p><h3 id="node-sass"><a href="#node-sass" class="headerlink" title="node-sass"></a>node-sass</h3><p>源文加速：</p><pre><code class="hljs plaintext">export SASS_BINARY_SITE=&quot;https://cdn.npmmirror.com/binaries/node-sass&quot;</code></pre><h3 id="tree-sitter-yaml"><a href="#tree-sitter-yaml" class="headerlink" title="tree-sitter-yaml"></a>tree-sitter-yaml</h3><p><em>错误日志:</em></p><details><summary>Click to expand</summary><pre><code class="hljs plaintext">Packages are hard linked from the content-addressable store to the virtual store.
+  Content-addressable store is at: /Users/wuxh/Library/pnpm/store/v3
+  Virtual store is at:             node_modules/.pnpm
+Progress: resolved 2399, reused 2399, downloaded 0, added 2405, done
+node_modules/.pnpm/tree-sitter-json@0.20.2/node_modules/tree-sitter-json: Running install script...
+node_modules/.pnpm/tree-sitter-yaml@0.5.0/node_modules/tree-sitter-yaml: Running install script, failed in 602ms
+.../node_modules/tree-sitter-yaml install$ node-gyp rebuild
+│ gyp info it worked if it ends with ok
+│ gyp info using node-gyp@9.3.1
+│ gyp info using node@18.20.2 | darwin | arm64
+node_modules/.pnpm/tree-sitter-json@0.20.2/node_modules/tree-sitter-json: Running install script, failed in 1.7s
+.../node_modules/tree-sitter-json install$ node-gyp rebuild
+│ gyp info it worked if it ends with ok
+│ gyp info using node-gyp@9.3.1
+│ gyp info using node@18.20.2 | darwin | arm64
+│ gyp info find Python using Python version 3.12.2 found at &quot;/opt/homebrew/opt/python@3.12/bin/python3.12&quot;
+│ gyp info spawn /opt/homebrew/opt/python@3.12/bin/python3.12
+│ gyp info spawn args [
+│ gyp info spawn args   &#x27;/Users/wuxh/.nvm/versions/node/v18.20.2/lib/node_modules/pnpm/dist/node_modules/node-gyp/gyp/gyp_main.py&#x27;,yaml/build/config
+│ gyp info spawn args   &#x27;binding.gyp&#x27;,
+│ gyp info spawn args   &#x27;-f&#x27;,
+│ gyp info spawn args   &#x27;make&#x27;,
+│ gyp info spawn args   &#x27;-I&#x27;,
+│ gyp info spawn args   &#x27;/Users/wuxh/Code/oss/lobehub/lobe-chat/node_modules/.pnpm/tree-sitter-json@0.20.2/node_modules/tree-sitter-json/build/confi
+│ gyp info spawn args   &#x27;-I&#x27;,
+│ gyp info spawn args   &#x27;/Users/wuxh/.nvm/versions/node/v18.20.2/lib/node_modules/pnpm/dist/node_modules/node-gyp/addon.gypi&#x27;,
+│ gyp info spawn args   &#x27;-I&#x27;,
+│ gyp info spawn args   &#x27;/Users/wuxh/Library/Caches/node-gyp/18.20.2/include/node/common.gypi&#x27;,rch)/node.lib&#x27;,
+│ gyp info spawn args   &#x27;-Dlibrary=shared_library&#x27;,
+│ gyp info spawn args   &#x27;-Dvisibility=default&#x27;,
+│ gyp info spawn args   &#x27;-Dnode_root_dir=/Users/wuxh/Library/Caches/node-gyp/18.20.2&#x27;,
+│ gyp info spawn args   &#x27;-Dnode_gyp_dir=/Users/wuxh/.nvm/versions/node/v18.20.2/lib/node_modules/pnpm/dist/node_modules/node-gyp&#x27;,
+│ gyp info spawn args   &#x27;-Dnode_lib_file=/Users/wuxh/Library/Caches/node-gyp/18.20.2/&lt;(target_arch)/node.lib&#x27;,
+│ gyp info spawn args   &#x27;-Dmodule_root_dir=/Users/wuxh/Code/oss/lobehub/lobe-chat/node_modules/.pnpm/tree-sitter-json@0.20.2/node_modules/tree-sitte
+│ gyp info spawn args   &#x27;-Dnode_engine=v8&#x27;,
+│ gyp info spawn args   &#x27;--depth=.&#x27;,
+│ gyp info spawn args   &#x27;--no-parallel&#x27;,
+│ gyp info spawn args   &#x27;--generator-output&#x27;,20.2/lib/node_modules/pnpm/dist/node_modules/node-gyp/gyp/gyp_main.py&quot;, line 42, in &lt;module&gt;
+│ gyp info spawn args   &#x27;build&#x27;,
+│ gyp info spawn args   &#x27;-Goutput_dir=.&#x27;
+│ gyp info spawn args ]
+│ Traceback (most recent call last):
+│   File &quot;/Users/wuxh/.nvm/versions/node/v18.20.2/lib/node_modules/pnpm/dist/node_modules/node-gyp/gyp/gyp_main.py&quot;, line 42, in &lt;module&gt;module&gt;
+│     import gyp  # noqa: E402
+│     ^^^^^^^^^^
+│   File &quot;/Users/wuxh/.nvm/versions/node/v18.20.2/lib/node_modules/pnpm/dist/node_modules/node-gyp/gyp/pylib/gyp/__init__.py&quot;, line 9, in &lt;module&gt;
+│     import gyp.input
+│   File &quot;/Users/wuxh/.nvm/versions/node/v18.20.2/lib/node_modules/pnpm/dist/node_modules/node-gyp/gyp/pylib/gyp/input.py&quot;, line 19, in &lt;module&gt;igur
+│     from distutils.version import StrictVersion
+│ ModuleNotFoundError: No module named &#x27;distutils&#x27;t (node:internal/child_process:292:12)
+│ gyp ERR! configure error
+│ gyp ERR! stack Error: `gyp` failed with exit code: 1.20.2/bin/node&quot; &quot;/Users/wuxh/.nvm/versions/node/v18.20.2/lib/node_modules/pnpm/dist/node_modul
+│ gyp ERR! stack     at ChildProcess.onCpExit (/Users/wuxh/.nvm/versions/node/v18.20.2/lib/node_modules/pnpm/dist/node_modules/node-gyp/lib/configur
+│ gyp ERR! stack     at ChildProcess.emit (node:events:517:28)
+│ gyp ERR! stack     at ChildProcess._handle.onexit (node:internal/child_process:292:12)
+│ gyp ERR! System Darwin 23.3.0
+│ gyp ERR! command &quot;/Users/wuxh/.nvm/versions/node/v18.20.2/bin/node&quot; &quot;/Users/wuxh/.nvm/versions/node/v18.20.2/lib/node_modules/pnpm/dist/node_modul
+│ gyp ERR! cwd /Users/wuxh/Code/oss/lobehub/lobe-chat/node_modules/.pnpm/tree-sitter-json@0.20.2/node_modules/tree-sitter-json
+│ gyp ERR! node -v v18.20.2
+│ gyp ERR! node-gyp -v v9.3.1
+│ gyp ERR! not ok
+└─ Failed in 1.7s at /Users/wuxh/Code/oss/lobehub/lobe-chat/node_modules/.pnpm/tree-sitter-json@0.20.2/node_modules/tree-sitter-json
+node_modules/.pnpm/tree-sitter-yaml@0.5.0/node_modules/tree-sitter-yaml: Running install script, failed in 602ms
+.../node_modules/tree-sitter-yaml install$ node-gyp rebuild
+│ gyp info it worked if it ends with ok
+│ gyp info using node-gyp@9.3.1
+│ gyp info using node@18.20.2 | darwin | arm64
+│ gyp info find Python using Python version 3.12.2 found at &quot;/opt/homebrew/opt/python@3.12/bin/python3.12&quot;
+│ gyp info spawn /opt/homebrew/opt/python@3.12/bin/python3.12
+│ gyp info spawn args [
+│ gyp info spawn args   &#x27;/Users/wuxh/.nvm/versions/node/v18.20.2/lib/node_modules/pnpm/dist/node_modules/node-gyp/gyp/gyp_main.py&#x27;,
+│ gyp info spawn args   &#x27;binding.gyp&#x27;,
+│ gyp info spawn args   &#x27;-f&#x27;,
+│ gyp info spawn args   &#x27;make&#x27;,
+│ gyp info spawn args   &#x27;-I&#x27;,
+│ gyp info spawn args   &#x27;/Users/wuxh/Code/oss/lobehub/lobe-chat/node_modules/.pnpm/tree-sitter-yaml@0.5.0/node_modules/tree-sitter-yaml/build/config
+│ gyp info spawn args   &#x27;-I&#x27;,
+│ gyp info spawn args   &#x27;/Users/wuxh/.nvm/versions/node/v18.20.2/lib/node_modules/pnpm/dist/node_modules/node-gyp/addon.gypi&#x27;,
+│ gyp info spawn args   &#x27;-I&#x27;,
+│ gyp info spawn args   &#x27;/Users/wuxh/Library/Caches/node-gyp/18.20.2/include/node/common.gypi&#x27;,
+│ gyp info spawn args   &#x27;-Dlibrary=shared_library&#x27;,
+│ gyp info spawn args   &#x27;-Dvisibility=default&#x27;,
+│ gyp info spawn args   &#x27;-Dnode_root_dir=/Users/wuxh/Library/Caches/node-gyp/18.20.2&#x27;,
+│ gyp info spawn args   &#x27;-Dnode_gyp_dir=/Users/wuxh/.nvm/versions/node/v18.20.2/lib/node_modules/pnpm/dist/node_modules/node-gyp&#x27;,
+│ gyp info spawn args   &#x27;-Dnode_lib_file=/Users/wuxh/Library/Caches/node-gyp/18.20.2/&lt;(target_arch)/node.lib&#x27;,
+│ gyp info spawn args   &#x27;-Dmodule_root_dir=/Users/wuxh/Code/oss/lobehub/lobe-chat/node_modules/.pnpm/tree-sitter-yaml@0.5.0/node_modules/tree-sitter
+│ gyp info spawn args   &#x27;-Dnode_engine=v8&#x27;,
+│ gyp info spawn args   &#x27;--depth=.&#x27;,
+│ gyp info spawn args   &#x27;--no-parallel&#x27;,
+│ gyp info spawn args   &#x27;--generator-output&#x27;,
+│ gyp info spawn args   &#x27;build&#x27;,
+│ gyp info spawn args   &#x27;-Goutput_dir=.&#x27;
+│ gyp info spawn args ]
+│ Traceback (most recent call last):
+│   File &quot;/Users/wuxh/.nvm/versions/node/v18.20.2/lib/node_modules/pnpm/dist/node_modules/node-gyp/gyp/gyp_main.py&quot;, line 42, in &lt;module&gt;
+│     import gyp  # noqa: E402
+│     ^^^^^^^^^^
+│   File &quot;/Users/wuxh/.nvm/versions/node/v18.20.2/lib/node_modules/pnpm/dist/node_modules/node-gyp/gyp/pylib/gyp/__init__.py&quot;, line 9, in &lt;module&gt;
+│     import gyp.input
+│   File &quot;/Users/wuxh/.nvm/versions/node/v18.20.2/lib/node_modules/pnpm/dist/node_modules/node-gyp/gyp/pylib/gyp/input.py&quot;, line 19, in &lt;module&gt;
+│     from distutils.version import StrictVersion
+│ ModuleNotFoundError: No module named &#x27;distutils&#x27;
+│ gyp ERR! configure error
+│ gyp ERR! stack Error: `gyp` failed with exit code: 1
+│ gyp ERR! stack     at ChildProcess.onCpExit (/Users/wuxh/.nvm/versions/node/v18.20.2/lib/node_modules/pnpm/dist/node_modules/node-gyp/lib/configur
+│ gyp ERR! stack     at ChildProcess.emit (node:events:517:28)
+│ gyp ERR! stack     at ChildProcess._handle.onexit (node:internal/child_process:292:12)
+│ gyp ERR! System Darwin 23.3.0
+│ gyp ERR! command &quot;/Users/wuxh/.nvm/versions/node/v18.20.2/bin/node&quot; &quot;/Users/wuxh/.nvm/versions/node/v18.20.2/lib/node_modules/pnpm/dist/node_modul
+│ gyp ERR! cwd /Users/wuxh/Code/oss/lobehub/lobe-chat/node_modules/.pnpm/tree-sitter-yaml@0.5.0/node_modules/tree-sitter-yaml
+│ gyp ERR! node -v v18.20.2
+│ gyp ERR! node-gyp -v v9.3.1
+│ gyp ERR! not ok
+└─ Failed in 602ms at /Users/wuxh/Code/oss/lobehub/lobe-chat/node_modules/.pnpm/tree-sitter-yaml@0.5.0/node_modules/tree-sitter-yaml
+node_modules/.pnpm/tree-sitter@0.20.4/node_modules/tree-sitter: Running install script, failed in 4.4s
+.../node_modules/tree-sitter install$ prebuild-install || node-gyp rebuild
+│ prebuild-install warn install No prebuilt binaries found (target=18.20.2 runtime=node arch=arm64 libc= platform=darwin)
+│ gyp info it worked if it ends with ok
+│ gyp info using node-gyp@9.3.1
+│ gyp info using node@18.20.2 | darwin | arm64
+│ gyp info find Python using Python version 3.12.2 found at &quot;/opt/homebrew/opt/python@3.12/bin/python3.12&quot;
+│ gyp info spawn /opt/homebrew/opt/python@3.12/bin/python3.12
+│ gyp info spawn args [
+│ gyp info spawn args   &#x27;/Users/wuxh/.nvm/versions/node/v18.20.2/lib/node_modules/pnpm/dist/node_modules/node-gyp/gyp/gyp_main.py&#x27;,
+│ gyp info spawn args   &#x27;binding.gyp&#x27;,
+│ gyp info spawn args   &#x27;-f&#x27;,
+│ gyp info spawn args   &#x27;make&#x27;,
+│ gyp info spawn args   &#x27;-I&#x27;,
+│ gyp info spawn args   &#x27;/Users/wuxh/Code/oss/lobehub/lobe-chat/node_modules/.pnpm/tree-sitter@0.20.4/node_modules/tree-sitter/build/config.gypi&#x27;,
+│ gyp info spawn args   &#x27;-I&#x27;,
+│ gyp info spawn args   &#x27;/Users/wuxh/.nvm/versions/node/v18.20.2/lib/node_modules/pnpm/dist/node_modules/node-gyp/addon.gypi&#x27;,
+│ gyp info spawn args   &#x27;-I&#x27;,
+│ gyp info spawn args   &#x27;/Users/wuxh/Library/Caches/node-gyp/18.20.2/include/node/common.gypi&#x27;,
+│ gyp info spawn args   &#x27;-Dlibrary=shared_library&#x27;,
+│ gyp info spawn args   &#x27;-Dvisibility=default&#x27;,
+│ gyp info spawn args   &#x27;-Dnode_root_dir=/Users/wuxh/Library/Caches/node-gyp/18.20.2&#x27;,
+│ gyp info spawn args   &#x27;-Dnode_gyp_dir=/Users/wuxh/.nvm/versions/node/v18.20.2/lib/node_modules/pnpm/dist/node_modules/node-gyp&#x27;,
+│ gyp info spawn args   &#x27;-Dnode_lib_file=/Users/wuxh/Library/Caches/node-gyp/18.20.2/&lt;(target_arch)/node.lib&#x27;,
+│ gyp info spawn args   &#x27;-Dmodule_root_dir=/Users/wuxh/Code/oss/lobehub/lobe-chat/node_modules/.pnpm/tree-sitter@0.20.4/node_modules/tree-sitter&#x27;,
+│ gyp info spawn args   &#x27;-Dnode_engine=v8&#x27;,
+│ gyp info spawn args   &#x27;--depth=.&#x27;,
+│ gyp info spawn args   &#x27;--no-parallel&#x27;,
+│ gyp info spawn args   &#x27;--generator-output&#x27;,
+│ gyp info spawn args   &#x27;build&#x27;,
+│ gyp info spawn args   &#x27;-Goutput_dir=.&#x27;
+│ gyp info spawn args ]
+│ Traceback (most recent call last):
+│   File &quot;/Users/wuxh/.nvm/versions/node/v18.20.2/lib/node_modules/pnpm/dist/node_modules/node-gyp/gyp/gyp_main.py&quot;, line 42, in &lt;module&gt;
+│     import gyp  # noqa: E402
+│     ^^^^^^^^^^
+│   File &quot;/Users/wuxh/.nvm/versions/node/v18.20.2/lib/node_modules/pnpm/dist/node_modules/node-gyp/gyp/pylib/gyp/__init__.py&quot;, line 9, in &lt;module&gt;
+│     import gyp.input
+│   File &quot;/Users/wuxh/.nvm/versions/node/v18.20.2/lib/node_modules/pnpm/dist/node_modules/node-gyp/gyp/pylib/gyp/input.py&quot;, line 19, in &lt;module&gt;
+│     from distutils.version import StrictVersion
+│ ModuleNotFoundError: No module named &#x27;distutils&#x27;
+│ gyp ERR! configure error
+│ gyp ERR! stack Error: `gyp` failed with exit code: 1
+│ gyp ERR! stack     at ChildProcess.onCpExit (/Users/wuxh/.nvm/versions/node/v18.20.2/lib/node_modules/pnpm/dist/node_modules/node-gyp/lib/configur
+│ gyp ERR! stack     at ChildProcess.emit (node:events:517:28)
+│ gyp ERR! stack     at ChildProcess._handle.onexit (node:internal/child_process:292:12)
+│ gyp ERR! System Darwin 23.3.0
+│ gyp ERR! command &quot;/Users/wuxh/.nvm/versions/node/v18.20.2/bin/node&quot; &quot;/Users/wuxh/.nvm/versions/node/v18.20.2/lib/node_modules/pnpm/dist/node_modul
+│ gyp ERR! cwd /Users/wuxh/Code/oss/lobehub/lobe-chat/node_modules/.pnpm/tree-sitter@0.20.4/node_modules/tree-sitter
+│ gyp ERR! node -v v18.20.2
+│ gyp ERR! node-gyp -v v9.3.1
+│ gyp ERR! not ok
+└─ Failed in 4.4s at /Users/wuxh/Code/oss/lobehub/lobe-chat/node_modules/.pnpm/tree-sitter@0.20.4/node_modules/tree-sitter
+ ELIFECYCLE  Command failed with exit code 1.</code></pre></details><p>解决方案：<a target="_blank" rel="noopener" href="https://stackoverflow.com/a/76691103/13086128">https://stackoverflow.com/a/76691103/13086128</a></p></div><p class="post-license"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener noreferrer">CC BY-NC-SA 4.0</a> 2018–PRESENT © Wuxh</p><p class="post-back"><a href="/">cd ..</a> <a href="/frontend-python-deps.md">.md</a></p></article><div class="comments"><script src="https://giscus.app/client.js" data-repo="Wxh16144/wxh16144.github.io" data-repo-id="MDEwOlJlcG9zaXRvcnkzMjQ3NTI1NzU=" data-category="Comments" data-category-id="DIC_kwDOE1tUv84DEIG7" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="preferred_color_scheme" data-lang="zh-CN" data-loading="lazy" crossorigin="anonymous" async></script></div></main><hr class="dashed"><footer class="site-footer"><span>2018~2026 Wuxh</span></footer></div></body></html>

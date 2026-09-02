@@ -1,0 +1,46 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Docker 创建 npm 私服 - Wxh16144</title><meta name="description" content="知道的越多, 不知道的就越多"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/style.css"><link rel="stylesheet" href="https://registry.npmmirror.com/github-markdown-css/5.9.0/files/github-markdown.css"><link rel="stylesheet" href="https://registry.npmmirror.com/highlight.js/11.12.0/files/styles/github.min.css" media="(prefers-color-scheme:light)"><link rel="stylesheet" href="https://registry.npmmirror.com/highlight.js/11.12.0/files/styles/github-dark.min.css" media="(prefers-color-scheme:dark)"><script src="/js/bundle.js" defer="defer"></script><meta name="generator" content="Hexo 8.1.2"></head><body><div class="container"><header class="site-header"><a class="site-title" href="/">Wxh16144</a><nav class="site-nav"><a href="/about/">about</a> <a href="/bookmarks/">bookmarks</a> <a href="/notes/">notes</a><details class="links-toggle"><summary>find me</summary><div class="links-list"><span class="links-hint">$ npx wxh16144</span> <a href="https://github.com/wxh16144" target="_blank" rel="noopener noreferrer">github</a> <a href="https://twitter.com/wxh16144" target="_blank" rel="noopener noreferrer">twitter</a> <a href="https://x.com/wxh16144" target="_blank" rel="noopener noreferrer">x</a> <a href="https://weibo.com/wxh16144" target="_blank" rel="noopener noreferrer">weibo</a> <a href="https://zhihu.com/people/wxh16144" target="_blank" rel="noopener noreferrer">zhihu</a> <a href="https://t.me/wxh16144" target="_blank" rel="noopener noreferrer">telegram</a> <a href="https://wxh16144.github.io" target="_blank" rel="noopener noreferrer">blog</a> <a href="mailto:wxh16144@qq.com" target="_blank" rel="noopener noreferrer">email</a> <a href="https://dev.to/wxh16144" target="_blank" rel="noopener noreferrer">dev</a> <a href="https://npmjs.com/~wxh16144" target="_blank" rel="noopener noreferrer">npm</a> <a href="https://hub.docker.com/u/wxh16144" target="_blank" rel="noopener noreferrer">docker</a> <a href="https://v2ex.com/member/wxh16144" target="_blank" rel="noopener noreferrer">v2ex</a> <a href="https://wakatime.com/@wxh16144" target="_blank" rel="noopener noreferrer">wakatime</a> <a href="https://strava.com/athletes/wxh16144" target="_blank" rel="noopener noreferrer">strava</a> <a href="https://steamcommunity.com/id/wxh16144" target="_blank" rel="noopener noreferrer">steam</a></div></details></nav></header><hr class="dashed"><main class="main"><nav class="page-toc" id="page-toc"><button class="toc-toggle" type="button" aria-expanded="false" aria-controls="page-toc-list"><span>目录</span> <span class="toc-toggle-icon" aria-hidden="true"></span></button><div class="toc-list" id="page-toc-list"><a class="toc-lv-3" href="#docker-compose-yml" data-target="docker-compose-yml">docker-compose.yml</a> <a class="toc-lv-3" href="#修改配置" data-target="修改配置">修改配置</a> <a class="toc-lv-3" href="#参考文档" data-target="参考文档">参考文档</a></div></nav><article class="post"><h1 class="page-title">Docker 创建 npm 私服</h1><div class="post-meta">2021-11-27</div><div class="markdown-body"><p> 记录一下如何使用 Docker 和 verdaccio 部署 NPM 私服。</p><span id="more"></span><h3 id="docker-compose-yml"><a href="#docker-compose-yml" class="headerlink" title="docker-compose.yml"></a>docker-compose.yml</h3><pre><code class="hljs yml"><span class="hljs-attr">version:</span> <span class="hljs-string">&#x27;3.4&#x27;</span>
+<span class="hljs-attr">services:</span>
+  <span class="hljs-attr">verdaccio:</span>
+    <span class="hljs-attr">image:</span> <span class="hljs-string">verdaccio/verdaccio:5.1</span> <span class="hljs-comment"># 建议使用指定版本号。</span>
+    <span class="hljs-attr">container_name:</span> <span class="hljs-string">&#x27;my_npm&#x27;</span>
+    <span class="hljs-attr">environment:</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-string">VERDACCIO_PORT=4873</span>
+    <span class="hljs-attr">ports:</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-string">&#x27;80:4873&#x27;</span>
+    <span class="hljs-attr">volumes:</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-string">&#x27;./storage:/verdaccio/storage&#x27;</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-string">&#x27;./config:/verdaccio/conf&#x27;</span>
+      <span class="hljs-bullet">-</span> <span class="hljs-string">&#x27;./plugins:/verdaccio/plugins&#x27;</span></code></pre><p>使用 <code>docker-compose up -d</code> 创建容器。稍候打开 <a target="_blank" rel="noopener" href="http://localhost/">http://localhose:80</a> 即可访问,</p><h3 id="修改配置"><a href="#修改配置" class="headerlink" title="修改配置"></a>修改配置</h3><p>修改 <code>./config/config.yaml</code> 文件</p><pre><code class="hljs yml"><span class="hljs-attr">storage:</span> <span class="hljs-string">/verdaccio/storage</span>
+<span class="hljs-attr">auth:</span>
+  <span class="hljs-attr">htpasswd:</span>
+    <span class="hljs-attr">file:</span> <span class="hljs-string">/verdaccio/conf/htpasswd</span>
+    <span class="hljs-attr">max_users:</span> <span class="hljs-number">-1</span> <span class="hljs-comment"># 设置为-1 表示禁止注册 (建议一开始不设置，自己注册一个账号后再进行设置)</span>
+<span class="hljs-attr">uplinks:</span>
+  <span class="hljs-attr">npmjs:</span>
+    <span class="hljs-attr">url:</span> <span class="hljs-string">https://registry.npm.taobao.org/</span> <span class="hljs-comment"># 如果安装包找不到时使用 taobao 源</span>
+<span class="hljs-attr">packages:</span>
+  <span class="hljs-comment"># 指定组织的权限</span>
+  <span class="hljs-string">&#x27;@company/*&#x27;</span><span class="hljs-string">:</span>
+    <span class="hljs-attr">access:</span> <span class="hljs-string">$authenticated</span> <span class="hljs-comment"># 登录用户可查看该组织的 package</span>
+    <span class="hljs-attr">publish:</span> <span class="hljs-string">$authenticated</span>
+    <span class="hljs-attr">unpublish:</span> <span class="hljs-string">$authenticated</span>
+    <span class="hljs-attr">proxy:</span> <span class="hljs-string">npmjs</span> <span class="hljs-comment"># 前面设置的源文件地址</span>
+  <span class="hljs-string">&#x27;@wuxh/*&#x27;</span><span class="hljs-string">:</span>
+    <span class="hljs-attr">access:</span> <span class="hljs-string">$all</span>
+    <span class="hljs-attr">publish:</span> <span class="hljs-string">$authenticated</span>
+    <span class="hljs-attr">unpublish:</span> <span class="hljs-string">$authenticated</span>
+    <span class="hljs-attr">proxy:</span> <span class="hljs-string">npmjs</span>
+  <span class="hljs-string">&#x27;**&#x27;</span><span class="hljs-string">:</span>
+    <span class="hljs-attr">access:</span> <span class="hljs-string">$all</span>
+    <span class="hljs-attr">publish:</span> <span class="hljs-string">$authenticated</span>
+    <span class="hljs-attr">unpublish:</span> <span class="hljs-string">$authenticated</span>
+    <span class="hljs-attr">proxy:</span> <span class="hljs-string">npmjs</span>
+<span class="hljs-attr">logs:</span>
+  <span class="hljs-bullet">-</span> &#123; <span class="hljs-attr">type:</span> <span class="hljs-string">stdout</span>, <span class="hljs-attr">format:</span> <span class="hljs-string">pretty</span>, <span class="hljs-attr">level:</span> <span class="hljs-string">http</span> &#125;
+<span class="hljs-attr">web:</span>
+  <span class="hljs-attr">enable:</span> <span class="hljs-literal">true</span>
+  <span class="hljs-attr">title:</span> <span class="hljs-string">Wuxh-npm</span>
+<span class="hljs-attr">i18n:</span>
+  <span class="hljs-attr">web:</span> <span class="hljs-string">zh-CN</span>
+<span class="hljs-attr">publish:</span>
+  <span class="hljs-attr">allow_offline:</span> <span class="hljs-literal">false</span></code></pre><h3 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h3><ul><li><a target="_blank" rel="noopener" href="https://verdaccio.org/zh-cn/docs/docker/">Verdaccio Docker 官方文档</a></li><li><a target="_blank" rel="noopener" href="https://segmentfault.com/a/1190000020684605">Verdaccio 使用 Docker 安装及迁移教程</a></li></ul></div><p class="post-license"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener noreferrer">CC BY-NC-SA 4.0</a> 2018–PRESENT © Wuxh</p><p class="post-back"><a href="/">cd ..</a> <a href="/docker-npm-registry.md">.md</a></p></article><div class="comments"><script src="https://giscus.app/client.js" data-repo="Wxh16144/wxh16144.github.io" data-repo-id="MDEwOlJlcG9zaXRvcnkzMjQ3NTI1NzU=" data-category="Comments" data-category-id="DIC_kwDOE1tUv84DEIG7" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="preferred_color_scheme" data-lang="zh-CN" data-loading="lazy" crossorigin="anonymous" async></script></div></main><hr class="dashed"><footer class="site-footer"><span>2018~2026 Wuxh</span></footer></div></body></html>

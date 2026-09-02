@@ -1,0 +1,142 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Ant Design 自定义组件空状态速记 - Wxh16144</title><meta name="description" content="知道的越多, 不知道的就越多"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/style.css"><link rel="stylesheet" href="https://registry.npmmirror.com/github-markdown-css/5.9.0/files/github-markdown.css"><link rel="stylesheet" href="https://registry.npmmirror.com/highlight.js/11.12.0/files/styles/github.min.css" media="(prefers-color-scheme:light)"><link rel="stylesheet" href="https://registry.npmmirror.com/highlight.js/11.12.0/files/styles/github-dark.min.css" media="(prefers-color-scheme:dark)"><script src="/js/bundle.js" defer="defer"></script><meta name="generator" content="Hexo 8.1.2"></head><body><div class="container"><header class="site-header"><a class="site-title" href="/">Wxh16144</a><nav class="site-nav"><a href="/about/">about</a> <a href="/bookmarks/">bookmarks</a> <a href="/notes/">notes</a><details class="links-toggle"><summary>find me</summary><div class="links-list"><span class="links-hint">$ npx wxh16144</span> <a href="https://github.com/wxh16144" target="_blank" rel="noopener noreferrer">github</a> <a href="https://twitter.com/wxh16144" target="_blank" rel="noopener noreferrer">twitter</a> <a href="https://x.com/wxh16144" target="_blank" rel="noopener noreferrer">x</a> <a href="https://weibo.com/wxh16144" target="_blank" rel="noopener noreferrer">weibo</a> <a href="https://zhihu.com/people/wxh16144" target="_blank" rel="noopener noreferrer">zhihu</a> <a href="https://t.me/wxh16144" target="_blank" rel="noopener noreferrer">telegram</a> <a href="https://wxh16144.github.io" target="_blank" rel="noopener noreferrer">blog</a> <a href="mailto:wxh16144@qq.com" target="_blank" rel="noopener noreferrer">email</a> <a href="https://dev.to/wxh16144" target="_blank" rel="noopener noreferrer">dev</a> <a href="https://npmjs.com/~wxh16144" target="_blank" rel="noopener noreferrer">npm</a> <a href="https://hub.docker.com/u/wxh16144" target="_blank" rel="noopener noreferrer">docker</a> <a href="https://v2ex.com/member/wxh16144" target="_blank" rel="noopener noreferrer">v2ex</a> <a href="https://wakatime.com/@wxh16144" target="_blank" rel="noopener noreferrer">wakatime</a> <a href="https://strava.com/athletes/wxh16144" target="_blank" rel="noopener noreferrer">strava</a> <a href="https://steamcommunity.com/id/wxh16144" target="_blank" rel="noopener noreferrer">steam</a></div></details></nav></header><hr class="dashed"><main class="main"><nav class="page-toc" id="page-toc"><button class="toc-toggle" type="button" aria-expanded="false" aria-controls="page-toc-list"><span>目录</span> <span class="toc-toggle-icon" aria-hidden="true"></span></button><div class="toc-list" id="page-toc-list"><a class="toc-lv-3" href="#前排先总结" data-target="前排先总结">前排先总结</a> <a class="toc-lv-3" href="#带误区方案一" data-target="带误区方案一">带误区方案一</a> <a class="toc-lv-3" href="#方案二" data-target="方案二">方案二</a> <a class="toc-lv-3" href="#最后" data-target="最后">最后</a></div></nav><article class="post"><h1 class="page-title">Ant Design 自定义组件空状态速记</h1><div class="post-meta">2024-06-27</div><div class="markdown-body"><p>最近在 antd 社区看到一个关于 Table fitler 查询条件下拉框的空状态有关 PR</p><p>发现 antd 的很多逻辑并没有在文档详细说明，索性写一个速记笔记方便自己日后 CV。</p><span id="more"></span><p>笔记具有一定时效性，请注意当前笔记记录时 antd 最新版本是 <code>5.18.x</code></p><h3 id="前排先总结"><a href="#前排先总结" class="headerlink" title="前排先总结"></a>前排先总结</h3><ol><li><p>自定义要求不高，仅仅只是为空状态做一个静态展示，没有任何交互。可以使用 <code>&lt;ConfigProvider /&gt;</code> 的 <code>renderEmpty</code> 全局修改。（⚠️ 没办法具体细分到是否是 <code>&lt;Select /&gt;</code> 还是 <code>&lt;TreeSelect /&gt;</code></p></li><li><p>强自定义需求，空状态需要交互按钮等操作，不建议使用 <code>&lt;ConfigProvider /&gt;</code> 就近套组件，而是通过组件本身的 props 去实现</p></li></ol><p>通过 <a target="_blank" rel="noopener" href="https://github.com/ant-design/ant-design/commits/master/components/config-provider/defaultRenderEmpty.tsx">defaultRenderEmpty</a> 文件的历史记录不难发现目前支持自定义组件空状态的组件有 <code>Table</code>、<code>List</code>、<code>Select</code>、<code>TreeSelect</code>、<code>Cascader</code>、<code>Transfer</code>、<code>Mentions</code>。</p><h3 id="带误区方案一"><a href="#带误区方案一" class="headerlink" title="带误区方案一"></a>带误区方案一</h3><p>以往我自己的做法是通过为当前组件就近套 <code>&lt;ConfigProvider /&gt;</code> 组件用 <code>renderEmpty</code> 以实现自定义空状态</p><pre><code class="hljs tsx"><span class="hljs-keyword">import</span> <span class="hljs-title class_">React</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;react&#x27;</span>;
+<span class="hljs-keyword">import</span> &#123; <span class="hljs-title class_">ConfigProvider</span>, <span class="hljs-title class_">Table</span> &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;antd&#x27;</span>;
+<span class="hljs-keyword">import</span> <span class="hljs-keyword">type</span> &#123; <span class="hljs-title class_">TableProps</span> &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;antd&#x27;</span>;
+
+<span class="hljs-keyword">interface</span> <span class="hljs-title class_">MyTableProps</span>&lt;T&gt; <span class="hljs-keyword">extends</span> <span class="hljs-title class_">TableProps</span>&lt;T&gt; &#123;
+  empty?: <span class="hljs-title class_">React</span>.<span class="hljs-property">ReactNode</span>;
+&#125;
+
+<span class="hljs-keyword">const</span> <span class="hljs-title class_">MyTable</span> = &lt;T <span class="hljs-keyword">extends</span> <span class="hljs-title class_">Record</span>&lt;<span class="hljs-built_in">any</span>, <span class="hljs-built_in">any</span>&gt;,&gt;<span class="hljs-function">(<span class="hljs-params"><span class="hljs-attr">props</span>: <span class="hljs-title class_">MyTableProps</span>&lt;T&gt;</span>) =&gt;</span> &#123;
+  <span class="hljs-keyword">const</span> &#123; empty, ...restProps &#125; = props;
+  <span class="hljs-keyword">return</span> (
+    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">ConfigProvider</span> <span class="hljs-attr">renderEmpty</span>=<span class="hljs-string">&#123;()</span> =&gt;</span> empty&#125;&gt;</span>
+<span class="language-xml">      &lt;Table<span class="hljs-tag">&lt;<span class="hljs-name">T</span>&gt;</span> &#123;...restProps&#125; /&gt;</span>
+<span class="language-xml">    <span class="hljs-tag">&lt;/<span class="hljs-name">ConfigProvider</span>&gt;</span></span>
+<span class="language-xml">  )</span>
+<span class="language-xml">&#125;;</span>
+<span class="language-xml"></span>
+<span class="language-xml">export &#123; MyTable, type MyTableProps &#125;;</span></code></pre><p>上面这个例子看起来没太大问题，但其实埋了一个坑，因为 <code>&lt;ConfigProvider/&gt;</code> 是一个配置上下文，如果在 Table 中有一个声明式的 <code>&lt;Select /&gt;</code> 或者 <code>&lt;Cascader /&gt;</code> 则也会一同被修改。</p><p>😰示例代码</p><pre><code class="hljs tsx"><span class="hljs-keyword">function</span> <span class="hljs-title function_">App</span>(<span class="hljs-params"></span>) &#123;
+  <span class="hljs-keyword">const</span> data = [
+    &#123; <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;Tom&#x27;</span>, <span class="hljs-attr">age</span>: <span class="hljs-number">20</span> &#125;,
+    &#123; <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;Jerry&#x27;</span>, <span class="hljs-attr">age</span>: <span class="hljs-number">22</span> &#125;,
+  ];
+  <span class="hljs-keyword">const</span> columns = [
+    &#123; <span class="hljs-attr">title</span>: <span class="hljs-string">&#x27;Name&#x27;</span>, <span class="hljs-attr">key</span>: <span class="hljs-string">&#x27;name&#x27;</span> &#125;,
+    &#123;
+      <span class="hljs-attr">title</span>: <span class="hljs-string">&#x27;Age&#x27;</span>,
+      <span class="hljs-attr">key</span>: <span class="hljs-string">&#x27;age&#x27;</span>,
+      <span class="hljs-attr">render</span>: <span class="hljs-function">() =&gt;</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">Select</span> <span class="hljs-attr">style</span>=<span class="hljs-string">&#123;&#123;</span> <span class="hljs-attr">width:</span> <span class="hljs-attr">180</span> &#125;&#125; <span class="hljs-attr">options</span>=<span class="hljs-string">&#123;[]&#125;</span> /&gt;</span></span> <span class="hljs-comment">// 这里的空状态会被 CP 的 renderEmpty 覆盖</span>
+    &#125;,
+  ]
+  <span class="hljs-keyword">return</span> <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">MyTable</span> <span class="hljs-attr">columns</span>=<span class="hljs-string">&#123;columns&#125;</span> <span class="hljs-attr">dataSource</span>=<span class="hljs-string">&#123;data&#125;</span> <span class="hljs-attr">empty</span>=<span class="hljs-string">&#123;</span>&lt;<span class="hljs-attr">div</span>&gt;</span>Custom Empty<span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span>&#125; /&gt;</span>
+&#125;</code></pre><p>解决上面这个问题也很简单，通过 <code>renderEmpty</code> 提供的 入参来判断。（这里我们还是用了 CP组件 ）</p><pre><code class="hljs diff">   const &#123; empty, ...restProps &#125; = props;
+   return (
+<span class="hljs-deletion">-    &lt;ConfigProvider renderEmpty=&#123;() =&gt; empty&#125;&gt;</span>
+<span class="hljs-addition">+    &lt;ConfigProvider renderEmpty=&#123;(components) =&gt; components === &#x27;Table&#x27; ? empty : void 0&#125;&gt;</span>
+       &lt;Table&lt;T&gt; &#123;...restProps&#125; /&gt;
+     &lt;/ConfigProvider&gt;</code></pre><p>举一反三，如果我们需要自定义 <code>&lt;Select /&gt;</code> 的空状态其实也可以用就近套 <code>&lt;ConfigProvider /&gt;</code> 用 <code>renderEmpty</code> 的方式解决。</p><p>你以为这就结束了吗，继续往下看…</p><p>据我审查了 antd 代码，支持自定义 Empty 的组件中的 <code>TreeSelect</code>、<code>Mentions</code> 这两个组件的 <code>renderEmpty</code> 入参是不符合预期的(不知道是否有意如此)，从 4.0.0 其就是这样，没有完全根据 <a target="_blank" rel="noopener" href="https://github.com/ant-design/ant-design/blob/master/components/config-provider/defaultRenderEmpty.tsx">defaultRenderEmpty</a> 逻辑的 Switch Case 入参。</p><ul><li><a target="_blank" rel="noopener" href="https://github.com/ant-design/ant-design/blob/4.0.0/components/tree-select/index.tsx#L123">4.0.0 TreeSelect CP.renderEmpty 源代码处</a></li><li><a target="_blank" rel="noopener" href="https://github.com/ant-design/ant-design/blob/4.0.0/components/mentions/index.tsx#L105">4.0.0 Mentions CP.renderEmpty 源代码处</a></li></ul><p>所以通过就近为组件套 <code>&lt;ConfigProvider /&gt;</code> <strong>不是一个很好的方案</strong>。</p><p>但是想全局设置或许只有这一个解决方案，在 App 入口处全局配置一遍。</p><p>另外这里顺带提一句 <code>&lt;ConfigProvider /&gt;</code> 的 <code>renderEmpty</code> 可能不需要兜底，我们默认交给 antd 去兜底即可（因为当前 api 实现，我们的兜底行为，可能会导致 antd 上游添加 feature 时不好抉择，会出现 BREAKCHANGE）</p><pre><code class="hljs tsx"><span class="hljs-keyword">function</span> <span class="hljs-title function_">App</span>(<span class="hljs-params"></span>) &#123;
+  <span class="hljs-keyword">const</span> columns = [
+    &#123; <span class="hljs-attr">title</span>: <span class="hljs-string">&#x27;Name&#x27;</span>, <span class="hljs-attr">key</span>: <span class="hljs-string">&#x27;name&#x27;</span> &#125;,
+  ]
+
+  <span class="hljs-keyword">return</span> (
+    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">ConfigProvider</span></span></span>
+<span class="hljs-tag"><span class="language-xml">      <span class="hljs-attr">renderEmpty</span>=<span class="hljs-string">&#123;(components)</span> =&gt;</span> &#123;</span>
+<span class="language-xml">        if (components === &#x27;Table&#x27;) &#123;</span>
+<span class="language-xml">          return &#x27;foo&#x27;</span>
+<span class="language-xml">        &#125;</span>
+<span class="language-xml">        if (components === &#x27;List&#x27;) &#123;</span>
+<span class="language-xml">          return &#x27;bar&#x27;</span>
+<span class="language-xml">        &#125;</span>
+<span class="language-xml">        // 以下兜底行为推荐不写，交由 antd 默认处理</span>
+<span class="language-xml">        return &#x27;baz&#x27;</span>
+<span class="language-xml">      &#125;&#125;</span>
+<span class="language-xml">    &gt;</span>
+<span class="language-xml">      <span class="hljs-tag">&lt;<span class="hljs-name">MyTable</span> <span class="hljs-attr">columns</span>=<span class="hljs-string">&#123;columns&#125;</span> <span class="hljs-attr">dataSource</span>=<span class="hljs-string">&#123;[]&#125;/</span>&gt;</span></span>
+<span class="language-xml">    <span class="hljs-tag">&lt;/<span class="hljs-name">ConfigProvider</span>&gt;</span></span>
+  )
+&#125;</code></pre><h3 id="方案二"><a href="#方案二" class="headerlink" title="方案二"></a>方案二</h3><blockquote><p>单独使用组件的 props 实现自定义， 但是失去全局统一配置的便捷</p></blockquote><h4 id="Table-List"><a href="#Table-List" class="headerlink" title="Table&#x2F;List"></a>Table&#x2F;List</h4><p>审查代码发现 <code>&lt;Table /&gt;</code> 其实还可以通 <a target="_blank" rel="noopener" href="https://github.com/ant-design/ant-design/blob/8890eff05e0cb7596a702c51e658682e1757fc67/components/table/InternalTable.tsx#L551-L553">locale.emptyText</a> 去自定义空状态， <a target="_blank" rel="noopener" href="https://github.com/ant-design/ant-design/blob/8890eff05e0cb7596a702c51e658682e1757fc67/components/table/interface.ts#L46">其类型定义</a> 为 <code>emptyText?: React.ReactNode | (() =&gt; React.ReactNode);</code></p><p>所以 <code>&lt;Table /&gt;</code> 可以通过这样去实现空状态</p><pre><code class="hljs tsx"><span class="hljs-keyword">function</span> <span class="hljs-title function_">App</span>(<span class="hljs-params"></span>) &#123;
+  <span class="hljs-keyword">const</span> columns = [
+    &#123; <span class="hljs-attr">title</span>: <span class="hljs-string">&#x27;Name&#x27;</span>, <span class="hljs-attr">key</span>: <span class="hljs-string">&#x27;name&#x27;</span> &#125;,
+  ]
+
+  <span class="hljs-keyword">const</span> <span class="hljs-title function_">openFormAddData</span> = (<span class="hljs-params"></span>) =&gt; &#123;
+    <span class="hljs-comment">// some code</span>
+  &#125;
+
+  <span class="hljs-keyword">return</span> (
+    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">Table</span></span></span>
+<span class="hljs-tag"><span class="language-xml">      <span class="hljs-attr">columns</span>=<span class="hljs-string">&#123;columns&#125;</span></span></span>
+<span class="hljs-tag"><span class="language-xml">      <span class="hljs-attr">dataSource</span>=<span class="hljs-string">&#123;[]&#125;</span></span></span>
+<span class="hljs-tag"><span class="language-xml">      <span class="hljs-attr">locale</span>=<span class="hljs-string">&#123;&#123;</span></span></span>
+<span class="hljs-tag"><span class="language-xml">        <span class="hljs-attr">emptyText:</span> (</span></span>
+<span class="hljs-tag"><span class="language-xml">          &lt;&gt;</span></span>
+<span class="language-xml">            <span class="hljs-tag">&lt;<span class="hljs-name">Empty</span> <span class="hljs-attr">image</span>=<span class="hljs-string">&#123;Empty.PRESENTED_IMAGE_SIMPLE&#125;</span> <span class="hljs-attr">description</span>=<span class="hljs-string">&#123;null&#125;/</span>&gt;</span></span>
+<span class="language-xml">            <span class="hljs-tag">&lt;<span class="hljs-name">Button</span> <span class="hljs-attr">type</span>=<span class="hljs-string">&quot;primary&quot;</span> <span class="hljs-attr">onClick</span>=<span class="hljs-string">&#123;openFormAddData&#125;</span>&gt;</span></span>
+<span class="language-xml">              Add Data</span>
+<span class="language-xml">            <span class="hljs-tag">&lt;/<span class="hljs-name">Button</span>&gt;</span></span>
+<span class="language-xml">          <span class="hljs-tag">&lt;/&gt;</span></span>
+        )
+      &#125;&#125;
+    /&gt;
+  )
+&#125;</code></pre><p>注意 <code>&lt;List /&gt;</code> 的 <a target="_blank" rel="noopener" href="https://github.com/ant-design/ant-design/blob/8890eff05e0cb7596a702c51e658682e1757fc67/components/list/index.tsx#L274">locale.emptyText</a> <a target="_blank" rel="noopener" href="https://github.com/ant-design/ant-design/blob/8890eff05e0cb7596a702c51e658682e1757fc67/components/list/index.tsx#L67-L69">类型定义</a> 为 <code>emptyText: React.ReactNode;</code>，同样也能很方便的自定义。</p><pre><code class="hljs tsx"><span class="hljs-keyword">function</span> <span class="hljs-title function_">App</span>(<span class="hljs-params"></span>) &#123;
+  <span class="hljs-keyword">return</span> (
+    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">List</span></span></span>
+<span class="hljs-tag"><span class="language-xml">      <span class="hljs-attr">locale</span>=<span class="hljs-string">&#123;&#123;</span></span></span>
+<span class="hljs-tag"><span class="language-xml">        <span class="hljs-attr">emptyText:</span> &lt;<span class="hljs-attr">Empty</span> <span class="hljs-attr">description</span>=<span class="hljs-string">&quot;No data&quot;</span> /&gt;</span></span>
+<span class="language-xml">      &#125;&#125;</span>
+<span class="language-xml">    /&gt;</span>
+  )
+&#125;</code></pre><h4 id="Select-TreeSelect-Mentions-Cascader"><a href="#Select-TreeSelect-Mentions-Cascader" class="headerlink" title="Select&#x2F;TreeSelect&#x2F;Mentions&#x2F;Cascader"></a>Select&#x2F;TreeSelect&#x2F;Mentions&#x2F;Cascader</h4><p>这几个组件都提供了 <code>notFoundContent</code> props 来实现自定义空状态</p><pre><code class="hljs tsx"><span class="hljs-keyword">function</span> <span class="hljs-title function_">App</span>(<span class="hljs-params"></span>) &#123;
+  <span class="hljs-keyword">return</span> (
+    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">Component</span></span></span>
+<span class="hljs-tag"><span class="language-xml">      <span class="hljs-attr">notFoundContent</span>=<span class="hljs-string">&#123;</span>&lt;<span class="hljs-attr">Empty</span> <span class="hljs-attr">description</span>=<span class="hljs-string">&quot;No data&quot;</span> /&gt;</span>&#125;</span>
+<span class="language-xml">    /&gt;</span>
+  )
+&#125;</code></pre><h4 id="Transfer"><a href="#Transfer" class="headerlink" title="Transfer"></a>Transfer</h4><p><code>&lt;Transfer /&gt;</code> 和 <code>&lt;Table /&gt;</code> 差不多，支持通过 <a target="_blank" rel="noopener" href="https://github.com/ant-design/ant-design/blob/8890eff05e0cb7596a702c51e658682e1757fc67/components/transfer/index.tsx#L398-L402">locale.notFoundContent</a> <a target="_blank" rel="noopener" href="https://github.com/ant-design/ant-design/blob/8890eff05e0cb7596a702c51e658682e1757fc67/components/transfer/index.tsx#L64">其类型定义</a> 为 <code>notFoundContent?: React.ReactNode | React.ReactNode[];</code>。</p><pre><code class="hljs tsx"><span class="hljs-keyword">function</span> <span class="hljs-title function_">App</span>(<span class="hljs-params"></span>) &#123;
+  <span class="hljs-keyword">return</span> (
+    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">Transfer</span></span></span>
+<span class="hljs-tag"><span class="language-xml">      <span class="hljs-attr">locale</span>=<span class="hljs-string">&#123;&#123;</span></span></span>
+<span class="hljs-tag"><span class="language-xml">        <span class="hljs-attr">notFoundContent:</span>[</span></span>
+<span class="hljs-tag"><span class="language-xml">          &lt;<span class="hljs-attr">Empty</span> <span class="hljs-attr">description</span>=<span class="hljs-string">&quot;Not Source&quot;</span>/&gt;</span>,</span>
+<span class="language-xml">          <span class="hljs-tag">&lt;<span class="hljs-name">Empty</span> <span class="hljs-attr">description</span>=<span class="hljs-string">&quot;Not Target&quot;</span>/&gt;</span>,</span>
+<span class="language-xml">        ]</span>
+<span class="language-xml">      &#125;&#125;</span>
+<span class="language-xml">    /&gt;</span>
+  )
+&#125;</code></pre><p>另外 <code>&lt;Transfer /&gt;</code> 在通过 <code>&lt;ConfigProvider /&gt;</code> 的 <code>renderEmpty</code> 全局修改时也可以 return 一个 <code>React.ReactNode[]</code> 支持自定义穿梭框左右两侧不同的空状态😬</p><pre><code class="hljs tsx"><span class="hljs-keyword">function</span> <span class="hljs-title function_">App</span>(<span class="hljs-params"></span>) &#123;
+  <span class="hljs-keyword">return</span> (
+    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">ConfigProvider</span></span></span>
+<span class="hljs-tag"><span class="language-xml">      <span class="hljs-attr">renderEmpty</span>=<span class="hljs-string">&#123;(components)</span> =&gt;</span> &#123;</span>
+<span class="language-xml">        if (components === &#x27;Transfer&#x27;) &#123;</span>
+<span class="language-xml">          return [</span>
+<span class="language-xml">            <span class="hljs-tag">&lt;<span class="hljs-name">Empty</span> <span class="hljs-attr">description</span>=<span class="hljs-string">&quot;Not Source&quot;</span> /&gt;</span>,</span>
+<span class="language-xml">            <span class="hljs-tag">&lt;<span class="hljs-name">Empty</span> <span class="hljs-attr">description</span>=<span class="hljs-string">&quot;Not Target&quot;</span> /&gt;</span>,</span>
+<span class="language-xml">          ]</span>
+<span class="language-xml">        &#125;</span>
+<span class="language-xml">      &#125;&#125;</span>
+<span class="language-xml">    &gt;</span>
+<span class="language-xml">      <span class="hljs-tag">&lt;<span class="hljs-name">Transfer</span> /&gt;</span></span>
+<span class="language-xml">    <span class="hljs-tag">&lt;/<span class="hljs-name">ConfigProvider</span>&gt;</span></span>
+  )
+&#125;</code></pre><h3 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h3><p>其中提到的 <code>&lt;Table /&gt;</code>、<code>&lt;List /&gt;</code>、<code>&lt;Transfer /&gt;</code> 虽然都可以通过 <code>locale.XXX</code> 方式自定义。但是我们不能全局 <code>&lt;ConfigProvider locale=&#123;&#123; xxx: xxx&#125;&#125; /&gt;</code> 方式来实现全局配置 (虽然 TS 类型推导有提升..</p><p>比如这样的代码是不行的 ❌❌❌</p><pre><code class="hljs tsx"><span class="hljs-keyword">function</span> <span class="hljs-title function_">App</span>(<span class="hljs-params"></span>) &#123;
+
+  <span class="hljs-keyword">return</span> (
+    <span class="language-xml"><span class="hljs-tag">&lt;<span class="hljs-name">ConfigProvider</span></span></span>
+<span class="hljs-tag"><span class="language-xml">      <span class="hljs-attr">locale</span>=<span class="hljs-string">&#123;&#123;</span></span></span>
+<span class="hljs-tag"><span class="language-xml">        <span class="hljs-attr">...enUS</span>,</span></span>
+<span class="hljs-tag"><span class="language-xml">        <span class="hljs-attr">Table:</span> &#123;</span></span>
+<span class="hljs-tag"><span class="language-xml">          <span class="hljs-attr">...enUS.Table</span>,</span></span>
+<span class="hljs-tag"><span class="language-xml">          <span class="hljs-attr">emptyText:</span> &#x27;<span class="hljs-attr">No</span> <span class="hljs-attr">data</span>&#x27;</span></span>
+<span class="hljs-tag"><span class="language-xml">        &#125;,</span></span>
+<span class="hljs-tag"><span class="language-xml">        <span class="hljs-attr">Transfer:</span> &#123;</span></span>
+<span class="hljs-tag"><span class="language-xml">          <span class="hljs-attr">...enUS.Transfer</span>!,</span></span>
+<span class="hljs-tag"><span class="language-xml">          <span class="hljs-attr">notFoundContent:</span> &#x27;<span class="hljs-attr">No</span> <span class="hljs-attr">data</span>&#x27;</span></span>
+<span class="hljs-tag"><span class="language-xml">        &#125;</span></span>
+<span class="hljs-tag"><span class="language-xml">      &#125;&#125;</span></span>
+<span class="hljs-tag"><span class="language-xml">    &gt;</span></span>
+<span class="language-xml">      &#123;/*...*/&#125;</span>
+<span class="language-xml">    <span class="hljs-tag">&lt;/<span class="hljs-name">ConfigProvider</span>&gt;</span></span>
+  )
+&#125;</code></pre><p>上面提到的几个组件自定义空状态方式都有些不同，所以我们只能自行二次开发用自己的 context 实现，来抹平 props 差异。</p><p>OK，再会～</p></div><p class="post-license"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener noreferrer">CC BY-NC-SA 4.0</a> 2018–PRESENT © Wuxh</p><p class="post-back"><a href="/">cd ..</a> <a href="/antd-empty-state.md">.md</a></p></article><div class="comments"><script src="https://giscus.app/client.js" data-repo="Wxh16144/wxh16144.github.io" data-repo-id="MDEwOlJlcG9zaXRvcnkzMjQ3NTI1NzU=" data-category="Comments" data-category-id="DIC_kwDOE1tUv84DEIG7" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="preferred_color_scheme" data-lang="zh-CN" data-loading="lazy" crossorigin="anonymous" async></script></div></main><hr class="dashed"><footer class="site-footer"><span>2018~2026 Wuxh</span></footer></div></body></html>

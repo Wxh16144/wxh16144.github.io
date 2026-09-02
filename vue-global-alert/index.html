@@ -1,0 +1,144 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>用Vue.extend写一个全局使用的Alert - Wxh16144</title><meta name="description" content="知道的越多, 不知道的就越多"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/style.css"><link rel="stylesheet" href="https://registry.npmmirror.com/github-markdown-css/5.9.0/files/github-markdown.css"><link rel="stylesheet" href="https://registry.npmmirror.com/highlight.js/11.12.0/files/styles/github.min.css" media="(prefers-color-scheme:light)"><link rel="stylesheet" href="https://registry.npmmirror.com/highlight.js/11.12.0/files/styles/github-dark.min.css" media="(prefers-color-scheme:dark)"><script src="/js/bundle.js" defer="defer"></script><meta name="generator" content="Hexo 8.1.2"></head><body><div class="container"><header class="site-header"><a class="site-title" href="/">Wxh16144</a><nav class="site-nav"><a href="/about/">about</a> <a href="/bookmarks/">bookmarks</a> <a href="/notes/">notes</a><details class="links-toggle"><summary>find me</summary><div class="links-list"><span class="links-hint">$ npx wxh16144</span> <a href="https://github.com/wxh16144" target="_blank" rel="noopener noreferrer">github</a> <a href="https://twitter.com/wxh16144" target="_blank" rel="noopener noreferrer">twitter</a> <a href="https://x.com/wxh16144" target="_blank" rel="noopener noreferrer">x</a> <a href="https://weibo.com/wxh16144" target="_blank" rel="noopener noreferrer">weibo</a> <a href="https://zhihu.com/people/wxh16144" target="_blank" rel="noopener noreferrer">zhihu</a> <a href="https://t.me/wxh16144" target="_blank" rel="noopener noreferrer">telegram</a> <a href="https://wxh16144.github.io" target="_blank" rel="noopener noreferrer">blog</a> <a href="mailto:wxh16144@qq.com" target="_blank" rel="noopener noreferrer">email</a> <a href="https://dev.to/wxh16144" target="_blank" rel="noopener noreferrer">dev</a> <a href="https://npmjs.com/~wxh16144" target="_blank" rel="noopener noreferrer">npm</a> <a href="https://hub.docker.com/u/wxh16144" target="_blank" rel="noopener noreferrer">docker</a> <a href="https://v2ex.com/member/wxh16144" target="_blank" rel="noopener noreferrer">v2ex</a> <a href="https://wakatime.com/@wxh16144" target="_blank" rel="noopener noreferrer">wakatime</a> <a href="https://strava.com/athletes/wxh16144" target="_blank" rel="noopener noreferrer">strava</a> <a href="https://steamcommunity.com/id/wxh16144" target="_blank" rel="noopener noreferrer">steam</a></div></details></nav></header><hr class="dashed"><main class="main"><nav class="page-toc" id="page-toc"><button class="toc-toggle" type="button" aria-expanded="false" aria-controls="page-toc-list"><span>目录</span> <span class="toc-toggle-icon" aria-hidden="true"></span></button><div class="toc-list" id="page-toc-list"><a class="toc-lv-3" href="#项目预览" data-target="项目预览">项目预览</a> <a class="toc-lv-3" href="#实现代码" data-target="实现代码">实现代码</a> <a class="toc-lv-3" href="#alert-vue" data-target="alert-vue">alert.vue</a> <a class="toc-lv-3" href="#index-js" data-target="index-js">index.js</a> <a class="toc-lv-3" href="#main-js" data-target="main-js">main.js</a> <a class="toc-lv-3" href="#组件中使用" data-target="组件中使用">组件中使用</a> <a class="toc-lv-3" href="#参考文档" data-target="参考文档">参考文档</a></div></nav><article class="post"><h1 class="page-title">用Vue.extend写一个全局使用的Alert</h1><div class="post-meta">2019-07-26</div><div class="markdown-body"><p>由于项目中经常会用到 alert 这种组件，平常都是全局注册标签，使用时引入，比较繁琐；</p><p>借鉴别人这种组件一般是在 js 中被调用，vue 中组件主要是使用了标签的形式，<br>现记录通过 <a target="_blank" rel="noopener" href="https://cn.vuejs.org/v2/api/#Vue-extend">Vue.extend</a> 实现的动态组件;</p><h3 id="项目预览"><a href="#项目预览" class="headerlink" title="项目预览"></a>项目预览</h3><iframe src="https://codesandbox.io/embed/vue-template-hnp64?fontsize=14" title="弹窗组件" allow="geolocation; microphone; camera; midi; vr; accelerometer; gyroscope; payment; ambient-light-sensor; encrypted-media" style="width:100%;height:500px;border:0;border-radius:4px;overflow:hidden" sandbox="allow-modals allow-forms allow-popups allow-scripts allow-same-origin"></iframe><h3 id="实现代码"><a href="#实现代码" class="headerlink" title="实现代码"></a>实现代码</h3><pre><code class="hljs tree">├── components
+│   ├── HelloWord.vue
+│   └── alert
+│       ├── alert.vue
+│       └── index.js
+└── main.js</code></pre><h3 id="alert-vue"><a href="#alert-vue" class="headerlink" title="alert.vue"></a>alert.vue</h3><ul><li>template 部分</li></ul><pre><code class="hljs pug">template(lang=&quot;pug&quot;)
+  .shade
+    .mian
+      .content
+        span &#123;&#123; message &#125;&#125;
+      .btns
+        .btn(
+          v-for=&quot;(btn,index) in btns&quot;
+          :key=&quot;index&quot;
+          @click=&quot;(e)=&gt;clickFn(e,btn)&quot;
+        ) &#123;&#123;btn.text&#125;&#125;</code></pre><ul><li>JavaScript 部分</li></ul><pre><code class="hljs javascript"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> &#123;
+  <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;alert&#x27;</span>,
+  <span class="hljs-title function_">data</span>(<span class="hljs-params"></span>) &#123;
+    <span class="hljs-keyword">return</span> &#123;
+      <span class="hljs-attr">message</span>: <span class="hljs-string">&#x27;this a alert&#x27;</span>,
+      <span class="hljs-attr">btns</span>: [
+        &#123; <span class="hljs-attr">text</span>: <span class="hljs-string">&#x27;yes&#x27;</span>, <span class="hljs-attr">click</span>: <span class="hljs-function">() =&gt;</span> <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;yes&#x27;</span>) &#125;,
+        &#123; <span class="hljs-attr">text</span>: <span class="hljs-string">&#x27;no&#x27;</span>, <span class="hljs-attr">click</span>: <span class="hljs-function">() =&gt;</span> <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;yes&#x27;</span>) &#125;
+      ]
+    &#125;;
+  &#125;,
+  <span class="hljs-attr">methods</span>: &#123;
+    <span class="hljs-title function_">clickFn</span>(<span class="hljs-params">event, btn</span>) &#123;
+      <span class="hljs-variable language_">this</span>.<span class="hljs-property">$el</span>.<span class="hljs-title function_">remove</span>(); <span class="hljs-comment">// 移除DOM</span>
+      <span class="hljs-keyword">const</span> &#123; click = <span class="hljs-function">() =&gt;</span> <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">warn</span>(<span class="hljs-string">&#x27;请传入回调函数&#x27;</span>) &#125; = btn;
+      <span class="hljs-title function_">click</span>(event, btn); <span class="hljs-comment">// 传递回去</span>
+    &#125;
+  &#125;
+&#125;;</code></pre><details><summary>点击查看 CSS 部分</summary><pre><code class="hljs css"><span class="hljs-selector-class">.shade</span> &#123;
+  user-<span class="hljs-selector-tag">select</span>: none;
+  <span class="hljs-attribute">width</span>: <span class="hljs-number">100vw</span>;
+  <span class="hljs-attribute">height</span>: <span class="hljs-number">100vh</span>;
+  <span class="hljs-attribute">position</span>: fixed;
+  <span class="hljs-attribute">top</span>: <span class="hljs-number">0</span>;
+  <span class="hljs-attribute">left</span>: <span class="hljs-number">0</span>;
+  <span class="hljs-attribute">background-color</span>: <span class="hljs-built_in">rgba</span>(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0.03</span>);
+  <span class="hljs-attribute">z-index</span>: <span class="hljs-number">998</span>;
+  <span class="hljs-attribute">display</span>: flex;
+  <span class="hljs-attribute">align-items</span>: center;
+  <span class="hljs-attribute">justify-content</span>: center;
+&#125;
+<span class="hljs-selector-class">.shade</span> <span class="hljs-selector-class">.mian</span> &#123;
+  <span class="hljs-attribute">background</span>: white;
+  <span class="hljs-attribute">width</span>: <span class="hljs-number">80%</span>;
+  <span class="hljs-attribute">border-radius</span>: <span class="hljs-number">5px</span>;
+  <span class="hljs-attribute">overflow</span>: hidden;
+  <span class="hljs-attribute">box-shadow</span>: <span class="hljs-number">0px</span> <span class="hljs-number">0px</span> <span class="hljs-number">5px</span> <span class="hljs-number">3px</span> <span class="hljs-built_in">rgba</span>(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0.04</span>);
+  <span class="hljs-attribute">box-sizing</span>: border-box;
+  <span class="hljs-attribute">animation</span>: open <span class="hljs-number">0.1s</span>;
+&#125;
+<span class="hljs-selector-class">.shade</span> <span class="hljs-selector-class">.mian</span> <span class="hljs-selector-class">.content</span> &#123;
+  <span class="hljs-attribute">box-sizing</span>: border-box;
+  <span class="hljs-attribute">width</span>: <span class="hljs-number">100%</span>;
+  <span class="hljs-attribute">padding</span>: <span class="hljs-number">30px</span> <span class="hljs-number">20px</span>;
+&#125;
+<span class="hljs-selector-class">.shade</span> <span class="hljs-selector-class">.mian</span> <span class="hljs-selector-class">.btns</span> &#123;
+  <span class="hljs-attribute">height</span>: <span class="hljs-number">45px</span>;
+  <span class="hljs-attribute">box-sizing</span>: border-box;
+  <span class="hljs-attribute">border-top</span>: <span class="hljs-number">1px</span> solid <span class="hljs-built_in">rgba</span>(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0.1</span>);
+  <span class="hljs-attribute">display</span>: flex;
+  <span class="hljs-attribute">justify-content</span>: space-around;
+  <span class="hljs-attribute">align-items</span>: center;
+&#125;
+<span class="hljs-selector-class">.shade</span> <span class="hljs-selector-class">.mian</span> <span class="hljs-selector-class">.btns</span> <span class="hljs-selector-class">.btn</span> &#123;
+  <span class="hljs-attribute">flex</span>: <span class="hljs-number">1</span> <span class="hljs-number">0</span> auto;
+  <span class="hljs-attribute">height</span>: <span class="hljs-number">100%</span>;
+  <span class="hljs-attribute">display</span>: flex;
+  <span class="hljs-attribute">align-items</span>: center;
+  <span class="hljs-attribute">justify-content</span>: center;
+  <span class="hljs-attribute">text-align</span>: center;
+  <span class="hljs-attribute">border-right</span>: <span class="hljs-number">1px</span> solid <span class="hljs-built_in">rgba</span>(<span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0</span>, <span class="hljs-number">0.1</span>);
+&#125;
+<span class="hljs-selector-class">.shade</span> <span class="hljs-selector-class">.mian</span> <span class="hljs-selector-class">.btns</span> <span class="hljs-selector-class">.btn</span><span class="hljs-selector-pseudo">:last-child</span> &#123;
+  <span class="hljs-attribute">border-right</span>: none;
+&#125;
+<span class="hljs-selector-class">.shade</span> <span class="hljs-selector-class">.mian</span> <span class="hljs-selector-class">.btns</span> <span class="hljs-selector-class">.btn</span><span class="hljs-selector-pseudo">:active</span> &#123;
+  <span class="hljs-attribute">color</span>: white;
+  <span class="hljs-attribute">background-color</span>: <span class="hljs-built_in">rgb</span>(<span class="hljs-number">64</span>, <span class="hljs-number">169</span>, <span class="hljs-number">243</span>);
+&#125;
+<span class="hljs-keyword">@keyframes</span> open &#123;
+  <span class="hljs-number">0%</span>,
+  <span class="hljs-number">100%</span> &#123;
+    <span class="hljs-attribute">transform</span>: <span class="hljs-built_in">scale</span>(<span class="hljs-number">1</span>);
+  &#125;
+  <span class="hljs-number">25%</span>,
+  <span class="hljs-number">75%</span> &#123;
+    <span class="hljs-attribute">transform</span>: <span class="hljs-built_in">scale</span>(<span class="hljs-number">1.04</span>);
+  &#125;
+  <span class="hljs-number">50%</span> &#123;
+    <span class="hljs-attribute">transform</span>: <span class="hljs-built_in">scale</span>(<span class="hljs-number">1.06</span>);
+  &#125;
+&#125;</code></pre></details><h3 id="index-js"><a href="#index-js" class="headerlink" title="index.js"></a>index.js</h3><pre><code class="hljs javascript"><span class="hljs-keyword">import</span> <span class="hljs-title class_">Vue</span> <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;vue&#x27;</span>;
+<span class="hljs-keyword">import</span> alert <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./alert.vue&#x27;</span>;
+<span class="hljs-keyword">let</span> <span class="hljs-title class_">MyAlertConstructor</span> = <span class="hljs-title class_">Vue</span>.<span class="hljs-title function_">extend</span>(alert);
+<span class="hljs-keyword">let</span> instance;
+<span class="hljs-keyword">const</span> <span class="hljs-title function_">MyAlert</span> = option =&gt; &#123;
+  <span class="hljs-comment">// 创建实例并且过滤参数</span>
+  instance = <span class="hljs-keyword">new</span> <span class="hljs-title class_">MyAlertConstructor</span>(&#123;
+    <span class="hljs-attr">data</span>: &#123; ...option &#125;
+  &#125;);
+  <span class="hljs-comment">// 挂载实例</span>
+  instance.$mount();
+  <span class="hljs-variable language_">document</span>.<span class="hljs-property">body</span>.<span class="hljs-title function_">appendChild</span>(instance.<span class="hljs-property">$el</span>);
+  <span class="hljs-keyword">return</span> instance;
+&#125;;
+<span class="hljs-comment">// 挂载到Vue原型上</span>
+<span class="hljs-title class_">Vue</span>.<span class="hljs-property"><span class="hljs-keyword">prototype</span></span>.<span class="hljs-property">$alert</span> = <span class="hljs-title class_">MyAlert</span>;</code></pre><h3 id="main-js"><a href="#main-js" class="headerlink" title="main.js"></a>main.js</h3><pre><code class="hljs javascript"><span class="hljs-keyword">import</span> <span class="hljs-string">&#x27;./components/alert&#x27;</span>; <span class="hljs-comment">// 引入注册一下</span></code></pre><p>到这里我们的 Alert 组件就配置完成了；</p><h3 id="组件中使用"><a href="#组件中使用" class="headerlink" title="组件中使用"></a>组件中使用</h3><p>这里我在 Helloword.vue 中测试使用;</p><pre><code class="hljs javascript"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> &#123;
+  <span class="hljs-attr">name</span>: <span class="hljs-string">&#x27;HelloWorld&#x27;</span>,
+  <span class="hljs-attr">props</span>: [<span class="hljs-string">&#x27;msg&#x27;</span>],
+  <span class="hljs-attr">methods</span>: &#123;
+    <span class="hljs-title class_">Alert</span>() &#123;
+      <span class="hljs-comment">//  使用直之前绑定到原型上的方法</span>
+      <span class="hljs-variable language_">this</span>.$alert(&#123;
+        <span class="hljs-attr">message</span>: <span class="hljs-string">&#x27;你今天开心吗?&#x27;</span>,
+        <span class="hljs-attr">btns</span>: [
+          &#123;
+            <span class="hljs-attr">text</span>: <span class="hljs-string">&#x27;开心&#x27;</span>,
+            <span class="hljs-attr">click</span>: <span class="hljs-function">() =&gt;</span> &#123;
+              <span class="hljs-comment">// 测试是否可以拿到这边的this</span>
+              <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-variable language_">this</span>.<span class="hljs-property">msg</span>);
+            &#125;
+          &#125;,
+          &#123;
+            <span class="hljs-attr">text</span>: <span class="hljs-string">&#x27;不开心&#x27;</span>,
+            <span class="hljs-attr">click</span>: <span class="hljs-function">(<span class="hljs-params">e, btn</span>) =&gt;</span> &#123;
+              <span class="hljs-comment">// 这里的event target 可能没用 因为已经移除DOM了 返回btn原来本身</span>
+              <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;不开心&#x27;</span>, e, btn);
+            &#125;
+          &#125;,
+          &#123; <span class="hljs-attr">text</span>: <span class="hljs-string">&#x27;无回调&#x27;</span> <span class="hljs-comment">/* 测试一下没有回调函数的时候 */</span> &#125;,
+          &#123; <span class="hljs-attr">text</span>: <span class="hljs-string">&#x27;帮助&#x27;</span>, <span class="hljs-attr">click</span>: <span class="hljs-variable language_">this</span>.<span class="hljs-property">isOK</span> &#125;
+        ]
+      &#125;);
+    &#125;,
+    <span class="hljs-title function_">isOK</span>(<span class="hljs-params"></span>) &#123;
+      <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">&#x27;输出帮助&#x27;</span>);
+    &#125;
+  &#125;
+&#125;;</code></pre><h3 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h3><ul><li><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/b183f93a4aa2">Vue.extend 构造函数的使用–实现 alert 方法</a></li></ul></div><p class="post-license"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener noreferrer">CC BY-NC-SA 4.0</a> 2018–PRESENT © Wuxh</p><p class="post-back"><a href="/">cd ..</a> <a href="/vue-global-alert.md">.md</a></p></article><div class="comments"><script src="https://giscus.app/client.js" data-repo="Wxh16144/wxh16144.github.io" data-repo-id="MDEwOlJlcG9zaXRvcnkzMjQ3NTI1NzU=" data-category="Comments" data-category-id="DIC_kwDOE1tUv84DEIG7" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="preferred_color_scheme" data-lang="zh-CN" data-loading="lazy" crossorigin="anonymous" async></script></div></main><hr class="dashed"><footer class="site-footer"><span>2018~2026 Wuxh</span></footer></div></body></html>

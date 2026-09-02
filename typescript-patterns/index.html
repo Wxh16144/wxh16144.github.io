@@ -1,0 +1,98 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>TS的一些特殊示例 (持续更新) - Wxh16144</title><meta name="description" content="知道的越多, 不知道的就越多"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/style.css"><link rel="stylesheet" href="https://registry.npmmirror.com/github-markdown-css/5.9.0/files/github-markdown.css"><link rel="stylesheet" href="https://registry.npmmirror.com/highlight.js/11.12.0/files/styles/github.min.css" media="(prefers-color-scheme:light)"><link rel="stylesheet" href="https://registry.npmmirror.com/highlight.js/11.12.0/files/styles/github-dark.min.css" media="(prefers-color-scheme:dark)"><script src="/js/bundle.js" defer="defer"></script><meta name="generator" content="Hexo 8.1.2"></head><body><div class="container"><header class="site-header"><a class="site-title" href="/">Wxh16144</a><nav class="site-nav"><a href="/about/">about</a> <a href="/bookmarks/">bookmarks</a> <a href="/notes/">notes</a><details class="links-toggle"><summary>find me</summary><div class="links-list"><span class="links-hint">$ npx wxh16144</span> <a href="https://github.com/wxh16144" target="_blank" rel="noopener noreferrer">github</a> <a href="https://twitter.com/wxh16144" target="_blank" rel="noopener noreferrer">twitter</a> <a href="https://x.com/wxh16144" target="_blank" rel="noopener noreferrer">x</a> <a href="https://weibo.com/wxh16144" target="_blank" rel="noopener noreferrer">weibo</a> <a href="https://zhihu.com/people/wxh16144" target="_blank" rel="noopener noreferrer">zhihu</a> <a href="https://t.me/wxh16144" target="_blank" rel="noopener noreferrer">telegram</a> <a href="https://wxh16144.github.io" target="_blank" rel="noopener noreferrer">blog</a> <a href="mailto:wxh16144@qq.com" target="_blank" rel="noopener noreferrer">email</a> <a href="https://dev.to/wxh16144" target="_blank" rel="noopener noreferrer">dev</a> <a href="https://npmjs.com/~wxh16144" target="_blank" rel="noopener noreferrer">npm</a> <a href="https://hub.docker.com/u/wxh16144" target="_blank" rel="noopener noreferrer">docker</a> <a href="https://v2ex.com/member/wxh16144" target="_blank" rel="noopener noreferrer">v2ex</a> <a href="https://wakatime.com/@wxh16144" target="_blank" rel="noopener noreferrer">wakatime</a> <a href="https://strava.com/athletes/wxh16144" target="_blank" rel="noopener noreferrer">strava</a> <a href="https://steamcommunity.com/id/wxh16144" target="_blank" rel="noopener noreferrer">steam</a></div></details></nav></header><hr class="dashed"><main class="main"><nav class="page-toc" id="page-toc"><button class="toc-toggle" type="button" aria-expanded="false" aria-controls="page-toc-list"><span>目录</span> <span class="toc-toggle-icon" aria-hidden="true"></span></button><div class="toc-list" id="page-toc-list"><a class="toc-lv-3" href="#定义一个不包括某些-Key-的对象" data-target="定义一个不包括某些-Key-的对象">定义一个不包括某些 Key 的对象</a> <a class="toc-lv-3" href="#为-Object-defineProperty-添加类型推导" data-target="为-Object-defineProperty-添加类型推导">为 Object.defineProperty 添加类型推导</a> <a class="toc-lv-3" href="#美化交叉类型" data-target="美化交叉类型">美化交叉类型</a> <a class="toc-lv-3" href="#带标签的模版字符串" data-target="带标签的模版字符串">带标签的模版字符串</a></div></nav><article class="post"><h1 class="page-title">TS的一些特殊示例 (持续更新)</h1><div class="post-meta">2099-12-01</div><div class="markdown-body"><p>该文章记录一些平时工作中一些特殊场景类型推导, 归纳总结一下。</p><span id="more"></span><h3 id="定义一个不包括某些-Key-的对象"><a href="#定义一个不包括某些-Key-的对象" class="headerlink" title="定义一个不包括某些 Key 的对象"></a>定义一个不包括某些 Key 的对象</h3><pre><code class="hljs typescript"><span class="hljs-keyword">interface</span> <span class="hljs-title class_">Options</span> &#123;
+  <span class="hljs-attr">name</span>: <span class="hljs-built_in">string</span>;
+  age?: <span class="hljs-built_in">number</span>;
+&#125;
+
+<span class="hljs-keyword">type</span> <span class="hljs-title class_">Valid</span> = <span class="hljs-title class_">Record</span>&lt;<span class="hljs-built_in">string</span>, <span class="hljs-built_in">any</span>&gt; &amp; <span class="hljs-title class_">Partial</span>&lt;<span class="hljs-title class_">Record</span>&lt;keyof <span class="hljs-title class_">Options</span>, <span class="hljs-built_in">never</span>&gt;&gt;;
+
+<span class="hljs-keyword">const</span> <span class="hljs-attr">foo</span>: <span class="hljs-title class_">Valid</span> = &#123; <span class="hljs-attr">name</span>: <span class="hljs-string">&quot;foo&quot;</span> &#125;; <span class="hljs-comment">// error</span>
+<span class="hljs-keyword">const</span> <span class="hljs-attr">bar</span>: <span class="hljs-title class_">Valid</span> = &#123; <span class="hljs-attr">age</span>: <span class="hljs-number">1</span> &#125;; <span class="hljs-comment">// error</span>
+<span class="hljs-keyword">const</span> <span class="hljs-attr">baz</span>: <span class="hljs-title class_">Valid</span> = &#123; <span class="hljs-attr">other</span>: <span class="hljs-string">&quot;baz&quot;</span> &#125;; <span class="hljs-comment">// okay</span></code></pre><ul><li><a target="_blank" rel="noopener" href="https://stackoverflow.com/questions/52618362/typescript-function-that-takes-an-object-without-certain-keys">TypeScript function that takes an object without certain keys</a></li></ul><h3 id="为-Object-defineProperty-添加类型推导"><a href="#为-Object-defineProperty-添加类型推导" class="headerlink" title="为 Object.defineProperty 添加类型推导"></a>为 Object.defineProperty 添加类型推导</h3><pre><code class="hljs typescript"><span class="hljs-keyword">type</span> <span class="hljs-title class_">InferValue</span>&lt;<span class="hljs-title class_">Prop</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">PropertyKey</span>, <span class="hljs-title class_">Desc</span>&gt; = <span class="hljs-title class_">Desc</span> <span class="hljs-keyword">extends</span> &#123;
+  <span class="hljs-title function_">get</span>(): <span class="hljs-built_in">any</span>;
+  <span class="hljs-attr">value</span>: <span class="hljs-built_in">any</span>;
+&#125;
+  ? <span class="hljs-built_in">never</span>
+  : <span class="hljs-title class_">Desc</span> <span class="hljs-keyword">extends</span> &#123; <span class="hljs-attr">value</span>: infer T &#125;
+  ? <span class="hljs-title class_">Record</span>&lt;<span class="hljs-title class_">Prop</span>, T&gt;
+  : <span class="hljs-title class_">Desc</span> <span class="hljs-keyword">extends</span> &#123; <span class="hljs-title function_">get</span>(): infer T &#125;
+  ? <span class="hljs-title class_">Record</span>&lt;<span class="hljs-title class_">Prop</span>, T&gt;
+  : <span class="hljs-built_in">never</span>;
+
+<span class="hljs-keyword">type</span> <span class="hljs-title class_">DefineProperty</span>&lt;
+  <span class="hljs-title class_">Prop</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">PropertyKey</span>,
+  <span class="hljs-title class_">Desc</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">PropertyDescriptor</span>
+&gt; = <span class="hljs-title class_">Desc</span> <span class="hljs-keyword">extends</span> &#123;
+  <span class="hljs-attr">writable</span>: <span class="hljs-built_in">any</span>;
+  <span class="hljs-title function_">set</span>(<span class="hljs-attr">val</span>: <span class="hljs-built_in">any</span>): <span class="hljs-built_in">any</span>;
+&#125;
+  ? <span class="hljs-built_in">never</span>
+  : <span class="hljs-title class_">Desc</span> <span class="hljs-keyword">extends</span> &#123; <span class="hljs-attr">writable</span>: <span class="hljs-built_in">any</span>; <span class="hljs-title function_">get</span>(): <span class="hljs-built_in">any</span> &#125;
+  ? <span class="hljs-built_in">never</span>
+  : <span class="hljs-title class_">Desc</span> <span class="hljs-keyword">extends</span> &#123; <span class="hljs-attr">writable</span>: <span class="hljs-literal">false</span> &#125;
+  ? <span class="hljs-title class_">Readonly</span>&lt;<span class="hljs-title class_">InferValue</span>&lt;<span class="hljs-title class_">Prop</span>, <span class="hljs-title class_">Desc</span>&gt;&gt;
+  : <span class="hljs-title class_">Desc</span> <span class="hljs-keyword">extends</span> &#123; <span class="hljs-attr">writable</span>: <span class="hljs-literal">true</span> &#125;
+  ? <span class="hljs-title class_">InferValue</span>&lt;<span class="hljs-title class_">Prop</span>, <span class="hljs-title class_">Desc</span>&gt;
+  : <span class="hljs-title class_">Readonly</span>&lt;<span class="hljs-title class_">InferValue</span>&lt;<span class="hljs-title class_">Prop</span>, <span class="hljs-title class_">Desc</span>&gt;&gt;;
+
+<span class="hljs-keyword">function</span> defineProperty&lt;
+  <span class="hljs-title class_">Obj</span> <span class="hljs-keyword">extends</span> <span class="hljs-built_in">object</span>,
+  <span class="hljs-title class_">Key</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">PropertyKey</span>,
+  <span class="hljs-title class_">PDesc</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">PropertyDescriptor</span>
+&gt;(
+  <span class="hljs-attr">obj</span>: <span class="hljs-title class_">Obj</span>,
+  <span class="hljs-attr">prop</span>: <span class="hljs-title class_">Key</span>,
+  <span class="hljs-attr">val</span>: <span class="hljs-title class_">PDesc</span>
+): asserts obj is <span class="hljs-title class_">Obj</span> &amp; <span class="hljs-title class_">DefineProperty</span>&lt;<span class="hljs-title class_">Key</span>, <span class="hljs-title class_">PDesc</span>&gt; &#123;
+  <span class="hljs-title class_">Object</span>.<span class="hljs-title function_">defineProperty</span>(obj, prop, val);
+&#125;
+
+<span class="hljs-keyword">const</span> storage = &#123;
+  <span class="hljs-attr">currentValue</span>: <span class="hljs-number">0</span>,
+&#125;;
+
+<span class="hljs-title function_">defineProperty</span>(storage, <span class="hljs-string">&quot;maxValue&quot;</span>, &#123;
+  <span class="hljs-attr">value</span>: <span class="hljs-number">9001</span>,
+  <span class="hljs-attr">writable</span>: <span class="hljs-literal">false</span>,
+&#125;);
+
+storage.<span class="hljs-property">maxValue</span> = <span class="hljs-number">100</span>; <span class="hljs-comment">// error</span></code></pre><ul><li><a target="_blank" rel="noopener" href="https://fettblog.eu/typescript-assertion-signatures/">TypeScript: Assertion signatures and Object.defineProperty</a></li></ul><h3 id="美化交叉类型"><a href="#美化交叉类型" class="headerlink" title="美化交叉类型"></a>美化交叉类型</h3><pre><code class="hljs ts"><span class="hljs-keyword">type</span> <span class="hljs-title class_">Prettify</span>&lt;T&gt; = &#123;
+  [K <span class="hljs-keyword">in</span> keyof T]: T[K];
+&#125; &amp; &#123;&#125;;
+
+<span class="hljs-keyword">type</span> <span class="hljs-title class_">Intersected</span> = &#123;
+  <span class="hljs-attr">a</span>: <span class="hljs-built_in">string</span>;
+&#125; &amp; &#123;
+  <span class="hljs-attr">b</span>: <span class="hljs-built_in">number</span>;
+&#125; &amp; &#123;
+  <span class="hljs-attr">c</span>: <span class="hljs-built_in">boolean</span>;
+&#125;;
+
+<span class="hljs-keyword">type</span> <span class="hljs-title class_">Foo</span> = <span class="hljs-title class_">Prettify</span>&lt;<span class="hljs-title class_">Intersected</span>&gt;;
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> <span class="hljs-attr">foo</span>: <span class="hljs-title class_">Foo</span> = &#123;
+  <span class="hljs-attr">a</span>: <span class="hljs-string">&quot;a&quot;</span>,
+  <span class="hljs-attr">b</span>: <span class="hljs-number">1</span>,
+  <span class="hljs-attr">c</span>: <span class="hljs-literal">true</span>,
+&#125;;</code></pre><ul><li><a target="_blank" rel="noopener" href="https://twitter.com/mattpocockuk/status/1622730173446557697?s=20">Here’s a quick thread on a super useful type helper you’ve probably never heard of (nope, not even advanced folks).</a></li></ul><h3 id="带标签的模版字符串"><a href="#带标签的模版字符串" class="headerlink" title="带标签的模版字符串"></a>带标签的模版字符串</h3><pre><code class="hljs typescript">
+<span class="hljs-keyword">interface</span> <span class="hljs-title class_">TemplateStringFunction</span> &#123;
+  (<span class="hljs-attr">template</span>: <span class="hljs-title class_">TemplateStringsArray</span>, ...<span class="hljs-attr">args</span>: <span class="hljs-title class_">Array</span>&lt;<span class="hljs-title class_">TemplateValue</span>&gt;): <span class="hljs-built_in">string</span>;
+&#125;
+
+<span class="hljs-keyword">interface</span> <span class="hljs-title class_">Variables</span> &#123;
+  <span class="hljs-attr">uuid</span>: <span class="hljs-built_in">string</span>;
+&#125;
+
+<span class="hljs-keyword">type</span> <span class="hljs-title class_">TemplateValue</span> = <span class="hljs-function">(<span class="hljs-params"><span class="hljs-attr">args</span>: <span class="hljs-title class_">Variables</span></span>) =&gt;</span> <span class="hljs-built_in">string</span>
+
+<span class="hljs-keyword">const</span> variables = &#123;
+  <span class="hljs-attr">uuid</span>: <span class="hljs-string">&#x27;12345&#x27;</span>,
+
+&#125;;
+
+<span class="hljs-keyword">const</span> <span class="hljs-attr">interpolate</span>: <span class="hljs-title class_">TemplateStringFunction</span> = <span class="hljs-function">(<span class="hljs-params">template, ...args</span>) =&gt;</span> &#123;
+  <span class="hljs-keyword">return</span> template.<span class="hljs-title function_">reduce</span>(<span class="hljs-function">(<span class="hljs-params">acc, str, i</span>) =&gt;</span> &#123;
+    <span class="hljs-keyword">return</span> acc + str + (args[i] ? args[i](variables) : <span class="hljs-string">&#x27;&#x27;</span>);
+  &#125;, <span class="hljs-string">&#x27;&#x27;</span>);
+&#125;
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">const</span> v = interpolate<span class="hljs-string">`hello <span class="hljs-subst">$&#123;(c) =&gt; c.uuid&#125;</span>!`</span>;</code></pre><ul><li><a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV1P3411o7Zd">JavaScript【JS】带标签的模版字符串-Tagged Templates 【styled-components举例】</a></li></ul></div><p class="post-license"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener noreferrer">CC BY-NC-SA 4.0</a> 2018–PRESENT © Wuxh</p><p class="post-back"><a href="/">cd ..</a> <a href="/typescript-patterns.md">.md</a></p></article><div class="comments"><script src="https://giscus.app/client.js" data-repo="Wxh16144/wxh16144.github.io" data-repo-id="MDEwOlJlcG9zaXRvcnkzMjQ3NTI1NzU=" data-category="Comments" data-category-id="DIC_kwDOE1tUv84DEIG7" data-mapping="pathname" data-strict="0" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="bottom" data-theme="preferred_color_scheme" data-lang="zh-CN" data-loading="lazy" crossorigin="anonymous" async></script></div></main><hr class="dashed"><footer class="site-footer"><span>2018~2026 Wuxh</span></footer></div></body></html>
