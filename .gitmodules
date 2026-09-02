@@ -1,0 +1,3 @@
+[submodule "PatchViewer"]
+	path = PatchViewer
+	url = git@github.com:megatops/PatchViewer.git
