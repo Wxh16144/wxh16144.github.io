@@ -248,5 +248,10 @@
     "old": "/2021/10/02/记录一次迁移Docker挂载目录/",
     "title": "记录一次迁移Docker挂载目录",
     "new": "/docker-volume-migration"
+  },
+  {
+    "old": "/patch/",
+    "title": "Patch Viewer",
+    "new": "/web/PatchViewer/PatchViewer.html"
   }
 ]
