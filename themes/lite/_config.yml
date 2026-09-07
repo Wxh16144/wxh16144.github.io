@@ -14,10 +14,24 @@ bio:
 # Avatar shown above the bio (place the image at themes/lite/source/avatar.webp)
 avatar: avatar.webp
 
+# 站点级 SEO / 分享默认值 —— 文章 front-matter 没写的字段全部在这里兜底。
+# 写作时只需在需要覆盖的 md 里写对应字段，其余留空即可。
+seo:
+  # 文章没写 author 时兜底；再留空则退回站点根 _config.yml 的 author
+  default_author: ""
+  # 文章没写 cover 时的分享兜底图。留空 = 不做图片兜底（og:image 只在有 cover 时输出）。
+  # 想要启用：放一张 1200x630 的 jpg/png 到 themes/lite/source/images/default-share.jpg
+  # （不要用 webp，Twitter 不支持），然后把值改成 "/images/default-share.jpg"。
+  default_og_image: ""
+  # 全站统一版权链接，文章不需要重复写 license
+  license_url: "https://creativecommons.org/licenses/by-nc-sa/4.0/"
+  # 单篇可用 front-matter robots 覆盖；留空这里默认
+  robots_global: "index,follow,max-image-preview:large"
+  site_locale: zh_CN
+
 footer:
   since: 2018
   license: CC BY-NC-SA 4.0
-  license_url: https://creativecommons.org/licenses/by-nc-sa/4.0/
 
 social:
   github: https://github.com/Wxh16144

@@ -6,7 +6,12 @@
     <%- page.content %>
   </div>
   <p class="post-license">
-    <a href="<%= theme.footer.license_url %>" target="_blank" rel="noopener noreferrer"><%= theme.footer.license %></a>
+    <% const licenseUrl = theme.seo && theme.seo.license_url %>
+    <% if (licenseUrl) { %>
+    <a href="<%= licenseUrl %>" target="_blank" rel="noopener noreferrer"><%= theme.footer.license %></a>
+    <% } else { %>
+    <span><%= theme.footer.license %></span>
+    <% } %>
     <%- theme.footer.since + '–PRESENT' %> © <%= config.author %>
   </p>
   <p class="post-back">

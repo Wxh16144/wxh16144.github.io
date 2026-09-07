@@ -66,6 +66,14 @@ updated_option: 'mtime'
 ## Set per_page to 0 to disable pagination — single flat post list, no pages needed
 per_page: 0
 
+# Archive
+## 归档列表粒度：只生成“年”归档(如 /2024/)，不要月归档
+## 注：archive_dir 为 / 时，首页本身就是全部文章的归档列表
+archive_generator:
+  yearly: true
+  monthly: false
+  daily: false
+
 # Minify HTML output with html-minifier-terser (scripts/minify.js). Toggle off if you need to debug raw markup.
 minify:
   enable: true
