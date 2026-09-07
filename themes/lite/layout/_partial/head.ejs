@@ -31,12 +31,12 @@
   const headTitle = pageTitle ? pageTitle + ' | ' + config.title : siteName;
 
   // ---------- description（SEO 重点，全局兜底链） ----------
-  // description > summary > 正文/摘要前 160 字 > 站点描述
+  // description > summary > 正文/摘要前 60 字符 > 站点描述
   let desc = toText(page.description) || toText(page.summary);
   if (!desc) desc = toText(page.excerpt);
   if (!desc && page.content) desc = toText(page.content);
   if (!desc) desc = toText(config.description);
-  desc = desc.slice(0, 160);
+  desc = desc.slice(0, 60);
 
   // ---------- author：文章 > 主题默认 > 站点全局 ----------
   const author = toText(page.author) || (seo.default_author || '').trim() || toText(config.author);

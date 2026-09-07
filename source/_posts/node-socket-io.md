@@ -5,6 +5,7 @@ date: 2018/08/16
 
 一个 node.js + socket.io 示例
 
+<!--more-->
 
 ### 添加依赖
 
