@@ -6,13 +6,20 @@
     return dateObj > now ? now : dateObj;
   };
 
-  // Group consecutive posts by year for the watermark headings below
+  // Group consecutive posts by year for the watermark headings below.
+  // 水印同时是“该年归档”(/YYYY/) 的入口:链接必须用文章的真实年份 ——
+  // hexo-generator-archive 是按真实日期建 /YYYY/ 的,而未来日期的常青文章
+  // 显示成今年,所以「显示年份」和「归档年份」可能是两个值。
   const yearGroups = [];
   posts.forEach(function (post) {
     const year = date(displayDate(post.date), 'YYYY');
     const lastGroup = yearGroups[yearGroups.length - 1];
     if (!lastGroup || lastGroup.year !== year) {
-      yearGroups.push({ year: year, posts: [{ post: post, shown: displayDate(post.date) }] });
+      yearGroups.push({
+        year: year,
+        archiveYear: date(post.date, 'YYYY'),
+        posts: [{ post: post, shown: displayDate(post.date) }],
+      });
     } else {
       lastGroup.posts.push({ post: post, shown: displayDate(post.date) });
     }
@@ -22,7 +29,11 @@
   <div class="post-list-wrap">
     <% yearGroups.forEach(function (group) { %>
     <div class="year-group">
-      <div class="year-watermark" aria-hidden="true"><%= group.year %></div>
+      <% if (String(page.year) === group.archiveYear) { %>
+      <span class="year-watermark is-current" aria-hidden="true"><%= group.year %></span>
+      <% } else { %>
+      <a class="year-watermark" href="<%= url_for('/' + group.archiveYear + '/') %>" aria-label="<%= group.year %> 年归档"><%= group.year %></a>
+      <% } %>
       <ul class="post-list">
         <% group.posts.forEach(function (item) { %>
         <li>

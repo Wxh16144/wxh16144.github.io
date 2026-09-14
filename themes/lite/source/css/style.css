@@ -101,6 +101,7 @@ hr.dashed {
 .year-group {
   position: relative;
   margin-top: 40px;
+  transition: opacity 0.3s ease;
 }
 
 .year-group:first-child {
@@ -110,16 +111,41 @@ hr.dashed {
 .year-watermark {
   position: absolute;
   top: -0.15em;
-  left: -0.03em;
-  z-index: 0;
-  font-size: 4rem;
+  right: -0.03em;
+  z-index: 2; /* above .post-list (z-index: 1) so the year archive link stays clickable */
+  font-size: 2.8rem;
   font-weight: 700;
   line-height: 1;
   color: var(--muted);
-  opacity: 0.12;
-  pointer-events: none;
+  opacity: 0.1;
   user-select: none;
   white-space: nowrap;
+  transition: color 0.15s, opacity 0.15s;
+}
+
+.year-group:hover .year-watermark {
+  opacity: 0.18;
+}
+
+/* Links to that year's archive; the current archive page renders a <span> instead */
+a.year-watermark {
+  cursor: pointer;
+  text-decoration: none;
+}
+
+a.year-watermark:hover,
+a.year-watermark:focus-visible {
+  color: var(--accent);
+  opacity: 0.4;
+}
+
+a.year-watermark:focus-visible {
+  outline: 1px dashed var(--accent);
+  outline-offset: 4px;
+}
+
+.year-watermark.is-current {
+  cursor: default;
 }
 
 .post-list {
