@@ -8,22 +8,7 @@
 
   var setActive = function (link) {
     links.forEach(function (a) { a.classList.remove('active') })
-    if (!link) return
-    link.classList.add('active')
-
-    // Keep the active pill in view when the TOC scrolls horizontally (mobile):
-    // auto-scroll the nav so the highlighted entry follows the page scroll.
-    var nav = link.parentElement
-    if (!nav || nav.scrollWidth <= nav.clientWidth) return
-
-    var linkLeft = link.offsetLeft
-    var linkRight = linkLeft + link.offsetWidth
-    var pad = 12
-    if (linkLeft < nav.scrollLeft) {
-      nav.scrollLeft = linkLeft - pad
-    } else if (linkRight > nav.scrollLeft + nav.clientWidth) {
-      nav.scrollLeft = linkRight - nav.clientWidth + pad
-    }
+    if (link) link.classList.add('active')
   }
 
   var observer = new IntersectionObserver(function (entries) {

@@ -359,35 +359,28 @@ a.year-watermark:focus-visible {
   border-bottom: 1px dashed var(--border);
 }
 
-/* Any "page" with 2+ h2 sections: TOC. On wide viewports it floats in the left
-   gutter (position: fixed, outside .container) so it never squeezes
-   .markdown-body's width; on narrower screens it just wraps above the content. */
-.page-toc {
-  position: sticky;
-  top: 0;
-  z-index: 20;
-  margin: 0 -24px 24px;
-  padding: 8px 24px;
-  background: var(--bg);
-  border-bottom: 1px dashed var(--border);
-  font-size: 0.8em;
-}
-
-/* Mobile collapse trigger — hidden on desktop (see media query below) */
-.toc-toggle {
-  display: none;
+/* Sidebar TOC. It sits in the gutter left of the 860px content box, which only
+   opens up on wide viewports — narrower screens hide it outright instead of
+   stacking pills on top of the article. */
+@media (max-width: 1299px) {
+  .page-toc {
+    display: none;
+  }
 }
 
 .toc-list {
   display: flex;
-  flex-wrap: wrap;
-  gap: 8px 16px;
+  flex-direction: column;
+  gap: 6px;
 }
 
 .page-toc a {
   color: var(--muted);
   text-decoration: none;
   line-height: 1.5;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   transition: color 0.15s;
 }
 
@@ -398,26 +391,6 @@ a.year-watermark:focus-visible {
 
 .page-toc a.active {
   color: var(--accent);
-}
-
-/* Pill style only for the top TOC bar (< 1300px). The left sidebar keeps plain links. */
-@media (max-width: 1299px) {
-  .page-toc a {
-    padding: 2px 8px;
-    border: 1px solid color-mix(in srgb, var(--border) 45%, transparent);
-    border-radius: 999px;
-    background: transparent;
-    transition: color 0.15s, border-color 0.15s, background-color 0.15s;
-  }
-
-  .page-toc a:hover {
-    border-color: color-mix(in srgb, var(--accent) 60%, transparent);
-  }
-
-  .page-toc a.active {
-    border-color: color-mix(in srgb, var(--accent) 45%, transparent);
-    background: color-mix(in srgb, var(--accent) 8%, transparent);
-  }
 }
 
 @media (max-width: 640px) {
@@ -432,108 +405,20 @@ a.year-watermark:focus-visible {
     object-fit: cover;
     margin-bottom: 12px;
   }
-
-  .page-toc {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-bottom: 16px;
-  }
-
-  .toc-list {
-    order: 1;
-    flex: 1 1 auto;
-    min-width: 0;
-    display: flex;
-    flex-wrap: nowrap;
-    gap: 8px;
-    overflow-x: auto;
-    scrollbar-width: none;
-    scroll-behavior: smooth;
-    -webkit-overflow-scrolling: touch;
-  }
-
-  .toc-list::-webkit-scrollbar {
-    display: none;
-  }
-
-  .toc-list a {
-    flex: 0 0 auto;
-    white-space: nowrap;
-  }
-
-  .toc-toggle {
-    order: 2;
-    flex: 0 0 auto;
-    margin-left: auto;
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 4px 6px;
-    font: inherit;
-    color: var(--muted);
-    background: transparent;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    line-height: 1;
-  }
-
-  .toc-toggle:hover {
-    color: var(--accent);
-  }
-
-  .toc-toggle-icon {
-    width: 0;
-    height: 0;
-    border-left: 4px solid transparent;
-    border-right: 4px solid transparent;
-    border-top: 5px solid currentColor;
-    transition: transform 0.2s;
-  }
-
-  .page-toc.is-open {
-    flex-wrap: wrap;
-  }
-
-  .page-toc.is-open .toc-toggle-icon {
-    transform: rotate(180deg);
-  }
-
-  .page-toc.is-open .toc-list {
-    order: 3;
-    flex: 1 1 100%;
-    flex-wrap: wrap;
-    overflow: visible;
-    margin-top: 4px;
-    padding-top: 8px;
-    border-top: 1px dashed var(--border);
-  }
 }
 
 @media (min-width: 1300px) {
   .page-toc {
+    display: block;
     position: fixed;
     top: 80px;
     left: 24px;
+    z-index: 20;
     width: 200px;
     max-height: calc(100vh - 100px);
     overflow-y: auto;
-    margin: 0;
     padding: 0 16px 0 0;
-    border-bottom: none;
     border-right: 1px dashed var(--border);
-  }
-
-  .toc-list {
-    flex-direction: column;
-    flex-wrap: nowrap;
-    gap: 6px;
-  }
-
-  .page-toc a {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    font-size: 0.8em;
   }
 }
