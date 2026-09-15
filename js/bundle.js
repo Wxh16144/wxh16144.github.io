@@ -1,0 +1,4 @@
+/*! links-toggle.js */
+(()=>{const e=document.querySelectorAll(".links-toggle");if(!e.length)return;const t=e=>{e.removeAttribute("open")};e.forEach(e=>{e.addEventListener("click",r=>{r.target.closest("a")&&t(e)})}),document.addEventListener("click",r=>{e.forEach(e=>{e.contains(r.target)||t(e)})}),document.addEventListener("keydown",r=>{"Escape"===r.key&&e.forEach(e=>{e.hasAttribute("open")&&(t(e),e.querySelector("summary")?.focus())})})})(),
+/*! toc-active.js */
+(()=>{var e=Array.prototype.slice.call(document.querySelectorAll("#page-toc a"));if(e.length&&"IntersectionObserver"in window){var t={};e.forEach(function(e){t[e.dataset.target]=e});var r=new IntersectionObserver(function(r){r.forEach(function(r){var n;r.isIntersecting&&(n=t[r.target.id],e.forEach(function(e){e.classList.remove("active")}),n&&n.classList.add("active"))})},{rootMargin:"0px 0px -70% 0px",threshold:0});Object.keys(t).forEach(function(e){var t=document.getElementById(e);t&&r.observe(t)})}})();
