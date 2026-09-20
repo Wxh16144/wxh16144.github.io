@@ -253,5 +253,9 @@
     "old": "/patch/",
     "title": "Patch Viewer",
     "new": "/web/PatchViewer/PatchViewer.html"
+  },
+  {
+    "old": "/resume/",
+    "new": "https://resume.wxhboy.cn/"
   }
 ]
