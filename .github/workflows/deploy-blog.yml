@@ -1,5 +1,6 @@
-# NOTE: mirrored on `posts` (default) and `hexo`; Actions only reads the copy on the
-# branch being pushed, so both copies must stay identical.
+# Mirrored verbatim on `posts` (default) and `hexo`: Actions only reads the copy on
+# the branch being pushed, so this file must exist on both. Keep it to triggers
+# only — the deploy logic lives in deploy-site.yml on `hexo`.
 name: Deploy My Blog
 
 on:
@@ -12,58 +13,10 @@ on:
     # https://crontab.guru/#0_10_*/7_*_*
     - cron: "0 10 */7 * *"
 
+permissions:
+  contents: write
+
 jobs:
-  build:
-    runs-on: ubuntu-latest
-    name: A job to deploy blog.
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v6
-        with:
-          # This file is mirrored on `posts` (the default branch): always build
-          # `hexo`, no matter which branch was pushed.
-          ref: hexo
-          submodules: true
-      - name: Fetch submodule branch refs
-        # actions/checkout only fetches the pinned commit for each submodule, not
-        # its tracked branch (e.g. source/web -> origin/website). Without this,
-        # `--remote` below fails with "Unable to find refs/remotes/origin/<branch>".
-        run: git submodule foreach --recursive 'git fetch origin "+refs/heads/*:refs/remotes/origin/*"'
-      - name: Update submodules to latest
-        run: git submodule update --init --remote --recursive
-      - name: Use Node.js 22.x
-        uses: actions/setup-node@v6
-        with:
-          node-version: 22
-      - name: Cache node modules
-        uses: actions/cache@v4
-        id: cache
-        with:
-          path: node_modules
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
-
-      - name: Install Dependencies
-        if: steps.cache.outputs.cache-hit != 'true'
-        run: npm ci
-
-      - name: Build
-        run: npm run build
-
-      - name: Build Gist
-        run: npm run build:gist
-        env:
-          GITHUB_TOKEN: ${{ secrets.GIST_ACCESS_TOKEN }}
-          GITHUB_USERNAME: Wxh16144
-        continue-on-error: true
-
-      - name: Deploy
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./public
-          publish_branch: gh-pages # deploying branch
-          force_orphan: true
-          user_name: "github-actions[bot]"
-          user_email: "github-actions[bot]@users.noreply.github.com"
+  deploy:
+    uses: Wxh16144/wxh16144.github.io/.github/workflows/deploy-site.yml@hexo
+    secrets: inherit
