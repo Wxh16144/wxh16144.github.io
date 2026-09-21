@@ -1,9 +1,13 @@
+# NOTE: mirrored on `posts` (default) and `hexo`; Actions only reads the copy on the
+# branch being pushed, so both copies must stay identical.
 name: Deploy My Blog
 
 on:
   push:
     branches:
-      - main
+      - posts
+      - hexo
+  workflow_dispatch:
   schedule:
     # https://crontab.guru/#0_10_*/7_*_*
     - cron: "0 10 */7 * *"
@@ -16,6 +20,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v6
         with:
+          # This file is mirrored on `posts` (the default branch): always build
+          # `hexo`, no matter which branch was pushed.
+          ref: hexo
           submodules: true
       - name: Fetch submodule branch refs
         # actions/checkout only fetches the pinned commit for each submodule, not
