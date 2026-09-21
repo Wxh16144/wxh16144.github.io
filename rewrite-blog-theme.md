@@ -20,15 +20,21 @@ description: 换掉 hexo-theme-next，用 AI 搓了一套简单的 hexo 个人�
 
 为了不让旧地址失效，我做了重定向，把历史文章路径都归档到仓库里。
 
-另外，我很喜欢在同一个仓库中存放不同的内容，用分支名语义化区分。比如前面说的归档，我放在了 [legacy-blog-redirects 分支](https://github.com/Wxh16144/wxh16144.github.io/tree/legacy-blog-redirects)。比如 [Wxh16144/wxh16144](https://github.com/Wxh16144/wxh16144) 仓库的 `npm`、`resume` 等分支。
+### 用 submodule 拼出一个站点
+
+我很喜欢在同一个仓库中存放不同的内容，用分支名语义化区分。比如前面说的归档，我放在了 [legacy-blog-redirects 分支](https://github.com/Wxh16144/wxh16144.github.io/tree/legacy-blog-redirects)。比如 [Wxh16144/wxh16144](https://github.com/Wxh16144/wxh16144) 仓库的 `npm`、`resume` 等分支。
 
 博客这边，我习惯用 Git submodule 把这些仓库拼起来，组成一个完整的个人站点。
 
-比如 [wxh16144.github.io](https://github.com/Wxh16144/wxh16144.github.io) 仓库，放的都是和个人网站相关的东西。`website` 是纯静态页面，不做工程化构建，也是我早期手写的 HTML。
+拿 [wxh16144.github.io](https://github.com/Wxh16144/wxh16144.github.io) 这个仓库来说，存放着个人网站所有相关资源。其中 `website` 目录是早期手写的纯静态 HTML，没有构建流程。
 
-前面提到的 `legacy-blog-redirects` 本来也想当 submodule 挂在 `gh-pages` 分支上做重定向，后来发现 Hexo 自己就能生成，就只留了 `redirect-map.json`，每次构建时重新生成一遍。
+这个仓库有个好玩的套娃设计：通过 submodule 引用自身。`hexo` 分支的 `source/_posts` 指向同仓库的 `posts` 分支，`source/web` 指向 `website` 分支。
 
-### 新主题：快速、简单
+`posts` 设为默认分支，打开仓库首页就能直接看到一堆 Markdown，朋友们也可以直接在 GitHub 网页上阅读文章。
+
+原本打算把 `legacy-blog-redirects` 分支也作为 submodule 挂载到 gh-pages 分支，用来处理旧链接重定向。后来发现 Hexo 原生就可以生成重定向，于是只保留 `redirect-map.json`，每次构建自动更新这份映射文件。
+
+### 新主题：快速、简单、AI First
 
 **快速**
 
@@ -38,7 +44,9 @@ description: 换掉 hexo-theme-next，用 AI 搓了一套简单的 hexo 个人�
 
 博客默认部署在 GitHub Pages，不过国内访问不太稳定。所以我又接了 Vercel，绑了二级域名 [blog.wxhboy.cn](https://blog.wxhboy.cn)，多一个能打开的地址。
 
-腾讯云 EdgeOne 的免费套餐也用上了，搭了 [cn.wxhboy.cn](https://cn.wxhboy.cn) 镜像站点。三套全是免费资源，页面基本能做到 1 秒内打开，哪个能通走哪个。
+还有一个 Cloudflare Pages，免费开的，直接用默认域名 [wxh16144.pages.dev](https://wxh16144.pages.dev)，走 Cloudflare 全球节点。
+
+腾讯云 EdgeOne 的免费套餐也用上了，搭了 [cn.wxhboy.cn](https://cn.wxhboy.cn) 镜像站点。这几套全是免费资源，页面基本能做到 1 秒内打开，哪个能通走哪个。
 
 ![blog-accessibility-screenshot](https://files.seeusercontent.com/2026/09/21/6soR/wwwbocecom-http-20260921_c3ee093.png)
 
@@ -60,16 +68,24 @@ description: 换掉 hexo-theme-next，用 AI 搓了一套简单的 hexo 个人�
 
 最开始没打算加评论，但还是希望看完文章的人可以留点反馈。所以简单接入了 GitHub Discussions，没有选择单独部署评论服务。
 
-### 三个域名的副作用
+**AI First**
 
-上面三套部署解决了可访问性，也带了个新问题：同一篇文章现在有三个地址。对搜索引擎来说这算重复内容，得分清楚哪份是正主，所以我又在 head 里补了几个标签。
+内容还是写给人看的，顺手也让大模型方便提取理解。
+
+站点根目录放了份 [llms.txt](https://wxhboy.cn/llms.txt)，简单说就是给 AI 看的站点目录，按 [llmstxt.org](https://llmstxt.org/) 的约定写的，里面的链接都指向 `.md` 原文，省得 AI 再从 HTML 里一点点扒正文。
+
+文章底部也放了个 `.md`，点开是带 front-matter 的原文，想自己看或者丢给 AI 都行。
+
+### 多个域名的副作用
+
+上面这几套部署解决了可访问性，也带了个新问题：同一篇文章现在有好几个地址。对搜索引擎来说这算重复内容，得分清楚哪份是正主，所以我又在 head 里补了几个标签。
 
 ```html
 <link rel="canonical" href="https://example.com/page">
 <meta property="og:url" content="https://example.com/page">
 ```
 
-canonical 固定指向 `wxhboy.cn`，所以哪怕你是从 `blog.wxhboy.cn` 或者 `cn.wxhboy.cn` 打开的，爬虫也知道该认哪一份。文章如果是自己首发的，这两个标签也是在声明权威来源。
+canonical 固定指向 `wxhboy.cn`，所以哪怕你是从 `blog.wxhboy.cn` 这类镜像域名打开的，爬虫也知道该认哪一份。文章如果是自己首发的，这两个标签也是在声明权威来源。
 
 ```html
 <meta name="description" content="Description of this page.">
@@ -88,7 +104,5 @@ canonical 固定指向 `wxhboy.cn`，所以哪怕你是从 `blog.wxhboy.cn` 或�
 ```
 
 结构化数据，把页面内容用 JSON 再描述一遍，给搜索引擎和爬虫读。现在 AI 抓页面的场景也越来越多，顺手加上了。
-
-文章底部我也放了个 `.md`，把源文件原样复制一份出去，点开是带 front-matter 的原文，可以直接让 AI 读取和理解文章内容。
 
 最后还有 `og:image` 这些，决定链接贴到社交平台或聊天窗口里的时候卡片长什么样——上面刚把 URL 收拾干净，分享出去的样子就是靠它们。
