@@ -13,3 +13,7 @@
 [submodule "gist-viewer"]
 	path = gist-viewer
 	url = https://github.com/Wxh16144/gist-viewer.git
+[submodule "source/_posts"]
+	path = source/_posts
+	url = https://github.com/Wxh16144/wxh16144.github.io.git
+	branch = posts
