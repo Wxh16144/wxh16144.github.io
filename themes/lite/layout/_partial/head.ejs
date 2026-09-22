@@ -96,6 +96,12 @@
 
 <link rel="canonical" href="<%= canonical %>">
 
+<!-- LLM 发现入口：整站索引 + 本页的 markdown 原文（归档/首页没有 md 路由，不输出） -->
+<link rel="describedby" href="<%= absUrl('llms.txt') %>">
+<% if (is_post() || is_page()) { %>
+<link rel="alternate" type="text/markdown" href="<%= md_url(page.path) %>">
+<% } %>
+
 <% if (seo.license_url) { %>
 <link rel="license" href="<%= seo.license_url %>">
 <% } %>
