@@ -7,9 +7,9 @@
 
 # Short bio shown next to the post list on the home page, one paragraph per item
 bio:
-  - "Wuxh，前端工程师，Ant Design 贡献者（Top 20）与 UmiJS 团队成员。"
-  - "丰富的多端开发经验：Electron 桌面应用、H5、小程序、PC。"
-  - "这里记录工程实践与开源路上的笔记。"
+  - "𝑾𝒖𝒙𝒉(吴小红)，啥都干的开发。"
+  - "前后端、运维、啥都会一点，前端领域更专业。"
+  - "喜欢开源、分享，偶尔记录，这里写的都是些简单的。"
 
 # Avatar shown above the bio (place the image at themes/lite/source/avatar.webp)
 avatar: avatar.webp

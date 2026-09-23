@@ -88,6 +88,10 @@
 <meta name="description" content="<%= desc %>">
 <% } %>
 
+<% if (config.keywords) { %>
+<meta name="keywords" content="<%= toText(config.keywords) %>">
+<% } %>
+
 <% if (author) { %>
 <meta name="author" content="<%= author %>">
 <% } %>
