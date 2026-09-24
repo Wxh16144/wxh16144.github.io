@@ -1,0 +1,24 @@
+# 每个内容分支各存一份（Actions 只读被推分支上的副本），新增分支时需一并加进 branches 列表。
+# schedule / workflow_dispatch 只在默认分支生效，故本份没有。
+name: Deploy My Blog
+
+on:
+  push:
+    branches:
+      - posts
+      - hexo
+      - notes
+      - website
+
+# 各分支发布的是同一个 gh-pages，共用一个 group：新 run 顶掉在跑的，不排队。
+concurrency:
+  group: site-deploy
+  cancel-in-progress: true
+
+permissions:
+  contents: write
+
+jobs:
+  deploy:
+    uses: Wxh16144/wxh16144.github.io/.github/workflows/deploy-site.yml@hexo
+    secrets: inherit
