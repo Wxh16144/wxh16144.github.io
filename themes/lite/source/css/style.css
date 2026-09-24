@@ -258,6 +258,55 @@ a.year-watermark:focus-visible {
   background: transparent;
 }
 
+/* Wrapper carries the block's bottom margin so the button can sit in the same
+   box without joining <pre>'s horizontal scrolling. */
+.markdown-body .code-block {
+  position: relative;
+  margin-bottom: 16px;
+}
+
+/* Extra top padding is the band the always-visible button uses on touch devices. */
+.markdown-body .code-block>pre {
+  margin-bottom: 0;
+  padding-top: 32px;
+}
+
+.code-copy {
+  position: absolute;
+  top: 6px;
+  right: 8px;
+  padding: 0 6px;
+  font: inherit;
+  font-size: 12px;
+  line-height: 18px;
+  color: var(--muted);
+  background: var(--bgColor-muted);
+  border: 0;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: color .15s, opacity .15s;
+}
+
+.code-copy.copied {
+  color: var(--fgColor-success);
+}
+
+/* Pointer devices hover, so the button hides and overlays the code instead. */
+@media (hover: hover) and (pointer: fine) {
+  .markdown-body .code-block>pre {
+    padding-top: 16px;
+  }
+
+  .code-copy {
+    opacity: 0;
+  }
+
+  .code-block:hover .code-copy,
+  .code-copy:focus-visible {
+    opacity: 1;
+  }
+}
+
 .site-footer {
   color: var(--muted);
   font-size: 0.9em;
