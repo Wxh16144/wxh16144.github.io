@@ -158,4 +158,21 @@
 <link rel="stylesheet" href="<%= theme.cdn.highlight_light %>" media="(prefers-color-scheme: light)">
 <link rel="stylesheet" href="<%= theme.cdn.highlight_dark %>" media="(prefers-color-scheme: dark)">
 <% } %>
+<% [].concat(theme.cdn.font || []).forEach(function (href) { %>
+<link rel="preload" as="style" crossorigin href="<%= href %>" onload="this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="<%= href %>"></noscript>
+<% }) %>
+<!-- 必须排在 github-markdown-css 之后 -->
+<style>
+  .markdown-body {
+    font-family: var(--font);
+  }
+  .markdown-body code,
+  .markdown-body tt,
+  .markdown-body kbd,
+  .markdown-body pre,
+  .markdown-body samp {
+    font-family: var(--font-code);
+  }
+</style>
 <script src="<%= url_for('js/bundle.js') %>" defer></script>

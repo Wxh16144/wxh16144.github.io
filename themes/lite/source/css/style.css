@@ -5,6 +5,13 @@
   --accent: #0969da;
   --border: #d1d9e0;
   --bg: #ffffff;
+
+  /* 正文字体（Geist + 鸿蒙）。字体文件在 _config.yml 的 cdn.font */
+  --font: Geist, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "HarmonyOS Sans SC",
+    "PingFang SC", "Microsoft YaHei", sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+  /* 代码字体（等宽）；不含中文时 Windows 会落宋体 */
+  --font-code: "Geist Mono", ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas,
+    "HarmonyOS Sans SC", "PingFang SC", "Microsoft YaHei", monospace;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -34,7 +41,7 @@ body {
 body {
   background: var(--bg);
   color: var(--fg);
-  font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+  font-family: var(--font);
   font-size: 14px;
   line-height: 1.7;
 }
@@ -239,10 +246,6 @@ a.year-watermark:focus-visible {
 
 .post-back a+a {
   margin-left: 16px;
-}
-
-.markdown-body {
-  font-size: 15px;
 }
 
 /* highlight.js github.css sets `pre code.hljs { padding: 1em; background: ... }`,
