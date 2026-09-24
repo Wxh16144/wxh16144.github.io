@@ -55,8 +55,7 @@ cdn:
   highlight_light: https://registry.npmmirror.com/highlight.js/11.12.0/files/styles/github.min.css
   highlight_dark: https://registry.npmmirror.com/highlight.js/11.12.0/files/styles/github-dark.min.css
 
-  # 正文字体。留空 = 系统字体栈
+  # 拉丁字体；中文由 scripts/font-subset.js 裁剪后自托管
   font:
     - https://registry.npmmirror.com/@lobehub/webfont-geist/1.0.0/files/css/index.css
     - https://registry.npmmirror.com/@lobehub/webfont-geist-mono/1.0.0/files/css/index.css
-    - https://registry.npmmirror.com/@lobehub/webfont-harmony-sans-sc/1.0.0/files/css/index.css

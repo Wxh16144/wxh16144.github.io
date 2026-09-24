@@ -26,5 +26,9 @@
     "hexo-server": "^3.0.0",
     "html-minifier-terser": "^7.2.0",
     "wxh16144": "^2.0.0"
+  },
+  "devDependencies": {
+    "@lobehub/webfont-harmony-sans-sc": "^1.0.0",
+    "subset-font": "^2.9.0"
   }
 }
