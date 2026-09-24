@@ -29,10 +29,11 @@
   <div class="post-list-wrap">
     <% yearGroups.forEach(function (group) { %>
     <div class="year-group">
+      <%# 年份是装饰性文字（同组文章的日期已表达同一信息），交给 CSS ::after 绘制 %>
       <% if (String(page.year) === group.archiveYear) { %>
-      <span class="year-watermark is-current" aria-hidden="true"><%= group.year %></span>
+      <span class="year-watermark is-current" data-year="<%= group.year %>" aria-hidden="true"></span>
       <% } else { %>
-      <a class="year-watermark" href="<%= url_for('/' + group.archiveYear + '/') %>" aria-label="<%= group.year %> 年归档"><%= group.year %></a>
+      <a class="year-watermark" data-year="<%= group.year %>" href="<%= url_for('/' + group.archiveYear + '/') %>" aria-label="<%= group.year %> 年归档"></a>
       <% } %>
       <ul class="post-list">
         <% group.posts.forEach(function (item) { %>

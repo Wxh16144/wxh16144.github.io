@@ -130,6 +130,11 @@ hr.dashed {
   transition: color 0.15s, opacity 0.15s;
 }
 
+/* 装饰性年份：内容取自 data-year，不作为文档文本参与排版 */
+.year-watermark::after {
+  content: attr(data-year);
+}
+
 .year-group:hover .year-watermark {
   opacity: 0.18;
 }
@@ -214,6 +219,30 @@ a.year-watermark:focus-visible {
     height: 72px;
     object-fit: cover;
     margin-bottom: 12px;
+  }
+
+  /* 水印在窄屏会压住标题抢走点击，所以改成列表上方的分组标题（样式同 .links-hint） */
+  .year-group {
+    margin-top: 28px;
+  }
+
+  .year-watermark {
+    position: static;
+    display: block;
+    font-size: 1rem;
+    line-height: 1.4;
+    color: var(--muted);
+    opacity: 1;
+    user-select: auto;
+    padding-bottom: 6px;
+    margin-bottom: 4px;
+    border-bottom: 1px dashed var(--border);
+  }
+
+  .year-group:hover .year-watermark,
+  a.year-watermark:hover,
+  a.year-watermark:focus-visible {
+    opacity: 1;
   }
 }
 
