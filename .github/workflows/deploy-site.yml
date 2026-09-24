@@ -1,6 +1,6 @@
 name: Deploy Site
 
-# Reusable: invoked by deploy-blog.yml, which exists on both `posts` and `hexo`.
+# 可复用工作流，由各分支的 deploy-blog.yml 调用。
 on:
   workflow_call:
 
@@ -11,13 +11,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v6
         with:
-          # The caller may run from `posts`; the site always builds from `hexo`.
+          # 调用方可能是 posts，站点固定从 hexo 构建
           ref: hexo
           submodules: true
       - name: Fetch submodule branch refs
-        # actions/checkout only fetches the pinned commit for each submodule, not
-        # its tracked branch (e.g. source/web -> origin/website). Without this,
-        # `--remote` below fails with "Unable to find refs/remotes/origin/<branch>".
+        # checkout 只取子模块的 pinned commit，不含其跟踪分支，缺这步下面 --remote 会失败
         run: git submodule foreach --recursive 'git fetch origin "+refs/heads/*:refs/remotes/origin/*"'
       - name: Update submodules to latest
         run: git submodule update --init --remote --recursive
@@ -53,7 +51,7 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./public
-          publish_branch: gh-pages # deploying branch
+          publish_branch: gh-pages
           force_orphan: true
           user_name: "github-actions[bot]"
           user_email: "github-actions[bot]@users.noreply.github.com"

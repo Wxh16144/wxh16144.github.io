@@ -1,6 +1,5 @@
-# Mirrored verbatim on `posts`, `hexo` and `notes`: Actions only reads the copy on
-# the branch being pushed, so this file must exist on every content branch. Keep
-# it to triggers only — the deploy logic lives in deploy-site.yml on `hexo`.
+# 每个内容分支各存一份（Actions 只读被推分支上的副本），新增分支时需一并加进 branches 列表。
+# schedule / workflow_dispatch 只在默认分支生效，故本份没有。
 name: Deploy My Blog
 
 on:
@@ -9,10 +8,12 @@ on:
       - posts
       - hexo
       - notes
-  workflow_dispatch:
-  schedule:
-    # https://crontab.guru/#0_10_*/7_*_*
-    - cron: "0 10 */7 * *"
+      - website
+
+# 各分支发布的是同一个 gh-pages，共用一个 group：新 run 顶掉在跑的，不排队。
+concurrency:
+  group: site-deploy
+  cancel-in-progress: true
 
 permissions:
   contents: write
