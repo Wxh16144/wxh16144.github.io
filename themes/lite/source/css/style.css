@@ -199,7 +199,7 @@ a.year-watermark:focus-visible {
   aspect-ratio: 1 / 1;
   object-fit: cover;
   margin-bottom: 16px;
-  border: 1px solid var(--border);
+  /* Loading skeleton; the inline onload handler clears it so the cut-out stays transparent */
   background-color: var(--border);
 }
 

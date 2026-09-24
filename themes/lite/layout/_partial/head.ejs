@@ -110,7 +110,8 @@
 <link rel="license" href="<%= seo.license_url %>">
 <% } %>
 
-<link rel="icon" href="<%= url_for('favicon.png') %>">
+<!-- Browsers and crawlers probe /favicon.ico by default -->
+<link rel="icon" href="<%= url_for('favicon.ico') %>" sizes="32x32">
 
 <!-- Open Graph -->
 <meta property="og:type" content="<%= isArticle ? 'article' : 'website' %>">

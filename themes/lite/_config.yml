@@ -11,8 +11,8 @@ bio:
   - "前后端、运维、啥都会一点，前端领域更专业。"
   - "喜欢开源、分享，偶尔记录，这里写的都是些简单的。"
 
-# Avatar shown above the bio (place the image at themes/lite/source/avatar.webp)
-avatar: avatar.webp
+# Avatar shown above the bio (place the image at themes/lite/source/avatar/)
+avatar: avatar/avatar-cartoon-520.webp
 
 # 站点级 SEO / 分享默认值 —— 文章 front-matter 没写的字段全部在这里兜底。
 # 写作时只需在需要覆盖的 md 里写对应字段，其余留空即可。
