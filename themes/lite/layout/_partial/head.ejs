@@ -154,8 +154,6 @@
 
 <!-- 样式与脚本 -->
 <link rel="stylesheet" href="<%= url_for('css/style.css') %>">
-<!-- 中文 webfont：构建时按用字裁剪（scripts/font-subset.js） -->
-<link rel="stylesheet" href="<%= url_for('css/font-cjk.css') %>">
 <% if (page.content) { %>
 <link rel="stylesheet" href="<%= theme.cdn.markdown_css %>">
 <link rel="stylesheet" href="<%= theme.cdn.highlight_light %>" media="(prefers-color-scheme: light)">

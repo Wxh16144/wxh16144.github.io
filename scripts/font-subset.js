@@ -1,9 +1,8 @@
-// 中文 webfont 按用字裁剪后自托管（完整鸿蒙字库 8.4 MiB，裁后约 300 KiB）。
+// 中文 webfont 按用字裁剪后内联（完整鸿蒙字库 8.4 MiB，裁后约 300 KiB）。
 // 出错则退回 CDN 完整字库，构建不中断。
 const fs = require('fs')
 const path = require('path')
 
-const CSS_ROUTE = 'css/font-cjk.css'
 const CDN_CSS =
   'https://registry.npmmirror.com/@lobehub/webfont-harmony-sans-sc/1.0.0/files/css/index.css'
 const FONT_DIR = path.join(hexo.base_dir, 'node_modules', '@lobehub', 'webfont-harmony-sans-sc', 'fonts')
@@ -28,7 +27,7 @@ async function streamToString(stream) {
   return Buffer.concat(chunks).toString('utf8')
 }
 
-// 不剔标签：属性与内联样式里的中文同样会渲染
+// 扫全部文本路由(页面本体 + 同一内容的 .md 原文)。不剔标签：属性与内联样式里的中文同样会渲染。
 async function collectChars() {
   const routes = hexo.route.list().filter(p => /\.(html|md)$/i.test(p))
   const chars = new Set()
@@ -50,25 +49,43 @@ function faceCss(face, url) {
 }`
 }
 
+// @font-face 对布局没有影响，做成外链只是白搭一次阻塞渲染的往返、并推后字体开始下载，
+// 所以内联到 head 末尾。用 lastIndexOf：注释里也可能出现字面量 </head>，真正的闭合标签在最后。
+function injectStyle(pages, css) {
+  const tag = `<style>${css}</style>`
+  for (const [route, body] of pages) {
+    const end = body.lastIndexOf('</head>')
+    hexo.route.set(route, body.slice(0, end) + tag + body.slice(end))
+  }
+}
+
 hexo.extend.filter.register('after_generate', async () => {
+  // 跳转页只有 <meta refresh> 和一个 script，没有 </head> 也不需要字体，这里一并排除
+  const pages = new Map()
+  for (const route of hexo.route.list().filter(p => /\.html$/i.test(p))) {
+    const body = await streamToString(hexo.route.get(route))
+    if (body.includes('</head>')) pages.set(route, body)
+  }
+  if (!pages.size) return
+
+  let css
   try {
     const subsetFont = require('subset-font')
     const text = await collectChars()
-    const css = []
+    css = FACES.map(face => faceCss(face, hexo.config.root + `fonts/${face.file}`)).join('\n')
 
     for (const face of FACES) {
       const subset = await subsetFont(fs.readFileSync(path.join(FONT_DIR, face.file)), text, {
         targetFormat: 'woff2'
       })
-      const route = `fonts/${face.file}`
-      hexo.route.set(route, subset)
-      css.push(faceCss(face, hexo.config.root + route))
+      hexo.route.set(`fonts/${face.file}`, subset)
     }
-
-    hexo.route.set(CSS_ROUTE, css.join('\n'))
-    hexo.log.info(`已裁剪中文 webfont 至 ${[...text].length} 个字符 → ${CSS_ROUTE}`)
+    hexo.log.info(`已裁剪中文 webfont 至 ${[...text].length} 个字符 → ${pages.size} 个页面`)
   } catch (e) {
-    hexo.route.set(CSS_ROUTE, `@import url("${CDN_CSS}");`)
+    css = `@import url("${CDN_CSS}");`
     hexo.log.warn(`中文 webfont 裁剪失败，回退 CDN 完整字库：${e.message}`)
   }
+
+  injectStyle(pages, css)
+
 }, 15)
