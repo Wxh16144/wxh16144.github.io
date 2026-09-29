@@ -405,11 +405,15 @@ a.year-watermark:focus-visible {
 }
 
 .links-toggle summary::before {
-  content: '+ ';
+  /* '+' and '–' have different advance widths; a fixed box keeps the label from shifting on toggle */
+  content: '+';
+  display: inline-block;
+  width: 1em;
+  text-align: center;
 }
 
 .links-toggle[open] summary::before {
-  content: '– ';
+  content: '–';
 }
 
 .links-toggle summary:hover {
