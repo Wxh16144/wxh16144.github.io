@@ -5,6 +5,31 @@ date: 2020-12-27 19:23:24
 
 一些快速记录的笔记
 
+## :w !sudo tee %
+
+_2026/09/29_
+
+打开没有写权限的文件（如 `/etc/hosts`）时，`:w` 会报 `E45` 或 `E212`，这时候用：
+
+```vim
+:w !sudo tee %
+```
+
+`:w !{cmd}` 把缓冲区内容经 stdin 交给外部命令执行，`%` 是当前文件名，所以 `sudo tee` 能以 root 覆盖写入。
+
+之后 vim 会提示文件被外部修改，`:e!` 重新载入。
+
+还是嫌整条命令太长？在 vimrc 里加一条缩写，之后敲 `:w!!` 回车就会展开成上面那句：
+
+```vim
+cnoreabbrev w!! w !sudo tee %
+```
+
+ref:
+
+- https://x.com/aiandcloud/status/2064724187848257831
+- https://x.com/plantegg/status/1625328979002671105
+
 ## Git 超大资源仓库拉取超时解决
 
 _2026/03/03_
