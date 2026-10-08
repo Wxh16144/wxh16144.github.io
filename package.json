@@ -9,6 +9,7 @@
     "build": "hexo generate",
     "clean": "hexo clean",
     "server": "hexo server",
+    "sync": "git submodule update --init --remote --recursive",
     "build:gist": "npm run build -w gist-viewer ../public/gist/index.html"
   },
   "hexo": {
