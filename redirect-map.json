@@ -257,5 +257,9 @@
   {
     "old": "/resume/",
     "new": "https://resume.wxhboy.cn/"
+  },
+  {
+    "old": "/learn/",
+    "new": "https://learnxinyminutes.com/"
   }
 ]
