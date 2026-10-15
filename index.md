@@ -5,6 +5,23 @@ date: 2020-12-27 19:23:24
 
 一些快速记录的笔记
 
+## git view-diff
+
+_2026/10/15_
+
+把 diff 生成并排对比的 HTML 快照，发 patch 给同事时一起带上：[git-view-diff](https://github.com/Wxh16144/git-view-diff)
+
+```bash
+git view-diff --cached --open    # 参数同 git diff
+git show HEAD | git view-diff    # 从 stdin 读 patch
+git config view-diff.viewer pulls.review    # 换成 pulls.review 查看
+```
+
+ref:
+
+- [megatops/PatchViewer](https://github.com/megatops/PatchViewer)
+- [antfu/pulls.review](https://github.com/antfu/pulls.review)
+
 ## :w !sudo tee %
 
 _2026/09/29_
