@@ -27,6 +27,7 @@ archive_dir: /
 # https://blog.gagahappy.cn/hexo-set-skip-render/
 skip_render: 
   - "web/**"
+  - "404.html"
 
 # Writing
 new_post_name: :title.md # File name of new posts

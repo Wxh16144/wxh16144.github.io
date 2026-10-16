@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light dark">
+  <title>404 - 页面未找到</title>
+  <style>
+    :root {
+      color-scheme: light dark;
+      --fg: #1f2328;
+      --muted: #59636e;
+      --accent: #0969da;
+      --border: #d1d9e0;
+      --bg: #ffffff;
+      --font: Geist, -apple-system, "Segoe UI", Roboto, "HarmonyOS Sans SC",
+        "PingFang SC", "Microsoft YaHei", sans-serif;
+      --font-code: "Geist Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --fg: #f0f6fc;
+        --muted: #9198a1;
+        --accent: #4493f8;
+        --border: #3d444d;
+        --bg: #0d1117;
+      }
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      color: var(--fg);
+      font-family: var(--font);
+      font-size: 14px;
+      line-height: 1.7;
+    }
+    main {
+      max-width: 640px;
+      min-height: 100vh;
+      margin: 0 auto;
+      padding: 48px 24px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    h1 {
+      font-size: 4rem;
+      font-weight: 200;
+      line-height: 1;
+      margin: 0 0 8px;
+      color: var(--muted);
+    }
+    p { margin: 8px 0; }
+    .target {
+      display: block;
+      font-family: var(--font-code);
+      word-break: break-all;
+      color: var(--accent);
+      text-decoration: none;
+    }
+    .target:hover { text-decoration: underline; }
+    .actions { margin-top: 16px; }
+    .actions a {
+      display: inline-block;
+      color: var(--accent);
+      text-decoration: none;
+    }
+    .actions a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>404</h1>
+    <p id="msg">我猜猜你要去哪…</p>
+    <a id="target" class="target" hidden target="_blank" rel="noopener noreferrer"></a>
+    <p class="actions">
+      <a id="home" href="/" hidden>返回首页</a>
+    </p>
+  </main>
+  <script src="https://registry.npmmirror.com/idb-keyval/6.3.0/files/dist/umd.js"></script>
+  <script>
+
+    var GITHUB_API = 'https://api.github.com/repos/Wxh16144/links/commits'
+
+    // https://github.com/Wxh16144/links/tree/service
+    var LINKS_SERVICE = 'https://links.wxhboy.cn'
+
+    var CACHE_STORE = 'shortlink-cache'
+    var TIMEOUT = 10 * 1000 // 10 seconds;
+
+    var ref = String(location.pathname).slice(1)
+
+    // 缓存 ref -> URL，只在解析成功后写入
+    var cacheStore = null
+    try {
+      if (window.idbKeyval) cacheStore = window.idbKeyval.createStore(location.host, CACHE_STORE)
+    } catch (e) {}
+    function cacheGet(key) {
+      if (!cacheStore) return Promise.resolve(null)
+      return window.idbKeyval.get(key, cacheStore).catch(function () { return null })
+    }
+    function cacheSet(key, value) {
+      if (!cacheStore) return
+      window.idbKeyval.set(key, value, cacheStore).catch(function () {})
+    }
+
+    function el(id) { return document.getElementById(id) }
+
+    function showRedirect(url) {
+      el('msg').textContent = '我猜你要去这里：'
+      el('target').textContent = url
+      el('target').href = url
+      el('target').hidden = false
+      el('home').hidden = false
+    }
+
+    function showNotFound() {
+      el('msg').textContent = '没猜着，这页不存在。'
+      el('home').hidden = false
+    }
+
+    // GitHub API 通道：commit message 首行即跳转 URL
+    function resolveByGitHub() {
+      var headers = new Headers()
+      headers.set('Accept', 'application/vnd.github.raw+json')
+      var token = localStorage.getItem('GITHUB_TOKEN')
+      if (token) headers.set('Authorization', 'Bearer ' + token)
+
+      return fetch(GITHUB_API + '/' + ref, {
+        headers: headers,
+        signal: AbortSignal.timeout(TIMEOUT)
+      }).then(function (res) {
+        if (!res.ok) throw new Error('GitHub API ' + res.status)
+        return res.json()
+      }).then(function (data) {
+        var message = data && data.commit && data.commit.message
+        message = message ? message.split('\n')[0].trim() : ''
+        if (!message) throw new Error('Invalid URL format')
+        return new URL(message).href
+      })
+    }
+
+    // links 服务通道：POST 详情接口，返回 URL 不跳转（tag 名也能命中）
+    function resolveByLinks() {
+      return fetch(LINKS_SERVICE + '/' + ref, {
+        method: 'POST',
+        signal: AbortSignal.timeout(TIMEOUT)
+      }).then(function (res) {
+        if (!res.ok) throw new Error('links ' + res.status)
+        return res.json()
+      }).then(function (data) {
+        if (!data || data.kind === 'none' || !data.url) throw new Error('Short link not found')
+        return new URL(data.url).href
+      })
+    }
+
+    cacheGet(ref).then(function (cached) {
+      if (cached) {
+        showRedirect(cached)
+        return
+      }
+      Promise.allSettled([resolveByGitHub(), resolveByLinks()]).then(function (results) {
+        var ghUrl = results[0].status === 'fulfilled' ? results[0].value : null
+        var linksUrl = results[1].status === 'fulfilled' ? results[1].value : null
+        // GitHub API 实时权威，优先采信；它失败时才用 links 服务兜底
+        if (ghUrl) {
+          showRedirect(ghUrl)
+          cacheSet(ref, ghUrl)
+        } else if (linksUrl) {
+          showRedirect(linksUrl)
+          cacheSet(ref, linksUrl)
+        } else {
+          showNotFound()
+        }
+      })
+    })
+  </script>
+</body>
+</html>
