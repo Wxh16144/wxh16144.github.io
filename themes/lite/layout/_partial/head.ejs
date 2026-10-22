@@ -1,24 +1,17 @@
 <%
-  // ============================================================
-  // Lite SEO <head> partial
-  // 原则：所有字段可选 —— 文章没写的自动回退到全局默认值，
-  // 找不到就干脆不输出该标签，绝不输出空属性/空 content。
-  // 可用字段（front-matter）：
-  //   description / summary / author / cover / robots
-  // ============================================================
+  // Lite SEO <head>：字段全部可选，文章没写的回退到全局默认，仍无则不输出该标签。
+  // front-matter 可用：description / summary / author / cover / robots
 
   const seo = theme.seo || {};
 
   // ---------- 公共工具 ----------
-  // HTML 去标签 + 空白归一化，取纯文本
   const toText = s => String(s || '').replace(/<[^>]*>/g, '').replace(/\s+/g, ' ').trim();
-  // 相对路径(/xxx、xxx.jpg、//cdn…) 或裸路径统一成绝对 URL
   const absUrl = src => {
     if (!src) return '';
     if (/^https?:\/\//i.test(src)) return src;
     return config.url.replace(/\/+$/, '') + (src.charAt(0) === '/' ? '' : '/') + src;
   };
-  // date 助手内部会套用站点 timezone，Z 输出形如 +08:00 的偏移
+  // date 助手会套用站点 timezone，Z 输出 +08:00 偏移
   const isoOffset = d => (d ? date(d, 'YYYY-MM-DDTHH:mm:ssZ') : '');
 
   const isArticle = is_post();
@@ -30,8 +23,7 @@
   const pageTitle = (page.title || '').trim();
   const headTitle = pageTitle ? pageTitle + ' | ' + config.title : siteName;
 
-  // ---------- description（SEO 重点，全局兜底链） ----------
-  // description > summary > 正文/摘要前 60 字符 > 站点描述
+  // ---------- description：front-matter > 摘要/正文 > 站点描述，截 60 字 ----------
   let desc = toText(page.description) || toText(page.summary);
   if (!desc) desc = toText(page.excerpt);
   if (!desc && page.content) desc = toText(page.content);
@@ -44,19 +36,19 @@
   // ---------- robots：单篇覆盖 > 全局默认 ----------
   const robots = toText(page.robots) || seo.robots_global || 'index,follow';
 
-  // ---------- canonical：permalink 已是绝对地址，缺省时拼接 ----------
-  // 首页路由生成的 permalink 会带 index.html，规整成根路径
+  // ---------- canonical ----------
+  // 首页 permalink 带 index.html，规整成根路径
   let canonical = page.permalink || absUrl(url_for(page.path));
   if (canonical === config.url.replace(/\/+$/, '') + '/index.html') canonical = config.url.replace(/\/+$/, '') + '/';
 
-  // ---------- 分享图（可选；default_og_image 留空 = 不做兜底） ----------
+  // ---------- 分享图：文章 cover > 全局默认 ----------
   const ogImg = absUrl(page.cover || seo.default_og_image || '');
 
-  // ---------- 时间（仅文章输出，ISO8601 带时区偏移） ----------
+  // ---------- 时间：仅文章输出 ----------
   const publishedISO = isArticle ? isoOffset(page.date) : '';
   const modifiedISO  = isArticle ? isoOffset(page.updated) : '';
 
-  // ---------- JSON-LD：文章输出 Article；列表/单页不输出避免误导爬虫 ----------
+  // ---------- JSON-LD：仅文章输出，列表页写了会误导爬虫 ----------
   const ld = (() => {
     if (!isArticle) return null;
     const o = {
@@ -75,7 +67,7 @@
     if (seo.license_url) o.license = seo.license_url;
     return o;
   })();
-  // </script> 逃逸：所有 < 转义为 \u003c（JSON 标准写法），防正文/标题里出现 </script>
+  // 转义 < 防正文里出现 </script> 提前闭合
   const ldJson = ld ? JSON.stringify(ld).replace(/</g, '\\u003c') : '';
 %>
 <meta charset="UTF-8">
@@ -100,7 +92,7 @@
 
 <link rel="canonical" href="<%= canonical %>">
 
-<!-- LLM 发现入口：整站索引 + 本页的 markdown 原文（归档/首页没有 md 路由，不输出） -->
+<!-- LLM 发现入口；归档/首页没有 md 路由，不输出 -->
 <link rel="describedby" href="<%= absUrl('llms.txt') %>">
 <% if (is_post() || is_page()) { %>
 <link rel="alternate" type="text/markdown" href="<%= md_url(page.path) %>">
@@ -110,7 +102,6 @@
 <link rel="license" href="<%= seo.license_url %>">
 <% } %>
 
-<!-- Browsers and crawlers probe /favicon.ico by default -->
 <link rel="icon" href="<%= url_for('favicon.ico') %>" sizes="32x32">
 
 <!-- Open Graph -->
@@ -132,8 +123,8 @@
 <meta property="og:image" content="<%= ogImg %>">
 <% } %>
 
-<!-- Twitter Card（无封面时降级为小卡 summary，不强求大图） -->
-<meta name="twitter:card" content="<%= ogImg ? 'summary_large_image' : 'summary' %>">
+<!-- Twitter Card -->
+<meta name="twitter:card" content="<%= ogImg ? (seo.twitter_card || 'summary') : 'summary' %>">
 <meta name="twitter:title" content="<%= pageTitle || siteName %>">
 <meta name="twitter:url" content="<%= canonical %>">
 <% if (desc) { %>
@@ -143,16 +134,15 @@
 <meta name="twitter:image" content="<%= ogImg %>">
 <% } %>
 
-<!-- Schema.org JSON-LD（Google 结构化数据） -->
+<!-- JSON-LD -->
 <% if (ldJson) { %>
 <script type="application/ld+json"><%- ldJson %></script>
 <% } %>
 
-<!-- 主题色（移动端地址栏） -->
+<!-- 移动端地址栏配色 -->
 <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#18181b" media="(prefers-color-scheme: dark)">
 
-<!-- 样式与脚本 -->
 <link rel="stylesheet" href="<%= url_for('css/style.css') %>">
 <% if (page.content) { %>
 <link rel="stylesheet" href="<%= theme.cdn.markdown_css %>">
