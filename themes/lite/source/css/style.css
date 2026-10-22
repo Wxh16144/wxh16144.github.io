@@ -81,6 +81,13 @@ hr.dashed {
   text-decoration: none;
 }
 
+.site-logo {
+  width: 1.4em;
+  height: 1.4em;
+  margin-right: 0.5em;
+  vertical-align: -0.3em;
+}
+
 .site-nav a {
   margin-left: 16px;
 }

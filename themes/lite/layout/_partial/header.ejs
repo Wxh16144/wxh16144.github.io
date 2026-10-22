@@ -1,5 +1,5 @@
 <header class="site-header">
-  <a class="site-title" href="<%= url_for('/') %>"><%= config.title %></a>
+  <a class="site-title" href="<%= url_for('/') %>"><img class="site-logo" src="<%= url_for('images/logo.svg') %>" alt=""><%= config.title %></a>
   <nav class="site-nav">
     <% auto_nav().forEach(function (item) { %>
       <a href="<%= url_for(item.url) %>"><%= item.name %></a>
