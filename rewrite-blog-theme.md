@@ -34,6 +34,9 @@ description: 换掉 hexo-theme-next，用 AI 搓了一套简单的 hexo 个人�
 
 原本打算把 `legacy-blog-redirects` 分支也作为 submodule 挂载到 gh-pages 分支，用来处理旧链接重定向。后来发现 Hexo 原生就可以生成重定向，于是只保留 `redirect-map.json`，每次构建自动更新这份映射文件。
 
+> **2026/10/25 更新：**
+> 这些分支、目录和 submodule 之间的关系，光靠文字不太好讲清楚，所以我另外画了一张结构图，放在 [Colophon](/colophon/) 里。有兴趣的可以去看看。
+
 ### 新主题：快速、简单、AI First
 
 **快速**
