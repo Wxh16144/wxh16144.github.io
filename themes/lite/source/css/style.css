@@ -305,6 +305,20 @@ a.year-watermark:focus-visible {
   background: transparent;
 }
 
+/* mermaid 图：关掉 useMaxWidth，SVG 保持固有宽度，窄屏靠容器横向滚动 */
+.mermaid-wrap {
+  margin-bottom: 16px;
+  overflow-x: auto;
+}
+
+/* 未渲染时显示的是图表源码：按代码块兜底，JS 不可用也能读到结构 */
+.mermaid-wrap .mermaid:not([data-processed]) {
+  font-family: var(--font-code);
+  font-size: 0.85em;
+  color: var(--muted);
+  white-space: pre;
+}
+
 /* Wrapper carries the block's bottom margin so the button can sit in the same
    box without joining <pre>'s horizontal scrolling. */
 .markdown-body .code-block {
@@ -355,6 +369,11 @@ a.year-watermark:focus-visible {
 }
 
 .site-footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 4px 16px;
   color: var(--muted);
   font-size: 0.9em;
 }
@@ -395,12 +414,12 @@ a.year-watermark:focus-visible {
   border-bottom-color: var(--accent);
 }
 
-.site-footer-row {
+/* 页脚是一行：左边一串小项，右边 rss；窄屏各自折行 */
+.site-footer-meta {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
   align-items: baseline;
-  gap: 16px;
+  gap: 0 8px;
 }
 
 /* footer 的分栏间距由 gap 负责，抵消 .links-toggle 自带的 margin-left；
@@ -542,6 +561,15 @@ a.year-watermark:focus-visible {
   .post-back .links-list {
     left: 0;
     right: auto;
+  }
+
+  /* 窄屏下这一行必然折行，分隔符会悬在行尾：改用间距区分 */
+  .site-footer-meta {
+    gap: 0 12px;
+  }
+
+  .site-footer-meta [aria-hidden="true"] {
+    display: none;
   }
 
   /* 按钮折行到行首时，向左展开的下拉会溢出屏幕：改为贴着整条导航的左边展开 */

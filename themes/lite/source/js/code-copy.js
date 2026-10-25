@@ -1,7 +1,7 @@
 (() => {
   // <pre> is the horizontal scroll container, so the button lives in a wrapper
   // next to it — inside, it would scroll out of view.
-  document.querySelectorAll('.markdown-body pre > code').forEach((code) => {
+  document.querySelectorAll('.markdown-body pre > code:not(.mermaid)').forEach((code) => {
     const pre = code.parentElement;
     const wrap = document.createElement('div');
     wrap.className = 'code-block';

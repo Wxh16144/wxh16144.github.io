@@ -10,7 +10,8 @@ const absPath = p => hexo.config.url.replace(/\/+$/, '') + '/' + p
 const PAGES = {
   'about.md': { name: 'About', desc: '个人简介：技术栈、开源贡献、联系方式' },
   'notes.md': { name: 'Notes', desc: '按时间倒序的速记流水，含 Git / macOS / 编辑器等零散技巧' },
-  'bookmarks.md': { name: 'Bookmarks', desc: '设计与体验优秀的网站、工具合集' }
+  'bookmarks.md': { name: 'Bookmarks', desc: '设计与体验优秀的网站、工具合集' },
+  'colophon.md': { name: 'Colophon', desc: '站点架构：hexo 仓库与各 git submodule 的挂载关系，以及给 agent 的纯文本入口' }
 }
 
 hexo.extend.generator.register('llms_txt', locals => {

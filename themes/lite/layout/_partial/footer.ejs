@@ -1,6 +1,16 @@
 <hr class="dashed">
-<footer class="site-footer site-footer-row">
-  <span><%= theme.footer && theme.footer.since ? theme.footer.since + ' – ' : '' %><%= new Date().getFullYear() %> <%= config.author %></span>
+<footer class="site-footer">
+  <span class="site-footer-meta">
+    <span>© <%= theme.footer && theme.footer.since ? theme.footer.since + '–' : '' %><%= new Date().getFullYear() %> <%= (theme.footer && theme.footer.name) || config.author %></span>
+    <% if (theme.footer && theme.footer.license) { %>
+    <span aria-hidden="true">·</span>
+    <span><%= theme.footer.license %></span>
+    <% } %>
+    <span aria-hidden="true">·</span>
+    <a href="<%= url_for('llms.txt') %>">llms.txt</a>
+    <span aria-hidden="true">·</span>
+    <a href="<%= url_for('colophon/') %>">站点设计</a>
+  </span>
   <details class="links-toggle footer-rss">
     <summary>rss</summary>
     <div class="links-list">

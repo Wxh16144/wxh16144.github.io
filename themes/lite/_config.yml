@@ -25,6 +25,8 @@ seo:
 footer:
   since: 2018
   license: CC BY-NC-SA 4.0
+  # 版权行用的站点短名；留空则用站点 _config.yml 的 author
+  name: Wuxh
 
 social:
   github: https://github.com/Wxh16144
