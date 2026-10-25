@@ -13,6 +13,8 @@ on:
   schedule:
     # https://crontab.guru/#0_10_*/7_*_*
     - cron: "0 10 */7 * *"
+  repository_dispatch:
+    types: [blogroll-updated, bookmarks-updated]
 
 # 各分支发布的是同一个 gh-pages，共用一个 group：新 run 顶掉在跑的，不排队。
 concurrency:
