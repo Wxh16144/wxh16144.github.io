@@ -1,2 +1,6 @@
-<%- partial('_partial/post-list', { posts: page.posts.toArray() }) %>
+<%
+  // 首页传 Query(有 toArray)，scripts/archive.js 生成的年份页传普通数组
+  const list = typeof page.posts.toArray === 'function' ? page.posts.toArray() : page.posts
+%>
+<%- partial('_partial/post-list', { posts: list }) %>
 <%- partial('_partial/pagination') %>

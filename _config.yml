@@ -68,10 +68,12 @@ updated_option: 'mtime'
 per_page: 0
 
 # Archive
-## 归档列表粒度：只生成“年”归档(如 /2024/)，不要月归档
-## 注：archive_dir 为 / 时，首页本身就是全部文章的归档列表
+# 归档列表粒度：只生成“年”归档(如 /2024/)。
+# 注：archive_dir 为 / 时，首页本身就是全部文章的归档列表。
+# yearly 关掉——年份页需要按「显示年份」分组(常青文章的 2099 归一化到当前年份)，
+# 由 scripts/archive.js 生成，插件只负责根路径这份全量列表。
 archive_generator:
-  yearly: true
+  yearly: false
   monthly: false
   daily: false
 
