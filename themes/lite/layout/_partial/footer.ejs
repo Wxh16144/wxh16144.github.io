@@ -1,4 +1,11 @@
 <hr class="dashed">
-<footer class="site-footer">
+<footer class="site-footer site-footer-row">
   <span><%= theme.footer && theme.footer.since ? theme.footer.since + ' – ' : '' %><%= new Date().getFullYear() %> <%= config.author %></span>
+  <details class="links-toggle footer-rss">
+    <summary>rss</summary>
+    <div class="links-list">
+      <a href="<%= url_for('feed.xml') %>" target="_blank" rel="noopener noreferrer">Posts RSS</a>
+      <a href="<%= url_for('notes.xml') %>" target="_blank" rel="noopener noreferrer">Notes RSS</a>
+    </div>
+  </details>
 </footer>

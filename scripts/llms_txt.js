@@ -1,4 +1,4 @@
-// 站点 llms.txt(https://llmstxt.org/):给 agent 的站点索引,链接一律指向
+// 站点 llms.txt(https://llmstxt.org/):给 agent 的站点索引,正文链接一律指向
 // markdown_source.js 产出的 .md 路由,省得 agent 再从 HTML 里扒正文。
 const DESC_MAX = 100
 
@@ -44,6 +44,11 @@ hexo.extend.generator.register('llms_txt', locals => {
   if (bio) lines.push(`> ${bio}`, '')
   lines.push('## Pages', '', ...pages, '', '## Posts')
   groups.forEach(group => lines.push('', `### ${group.year}`, '', ...group.items))
+
+  const rss = [`- [Posts RSS](${absPath('feed.xml')}): 文章订阅源`]
+  if (pageMds.has('notes.md')) rss.push(`- [Notes RSS](${absPath('notes.xml')}): 速记订阅源`)
+  lines.push('', '## RSS', '', ...rss)
+
   lines.push('', '## Find me', '', ...findMe)
 
   // llms.txt 也由 GitHub Pages 以 text/plain 发送且不带 charset,加 BOM 强制按 UTF-8 解码

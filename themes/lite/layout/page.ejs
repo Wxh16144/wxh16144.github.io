@@ -4,9 +4,12 @@
   <div class="markdown-body">
     <%- page.content %>
   </div>
-  <p class="post-back">
+  <div class="post-back">
     <a href="<%= url_for('/') %>">cd ..</a>
+    <span aria-hidden="true">·</span>
     <a href="<%= md_url(page.path) %>">.md</a>
-  </p>
+    <span aria-hidden="true">·</span>
+    <%- partial('_partial/ask-ai') %>
+  </div>
 </article>
 <%- partial('_partial/comments') %>

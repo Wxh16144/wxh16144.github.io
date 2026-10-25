@@ -94,6 +94,10 @@
 
 <!-- LLM 发现入口；归档/首页没有 md 路由，不输出 -->
 <link rel="describedby" href="<%= absUrl('llms.txt') %>">
+
+<!-- 订阅源自动发现 -->
+<link rel="alternate" type="application/rss+xml" title="<%= config.title %>" href="<%= url_for('feed.xml') %>">
+<link rel="alternate" type="application/rss+xml" title="<%= config.title %> · Notes" href="<%= url_for('notes.xml') %>">
 <% if (is_post() || is_page()) { %>
 <link rel="alternate" type="text/markdown" href="<%= md_url(page.path) %>">
 <% } %>

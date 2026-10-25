@@ -88,11 +88,15 @@ hr.dashed {
   vertical-align: -0.3em;
 }
 
-.site-nav a {
-  margin-left: 16px;
+/* 用 gap 而不是 margin-left 排间距：换行后第二行不会多出缩进 */
+.site-nav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 16px;
 }
 
-.site-nav a:first-child {
+.site-nav .links-toggle {
   margin-left: 0;
 }
 
@@ -275,6 +279,10 @@ a.year-watermark:focus-visible {
 }
 
 .post-back {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0 12px;
   margin-top: 32px;
 }
 
@@ -282,8 +290,9 @@ a.year-watermark:focus-visible {
   text-decoration: underline;
 }
 
-.post-back a+a {
-  margin-left: 16px;
+/* 下拉自带的 16px margin 会叠加到 flex gap 上 */
+.post-back .links-toggle {
+  margin-left: 0;
 }
 
 /* highlight.js github.css sets `pre code.hljs { padding: 1em; background: ... }`,
@@ -388,9 +397,24 @@ a.year-watermark:focus-visible {
 
 .site-footer-row {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: baseline;
   gap: 16px;
+}
+
+/* footer 的分栏间距由 gap 负责，抵消 .links-toggle 自带的 margin-left；
+   margin-left: auto 保证换行后仍然贴右边 */
+.footer-rss {
+  margin-left: auto;
+}
+
+/* 页脚在最底部，往下展开会撑高页面：改成右上方弹出 */
+.footer-rss .links-list {
+  top: auto;
+  bottom: 100%;
+  margin-top: 0;
+  margin-bottom: 8px;
 }
 
 .links-toggle {
@@ -498,6 +522,40 @@ a.year-watermark:focus-visible {
     height: 72px;
     object-fit: cover;
     margin-bottom: 12px;
+  }
+
+  /* 标题独占一行，导航排在下面 */
+  .site-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  /* ask ai 落在正文底部，下拉改从左侧展开，避免窄屏溢出 */
+  .post-back {
+    position: relative;
+  }
+
+  .post-back .links-toggle {
+    position: static;
+  }
+
+  .post-back .links-list {
+    left: 0;
+    right: auto;
+  }
+
+  /* 按钮折行到行首时，向左展开的下拉会溢出屏幕：改为贴着整条导航的左边展开 */
+  .site-nav {
+    position: relative;
+  }
+
+  .site-nav .links-toggle {
+    position: static;
+  }
+
+  .site-nav .links-list {
+    left: 0;
+    right: auto;
   }
 }
 

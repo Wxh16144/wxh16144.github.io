@@ -1,0 +1,12 @@
+<%
+  // AI 直接读 markdown_source.js 产出的 .md 原文，省得它再从 HTML 里扒正文
+  const mdUrl = full_url_for(md_url(page.path));
+  const prompt = encodeURIComponent('阅读 ' + mdUrl + ' ，我想就这篇内容提问。');
+%>
+<details class="links-toggle ask-ai">
+  <summary>ask ai</summary>
+  <div class="links-list">
+    <a href="https://chatgpt.com/?hints=search&amp;q=<%= prompt %>" target="_blank" rel="noopener noreferrer">ChatGPT ↗</a>
+    <a href="https://claude.ai/new?q=<%= prompt %>" target="_blank" rel="noopener noreferrer">Claude ↗</a>
+  </div>
+</details>
