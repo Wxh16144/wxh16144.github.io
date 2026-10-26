@@ -423,8 +423,9 @@ a.year-watermark:focus-visible {
 }
 
 /* footer 的分栏间距由 gap 负责，抵消 .links-toggle 自带的 margin-left；
-   margin-left: auto 保证换行后仍然贴右边 */
-.footer-rss {
+   margin-left: auto 保证换行后仍然贴右边。
+   加父级提高优先级，否则会被后面的 .links-toggle { margin-left: 16px } 覆盖 */
+.site-footer .footer-rss {
   margin-left: auto;
 }
 
@@ -564,12 +565,30 @@ a.year-watermark:focus-visible {
   }
 
   /* 窄屏下这一行必然折行，分隔符会悬在行尾：改用间距区分 */
-  .site-footer-meta {
+  /* 窄屏下 meta 和 rss 拍平成同一串，一起自然折行，不再左右两块各折各的 */
+  .site-footer {
+    position: relative;
+    justify-content: flex-start;
     gap: 0 12px;
+  }
+
+  .site-footer-meta {
+    display: contents;
   }
 
   .site-footer-meta [aria-hidden="true"] {
     display: none;
+  }
+
+  /* rss 落在哪个位置不确定：弹层贴着整个页脚左边向上展开，保证不溢出屏幕 */
+  .site-footer .footer-rss {
+    position: static;
+    margin-left: 0;
+  }
+
+  .footer-rss .links-list {
+    left: 0;
+    right: auto;
   }
 
   /* 按钮折行到行首时，向左展开的下拉会溢出屏幕：改为贴着整条导航的左边展开 */
@@ -581,9 +600,21 @@ a.year-watermark:focus-visible {
     position: static;
   }
 
+  /* 竖排一列太长，会掉出首屏：改成横向折行的紧凑排列，宽度不超过屏幕 */
   .site-nav .links-list {
     left: 0;
     right: auto;
+    width: max-content;
+    max-width: calc(100vw - 48px);
+    box-sizing: border-box;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 6px 16px;
+    white-space: normal;
+  }
+
+  .site-nav .links-hint {
+    flex-basis: 100%;
   }
 }
 
