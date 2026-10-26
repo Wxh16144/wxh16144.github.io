@@ -1,0 +1,22 @@
+<article class="page">
+  <h1 class="page-title"><%= page.title %></h1>
+  <% if (page.content) { %>
+  <div class="markdown-body"><%- page.content %></div>
+  <% } %>
+  <ul class="project-list">
+    <% (site.data.projects || []).forEach(function (project) { %>
+    <li class="project-item">
+      <a class="project-name" href="https://github.com/<%= project.repo %>" target="_blank" rel="noopener noreferrer"><%= project.name %></a>
+      <span class="project-desc"><%= project.desc %></span>
+    </li>
+    <% }) %>
+  </ul>
+  <div class="post-back">
+    <a href="<%= url_for('/') %>">cd ..</a>
+    <span aria-hidden="true">·</span>
+    <a href="<%= md_url(page.path) %>">.md</a>
+    <span aria-hidden="true">·</span>
+    <%- partial('_partial/ask-ai') %>
+  </div>
+</article>
+<%- partial('_partial/comments') %>

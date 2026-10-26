@@ -6,9 +6,10 @@ const toText = s => String(s || '').replace(/<[^>]*>/g, '').replace(/\s+/g, ' ')
 const mdPath = p => p.replace(/index\.html$/, '').replace(/\/$/, '') + '.md'
 const absPath = p => hexo.config.url.replace(/\/+$/, '') + '/' + p
 
-// about/notes/bookmarks 各是一整页 .md,自动摘要会把标题和日期当成正文带出来,说明只能手写
+// 下面这些页面各是一整页 .md,自动摘要会把标题和日期当成正文带出来,说明只能手写
 const PAGES = {
   'about.md': { name: 'About', desc: '个人简介：技术栈、开源贡献、联系方式' },
+  'projects.md': { name: 'Projects', desc: '开源项目清单：仓库地址与一句话说明' },
   'notes.md': { name: 'Notes', desc: '按时间倒序的速记流水，含 Git / macOS / 编辑器等零散技巧' },
   'bookmarks.md': { name: 'Bookmarks', desc: '设计与体验优秀的网站、工具合集' },
   'colophon.md': { name: 'Colophon', desc: '站点架构：hexo 仓库与各 git submodule 的挂载关系，以及给 agent 的纯文本入口' }

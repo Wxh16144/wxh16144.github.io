@@ -602,3 +602,41 @@ a.year-watermark:focus-visible {
     font-size: 0.8em;
   }
 }
+
+/* Projects —— 标题直接跳 GitHub；宽屏排两列，免得一列拉太长 */
+.project-list {
+  list-style: none;
+  margin: 24px 0 0;
+  padding: 0;
+}
+
+.project-item {
+  padding: 10px 0;
+  border-bottom: 1px dashed var(--border);
+}
+
+.project-name {
+  font-size: 1.1em;
+  font-weight: 600;
+}
+
+/* 标个外链符号，省得以为还在站内 */
+.project-name::after {
+  content: ' ↗';
+  font-size: 0.85em;
+  font-weight: normal;
+}
+
+.project-desc {
+  display: block;
+  margin: 0;
+  color: var(--muted);
+}
+
+@media (min-width: 720px) {
+  .project-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: 40px;
+  }
+}
