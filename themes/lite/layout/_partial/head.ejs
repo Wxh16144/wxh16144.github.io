@@ -73,6 +73,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="color-scheme" content="light dark">
+<!-- 正文里数字多，别让 iOS / 微信把它们识别成电话链接 -->
+<meta name="format-detection" content="telephone=no">
 
 <title><%= headTitle %></title>
 
@@ -136,6 +138,15 @@
 <% } %>
 <% if (ogImg) { %>
 <meta name="twitter:image" content="<%= ogImg %>">
+<% } %>
+
+<!-- schema.org 微数据：QQ / 微博的链接卡片读这里（微信只用 meta description + 正文首图） -->
+<meta itemprop="name" content="<%= pageTitle || siteName %>">
+<% if (desc) { %>
+<meta itemprop="description" content="<%= desc %>">
+<% } %>
+<% if (ogImg) { %>
+<meta itemprop="image" content="<%= ogImg %>">
 <% } %>
 
 <!-- JSON-LD -->
