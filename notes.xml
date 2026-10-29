@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Wuxh · 吴小红 · Notes</title>
+        <link>https://wxhboy.cn/notes/</link>
+        <description>按时间倒序的速记流水，含 Git / macOS / 编辑器等零散技巧</description>
+        <lastBuildDate>Thu, 29 Oct 2026 16:39:33 GMT</lastBuildDate>
+        <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
+        <generator>https://github.com/jpmonette/feed</generator>
+        <language>zh-CN</language>
+        <atom:link href="https://wxhboy.cn/notes.xml" rel="self" type="application/rss+xml"/>
+        <item>
+            <title><![CDATA[git view-diff]]></title>
+            <link>https://wxhboy.cn/notes/#git-view-diff</link>
+            <guid isPermaLink="true">https://wxhboy.cn/notes/#git-view-diff</guid>
+            <pubDate>Thu, 15 Oct 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[把 diff 生成并排对比的 HTML 快照，发 patch 给同事时一起带上：git-view-diff]]></description>
+        </item>
+        <item>
+            <title><![CDATA[:w !sudo tee %]]></title>
+            <link>https://wxhboy.cn/notes/#w-sudo-tee</link>
+            <guid isPermaLink="true">https://wxhboy.cn/notes/#w-sudo-tee</guid>
+            <pubDate>Tue, 29 Sep 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[打开没有写权限的文件（如 /etc/hosts）时，:w 会报 E45 或 E212，这时候用：]]></description>
+        </item>
+        <item>
+            <title><![CDATA[Git 超大资源仓库拉取超时解决]]></title>
+            <link>https://wxhboy.cn/notes/#Git-%E8%B6%85%E5%A4%A7%E8%B5%84%E6%BA%90%E4%BB%93%E5%BA%93%E6%8B%89%E5%8F%96%E8%B6%85%E6%97%B6%E8%A7%A3%E5%86%B3</link>
+            <guid isPermaLink="true">https://wxhboy.cn/notes/#Git-%E8%B6%85%E5%A4%A7%E8%B5%84%E6%BA%90%E4%BB%93%E5%BA%93%E6%8B%89%E5%8F%96%E8%B6%85%E6%97%B6%E8%A7%A3%E5%86%B3</guid>
+            <pubDate>Tue, 03 Mar 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[团队游戏开发仓库因包含贴图、模型等资源，体积达 14GB+，拉取时持续出现rpc error: DeadlineExceeded、early EOF、unexpected disconnect等超时错误。]]></description>
+        </item>
+        <item>
+            <title><![CDATA[修改 VS Code 侧边栏字体]]></title>
+            <link>https://wxhboy.cn/notes/#%E4%BF%AE%E6%94%B9-VS-Code-%E4%BE%A7%E8%BE%B9%E6%A0%8F%E5%AD%97%E4%BD%93</link>
+            <guid isPermaLink="true">https://wxhboy.cn/notes/#%E4%BF%AE%E6%94%B9-VS-Code-%E4%BE%A7%E8%BE%B9%E6%A0%8F%E5%AD%97%E4%BD%93</guid>
+            <pubDate>Tue, 10 Feb 2026 00:00:00 GMT</pubDate>
+            <description><![CDATA[VS Code 提供的 editor.fontSize 只能修改代码字体信息，但是却不能修改 VS Code 本身的字体，比如：侧边栏，命令面板，设置 UI]]></description>
+        </item>
+        <item>
+            <title><![CDATA[CSR/SSR/SSG/ISR/DPR/PPR]]></title>
+            <link>https://wxhboy.cn/notes/#CSR-SSR-SSG-ISR-DPR-PPR</link>
+            <guid isPermaLink="true">https://wxhboy.cn/notes/#CSR-SSR-SSG-ISR-DPR-PPR</guid>
+            <pubDate>Fri, 24 Oct 2025 00:00:00 GMT</pubDate>
+            <description><![CDATA[CSR: Client Side Rendering，客户端（通常是浏览器）渲染； SSR: Server Side Rendering，服务端渲染； SSG: Static Site Generation，静态网站生成； ISR：Incremental Site Rendering，增量式的网站渲染； DPR：Distributed Persistent Rendering，分布式的持续渲染。 ]]></description>
+        </item>
+        <item>
+            <title><![CDATA[MessageChannel vs BroadcastChannel]]></title>
+            <link>https://wxhboy.cn/notes/#MessageChannel-vs-BroadcastChannel</link>
+            <guid isPermaLink="true">https://wxhboy.cn/notes/#MessageChannel-vs-BroadcastChannel</guid>
+            <pubDate>Tue, 22 Jul 2025 00:00:00 GMT</pubDate>
+            <description><![CDATA[MessageChannel BroadcastChannel 提供了一个简单的通信机制，允许在同一浏览器上下文中的不同脚本之间进行通信。它创建了一个双向通信通道，可以在两个端点之间发送消息。 允许在同一浏览器上下文中的多个脚本之间进行通信。它创建了一个广播通道，任何订阅该通道的脚本都可以接收发送到该通道的消息。]]></description>
+        </item>
+        <item>
+            <title><![CDATA[SSRF]]></title>
+            <link>https://wxhboy.cn/notes/#SSRF</link>
+            <guid isPermaLink="true">https://wxhboy.cn/notes/#SSRF</guid>
+            <pubDate>Fri, 18 Jul 2025 00:00:00 GMT</pubDate>
+            <description><![CDATA[SSRF（Server-Side Request Forgery）是一种攻击方式，攻击者可以利用服务器向内部或外部资源发起请求，从而获取敏感信息或执行恶意操作。]]></description>
+        </item>
+        <item>
+            <title><![CDATA[RSC use client & use server]]></title>
+            <link>https://wxhboy.cn/notes/#RSC-use-client-use-server</link>
+            <guid isPermaLink="true">https://wxhboy.cn/notes/#RSC-use-client-use-server</guid>
+            <pubDate>Thu, 26 Jun 2025 00:00:00 GMT</pubDate>
+            <description><![CDATA[use client 将客户端函数导出到服务器。 在底层，后端代码会将它们视为类似 /src/frontend.js#LikeButton 的引用。它们可以渲染为 JSX 标签，并最终转换为 <script> 标签 use server 将服务器函数导出到客户端。 在底层，前端将它们视为通过 HTTP 调用后端的 async 函数。]]></description>
+        </item>
+        <item>
+            <title><![CDATA[Bash which vs type vs where]]></title>
+            <link>https://wxhboy.cn/notes/#Bash-which-vs-type-vs-where</link>
+            <guid isPermaLink="true">https://wxhboy.cn/notes/#Bash-which-vs-type-vs-where</guid>
+            <pubDate>Mon, 20 Jan 2025 00:00:00 GMT</pubDate>
+            <description><![CDATA[我有一个命令，我想知道它是从哪里来的。我可以使用 which 或 type 命令来查找。]]></description>
+        </item>
+        <item>
+            <title><![CDATA[useMemoizedFn vs useEvent vs useLatestFunc ?? vs useEffectEvent]]></title>
+            <link>https://wxhboy.cn/notes/#useMemoizedFn-vs-useEvent-vs-useLatestFunc-vs-useEffectEvent</link>
+            <guid isPermaLink="true">https://wxhboy.cn/notes/#useMemoizedFn-vs-useEvent-vs-useLatestFunc-vs-useEffectEvent</guid>
+            <pubDate>Fri, 02 Aug 2024 00:00:00 GMT</pubDate>
+            <description><![CDATA[useMemoizedFn、useEvent、useLatestFunc 和 useEffectEvent，它们都是用来优化函数组件中的性能和行为的工具。]]></description>
+        </item>
+        <item>
+            <title><![CDATA[Web Search]]></title>
+            <link>https://wxhboy.cn/notes/#Web-Search</link>
+            <guid isPermaLink="true">https://wxhboy.cn/notes/#Web-Search</guid>
+            <pubDate>Mon, 22 Jul 2024 00:00:00 GMT</pubDate>
+            <description><![CDATA[1.在浏览器地址栏输入 ? 可以快速搜索，输入 ? 后再输入关键词，然后回车，就会跳转到搜索引擎搜索结果页面。[Copilot 自动生成]]]></description>
+        </item>
+        <item>
+            <title><![CDATA[ZWSP]]></title>
+            <link>https://wxhboy.cn/notes/#ZWSP</link>
+            <guid isPermaLink="true">https://wxhboy.cn/notes/#ZWSP</guid>
+            <pubDate>Sat, 13 Jul 2024 00:00:00 GMT</pubDate>
+            <description><![CDATA[ZWSP(Zero Width Space) wiki 是一种 Unicode 字符. 可以用来做一些很骚的操作，它通常很难被察觉到。]]></description>
+        </item>
+        <item>
+            <title><![CDATA[Library 实践]]></title>
+            <link>https://wxhboy.cn/notes/#Library-%E5%AE%9E%E8%B7%B5</link>
+            <guid isPermaLink="true">https://wxhboy.cn/notes/#Library-%E5%AE%9E%E8%B7%B5</guid>
+            <pubDate>Mon, 24 Jun 2024 00:00:00 GMT</pubDate>
+            <description><![CDATA[使用 debug 库，可以在开发环境中输出调试信息，生产环境中不输出。 或者参考 backup-cli#da278e8 使用 console.log 输出调试信息。 TBD: 有想到再补充。]]></description>
+        </item>
+        <item>
+            <title><![CDATA[优化 React 重新渲染技巧]]></title>
+            <link>https://wxhboy.cn/notes/#%E4%BC%98%E5%8C%96-React-%E9%87%8D%E6%96%B0%E6%B8%B2%E6%9F%93%E6%8A%80%E5%B7%A7</link>
+            <guid isPermaLink="true">https://wxhboy.cn/notes/#%E4%BC%98%E5%8C%96-React-%E9%87%8D%E6%96%B0%E6%B8%B2%E6%9F%93%E6%8A%80%E5%B7%A7</guid>
+            <pubDate>Thu, 29 Feb 2024 00:00:00 GMT</pubDate>
+            <description><![CDATA[将昂贵的组件 “提升” 到父级，在父级中渲染频率较低。 然后将昂贵的组件作为 props 传递下来。 useMemoizedFn vs useEvent vs useLatestFunc ?? vs useEffectEvent]]></description>
+        </item>
+        <item>
+            <title><![CDATA[Symbolic link]]></title>
+            <link>https://wxhboy.cn/notes/#Symbolic-link</link>
+            <guid isPermaLink="true">https://wxhboy.cn/notes/#Symbolic-link</guid>
+            <pubDate>Thu, 08 Feb 2024 00:00:00 GMT</pubDate>
+            <description><![CDATA[包含有一条以绝对路径或者相对路径的形式指向其它文件或者目录的引用 ls -s 实际目标 链接名称]]></description>
+        </item>
+        <item>
+            <title><![CDATA[LGTM]]></title>
+            <link>https://wxhboy.cn/notes/#LGTM</link>
+            <guid isPermaLink="true">https://wxhboy.cn/notes/#LGTM</guid>
+            <pubDate>Thu, 30 Nov 2023 00:00:00 GMT</pubDate>
+            <description><![CDATA[looks good to me]]></description>
+        </item>
+        <item>
+            <title><![CDATA[TL;DR]]></title>
+            <link>https://wxhboy.cn/notes/#TL-DR</link>
+            <guid isPermaLink="true">https://wxhboy.cn/notes/#TL-DR</guid>
+            <pubDate>Fri, 27 Oct 2023 00:00:00 GMT</pubDate>
+            <description><![CDATA[经常在一些文章中看到 TL;DR，一开始以为是某个技术的缩写，后来才知道是 Too long; didn’t read 的缩写，意思是太长不看。]]></description>
+        </item>
+        <item>
+            <title><![CDATA[pull_request vs pull_request_target]]></title>
+            <link>https://wxhboy.cn/notes/#pull-request-vs-pull-request-target</link>
+            <guid isPermaLink="true">https://wxhboy.cn/notes/#pull-request-vs-pull-request-target</guid>
+            <pubDate>Mon, 16 Oct 2023 00:00:00 GMT</pubDate>
+            <description><![CDATA[在给 antd 修改 GitHub Actions 时，发现 preview.yml 有三个文件，于是乎提交了一个 PR#45276 合并，结果导致后续一系列错误。]]></description>
+        </item>
+        <item>
+            <title><![CDATA[tsconfig.json moduleResolution]]></title>
+            <link>https://wxhboy.cn/notes/#tsconfig-json-moduleResolution</link>
+            <guid isPermaLink="true">https://wxhboy.cn/notes/#tsconfig-json-moduleResolution</guid>
+            <pubDate>Tue, 20 Jun 2023 00:00:00 GMT</pubDate>
+            <description><![CDATA[起初上游包导致 antd CI 挂了，#41715。 发现上游将包改成了 Pure ESM，但是引用的 js 还是 mjs。]]></description>
+        </item>
+        <item>
+            <title><![CDATA[认识 Unified 和 Remark]]></title>
+            <link>https://wxhboy.cn/notes/#%E8%AE%A4%E8%AF%86-Unified-%E5%92%8C-Remark</link>
+            <guid isPermaLink="true">https://wxhboy.cn/notes/#%E8%AE%A4%E8%AF%86-Unified-%E5%92%8C-Remark</guid>
+            <pubDate>Mon, 17 Apr 2023 00:00:00 GMT</pubDate>
+            <description><![CDATA[参与了一段时间的 dumi 开发，认识了 Unified 和 Remark。Unified 是一个用于构建插件化的工具链的框架，而 Remark 是 Unified 的一个插件，用于将 markdown 转换成 AST(抽象语法树)，然后对 AST 进行操作。]]></description>
+        </item>
+        <item>
+            <title><![CDATA[Node ESM]]></title>
+            <link>https://wxhboy.cn/notes/#Node-ESM</link>
+            <guid isPermaLink="true">https://wxhboy.cn/notes/#Node-ESM</guid>
+            <pubDate>Fri, 24 Mar 2023 00:00:00 GMT</pubDate>
+            <description><![CDATA[最近建了一个 快速开始 Cli 的脚手架, 记一笔 node 的操作]]></description>
+        </item>
+        <item>
+            <title><![CDATA[Github 合作者]]></title>
+            <link>https://wxhboy.cn/notes/#Github-%E5%90%88%E4%BD%9C%E8%80%85</link>
+            <guid isPermaLink="true">https://wxhboy.cn/notes/#Github-%E5%90%88%E4%BD%9C%E8%80%85</guid>
+            <pubDate>Fri, 10 Mar 2023 00:00:00 GMT</pubDate>
+            <description><![CDATA[如上图，除非他们对你的 PR 进行 review 的时候提出了建议，并且在 GitHub 点击采纳，否则不会出现合作者标识。另外一种方式是，手动添加合作者。给予我帮助的人都应该出现在合作者一栏中。最简单方法就是在 git commit 的 message body 中加入如下注释：]]></description>
+        </item>
+        <item>
+            <title><![CDATA[GitHub Merge 三种方式速记]]></title>
+            <link>https://wxhboy.cn/notes/#GitHub-Merge-%E4%B8%89%E7%A7%8D%E6%96%B9%E5%BC%8F%E9%80%9F%E8%AE%B0</link>
+            <guid isPermaLink="true">https://wxhboy.cn/notes/#GitHub-Merge-%E4%B8%89%E7%A7%8D%E6%96%B9%E5%BC%8F%E9%80%9F%E8%AE%B0</guid>
+            <pubDate>Mon, 27 Feb 2023 00:00:00 GMT</pubDate>
+            <description><![CDATA[Merge: (创建 m 个提交节点引用 a、b、c，m 在父节点中有 Init、c)]]></description>
+        </item>
+        <item>
+            <title><![CDATA[remove vs removeChild]]></title>
+            <link>https://wxhboy.cn/notes/#remove-vs-removeChild</link>
+            <guid isPermaLink="true">https://wxhboy.cn/notes/#remove-vs-removeChild</guid>
+            <pubDate>Wed, 16 Nov 2022 00:00:00 GMT</pubDate>
+            <description><![CDATA[remove: 把对象从它所属的 DOM 树中删除。 removeChild: 方法从 DOM 中删除一个子节点。并返回删除的节点]]></description>
+        </item>
+        <item>
+            <title><![CDATA[innerText vs textContent vs innerHTML]]></title>
+            <link>https://wxhboy.cn/notes/#innerText-vs-textContent-vs-innerHTML</link>
+            <guid isPermaLink="true">https://wxhboy.cn/notes/#innerText-vs-textContent-vs-innerHTML</guid>
+            <pubDate>Wed, 16 Nov 2022 00:00:00 GMT</pubDate>
+            <description><![CDATA[结论]]></description>
+        </item>
+        <item>
+            <title><![CDATA[append vs appendChild]]></title>
+            <link>https://wxhboy.cn/notes/#append-vs-appendChild</link>
+            <guid isPermaLink="true">https://wxhboy.cn/notes/#append-vs-appendChild</guid>
+            <pubDate>Wed, 16 Nov 2022 00:00:00 GMT</pubDate>
+            <description><![CDATA[都是在 Elenent 最后一个节点之后插入 Node, 推荐使用 append]]></description>
+        </item>
+        <item>
+            <title><![CDATA[Shell 字符串截取]]></title>
+            <link>https://wxhboy.cn/notes/#Shell-%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%88%AA%E5%8F%96</link>
+            <guid isPermaLink="true">https://wxhboy.cn/notes/#Shell-%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%88%AA%E5%8F%96</guid>
+            <pubDate>Fri, 02 Sep 2022 00:00:00 GMT</pubDate>
+            <description><![CDATA[在使用电脑对某些文件批量重命名，或者批量截取前缀等场景时]]></description>
+        </item>
+        <item>
+            <title><![CDATA[Shell 字符串拼接（连接、合并）]]></title>
+            <link>https://wxhboy.cn/notes/#Shell-%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%8B%BC%E6%8E%A5%EF%BC%88%E8%BF%9E%E6%8E%A5%E3%80%81%E5%90%88%E5%B9%B6%EF%BC%89</link>
+            <guid isPermaLink="true">https://wxhboy.cn/notes/#Shell-%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%8B%BC%E6%8E%A5%EF%BC%88%E8%BF%9E%E6%8E%A5%E3%80%81%E5%90%88%E5%B9%B6%EF%BC%89</guid>
+            <pubDate>Thu, 07 Jul 2022 00:00:00 GMT</pubDate>
+            <description><![CDATA[在写一个 shell 脚本的时候，经常需要对变量字符串进行拼接，记录几种拼接方法；]]></description>
+        </item>
+        <item>
+            <title><![CDATA[/dev/null]]></title>
+            <link>https://wxhboy.cn/notes/#dev-null</link>
+            <guid isPermaLink="true">https://wxhboy.cn/notes/#dev-null</guid>
+            <pubDate>Thu, 19 May 2022 00:00:00 GMT</pubDate>
+            <description><![CDATA[在 Linux 命令中，经常见到 xxx 2>/dev/null, 如为防止 Docker 容器退出使用 tail -f /dev/null。关于这个命令，我的理解是：]]></description>
+        </item>
+        <item>
+            <title><![CDATA[copy & paste]]></title>
+            <link>https://wxhboy.cn/notes/#copy-paste</link>
+            <guid isPermaLink="true">https://wxhboy.cn/notes/#copy-paste</guid>
+            <pubDate>Sat, 19 Mar 2022 00:00:00 GMT</pubDate>
+            <description><![CDATA[在 Mac OS 可以使用 pbcopy 和 pbpaste 在命令行中进行复制和粘贴操作:]]></description>
+        </item>
+        <item>
+            <title><![CDATA[Jest unit testing]]></title>
+            <link>https://wxhboy.cn/notes/#Jest-unit-testing</link>
+            <guid isPermaLink="true">https://wxhboy.cn/notes/#Jest-unit-testing</guid>
+            <pubDate>Fri, 18 Mar 2022 00:00:00 GMT</pubDate>
+            <description><![CDATA[在阅读 AntD 测试用例时，需要单独运行某个组件 case，或者某个组件的一条 case.]]></description>
+        </item>
+        <item>
+            <title><![CDATA[Snapshot Testing]]></title>
+            <link>https://wxhboy.cn/notes/#Snapshot-Testing</link>
+            <guid isPermaLink="true">https://wxhboy.cn/notes/#Snapshot-Testing</guid>
+            <pubDate>Wed, 09 Mar 2022 00:00:00 GMT</pubDate>
+            <description><![CDATA[antfu 开源的 unconfig Repo 其作用是加载通用配置文件。在仓库的单元测试中发现了快照测试。比如:Jest snapshot testing, 使用 jest --updateSnapshot 或 jest -u 来更新所有快照。vitest snapshot testing, 使用 vitest --update 或 vitest -u 来更新所有快照。ava snapshot ]]></description>
+        </item>
+        <item>
+            <title><![CDATA[import-maps]]></title>
+            <link>https://wxhboy.cn/notes/#import-maps</link>
+            <guid isPermaLink="true">https://wxhboy.cn/notes/#import-maps</guid>
+            <pubDate>Thu, 24 Feb 2022 00:00:00 GMT</pubDate>
+            <description><![CDATA[在阅读 New React Docs 时发现文中有交互式调试功能。点击 Download 按钮还可以下载 sandbox.html 文件。直接在浏览器中运行示例代码。阅读了 reactjs.org repo 后发现是 html 模版中使用了 @babel/standalone 和 <script type="importmap">。]]></description>
+        </item>
+        <item>
+            <title><![CDATA[markdown-it 和 feed]]></title>
+            <link>https://wxhboy.cn/notes/#markdown-it-%E5%92%8C-feed</link>
+            <guid isPermaLink="true">https://wxhboy.cn/notes/#markdown-it-%E5%92%8C-feed</guid>
+            <pubDate>Thu, 24 Feb 2022 00:00:00 GMT</pubDate>
+            <description><![CDATA[笔记这栏是参考 antfu.me/notes 而写的。看到有 rss 订阅,想着自己的笔记也实现一下。使用 hexo 的自动生成 rss 插件无法生成自己想要的。阅读 antfu.me repo 后才发现，作者是使用 markdown-it 和 feed 自己写脚本实现的。scripts/rss.ts]]></description>
+        </item>
+        <item>
+            <title><![CDATA[Vite 插件 unplugin-auto-import]]></title>
+            <link>https://wxhboy.cn/notes/#Vite-%E6%8F%92%E4%BB%B6-unplugin-auto-import</link>
+            <guid isPermaLink="true">https://wxhboy.cn/notes/#Vite-%E6%8F%92%E4%BB%B6-unplugin-auto-import</guid>
+            <pubDate>Wed, 16 Feb 2022 00:00:00 GMT</pubDate>
+            <description><![CDATA[写 TypeScript 时，使用 unplugin-auto-import 实现按需自动导入 API。]]></description>
+        </item>
+        <item>
+            <title><![CDATA[位运算符速记]]></title>
+            <link>https://wxhboy.cn/notes/#%E4%BD%8D%E8%BF%90%E7%AE%97%E7%AC%A6%E9%80%9F%E8%AE%B0</link>
+            <guid isPermaLink="true">https://wxhboy.cn/notes/#%E4%BD%8D%E8%BF%90%E7%AE%97%E7%AC%A6%E9%80%9F%E8%AE%B0</guid>
+            <pubDate>Wed, 09 Feb 2022 00:00:00 GMT</pubDate>
+            <description><![CDATA[x ** y => Math.pow(x, y) x << y => x * 2 ** y x >> 1 => x >>> 1 => Math.floor(x / 2) ~x => -(x + 1)]]></description>
+        </item>
+        <item>
+            <title><![CDATA[git submodule]]></title>
+            <link>https://wxhboy.cn/notes/#git-submodule</link>
+            <guid isPermaLink="true">https://wxhboy.cn/notes/#git-submodule</guid>
+            <pubDate>Wed, 09 Feb 2022 00:00:00 GMT</pubDate>
+            <description><![CDATA[项目中添加子仓库 git submodule add -b 分支 地址 目录 克隆带子模块仓库 git clone --recursive -j8 地址 更新已克隆仓库的子仓库 git submodule update --init --recursive 更新子仓库 git submodule update --remote 推送所有子仓库而不 push 主仓库 git push --recur]]></description>
+        </item>
+        <item>
+            <title><![CDATA[git]]></title>
+            <link>https://wxhboy.cn/notes/#git</link>
+            <guid isPermaLink="true">https://wxhboy.cn/notes/#git</guid>
+            <pubDate>Wed, 09 Feb 2022 00:00:00 GMT</pubDate>
+            <description><![CDATA[使用 git -C 来指定工作目录, e.g. -c $PWD 指当前目录 git commit --amend --no-edit --no-verify –amend 创建一个新的提交来替换当前分支的顶端 –no-edit 不调用编辑器，使用当前分支顶端提交信息 –no-verify 绕过 githooks 缩写-n]]></description>
+        </item>
+    </channel>
+</rss>

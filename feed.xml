@@ -1,0 +1,363 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Wuxh · 吴小红</title>
+        <link>https://wxhboy.cn/</link>
+        <description>知道的越多, 不知道的就越多</description>
+        <lastBuildDate>Thu, 29 Oct 2026 16:39:33 GMT</lastBuildDate>
+        <docs>https://validator.w3.org/feed/docs/rss2.html</docs>
+        <generator>https://github.com/jpmonette/feed</generator>
+        <language>zh-CN</language>
+        <atom:link href="https://wxhboy.cn/feed.xml" rel="self" type="application/rss+xml"/>
+        <item>
+            <title><![CDATA[Chrome 标签页分组重复的清理]]></title>
+            <link>https://wxhboy.cn/chrome-tab-groups-duplicates/</link>
+            <guid isPermaLink="true">https://wxhboy.cn/chrome-tab-groups-duplicates/</guid>
+            <pubDate>Wed, 07 Oct 2026 16:00:00 GMT</pubDate>
+            <description><![CDATA[Chrome 浏览器标签页分组重复问题的解决方案分享（macOS 27 + Chrome 155）]]></description>
+        </item>
+        <item>
+            <title><![CDATA[用 AI 搓了一套简单的 hexo 个人博客主题]]></title>
+            <link>https://wxhboy.cn/rewrite-blog-theme/</link>
+            <guid isPermaLink="true">https://wxhboy.cn/rewrite-blog-theme/</guid>
+            <pubDate>Sun, 20 Sep 2026 16:00:00 GMT</pubDate>
+            <description><![CDATA[换掉 hexo-theme-next，用 AI 搓了一套简单的 hexo 个人博客主题。]]></description>
+        </item>
+        <item>
+            <title><![CDATA[两台 MAC 数据同步方案]]></title>
+            <link>https://wxhboy.cn/mac-data-sync/</link>
+            <guid isPermaLink="true">https://wxhboy.cn/mac-data-sync/</guid>
+            <pubDate>Sat, 07 Jun 2025 06:53:06 GMT</pubDate>
+            <description><![CDATA[最近购入了一台 Mac mini，放在家里写写代码用。之前的 MacBook Pro 主要是用来公司工作和出差使用。两台 Mac 的数据同步一直是个问题。 介绍今天的方案，主要是基于 SSH 和 rsync 的数据同步方案。]]></description>
+        </item>
+        <item>
+            <title><![CDATA[从我觉得可以到社区说不行 antd 贡献踩坑过程]]></title>
+            <link>https://wxhboy.cn/antd-contribution/</link>
+            <guid isPermaLink="true">https://wxhboy.cn/antd-contribution/</guid>
+            <pubDate>Thu, 15 May 2025 02:32:05 GMT</pubDate>
+            <description><![CDATA[主要是记录一下自己在 antd 参与贡献过程中遇到的一些问题和解决方案，顺便给自己留个纪念。]]></description>
+        </item>
+        <item>
+            <title><![CDATA[一个奇淫技巧实现短网址]]></title>
+            <link>https://wxhboy.cn/github-short-urls/</link>
+            <guid isPermaLink="true">https://wxhboy.cn/github-short-urls/</guid>
+            <pubDate>Fri, 17 Jan 2025 06:10:26 GMT</pubDate>
+            <description><![CDATA[这个方案只是出于学习和分享的目的，肯定是不建议在生产环境中使用的。并且不是最优的方案，只是一个简单的实现。]]></description>
+        </item>
+        <item>
+            <title><![CDATA[Ant Design 自定义组件空状态速记]]></title>
+            <link>https://wxhboy.cn/antd-empty-state/</link>
+            <guid isPermaLink="true">https://wxhboy.cn/antd-empty-state/</guid>
+            <pubDate>Wed, 26 Jun 2024 17:37:36 GMT</pubDate>
+            <description><![CDATA[最近在 antd 社区看到一个关于 Table fitler 查询条件下拉框的空状态有关 PR 发现 antd 的很多逻辑并没有在文档详细说明，索性写一个速记笔记方便自己日后 CV。]]></description>
+        </item>
+        <item>
+            <title><![CDATA[前端一些包总是需要依赖python]]></title>
+            <link>https://wxhboy.cn/frontend-python-deps/</link>
+            <guid isPermaLink="true">https://wxhboy.cn/frontend-python-deps/</guid>
+            <pubDate>Mon, 06 May 2024 06:34:04 GMT</pubDate>
+            <description><![CDATA[如题，安装 npm 包时，经常需要宿主环境存在 python 经常遇到问题，罪魁祸首就是 node-gyp 写一个笔记记录一下平时解决的解决方案…]]></description>
+        </item>
+        <item>
+            <title><![CDATA[antd 快捷键录制组件来了（社区版）]]></title>
+            <link>https://wxhboy.cn/antd-hotkey-recorder/</link>
+            <guid isPermaLink="true">https://wxhboy.cn/antd-hotkey-recorder/</guid>
+            <pubDate>Sat, 24 Feb 2024 16:00:00 GMT</pubDate>
+            <description><![CDATA[一切始于公司 Electron 项目对用户自定义快捷键功能的需求。]]></description>
+        </item>
+        <item>
+            <title><![CDATA[Ant Design 版本控，更新日志清爽利器]]></title>
+            <link>https://wxhboy.cn/antd-changelog/</link>
+            <guid isPermaLink="true">https://wxhboy.cn/antd-changelog/</guid>
+            <pubDate>Sun, 07 Jan 2024 16:00:00 GMT</pubDate>
+            <description><![CDATA[我又来活跃账号了，这次分享一个我自己写的油猴脚本。]]></description>
+        </item>
+        <item>
+            <title><![CDATA[备份和分享你的 MacOS 应用程序配置文件]]></title>
+            <link>https://wxhboy.cn/macos-app-settings/</link>
+            <guid isPermaLink="true">https://wxhboy.cn/macos-app-settings/</guid>
+            <pubDate>Mon, 14 Aug 2023 16:00:00 GMT</pubDate>
+            <description><![CDATA[在2022年，我购买了一台MBP，并开始关注各位开源社区的大佬们分享的各种配置方法。我从中选取了一些适合自己的配置。]]></description>
+        </item>
+        <item>
+            <title><![CDATA[我觉得 antd 模态框不好用，所以选择了二开]]></title>
+            <link>https://wxhboy.cn/antd-modal/</link>
+            <guid isPermaLink="true">https://wxhboy.cn/antd-modal/</guid>
+            <pubDate>Thu, 10 Aug 2023 16:00:00 GMT</pubDate>
+            <description><![CDATA[2022 年我从 Vue 切换到 React 开发，在这过去的一年多时间，我待过 2 个团队，毫无意外的都是 React + Ant Design。我相信这是国内绝大多数团队都有使用过的 UI 框架。当然国外的 MUI 也很棒。]]></description>
+        </item>
+        <item>
+            <title><![CDATA[你好，GitHub Actions]]></title>
+            <link>https://wxhboy.cn/github-actions/</link>
+            <guid isPermaLink="true">https://wxhboy.cn/github-actions/</guid>
+            <pubDate>Mon, 05 Jun 2023 16:00:00 GMT</pubDate>
+            <description><![CDATA[很荣幸加入 Ant Design 团队成为社区成员。 antd 博客搬运，原文地址：你好，GitHub Actions - Ant Design blog’s]]></description>
+        </item>
+        <item>
+            <title><![CDATA[给antd贡献github-action-workflow]]></title>
+            <link>https://wxhboy.cn/antd-github-actions/</link>
+            <guid isPermaLink="true">https://wxhboy.cn/antd-github-actions/</guid>
+            <pubDate>Thu, 08 Dec 2022 15:49:41 GMT</pubDate>
+            <description><![CDATA[之前自己的项目一直都有在用 Github Action, 比如我的 my-blog 仓库就有在用。 最近一段时间活跃在 Ant Design 社区, 看到偏右大佬创建了一个 issus #39303, 希望添加一个 workflow, 自己比较感兴趣，于是接手这个需求。 下面将我如何解决问题，以及遇到的一些问题记录分享一下]]></description>
+        </item>
+        <item>
+            <title><![CDATA[使用FFmpeg拼接两个视频]]></title>
+            <link>https://wxhboy.cn/ffmpeg-merge-videos/</link>
+            <guid isPermaLink="true">https://wxhboy.cn/ffmpeg-merge-videos/</guid>
+            <pubDate>Thu, 10 Nov 2022 06:08:51 GMT</pubDate>
+            <description><![CDATA[有些视频经常进行分段发布，尤其是某些短视频。最近在学习 React 性能优化，视频主进行了上、下两个章节进行讲解。 为了更好的学习，我把视频下载本地，进行学习交流。之前倒腾过 FFmpeg，今天小记一下。]]></description>
+        </item>
+        <item>
+            <title><![CDATA[Linux 命令之 grep xargs awk]]></title>
+            <link>https://wxhboy.cn/linux-text-tools/</link>
+            <guid isPermaLink="true">https://wxhboy.cn/linux-text-tools/</guid>
+            <pubDate>Fri, 06 May 2022 16:09:37 GMT</pubDate>
+            <description><![CDATA[使用了很久的 MacOS 系统，越来越依赖终端了，关于很多 Linux 命可以直接阅读 菜鸟教程-Linux 命令大全，本文记录一下我自己使用比较高频的命令；]]></description>
+        </item>
+        <item>
+            <title><![CDATA[使用ohmyposh美化终端]]></title>
+            <link>https://wxhboy.cn/oh-my-posh/</link>
+            <guid isPermaLink="true">https://wxhboy.cn/oh-my-posh/</guid>
+            <pubDate>Sat, 16 Apr 2022 09:51:52 GMT</pubDate>
+            <description><![CDATA[之前一直使用 iterm2 + zsh 配置的终端和主题，今天折腾了一下 Oh My Posh。记录一下]]></description>
+        </item>
+        <item>
+            <title><![CDATA[解决SourceTree提交时候husky命令失败问题]]></title>
+            <link>https://wxhboy.cn/sourcetree-husky/</link>
+            <guid isPermaLink="true">https://wxhboy.cn/sourcetree-husky/</guid>
+            <pubDate>Tue, 12 Apr 2022 02:24:36 GMT</pubDate>
+            <description><![CDATA[团队项目中使用了 husky 进行 code lint, 使用 terminal 执行 git commit 时一切正常。 但是使用 sourcetree 使用 GUI 进行提交就如图错误]]></description>
+        </item>
+        <item>
+            <title><![CDATA[使用.gitconfig配置多用户需求]]></title>
+            <link>https://wxhboy.cn/git-identities/</link>
+            <guid isPermaLink="true">https://wxhboy.cn/git-identities/</guid>
+            <pubDate>Tue, 22 Mar 2022 02:16:57 GMT</pubDate>
+            <description><![CDATA[~/.gitconfig 配置用来存储用户相关的配置，当执行 Git 相关操作时，依次读取 .git/config > ~/.gitconfig]]></description>
+        </item>
+        <item>
+            <title><![CDATA[分享一个关于我自己的命令行工具]]></title>
+            <link>https://wxhboy.cn/personal-cli/</link>
+            <guid isPermaLink="true">https://wxhboy.cn/personal-cli/</guid>
+            <pubDate>Fri, 04 Mar 2022 06:23:20 GMT</pubDate>
+            <description><![CDATA[是干嘛的本质就是使用 consloe.log 在控制台输出关于我的个人社交账号链接。比如 github, zhihu, weibo, twitter…通过命令行得到想要的输出。将其封装为工具，或许以后可以在其他 npm 项目中使用。通过 postinstall 输出关于自己的信息(不推荐这样做，自己项目、或者学习目的无所谓) 有什么用我个人觉得就一个学习用途，或许在和前端朋友沟通中。我可以告诉他使]]></description>
+        </item>
+        <item>
+            <title><![CDATA[记一笔Vue v-bind的一些语法糖]]></title>
+            <link>https://wxhboy.cn/vue-v-bind/</link>
+            <guid isPermaLink="true">https://wxhboy.cn/vue-v-bind/</guid>
+            <pubDate>Tue, 22 Feb 2022 17:47:56 GMT</pubDate>
+            <description><![CDATA[今天偶然看到 Vue3 的一个 issues#5462 大概意思是设置 DOM 属性 translate 为字符串 "no" 时不符合预期。Vue 核心成员给出的解决方案是使用 <div ^translate="no"></div> 解决。 什么是 v-bind直接查看官方文档 v-bind 修饰符.camel将 kebab-case 变成 camelCase。（平时都是使用字符串模版渲染，所以基]]></description>
+        </item>
+        <item>
+            <title><![CDATA[写一个简单的CLI]]></title>
+            <link>https://wxhboy.cn/simple-cli/</link>
+            <guid isPermaLink="true">https://wxhboy.cn/simple-cli/</guid>
+            <pubDate>Thu, 13 Jan 2022 11:29:01 GMT</pubDate>
+            <description><![CDATA[zipjson 这个 CLI 就是使用 JSON.stringify(code, null, 0) 方法把 .json 文件压缩成一行。 完…]]></description>
+        </item>
+        <item>
+            <title><![CDATA[解决群晖此系统的可用硬盘空间不足问题]]></title>
+            <link>https://wxhboy.cn/synology-disk-space/</link>
+            <guid isPermaLink="true">https://wxhboy.cn/synology-disk-space/</guid>
+            <pubDate>Sat, 25 Dec 2021 13:57:52 GMT</pubDate>
+            <description><![CDATA[今天又去套件中心安装套件，发现系统又提醒我空间不足问题，之前没在意，今天遇到了着手解决下。]]></description>
+        </item>
+        <item>
+            <title><![CDATA[使用 rsync 增量备份远端文件]]></title>
+            <link>https://wxhboy.cn/rsync-backups/</link>
+            <guid isPermaLink="true">https://wxhboy.cn/rsync-backups/</guid>
+            <pubDate>Thu, 16 Dec 2021 13:39:42 GMT</pubDate>
+            <description><![CDATA[记录一下使用 rsync 进行文件增量备份，把 nas 上的 docker 挂载的文件同步到本地计算机进行一个备份]]></description>
+        </item>
+        <item>
+            <title><![CDATA[Docker 创建 npm 私服]]></title>
+            <link>https://wxhboy.cn/docker-npm-registry/</link>
+            <guid isPermaLink="true">https://wxhboy.cn/docker-npm-registry/</guid>
+            <pubDate>Sat, 27 Nov 2021 06:40:13 GMT</pubDate>
+            <description><![CDATA[记录一下如何使用 Docker 和 verdaccio 部署 NPM 私服。]]></description>
+        </item>
+        <item>
+            <title><![CDATA[Docker 创建 gitlab ce 服务]]></title>
+            <link>https://wxhboy.cn/docker-gitlab/</link>
+            <guid isPermaLink="true">https://wxhboy.cn/docker-gitlab/</guid>
+            <pubDate>Sat, 27 Nov 2021 04:33:46 GMT</pubDate>
+            <description><![CDATA[去年使用自己的 NAS 安装了 gitlab-ce 服务, 有些细节总是隐隐约约的, 用文章总结记录一下, 方便以后查阅。 之前使用 docker run 进行安装, 每次启动或者重新安装都需手动输入配置, 后续我都是用 docker-compose 进行管理。]]></description>
+        </item>
+        <item>
+            <title><![CDATA[记录一下npm源的一些配置]]></title>
+            <link>https://wxhboy.cn/npm-registries/</link>
+            <guid isPermaLink="true">https://wxhboy.cn/npm-registries/</guid>
+            <pubDate>Wed, 17 Nov 2021 15:51:40 GMT</pubDate>
+            <description><![CDATA[对于设置 npm 源的内容网上已经有很多了, 这次主要记录一下对于多个私有源地址如何进行设置。 偶然在群里看到某个朋友说到, 他的项目中依赖了多个私有包, 每次删除 node_modules 后需要设置私有源并安装后, 再安装外网依赖。]]></description>
+        </item>
+        <item>
+            <title><![CDATA[使用config文件来维护SSH密钥]]></title>
+            <link>https://wxhboy.cn/ssh-config/</link>
+            <guid isPermaLink="true">https://wxhboy.cn/ssh-config/</guid>
+            <pubDate>Sat, 02 Oct 2021 07:02:18 GMT</pubDate>
+            <description><![CDATA[记录一次如何管理多个 SSH 密钥, GitHub 多个账号多个密钥如何区分管理问题。]]></description>
+        </item>
+        <item>
+            <title><![CDATA[记录一次迁移Docker挂载目录]]></title>
+            <link>https://wxhboy.cn/docker-volume-migration/</link>
+            <guid isPermaLink="true">https://wxhboy.cn/docker-volume-migration/</guid>
+            <pubDate>Sat, 02 Oct 2021 06:15:31 GMT</pubDate>
+            <description><![CDATA[把原先在 Mac 上用 Docker 运行的 Jenkins 服务，迁移到 NAS 上用 Docker 运行。]]></description>
+        </item>
+        <item>
+            <title><![CDATA[Windows10 VSCode SSH Remote 过程试图写入的管道不存在解决方案]]></title>
+            <link>https://wxhboy.cn/vscode-ssh-pipe-error/</link>
+            <guid isPermaLink="true">https://wxhboy.cn/vscode-ssh-pipe-error/</guid>
+            <pubDate>Mon, 22 Feb 2021 15:40:25 GMT</pubDate>
+            <description><![CDATA[在家里搭建了 NAS 为了直接在远端快速编辑配置文件，于是想到 VSCode SSH Remote 开发]]></description>
+        </item>
+        <item>
+            <title><![CDATA[记录Git别名的一些玩法]]></title>
+            <link>https://wxhboy.cn/git-aliases/</link>
+            <guid isPermaLink="true">https://wxhboy.cn/git-aliases/</guid>
+            <pubDate>Tue, 14 Jul 2020 02:07:53 GMT</pubDate>
+            <description><![CDATA[个人还是经常使用 SourceTree 工具进行 Git 管理, 其次是 VsCode Git Graph 插件, 嗷~ 在其次就是命令行工具了.]]></description>
+        </item>
+        <item>
+            <title><![CDATA[手写防抖和节流]]></title>
+            <link>https://wxhboy.cn/debounce-throttle/</link>
+            <guid isPermaLink="true">https://wxhboy.cn/debounce-throttle/</guid>
+            <pubDate>Mon, 19 Aug 2019 09:54:59 GMT</pubDate>
+            <description><![CDATA[记录手写防抖和节流]]></description>
+        </item>
+        <item>
+            <title><![CDATA[JS宏任务和微任务]]></title>
+            <link>https://wxhboy.cn/js-tasks/</link>
+            <guid isPermaLink="true">https://wxhboy.cn/js-tasks/</guid>
+            <pubDate>Mon, 12 Aug 2019 17:01:53 GMT</pubDate>
+            <description><![CDATA[JS 事件循环机制之宏任务/微任务;]]></description>
+        </item>
+        <item>
+            <title><![CDATA[装饰者模式之AOP实现"中间件模式"]]></title>
+            <link>https://wxhboy.cn/aop-middleware/</link>
+            <guid isPermaLink="true">https://wxhboy.cn/aop-middleware/</guid>
+            <pubDate>Wed, 07 Aug 2019 01:47:43 GMT</pubDate>
+            <description><![CDATA[装饰者模式的定义: 在不改变对象自身的基础上, 在程序运行期间给对象动态地添加方法.]]></description>
+        </item>
+        <item>
+            <title><![CDATA[用CSS3渐变背景实现进度条]]></title>
+            <link>https://wxhboy.cn/css-gradient-progress/</link>
+            <guid isPermaLink="true">https://wxhboy.cn/css-gradient-progress/</guid>
+            <pubDate>Thu, 01 Aug 2019 04:02:35 GMT</pubDate>
+            <description><![CDATA[在开发中, 时不时会遇到写进度条的功能, 比如投票比例, 视频播放进度, 文件上传进度…]]></description>
+        </item>
+        <item>
+            <title><![CDATA[用Vue.extend写一个全局使用的Alert]]></title>
+            <link>https://wxhboy.cn/vue-global-alert/</link>
+            <guid isPermaLink="true">https://wxhboy.cn/vue-global-alert/</guid>
+            <pubDate>Fri, 26 Jul 2019 04:58:45 GMT</pubDate>
+            <description><![CDATA[由于项目中经常会用到 alert 这种组件，平常都是全局注册标签，使用时引入，比较繁琐；]]></description>
+        </item>
+        <item>
+            <title><![CDATA[在CentOS7安装PHP并配置Nginx]]></title>
+            <link>https://wxhboy.cn/centos-php-nginx/</link>
+            <guid isPermaLink="true">https://wxhboy.cn/centos-php-nginx/</guid>
+            <pubDate>Wed, 24 Jul 2019 05:37:36 GMT</pubDate>
+            <description><![CDATA[Windows server 翻车后，我就安装了 CentOS7，为了之前的某些 php 项目可以跑起来，我不得不去安装 php 环境和配置一些文件;]]></description>
+        </item>
+        <item>
+            <title><![CDATA[node-js获取本机ip]]></title>
+            <link>https://wxhboy.cn/node-local-ip/</link>
+            <guid isPermaLink="true">https://wxhboy.cn/node-local-ip/</guid>
+            <pubDate>Mon, 17 Jun 2019 09:18:25 GMT</pubDate>
+            <description><![CDATA[使用 node.js 获取本地 IPv4 地址]]></description>
+        </item>
+        <item>
+            <title><![CDATA[元素固定宽度文本不换行并且全部展示]]></title>
+            <link>https://wxhboy.cn/single-line-text/</link>
+            <guid isPermaLink="true">https://wxhboy.cn/single-line-text/</guid>
+            <pubDate>Tue, 28 May 2019 02:33:57 GMT</pubDate>
+            <description><![CDATA[前几天遇到一个需求, 用户名过长的时, 不允许换行使其文本全部显示在一行框内;]]></description>
+        </item>
+        <item>
+            <title><![CDATA[仿微信关键字触发表情包动画效果]]></title>
+            <link>https://wxhboy.cn/wechat-emoji-animation/</link>
+            <guid isPermaLink="true">https://wxhboy.cn/wechat-emoji-animation/</guid>
+            <pubDate>Tue, 21 May 2019 02:50:14 GMT</pubDate>
+            <description><![CDATA[❤521到了, 码农翻身;模仿微信聊天发送关键字 么么哒 触发表情包雨😘的效果;]]></description>
+        </item>
+        <item>
+            <title><![CDATA[create.js使用分享]]></title>
+            <link>https://wxhboy.cn/create-js/</link>
+            <guid isPermaLink="true">https://wxhboy.cn/create-js/</guid>
+            <pubDate>Sat, 20 Apr 2019 02:15:56 GMT</pubDate>
+            <description><![CDATA[使用 create.js 包的时, 在浏览器直接使用会报错]]></description>
+        </item>
+        <item>
+            <title><![CDATA[node.js 获取控制台中命令行参数]]></title>
+            <link>https://wxhboy.cn/node-cli-args/</link>
+            <guid isPermaLink="true">https://wxhboy.cn/node-cli-args/</guid>
+            <pubDate>Wed, 27 Mar 2019 01:52:22 GMT</pubDate>
+            <description><![CDATA[postcss style.css -r viewportWidth=750; 如何获取到 viewportWidth=750 这个参数呢]]></description>
+        </item>
+        <item>
+            <title><![CDATA[new Date 使用需要注意的地方]]></title>
+            <link>https://wxhboy.cn/js-date-pitfalls/</link>
+            <guid isPermaLink="true">https://wxhboy.cn/js-date-pitfalls/</guid>
+            <pubDate>Mon, 19 Nov 2018 06:12:48 GMT</pubDate>
+            <description><![CDATA[使用 new Date() 方法时在测试的时候可能没有问题；可是在真机运行的时候就会出现 NAN]]></description>
+        </item>
+        <item>
+            <title><![CDATA[NPM PLUGIN vue-photo-preview]]></title>
+            <link>https://wxhboy.cn/vue-photo-preview/</link>
+            <guid isPermaLink="true">https://wxhboy.cn/vue-photo-preview/</guid>
+            <pubDate>Tue, 06 Nov 2018 09:14:53 GMT</pubDate>
+            <description><![CDATA[在开发项目过程中,遇到一个需求,能不能像微信朋友圈图片一样点击查看原图,并且放大查看 百度了解了一下 诸如此类的插件有 vue-photo-preview 、PhotoSwipe.js 、PinchZoom.js]]></description>
+        </item>
+        <item>
+            <title><![CDATA[Json生成Excel文件并下载到本地]]></title>
+            <link>https://wxhboy.cn/vue-json-excel/</link>
+            <guid isPermaLink="true">https://wxhboy.cn/vue-json-excel/</guid>
+            <pubDate>Fri, 26 Oct 2018 12:26:07 GMT</pubDate>
+            <description><![CDATA[项目中后端返回JSON数据，我们前端需要生成Excel文件并保存]]></description>
+        </item>
+        <item>
+            <title><![CDATA[关于IOS一系列适配问题]]></title>
+            <link>https://wxhboy.cn/ios-web-fixes/</link>
+            <guid isPermaLink="true">https://wxhboy.cn/ios-web-fixes/</guid>
+            <pubDate>Tue, 25 Sep 2018 08:02:12 GMT</pubDate>
+            <description><![CDATA[总结与归纳在开发过程中遇到的IOS问题]]></description>
+        </item>
+        <item>
+            <title><![CDATA[使用 Swiper.js 在 iOS < 11 时出现错误]]></title>
+            <link>https://wxhboy.cn/swiper-ios-10/</link>
+            <guid isPermaLink="true">https://wxhboy.cn/swiper-ios-10/</guid>
+            <pubDate>Wed, 12 Sep 2018 17:52:38 GMT</pubDate>
+            <description><![CDATA[使用 Swiper.js 在 iOS < 11 时出现下列错误SyntaxError: Unexpected keyword ‘const’. Const declarations are not supported in strict mode.]]></description>
+        </item>
+        <item>
+            <title><![CDATA[解决微信H5在IOS中无法自动播放音乐问题]]></title>
+            <link>https://wxhboy.cn/wechat-ios-audio/</link>
+            <guid isPermaLink="true">https://wxhboy.cn/wechat-ios-audio/</guid>
+            <pubDate>Mon, 03 Sep 2018 05:53:21 GMT</pubDate>
+            <description><![CDATA[记录在开发微信公众号 h5 时，遇到 ios 设备无法自动播放音乐问题]]></description>
+        </item>
+        <item>
+            <title><![CDATA[H5竖屏提示]]></title>
+            <link>https://wxhboy.cn/landscape-prompt/</link>
+            <guid isPermaLink="true">https://wxhboy.cn/landscape-prompt/</guid>
+            <pubDate>Mon, 20 Aug 2018 16:00:00 GMT</pubDate>
+            <description><![CDATA[在做 h5 展示页面的时候 考虑到许多 css 样式在横屏会出现布局错乱, 为防止提示用户横屏显示]]></description>
+        </item>
+        <item>
+            <title><![CDATA[node-socket.io]]></title>
+            <link>https://wxhboy.cn/node-socket-io/</link>
+            <guid isPermaLink="true">https://wxhboy.cn/node-socket-io/</guid>
+            <pubDate>Wed, 15 Aug 2018 16:00:00 GMT</pubDate>
+            <description><![CDATA[一个 node.js + socket.io 示例]]></description>
+        </item>
+        <item>
+            <title><![CDATA[Hello Hexo]]></title>
+            <link>https://wxhboy.cn/hello-hexo/</link>
+            <guid isPermaLink="true">https://wxhboy.cn/hello-hexo/</guid>
+            <pubDate>Fri, 20 Jul 2018 16:00:00 GMT</pubDate>
+            <description><![CDATA[初次见面，请多关照]]></description>
+        </item>
+    </channel>
+</rss>
