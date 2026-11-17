@@ -33,7 +33,64 @@ function summary(md) {
   return ''
 }
 
+// feed 序列化 pubDate / lastBuildDate 时只调用 date.toUTCString(),固定输出 GMT:
+// 只写日期的文章按北京时间零点解析,XML 里就成了前一天 16:00。覆盖这个方法让序列化
+// 带上站点时区偏移,瞬间不变而字面日期与作者写的一致(Fri, 13 Nov 2026 00:00:00 +0800)。
+class ZonedDate extends Date {
+  constructor(value, format) {
+    super(value)
+    this.format = format
+  }
+
+  toUTCString() {
+    return this.format(this)
+  }
+}
+
+// Intl 的 longOffset 只给得出 GMT+08:00,这里转成 RFC 822 要求的 +0800
+function rfc822(formatter, date) {
+  const parts = Object.fromEntries(
+    formatter.formatToParts(date).map(({ type, value }) => [type, value])
+  )
+  const zone = /^GMT(?:([+-])(\d{1,2}):?(\d{2})?)?$/.exec(parts.timeZoneName || 'GMT')
+  const offset = zone && zone[1]
+    ? `${zone[1]}${zone[2].padStart(2, '0')}${zone[3] || '00'}`
+    : '+0000'
+  return `${parts.weekday}, ${parts.day} ${parts.month} ${parts.year} ` +
+    `${parts.hour}:${parts.minute}:${parts.second} ${offset}`
+}
+
+function createZonedDate() {
+  const timeZone = hexo.config.timezone || 'UTC'
+  let formatter
+  try {
+    formatter = new Intl.DateTimeFormat('en-US', {
+      timeZone,
+      weekday: 'short',
+      day: '2-digit',
+      month: 'short',
+      year: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+      hourCycle: 'h23',
+      timeZoneName: 'longOffset'
+    })
+  } catch (err) {
+    hexo.log.warn(`RSS 时区 ${timeZone} 无效,回退 GMT: ${err.message}`)
+    return value => new Date(value)
+  }
+  return value => {
+    const date = new Date(value)
+    // 日期无效时保留原输出(Invalid Date),别让格式化抛错中断整站构建
+    return Number.isNaN(date.getTime())
+      ? date
+      : new ZonedDate(date, d => rfc822(formatter, d))
+  }
+}
+
 function createRss({ title, description, link, self, items }) {
+  const zonedDate = createZonedDate()
   const rss = new Feed({
     title,
     description,
@@ -41,12 +98,13 @@ function createRss({ title, description, link, self, items }) {
     link,
     language: hexo.config.language || 'zh-CN',
     feed: self,
+    updated: zonedDate(new Date()),
     author: { name: hexo.config.author, link: hexo.config.url }
   })
   items.forEach(item => rss.addItem({
     title: item.title,
     link: item.link,
-    date: item.date,
+    date: zonedDate(item.date),
     description: item.description
   }))
   return rss.rss2()
